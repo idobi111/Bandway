@@ -1,6 +1,6 @@
 # BandWay: A Comprehensive Concert Vacation Planning System
 
-![](.\pics\Bandway%20logo.png)
+![](pics/Bandway_logo.png)
 
 **1. Introduction**
 
@@ -80,4 +80,4 @@ BandWay is designed to evolve and adapt to the changing needs and preferences of
 
 BandWay offers a revolutionary approach to concert vacation planning, combining intelligent algorithms, intuitive interfaces, and comprehensive support services to deliver unparalleled user experiences. With its personalized recommendations, seamless booking processes, and advanced vacation management features, BandWay aims to become the<u> go-to</u> platform for music lovers seeking unforgettable concert vacations.
 
-![](.\pics\BandWay%20Homepage.png)
+![](pics/BandWay_Homepage.png)
