@@ -1,5 +1,5 @@
 # Bandway
 Find your vacation for your favorite concerts
 
-# Jira
-https://mta-idobi.atlassian.net/jira/software/projects/BAN/boards/2
+# TimeLine
+[timeline](https://github.com/users/idobi111/projects/1)
