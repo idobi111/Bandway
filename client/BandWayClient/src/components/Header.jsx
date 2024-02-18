@@ -13,7 +13,7 @@ const Header = () => {
   const HeaderAppBar = styled(AppBar)({
     width: '100%',
     backgroundColor: 'purple',
-    height: '60%'
+    height: '20%'
   });
 
   const HeaderButton = styled(Button)({
@@ -21,9 +21,9 @@ const Header = () => {
   })
   
   return (
-    <HeaderAppBar position="fixed">
+    <HeaderAppBar position="static">
       <Toolbar sx={{ display: 'flex', justifyContent: 'space-between' }}>
-        <img src={bandWayLogo} alt="Logo" style={{ height: '200px', marginRight: '16px', marginTop:'100px' }} />
+        <img src={bandWayLogo} alt="Logo" style={{ height: '200px', marginRight: '16px' }} />
         <div>
           <Grid container spacing={2} justify="center">
             {buttons.map((button) =>
@@ -34,7 +34,7 @@ const Header = () => {
           </Grid>
         </div>
       </Toolbar>
-      <img src={bandPic} style={{ height: '100%', width: '25%', marginLeft: '300px' }} />   
+      <img src={bandPic} style={{ height: '450px', width: '450px', marginLeft: '300px' }} />   
     </HeaderAppBar>
   );
 };
