@@ -4,6 +4,7 @@ import viteLogo from '/vite.svg'
 import './App.css'
 import { AppBar, Toolbar, Typography, Button, CssBaseline } from '@mui/material';
 import Header from './components/Header'
+import HomeTopContent from './components/HomeTopContent'
 
 function App() {
 
@@ -11,8 +12,7 @@ function App() {
     <>
     <CssBaseline/>
     <Header></Header>
-    
-
+    <HomeTopContent></HomeTopContent>
     
   </>
   )
