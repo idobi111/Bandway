@@ -5,6 +5,7 @@ import './App.css'
 import { AppBar, Toolbar, Typography, Button, CssBaseline } from '@mui/material';
 import Header from './components/Header'
 import HomeTopContent from './components/HomeTopContent'
+import HomeSearch from './components/HomeSearch';
 
 function App() {
 
@@ -13,7 +14,7 @@ function App() {
     <CssBaseline/>
     <Header></Header>
     <HomeTopContent></HomeTopContent>
-    
+    <HomeSearch></HomeSearch>
   </>
   )
 }
