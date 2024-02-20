@@ -1,17 +1,25 @@
 package com.mta.bandway.controllers;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import com.mta.bandway.api.domain.HotelDto;
+import com.mta.bandway.core.domain.hotel.HotelResponse;
+import com.mta.bandway.services.HotelService;
+import lombok.AllArgsConstructor;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/bandway")
+@AllArgsConstructor
 public class BandwayController {
+    private final HotelService hotelService;
 
     @GetMapping("/health")
-    @ResponseBody
     public String health() {
         return "Bandway is healthy!";
+    }
+
+    @PostMapping("/searchHotel")
+    public ResponseEntity<HotelResponse> searchHotel(@RequestBody HotelDto hotelDto) {
+        return hotelService.getHotels(hotelDto);
     }
 }
