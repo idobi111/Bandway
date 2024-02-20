@@ -4,5 +4,5 @@ import lombok.Data;
 
 @Data
 public class Component {
-    public Props props;
+    private Props props;
 }

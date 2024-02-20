@@ -6,8 +6,8 @@ import java.util.ArrayList;
 
 @Data
 public class Text {
-    public String text;
-    public String font;
-    public String color;
-    public ArrayList<LinkAction> linkActions;
+    private String text;
+    private String font;
+    private String color;
+    private ArrayList<LinkAction> linkActions;
 }

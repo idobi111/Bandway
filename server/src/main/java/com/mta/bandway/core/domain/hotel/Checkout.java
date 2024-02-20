@@ -4,6 +4,6 @@ import lombok.Data;
 
 @Data
 public class Checkout {
-    public String fromTime;
-    public String untilTime;
+    private String fromTime;
+    private String untilTime;
 }

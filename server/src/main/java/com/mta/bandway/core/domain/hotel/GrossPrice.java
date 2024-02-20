@@ -4,6 +4,6 @@ import lombok.Data;
 
 @Data
 public class GrossPrice {
-    public String currency;
-    public double value;
+    private String currency;
+    private double value;
 }

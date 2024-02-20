@@ -4,5 +4,5 @@ import lombok.Data;
 
 @Data
 public class Metum {
-    public String title;
+    private String title;
 }

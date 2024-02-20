@@ -4,6 +4,6 @@ import lombok.Data;
 
 @Data
 public class StrikethroughPrice {
-    public double value;
-    public String currency;
+    private double value;
+    private String currency;
 }
