@@ -3,10 +3,11 @@ package com.mta.bandway.core.domain.hotel;
 import lombok.Data;
 
 import java.util.ArrayList;
+
 @Data
 public class PriceBreakdown {
-    public ArrayList<Object> benefitBadges;
-    public GrossPrice grossPrice;
-    public ArrayList<Object> taxExceptions;
-    public StrikethroughPrice strikethroughPrice;
+    private ArrayList<Object> benefitBadges;
+    private GrossPrice grossPrice;
+    private ArrayList<Object> taxExceptions;
+    private StrikethroughPrice strikethroughPrice;
 }

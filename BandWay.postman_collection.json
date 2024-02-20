@@ -1,0 +1,37 @@
+{
+	"info": {
+		"_postman_id": "8b75089d-f2c2-4b97-8131-e8758332c862",
+		"name": "BandWay",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "32742291"
+	},
+	"item": [
+		{
+			"name": "Health",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost:8080/bandway/health"
+			},
+			"response": []
+		},
+		{
+			"name": "searchHotel",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"city\": \"berlin\",\r\n  \"checkIn\": \"2024-12-01\",\r\n  \"checkOut\": \"2024-12-05\",\r\n  \"rooms\": 2,\r\n  \"adults\": 4,\r\n  \"children\": 2\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:8080/bandway/searchHotel"
+			},
+			"response": []
+		}
+	]
+}

@@ -4,7 +4,7 @@ import lombok.Data;
 
 @Data
 public class Checkin {
-    public String untilTime;
-    public String fromTime;
+    private String untilTime;
+    private String fromTime;
 
 }
