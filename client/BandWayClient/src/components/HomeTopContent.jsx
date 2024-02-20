@@ -1,6 +1,6 @@
 import React from 'react';
 import { Box, Grid, Typography } from '@mui/material';
-import { HomeTopBox, ShadowImage, BandImage, TypographyTitle, SubTitle, GetTicketButton, LearnMoreButton } from '../styles/HomeTopContentStyles';
+import { HomeTopBox, ShadowImage, BandImage, TypographyTitle, SubTitle, ActionButton, LearnMoreButton } from '../styles/ComponentsStyles';
 import bandPic from '../pics/BandPic.png';
 import bandShadow from '../pics/BandShadow.png';
 
@@ -20,7 +20,7 @@ const HomeTopContent = () => {
         </SubTitle>
         <Grid container spacing={2} justify="center">
           <Grid item>
-            <GetTicketButton variant='contained'>Get Ticket</GetTicketButton>
+            <ActionButton variant='contained'>Get Ticket</ActionButton>
             <LearnMoreButton variant='outlined'>Learn More</LearnMoreButton>
           </Grid>
         </Grid>

@@ -1,6 +1,6 @@
 import React from 'react';
 import { AppBar, Toolbar, Typography, Button, Container, Grid } from '@mui/material';
-import { styled } from '@mui/system';
+import { HeaderAppBar, HeaderButton } from '../styles/ComponentsStyles';
 
 import bandWayLogo from '../pics/BandWayLogo.png';
 
@@ -8,17 +8,6 @@ const buttons = ["Search", "Latest Deals", "Contact", "Login"];
 
 const Header = () => {
 
-  const HeaderAppBar = styled(AppBar)({
-    width: '100%',
-    backgroundColor: '#4B0082',
-    height: '20%'
-  });
-
-  const HeaderButton = styled(Button)({
-    color: 'white'
-  })
-
-  
   
   return (
     <HeaderAppBar position="static">
