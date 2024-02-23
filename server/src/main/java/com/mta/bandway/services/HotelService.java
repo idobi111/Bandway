@@ -1,12 +1,13 @@
 package com.mta.bandway.services;
 
+import com.mta.bandway.api.domain.HotelRequestDto;
 import com.mta.bandway.api.domain.HotelResponseDto;
-import com.mta.bandway.api.domain.RequestHotelDto;
 import com.mta.bandway.core.domain.city.CityResponse;
 import com.mta.bandway.core.domain.city.Datum;
 import com.mta.bandway.core.domain.hotel.Hotel;
 import com.mta.bandway.core.domain.hotel.HotelResponse;
 import com.mta.bandway.core.domain.hotel.Property;
+import com.mta.bandway.repositories.HotelOrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
@@ -22,16 +23,12 @@ import java.util.Map;
 
 @Service
 public class HotelService {
-    private final String apiUrl;
-    private final RestTemplate restTemplate;
-    private HttpHeaders headers;
-
+    @Value("${booking.api.url}")
+    private String apiUrl;
     @Autowired
-    public HotelService(@Value("${booking.api.url}") String apiUrl, RestTemplate restTemplate) {
-        this.apiUrl = apiUrl;
-        this.restTemplate = restTemplate;
-        this.headers = createHeaders();
-    }
+    private RestTemplate restTemplate;
+    private HotelOrderRepository hotelOrderRepository;
+
 
     private static Datum getDatum(ResponseEntity<CityResponse> cityData) {
         return cityData.getBody().getData().stream()
@@ -40,11 +37,11 @@ public class HotelService {
                 .orElse(null);
     }
 
-    private static boolean isValidCityRespinse(ResponseEntity<CityResponse> cityData) {
+    private static boolean isValidCityResponse(ResponseEntity<CityResponse> cityData) {
         return cityData.getBody() == null || cityData.getBody().getData() == null || cityData.getBody().getData().isEmpty();
     }
 
-    private static List<HotelResponseDto> buildResponse(RequestHotelDto hotelDto, ResponseEntity<HotelResponse> hotels) {
+    private static List<HotelResponseDto> buildResponse(HotelRequestDto hotelDto, ResponseEntity<HotelResponse> hotels) {
         List<HotelResponseDto> responses = new ArrayList<>();
         if (hotels.getStatusCode() == HttpStatusCode.valueOf(200)) {
             ArrayList<Hotel> hotelResponse = hotels.getBody().getData().getHotels();
@@ -67,7 +64,7 @@ public class HotelService {
     }
 
     private HttpHeaders createHeaders() {
-        headers = new HttpHeaders();
+        HttpHeaders headers = new HttpHeaders();
         headers.set("X-RapidAPI-Key", "8f1afd2703mshbbaa90466010d43p1d399ajsn55b304bafe77");
         headers.set("X-RapidAPI-Host", "booking-com15.p.rapidapi.com");
         headers.set(HttpHeaders.ACCEPT, MediaType.APPLICATION_JSON_VALUE);
@@ -88,21 +85,21 @@ public class HotelService {
     }
 
     private ResponseEntity<CityResponse> getCityId(String city) {
-        HttpEntity<?> entity = new HttpEntity<>(headers);
+        HttpEntity<?> entity = new HttpEntity<>(createHeaders());
         String urlWithQuery = UriComponentsBuilder.fromHttpUrl(apiUrl + "/hotels/searchDestination")
                 .queryParam("query", city)
                 .toUriString();
         return restTemplate.exchange(urlWithQuery, HttpMethod.GET, entity, CityResponse.class);
     }
 
-    public ResponseEntity<List<HotelResponseDto>> getHotels(RequestHotelDto hotelDto) {
+    public ResponseEntity<List<HotelResponseDto>> getHotels(HotelRequestDto hotelDto) {
         ResponseEntity<CityResponse> cityData = getCityId(hotelDto.getCity());
-        if (isValidCityRespinse(cityData)) return null; //TODO: handle error
+        if (isValidCityResponse(cityData)) return null; //TODO: handle error
         Datum datum = getDatum(cityData);
         if (datum == null) return null;//TODO: handle error
         Map<String, String> queryParams = createQueryParams(datum.getDestId(), hotelDto.getCheckIn(), hotelDto.getCheckOut(), hotelDto.getAdults(), hotelDto.getRooms(), "en-us", "ILS");
         URI uri = buildSearchHotelUri(queryParams);
-        HttpEntity<Void> entity = new HttpEntity<>(headers);
+        HttpEntity<Void> entity = new HttpEntity<>(createHeaders());
         ResponseEntity<HotelResponse> hotels = restTemplate.exchange(uri, HttpMethod.GET, entity, HotelResponse.class);
         List<HotelResponseDto> responses = buildResponse(hotelDto, hotels);
         return ResponseEntity.ok(responses);
@@ -115,6 +112,8 @@ public class HotelService {
         }
         return builder.build().toUri();
     }
+
+
 
 
 }

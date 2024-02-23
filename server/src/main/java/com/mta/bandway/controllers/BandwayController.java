@@ -1,7 +1,7 @@
 package com.mta.bandway.controllers;
 
 import com.mta.bandway.api.domain.HotelResponseDto;
-import com.mta.bandway.api.domain.RequestHotelDto;
+import com.mta.bandway.api.domain.HotelRequestDto;
 import com.mta.bandway.services.HotelService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -21,7 +21,7 @@ public class BandwayController {
     }
 
     @PostMapping("/searchHotel")
-    public ResponseEntity<List<HotelResponseDto>> searchHotel(@RequestBody RequestHotelDto requestHotelDto) {
+    public ResponseEntity<List<HotelResponseDto>> searchHotel(@RequestBody HotelRequestDto requestHotelDto) {
         return hotelService.getHotels(requestHotelDto);
     }
 }

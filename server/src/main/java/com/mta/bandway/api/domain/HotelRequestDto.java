@@ -5,7 +5,7 @@ import lombok.Data;
 
 @Data
 
-public class RequestHotelDto {
+public class HotelRequestDto {
     @JsonProperty("city")
     private String city;
     @JsonProperty("checkIn")
