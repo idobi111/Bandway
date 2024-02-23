@@ -2,6 +2,8 @@
 
 ![](server/pics/Bandway_logo.png)
 
+
+
 **1. Introduction**
 
 BandWay is a revolutionary concert vacation planning system designed to provide users with an unparalleled experience in organizing and enjoying their favorite music events. Leveraging cutting-edge technology and intelligent algorithms, BandWay offers personalized recommendations, seamless booking processes, and comprehensive trip management features. This document presents a detailed design overview of the BandWay system, outlining its key components, functionalities, and user experience.
@@ -81,3 +83,47 @@ BandWay is designed to evolve and adapt to the changing needs and preferences of
 BandWay offers a revolutionary approach to concert vacation planning, combining intelligent algorithms, intuitive interfaces, and comprehensive support services to deliver unparalleled user experiences. With its personalized recommendations, seamless booking processes, and advanced vacation management features, BandWay aims to become the<u> go-to</u> platform for music lovers seeking unforgettable concert vacations.
 
 ![](server/pics/BandWay_Homepage.png)
+
+# Technologies And Architecture
+
+## Architecture
+
+The Bandway system follows a client-server architecture, where clients interact with a central server to access and manipulate band-related data. 
+
+### Backend
+
+The application server hosts the core logic of the Bandway system, handling client requests, processing data, and enforcing business rules. It is responsible for managing user authentication, session management, data storage, and business logic execution.
+
+#### Technology
+
+**Java with Spring Boot:**
+
+- We chose Java as the primary programming language for our backend development due to its robustness, scalability, and extensive ecosystem.
+- Spring Boot framework was selected for building the backend infrastructure, providing features such as dependency injection, MVC architecture, security, and RESTful API development.
+- Spring Boot's simplicity and convention-over-configuration approach allow for rapid development and easy integration with other frameworks and libraries.
+
+### Frontend
+
+Band members and managers interact with the system through a user-friendly web interface. The web interface provides access to various functionalities such as show deals for the user, and plan their concert vacations with ease.
+
+#### Technology
+
+**React with Ant Design and Vite:**
+
+- React.js was chosen for frontend development due to its component-based architecture, virtual DOM rendering, and strong community support.
+- Ant Design, a UI library for React, was utilized to create a modern and visually appealing user interface with pre-designed components and layouts.
+- Vite.js was selected as the frontend build tool for its fast development server, hot module replacement (HMR), and optimized build performance.
+
+### Database Management
+
+**PostgreSQL:**
+
+- PostgreSQL was selected as the relational database management system (RDBMS) for storing band-related data such as member profiles, scheduling information, financial records, and more.
+- PostgreSQL offers features such as ACID compliance, data integrity constraints, full-text search, and support for complex queries, making it suitable for handling the project's data requirements.
+
+### Integration And Communication:
+
+**RESTful APIs:**
+
+- Communication between the frontend and backend is facilitated through RESTful APIs, allowing for seamless data exchange in JSON format over HTTP/HTTPS protocols.
+- Spring Boot's built-in support for RESTful web services simplifies API development, enabling CRUD operations for managing band-related entities such as members, rehearsals, gigs, and finances.
