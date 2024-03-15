@@ -1,7 +1,7 @@
 package com.mta.bandway.services;
 
-import com.mta.bandway.api.domain.HotelRequestDto;
-import com.mta.bandway.api.domain.HotelResponseDto;
+import com.mta.bandway.api.domain.request.HotelRequestDto;
+import com.mta.bandway.api.domain.response.HotelResponseDto;
 import com.mta.bandway.core.domain.city.CityResponse;
 import com.mta.bandway.core.domain.city.Datum;
 import com.mta.bandway.core.domain.hotel.Hotel;

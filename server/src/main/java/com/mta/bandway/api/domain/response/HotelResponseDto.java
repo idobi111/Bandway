@@ -1,4 +1,4 @@
-package com.mta.bandway.api.domain;
+package com.mta.bandway.api.domain.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

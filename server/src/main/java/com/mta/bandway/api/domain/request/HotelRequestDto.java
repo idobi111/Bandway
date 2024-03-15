@@ -1,4 +1,4 @@
-package com.mta.bandway.api.domain;
+package com.mta.bandway.api.domain.request;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
