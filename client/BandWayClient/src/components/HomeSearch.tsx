@@ -1,15 +1,13 @@
 import React from 'react';
-import { Box, Container, Grid, Typography, TextField } from '@mui/material';
+import { Typography, Grid, TextField } from '@mui/material';
 import { HomeSearchGrid, SearchTextField, SearchWindowDiv, ActionButton } from '../styles/ComponentsStyles';
 import bandPic from '../pics/BandPic.png';
 import bandShadow from '../pics/BandShadow.png';
 
-
-
-const HomeSearch = () => {
+const HomeSearch: React.FC = () => {
     return (
         <SearchWindowDiv>
-            <HomeSearchGrid container spacing={2} justify="center" >
+            <HomeSearchGrid container spacing={2} justifyContent="center" >
                 <Grid item xs={4}>
                     <Typography>
                         Search Event
