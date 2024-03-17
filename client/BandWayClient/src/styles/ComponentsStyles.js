@@ -1,5 +1,6 @@
 import { styled } from '@mui/system';
-import { Box, Button, Typography, AppBar, Container, Grid, TextField } from '@mui/material';
+import { Box, Button, Typography, AppBar, Container, Grid, TextField, Card, CardMedia } from '@mui/material';
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 
 
 // Header
@@ -91,5 +92,65 @@ export const SearchWindowDiv = styled('div')({
   borderRadius: '20px', 
   color: 'white',
   marginLeft: '250px',
+  
+})
+
+//Event Card
+export const EventCardStyled = styled(Card)({
+  maxWidth: '345',
+  margin: '20px'
+})
+
+export const EventCardMediaStyled = styled(CardMedia)({
+  height: '140' 
+})
+
+export const LoadMoreButton = styled(Button)({
+  borderRadius: '20px', 
+  padding: '10px 20px', 
+  marginTop: '20px',
+  color:'blue',
+  marginLeft: '20px',
+  borderColor: 'blue',
+  textTransform: 'none',
+});
+
+
+// Footer
+export const BandWayFooter = styled('footer')({
+  backgroundColor: '#191970',
+  color: '#fff',
+  padding: '2rem'
+})
+
+export const FooterTitle = styled(Typography)({
+  paddingBottom: '10px',
+  fontWeight: 'bold'
+})
+
+export const FooterItem = styled(Typography)({
+  fontSize: '13px'
+})
+
+export const FooterCopyRights = styled(Typography)({
+  textAlign: 'center',
+  fontSize: '10px',
+  paddingTop: '50px'
+})
+
+// Steps
+
+export const StepCircleText = styled('div')({
+  borderRadius: '20px', 
+  padding: '10px 10px',
+  backgroundColor: '#872FA6',
+  marginTop: '20px',
+  textTransform: 'none',
+  color: 'white',
+  width: '300px',
+  textAlign:'center',
+})
+
+export const StepArrow = styled(ArrowForwardIosIcon)({
   
 })
