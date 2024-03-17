@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Card, CardContent, CardMedia, Typography, Grid, Button } from '@mui/material';
-import { Event } from '../models/Event';
-import { EventCardStyled, EventCardMediaStyled, LoadMoreButton } from '../styles/ComponentsStyles';
+import { Event } from '../../models/Event';
+import { EventCardStyled, EventCardMediaStyled, LoadMoreButton } from '../../styles/ComponentsStyles';
 
 interface Props {
   events: Event[];

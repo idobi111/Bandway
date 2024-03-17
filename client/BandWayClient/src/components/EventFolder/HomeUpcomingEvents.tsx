@@ -1,6 +1,6 @@
 import React from 'react';
 import EventCard from './EventCard';
-import { events } from '../mocks/EventMock';
+import { events } from '../../mocks/EventMock';
 
 const HomeUpcomingEvents: React.FC = () => { 
 

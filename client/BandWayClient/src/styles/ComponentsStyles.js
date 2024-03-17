@@ -154,3 +154,22 @@ export const StepCircleText = styled('div')({
 export const StepArrow = styled(ArrowForwardIosIcon)({
   
 })
+
+
+// Generic
+
+export const GenericTopBox = styled(Box)({
+  backgroundColor: '#4B0082',
+  position: 'relative',
+  height: '200px',
+  display: 'flex',
+  alignItems: 'center',
+  width: '100%',
+  justifyContent: 'center', 
+  color: 'white',
+});
+
+export const GenricTopBoxText = styled(Typography)({
+  color: 'white',
+  alignItems: 'center',
+});

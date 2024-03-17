@@ -1,8 +1,7 @@
 import React from 'react';
 import { Typography, Grid, TextField } from '@mui/material';
-import { HomeSearchGrid, SearchTextField, SearchWindowDiv, ActionButton } from '../styles/ComponentsStyles';
-import bandPic from '../pics/BandPic.png';
-import bandShadow from '../pics/BandShadow.png';
+import { HomeSearchGrid, SearchTextField, SearchWindowDiv, ActionButton } from '../../styles/ComponentsStyles';
+
 
 const HomeSearch: React.FC = () => {
     return (

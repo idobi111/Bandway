@@ -1,25 +1,20 @@
 import React from 'react';
 import './App.css';
-import { CssBaseline, AppBar, Toolbar, Typography, Button } from '@mui/material';
-import Header from './components/Header';
-import HomeTopContent from './components/HomeTopContent';
-import HomeSearch from './components/HomeSearch';
-import HomeUpcomingEvents from './components/HomeUpcomingEvents';
-import Footer from './components/Footer';
-import Steps from './components/Steps';
+import { CssBaseline } from '@mui/material';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Home from "./components/HomeFolder/Home";
+import EventSearchResults from './components/EventFolder/EventSearchReults';
 
-const App: React.FC = () => {
+const App = () => {
   return (
-    <>
-      <CssBaseline />
-      <Header />
-      <HomeTopContent />
-      <HomeSearch />
-      <Steps/>
-      <HomeUpcomingEvents />
-      <Footer/>
-    </>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/home" element={<Home />} />
+        <Route path="/event-search-results" element={<EventSearchResults />} />
+      </Routes>
+    </BrowserRouter>
   );
-}
+};
 
 export default App;

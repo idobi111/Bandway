@@ -1,8 +1,8 @@
 import React from 'react';
 import { Box, Grid, Typography } from '@mui/material';
-import { HomeTopBox, ShadowImage, BandImage, TypographyTitle, SubTitle, ActionButton, LearnMoreButton } from '../styles/ComponentsStyles';
-import bandPic from '../pics/BandPic.png';
-import bandShadow from '../pics/BandShadow.png';
+import { HomeTopBox, ShadowImage, BandImage, TypographyTitle, SubTitle, ActionButton, LearnMoreButton } from '../../styles/ComponentsStyles';
+import bandPic from '../../pics/BandPic.png';
+import bandShadow from '../../pics/BandShadow.png';
 
 const HomeTopContent: React.FC = () => {
   return (

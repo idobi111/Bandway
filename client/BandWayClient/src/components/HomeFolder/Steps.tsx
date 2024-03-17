@@ -1,6 +1,6 @@
 import React from 'react';
 import { Grid, Typography } from '@mui/material';
-import { StepCircleText, StepArrow } from '../styles/ComponentsStyles';
+import { StepCircleText, StepArrow } from '../../styles/ComponentsStyles';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 
 const Steps = () => {

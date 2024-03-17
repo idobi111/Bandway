@@ -1,9 +1,9 @@
 import React from 'react';
 import { Grid, Typography, TextField, Button } from '@mui/material';
-import { BandWayFooter, ActionButton, FooterTitle,FooterItem, FooterCopyRights } from '../styles/ComponentsStyles';
+import { BandWayFooter, ActionButton, FooterTitle,FooterItem, FooterCopyRights } from '../../styles/ComponentsStyles';
 
 
-import bandWayLogo from '../pics/BandWayLogo.png';
+import bandWayLogo from '../../pics/BandWayLogo.png';
 
 
 const Footer: React.FC = () => {
