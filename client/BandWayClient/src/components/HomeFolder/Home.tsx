@@ -3,7 +3,7 @@ import { CssBaseline, AppBar, Toolbar, Typography, Button } from '@mui/material'
 import Header from '../GenericFolder/Header';
 import HomeTopContent from './HomeTopContent';
 import HomeSearch from './HomeSearch';
-import HomeUpcomingEvents from '../EventFolder/HomeUpcomingEvents';
+import UpcomingEvents from '../EventFolder/UpcomingEvents';
 import Footer from '../GenericFolder/Footer';
 import Steps from './Steps';
 
@@ -15,7 +15,7 @@ const Home: React.FC = () => {
       <HomeTopContent />
       <HomeSearch />
       <Steps/>
-      <HomeUpcomingEvents />
+      <UpcomingEvents />
       <Footer/>
     </>
   );

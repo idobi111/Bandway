@@ -2,7 +2,7 @@ import React from 'react';
 import EventCard from './EventCard';
 import { events } from '../../mocks/EventMock';
 
-const HomeUpcomingEvents: React.FC = () => { 
+const UpcomingEvents: React.FC = () => { 
 
   const step = 6; // Define the step value
 
@@ -16,4 +16,4 @@ const HomeUpcomingEvents: React.FC = () => {
   );
 };
 
-export default HomeUpcomingEvents;
+export default UpcomingEvents;

@@ -23,7 +23,8 @@ export const HomeTopBox = styled(Box)({
   height: '500px',
   display: 'flex',
   alignItems: 'center',
-  width: '100%'
+  width: '100%',
+  marginBottom:'50px'
 });
 
 export const ShadowImage = styled('img')({
@@ -82,16 +83,17 @@ export const SearchTextField = styled(TextField )({
   borderColor: 'white'
 })
 
-export const SearchWindowDiv = styled('div')({
+export const WindowDiv = styled('div')({
+  margin: '10px 10px',
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
   backgroundColor: '#191970',
-  width: '1000px', 
+  width: '1200px', 
   height: '100px', 
   borderRadius: '20px', 
   color: 'white',
-  marginLeft: '250px',
+  marginLeft: '200px',
   
 })
 
@@ -171,5 +173,19 @@ export const GenericTopBox = styled(Box)({
 
 export const GenricTopBoxText = styled(Typography)({
   color: 'white',
+  display: 'block',
+  marginBottom: '10px'
+});
+
+export const SeparateRowsContainer = styled('div')({
+  display: 'flex',
+  flexDirection: 'column',
   alignItems: 'center',
+});
+
+export const GenricWhiteText = styled(Typography)({
+  color: 'white', 
+  textAlign: 'center', 
+  justifyContent: 'center', 
+  wordBreak: 'break-word'
 });

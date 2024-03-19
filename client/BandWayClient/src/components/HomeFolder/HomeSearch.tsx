@@ -1,11 +1,11 @@
 import React from 'react';
 import { Typography, Grid, TextField } from '@mui/material';
-import { HomeSearchGrid, SearchTextField, SearchWindowDiv, ActionButton } from '../../styles/ComponentsStyles';
+import { HomeSearchGrid, SearchTextField, WindowDiv, ActionButton } from '../../styles/ComponentsStyles';
 
 
 const HomeSearch: React.FC = () => {
     return (
-        <SearchWindowDiv>
+        <WindowDiv>
             <HomeSearchGrid container spacing={2} justifyContent="center" >
                 <Grid item xs={4}>
                     <Typography>
@@ -29,7 +29,7 @@ const HomeSearch: React.FC = () => {
                     <ActionButton variant='contained'>Search</ActionButton>
                 </Grid>
             </HomeSearchGrid>
-        </SearchWindowDiv>
+        </WindowDiv>
     );
 };
 
