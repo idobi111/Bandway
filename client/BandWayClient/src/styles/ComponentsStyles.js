@@ -17,38 +17,45 @@ export const HeaderButton = styled(Button)({
 
 
 // Home Top Content
-export const HomeTopBox = styled(Box)({
+
+export const HomeTopContainer = styled(Container)({
   backgroundColor: '#4B0082',
-  position: 'relative',
-  height: '500px',
-  display: 'flex',
-  alignItems: 'center',
-  width: '100%',
-  marginBottom:'50px'
+  height:"500px"
 });
 
+
+// export const HomeTopBox = styled(Box)({
+//   backgroundColor: '#4B0082',
+//   position: 'relative',
+//   height: '500px',
+//   display: 'flex',
+//   alignItems: 'center',
+//   width: '100%',
+//   marginBottom:'50px'
+// });
+
 export const ShadowImage = styled('img')({
-  height: '150px',
-  width: '600px',
-  position: 'absolute',
-  top: '375px',
-  left: '200px'
+  // height: '150px',
+  // width: '600px',
+  // position: 'absolute',
+  // top: '375px',
+  // left: '200px'
 });
 
 export const BandImage = styled('img')({
-  height: '450px',
-  width: '450px',
-  marginLeft: '300px'
+   height: '450px',
+   width: '450px',
+  //  marginLeft: '300px'
 });
 
 export const TypographyTitle = styled(Typography)({
-  width: '400px',
+  width: '50%',
   wordWrap: 'break-word',
   color: 'white'
 });
 
 export const SubTitle = styled(Typography)({
-  width: '400px',
+  width: '50%',
   wordWrap: 'break-word',
   color: 'white'
 });
@@ -75,7 +82,7 @@ export const LearnMoreButton = styled(Button)({
 // Home Search
 
 export const HomeSearchGrid = styled(Grid)({
-  marginLeft: '50px',
+   marginLeft: '50px',
 })
 
 export const SearchTextField = styled(TextField )({
@@ -90,10 +97,9 @@ export const WindowDiv = styled('div')({
   alignItems: 'center',
   backgroundColor: '#191970',
   width: '1200px', 
-  height: '100px', 
+  height: '150px', 
   borderRadius: '20px', 
   color: 'white',
-  marginLeft: '200px',
   
 })
 
