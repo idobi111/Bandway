@@ -4,6 +4,7 @@ import { HomeSearchGrid, SearchTextField, WindowDiv, ActionButton } from '../../
 
 
 const HomeSearch: React.FC = () => {
+const HomeSearch: React.FC = () => {
     return (
         <WindowDiv>
             <HomeSearchGrid container spacing={2} justifyContent="center" >
