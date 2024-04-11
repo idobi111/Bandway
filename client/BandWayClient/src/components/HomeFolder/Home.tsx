@@ -23,6 +23,13 @@ const Home: React.FC = () => {
 
         </Box>
 
+        <Box
+          display="flex" justifyContent="center">
+
+<Steps/>
+
+        </Box>
+
 
 
 
