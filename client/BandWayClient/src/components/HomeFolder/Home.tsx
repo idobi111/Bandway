@@ -7,43 +7,25 @@ import UpcomingEvents from '../EventFolder/UpcomingEvents';
 import Footer from '../GenericFolder/Footer';
 import Steps from './Steps';
 
+const events = [];
 const Home: React.FC = () => {
   return (
     <>
       <CssBaseline />
       <Header />
       <HomeTopContent />
-
-      <Container maxWidth="xl" style={{ borderStyle: "dashed", borderColor: "red", height: "800px" }}>
-
-        <Box
-          display="flex" justifyContent="center" sx={{ m: -5 }}>
-
+      <Container maxWidth="xl">
+        <Box display="flex" justifyContent="center" sx={{ m: -5 }}>
           <HomeSearch />
-
         </Box>
-
-        <Box
-          display="flex" justifyContent="center">
-
-<Steps/>
-
+        <Box display="flex" justifyContent="center" sx={{ m: 2 }}>
+          <Steps />
         </Box>
-
-
-
-
-
-
+        <Box display="flex" justifyContent="center">
+        <UpcomingEvents events={events} />
+        </Box>
       </Container>
       <Footer />
-      {/* <CssBaseline />
-      <Header />
-      <HomeTopContent />
-      <HomeSearch />
-      <Steps/>
-      <UpcomingEvents />
-      <Footer/> */}
     </>
   );
 }

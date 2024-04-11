@@ -15,26 +15,33 @@ const EventCard: React.FC<Props> = ({ events, step }) => {
     setVisibleEvents(prevVisibleEvents => prevVisibleEvents + step); // Increase the number of visible events
   };
 
+  const openEventUrl = (url: string) => {
+    window.open(url, '_blank'); 
+  };
+
   return (
     <>
       <Grid container justifyContent="center" spacing={3}>
         {events.slice(0, visibleEvents).map(event => ( // Slice events based on the visibleEvents state
-          <Grid item xs={12} sm={6} md={4} key={event.id}> {/* Each card occupies 12 columns on extra small screens, 6 columns on small screens, and 4 columns on medium screens */}
-            <EventCardStyled>
+          <Grid item xs={12} sm={6} md={4} key={event.ticketUrl}> {/* Each card occupies 12 columns on extra small screens, 6 columns on small screens, and 4 columns on medium screens */}
+            <EventCardStyled onClick={() => openEventUrl(event.ticketUrl)}>
               <EventCardMediaStyled
                 style={{ height: 140 }}
-                image={event.imageUrl}
-                title={event.name}
+                image={event.images[0]}
+                title={event.performer}
               />
               <CardContent>
                 <Typography gutterBottom variant="h5" component="div">
-                  {event.name}
+                  {event.performer}
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
                   Date: {event.date}
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
-                  Description: {event.description}
+                  Venue: {event.venue}
+                </Typography>
+                <Typography variant="body2" color="text.secondary">
+                  Place: {event.city}, {event.country}
                 </Typography>
               </CardContent>
             </EventCardStyled>
