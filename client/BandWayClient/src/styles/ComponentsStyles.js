@@ -1,6 +1,8 @@
 import { styled } from '@mui/system';
 import { Box, Button, Typography, AppBar, Container, Grid, TextField, Card, CardMedia } from '@mui/material';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import { Box, Button, Typography, AppBar, Container, Grid, TextField, Card, CardMedia } from '@mui/material';
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 
 
 // Header
@@ -17,37 +19,45 @@ export const HeaderButton = styled(Button)({
 
 
 // Home Top Content
-export const HomeTopBox = styled(Box)({
+
+export const HomeTopContainer = styled(Container)({
   backgroundColor: '#4B0082',
-  position: 'relative',
-  height: '500px',
-  display: 'flex',
-  alignItems: 'center',
-  width: '100%'
+  height:"500px"
 });
 
+
+// export const HomeTopBox = styled(Box)({
+//   backgroundColor: '#4B0082',
+//   position: 'relative',
+//   height: '500px',
+//   display: 'flex',
+//   alignItems: 'center',
+//   width: '100%',
+//   marginBottom:'50px'
+// });
+
 export const ShadowImage = styled('img')({
-  height: '150px',
-  width: '600px',
-  position: 'absolute',
-  top: '375px',
-  left: '200px'
+  // height: '150px',
+  // width: '600px',
+  // position: 'absolute',
+  // top: '375px',
+  // left: '200px'
 });
 
 export const BandImage = styled('img')({
-  height: '450px',
-  width: '450px',
-  marginLeft: '300px'
+   height: '450px',
+   width: '450px',
+  //  marginLeft: '300px'
 });
 
 export const TypographyTitle = styled(Typography)({
-  width: '400px',
+  width: '50%',
   wordWrap: 'break-word',
   color: 'white'
 });
 
 export const SubTitle = styled(Typography)({
-  width: '400px',
+  width: '50%',
   wordWrap: 'break-word',
   color: 'white'
 });
@@ -74,7 +84,7 @@ export const LearnMoreButton = styled(Button)({
 // Home Search
 
 export const HomeSearchGrid = styled(Grid)({
-  marginLeft: '50px',
+   marginLeft: '50px',
 })
 
 export const SearchTextField = styled(TextField )({
@@ -82,16 +92,16 @@ export const SearchTextField = styled(TextField )({
   borderColor: 'white'
 })
 
-export const SearchWindowDiv = styled('div')({
+export const WindowDiv = styled('div')({
+  margin: '10px 10px',
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
   backgroundColor: '#191970',
-  width: '1000px', 
-  height: '100px', 
+  width: '1200px', 
+  height: '150px', 
   borderRadius: '20px', 
   color: 'white',
-  marginLeft: '250px',
   
 })
 
@@ -171,5 +181,19 @@ export const GenericTopBox = styled(Box)({
 
 export const GenricTopBoxText = styled(Typography)({
   color: 'white',
+  display: 'block',
+  marginBottom: '10px'
+});
+
+export const SeparateRowsContainer = styled('div')({
+  display: 'flex',
+  flexDirection: 'column',
   alignItems: 'center',
+});
+
+export const GenricWhiteText = styled(Typography)({
+  color: 'white', 
+  textAlign: 'center', 
+  justifyContent: 'center', 
+  wordBreak: 'break-word'
 });

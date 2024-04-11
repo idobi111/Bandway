@@ -1,18 +1,24 @@
 import React from 'react';
-import { GenericTopBox, GenricTopBoxText } from '../../styles/ComponentsStyles';
+import { GenericTopBox, GenricTopBoxText, SeparateRowsContainer } from '../../styles/ComponentsStyles';
 
 
 interface TopContentProps {
-    text: string;
+    mainText: string;
+    subText: string;
 }
 
-const TopContent: React.FC<TopContentProps> = ({ text }) => {
+const TopContent: React.FC<TopContentProps> = ({ mainText, subText }) => {
     return (
         <GenericTopBox>
-            <GenricTopBoxText variant='h3'>
-                {text}
-            </GenricTopBoxText>
-        </GenericTopBox>
+        <SeparateRowsContainer>
+          <GenricTopBoxText variant='h2'>
+            {mainText}
+          </GenricTopBoxText>
+          <GenricTopBoxText variant='h5'>
+            {subText}
+          </GenricTopBoxText>
+        </SeparateRowsContainer>
+      </GenericTopBox>
     );
 };
 
