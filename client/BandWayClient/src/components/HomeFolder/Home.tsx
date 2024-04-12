@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { CssBaseline, AppBar, Toolbar, Typography, Button, Container, Box } from '@mui/material';
 import Header from '../GenericFolder/Header';
 import HomeTopContent from './HomeTopContent';
@@ -6,9 +6,25 @@ import HomeSearch from './HomeSearch';
 import UpcomingEvents from '../EventFolder/UpcomingEvents';
 import Footer from '../GenericFolder/Footer';
 import Steps from './Steps';
+import { EventService } from '../../services/EventService';
+import { Event } from '../../models/Event';
 
-const events = [];
 const Home: React.FC = () => {
+  const [events, setEvents] = useState<Event[]>([]);
+ 
+  useEffect(() => {
+      const eventService = new EventService();
+      eventService.getUpcomingEvents()
+        .then((data) => {
+          setEvents(data)
+          console.log(data);
+        })
+        .catch((error) => {
+          console.error('Error fetching event data:', error);
+        });    
+    
+  }, []);
+ 
   return (
     <>
       <CssBaseline />
@@ -22,7 +38,7 @@ const Home: React.FC = () => {
           <Steps />
         </Box>
         <Box display="flex" justifyContent="center">
-        <UpcomingEvents events={events} />
+        <UpcomingEvents performer="" events={events} />
         </Box>
       </Container>
       <Footer />

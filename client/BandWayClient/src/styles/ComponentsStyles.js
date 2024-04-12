@@ -69,6 +69,14 @@ export const ActionButton = styled(Button)({
   textTransform: 'none',
 });
 
+export const SubActionButton = styled(Button)({
+  borderRadius: '20px', 
+  padding: '10px 20px',
+  backgroundColor: '#A9A9A9',
+  marginTop: '20px',
+  textTransform: 'none',
+});
+
 export const LearnMoreButton = styled(Button)({
   borderRadius: '20px', 
   padding: '10px 20px', 
@@ -175,7 +183,6 @@ export const StepArrow = styled(ArrowForwardIosIcon)({
 
 export const GenericTopBox = styled(Box)({
   backgroundColor: '#4B0082',
-  position: 'relative',
   height: '200px',
   display: 'flex',
   alignItems: 'center',

@@ -31,10 +31,6 @@ const EventSearchResults: React.FC = () => {
     }
   }, [searchQuery]);
 
-  useEffect(() => {
-    console.log(events);
-  }, [events]);
-
   return (
     <>
       <CssBaseline />
