@@ -1,7 +1,8 @@
 import React from 'react';
 import EventCard from './EventCard';
-import { events } from '../../mocks/EventMock';
+import { Event } from '../../models/Event';
 
+const events = [];
 const HomeUpcomingEvents: React.FC = () => { 
 
   const step = 6; // Define the step value
