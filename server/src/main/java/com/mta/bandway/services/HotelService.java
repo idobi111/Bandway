@@ -7,7 +7,6 @@ import com.mta.bandway.core.domain.city.Datum;
 import com.mta.bandway.core.domain.hotel.Hotel;
 import com.mta.bandway.core.domain.hotel.HotelResponse;
 import com.mta.bandway.core.domain.hotel.Property;
-import com.mta.bandway.repositories.HotelOrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
@@ -23,14 +22,21 @@ import java.util.Map;
 
 @Service
 public class HotelService {
-    @Value("${booking.api.url}")
-    private String apiUrl;
-    private final String bookingUrl = "https://" + apiUrl + "/hotels/searchDestination";
-    @Value("${booking.api.key}")
-    private String apiKey;
+    private final String apiUrl;
+    private final String apiKey;
+    private final RestTemplate restTemplate;
+    private final String bookingUrl;
+
     @Autowired
-    private RestTemplate restTemplate;
-    private HotelOrderRepository hotelOrderRepository;
+    public HotelService(
+            @Value("${booking.api.url}") String apiUrl,
+            @Value("${booking.api.key}") String apiKey,
+            RestTemplate restTemplate) {
+        this.apiUrl = apiUrl;
+        this.bookingUrl = "https://" + apiUrl + "/hotels/searchDestination";
+        this.apiKey = apiKey;
+        this.restTemplate = restTemplate;
+    }
 
 
     private static Datum getDatum(ResponseEntity<CityResponse> cityData) {

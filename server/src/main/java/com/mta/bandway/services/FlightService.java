@@ -1,12 +1,9 @@
 package com.mta.bandway.services;
 
+import com.mta.bandway.api.domain.request.FlightRequestDto;
 import com.mta.bandway.api.domain.response.AutoCompleteCityResponseDto;
-import com.mta.bandway.api.domain.response.ConcertResponseDto;
-import com.mta.bandway.core.domain.concert.Embedded;
-import com.mta.bandway.core.domain.concert.Image;
-import com.mta.bandway.core.domain.flight.AutoCompleteCity;
-import com.mta.bandway.core.domain.flight.Datum;
-import com.mta.bandway.repositories.FlightOrderRepository;
+import com.mta.bandway.api.domain.response.FlightResponseDto;
+import com.mta.bandway.core.domain.flight.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
@@ -24,18 +21,19 @@ import java.util.Objects;
 @Service
 public class FlightService {
     private final String apiUrl;
-    private final String flightUrlApi;
+    private final String flightAutoCompleteApi;
+    private final String flightTwoWayApi;
+    private final String flightOneWayApi;
     private final String apiKey;
     private final RestTemplate restTemplate;
-//    private final FlightOrderRepository flightOrderRepository;
+//    private final FlightOrderRepository;
 
     @Autowired
-    public FlightService(@Value("${flight.api.url}") String apiUrl,
-                         @Value("${flight.api.key}") String apiKey,
-                         RestTemplate restTemplate
-                         ) {
+    public FlightService(@Value("${flight.api.url}") String apiUrl, @Value("${flight.api.key}") String apiKey, RestTemplate restTemplate) {
         this.apiUrl = apiUrl;
-        this.flightUrlApi = "https://" + apiUrl + "/flights/auto-complete";
+        this.flightAutoCompleteApi = "https://" + apiUrl + "/flights/auto-complete";
+        this.flightOneWayApi = "https://" + apiUrl + "/flights/search-one-way";
+        this.flightTwoWayApi = "https://" + apiUrl + "/flights/search-roundtrip";
         this.apiKey = apiKey;
         this.restTemplate = restTemplate;
 //        this.flightOrderRepository = flightOrderRepository;
@@ -43,9 +41,7 @@ public class FlightService {
 
     public List<AutoCompleteCityResponseDto> getCities(String text) {
         HttpEntity<?> entity = new HttpEntity<>(createHeaders());
-        String urlWithQuery = UriComponentsBuilder.fromHttpUrl(flightUrlApi)
-                .queryParam("query", text)
-                .toUriString();
+        String urlWithQuery = UriComponentsBuilder.fromHttpUrl(flightAutoCompleteApi).queryParam("query", text).toUriString();
         List<AutoCompleteCityResponseDto> result = new ArrayList<>();
         ResponseEntity<AutoCompleteCity> s = restTemplate.exchange(urlWithQuery, HttpMethod.GET, entity, AutoCompleteCity.class);
         for (int i = 0; i < Objects.requireNonNull(s.getBody()).data.size(); i++) {
@@ -55,28 +51,30 @@ public class FlightService {
         return result;
     }
 
-    private List<ConcertResponseDto> createConcertDtoResponse(Embedded concert) {
-        List<ConcertResponseDto> result = new ArrayList<>();
-        for (int i = 0; i < concert.getEvents().size(); i++) {
-            result.add(ConcertResponseDto.builder()
-                    .performer(concert.getEvents().get(i).getName())
-                    .date(concert.getEvents().get(i).getDates().getStart().getLocalDate())
-                    .venue(concert.getEvents().get(i).get_embedded().getVenues().get(0).getName())
-                    .city(concert.getEvents().get(i).get_embedded().getVenues().get(0).getCity().getName())
-                    .country(concert.getEvents().get(i).get_embedded().getVenues().get(0).getCountry().getCountryCode())
-                    .ticketUrl(concert.getEvents().get(i).getUrl())
-                    .images(getImagesFromConcert(concert.getEvents().get(i).getImages()))
-                    .build());
+    public List<FlightResponseDto> getFlight(FlightRequestDto flightRequestDto) {
+        if (flightRequestDto.getIsRoundTrip()) {
+            return getTwoWayFlight(flightRequestDto);
+        } else {
+            String s = String.valueOf(getOneWayFlight(flightRequestDto));
+            return null;
         }
-        return result;
     }
 
-    private List<String> getImagesFromConcert(List<Image> images) {
-        List<String> result = new ArrayList<>();
-        for (Image image : images) {
-            result.add(image.getUrl());
-        }
-        return result;
+    private List<FlightDetails> getOneWayFlight(FlightRequestDto flightRequestDto) {
+        HttpEntity<?> entity = new HttpEntity<>(createHeaders());
+        String urlWithQuery = UriComponentsBuilder.fromHttpUrl(flightAutoCompleteApi).queryParam("fromId", flightRequestDto.getSrcAirport()).queryParam("toId", flightRequestDto.getDestAirport()).queryParam("departDate", flightRequestDto.getDepartureDate().toString()).queryParam("adults", flightRequestDto.getAdults()).queryParam("children", flightRequestDto.getChildren()).queryParam("infants", flightRequestDto.getInfants()).queryParam("cabinClass", flightRequestDto.getCabinClass()).toUriString();
+        ResponseEntity<OneWayFlight> oneWayFlightResponseEntity = restTemplate.exchange(urlWithQuery, HttpMethod.GET, entity, OneWayFlight.class);
+        List<FlightDetails> result = new ArrayList<>();
+//        TODO: Implement the logic to get the flight details
+        return null;
+    }
+
+    private String buildFlightNumber(Itinerary flightResponse) {
+        return "";
+    }
+
+    private List<FlightResponseDto> getTwoWayFlight(FlightRequestDto flightRequestDto) {
+        return null;
     }
 
     private HttpHeaders createHeaders() {

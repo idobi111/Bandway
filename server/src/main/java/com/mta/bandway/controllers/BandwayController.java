@@ -1,5 +1,6 @@
 package com.mta.bandway.controllers;
 
+import com.mta.bandway.api.domain.request.FlightRequestDto;
 import com.mta.bandway.api.domain.request.HotelRequestDto;
 import com.mta.bandway.api.domain.response.HotelResponseDto;
 import com.mta.bandway.services.ConcertService;
@@ -42,5 +43,10 @@ public class BandwayController {
     @GetMapping("/autoCompleteCity")
     public ResponseEntity<?> getCities(@RequestParam String text) {
         return ResponseEntity.ok(flightService.getCities(text));
+    }
+
+    @GetMapping("/searchFlight")
+    public ResponseEntity<?> getFlight(@RequestBody FlightRequestDto requestFlightDto) {
+        return ResponseEntity.ok(flightService.getFlight(requestFlightDto));
     }
 }
