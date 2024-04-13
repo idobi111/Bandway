@@ -7,7 +7,6 @@ import com.mta.bandway.core.domain.city.Datum;
 import com.mta.bandway.core.domain.hotel.Hotel;
 import com.mta.bandway.core.domain.hotel.HotelResponse;
 import com.mta.bandway.core.domain.hotel.Property;
-import com.mta.bandway.repositories.HotelOrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
@@ -23,11 +22,21 @@ import java.util.Map;
 
 @Service
 public class HotelService {
-    @Value("${booking.api.url}")
-    private String apiUrl;
+    private final String apiUrl;
+    private final String apiKey;
+    private final RestTemplate restTemplate;
+    private final String bookingUrl;
+
     @Autowired
-    private RestTemplate restTemplate;
-    private HotelOrderRepository hotelOrderRepository;
+    public HotelService(
+            @Value("${booking.api.url}") String apiUrl,
+            @Value("${booking.api.key}") String apiKey,
+            RestTemplate restTemplate) {
+        this.apiUrl = apiUrl;
+        this.bookingUrl = "https://" + apiUrl + "/hotels/searchDestination";
+        this.apiKey = apiKey;
+        this.restTemplate = restTemplate;
+    }
 
 
     private static Datum getDatum(ResponseEntity<CityResponse> cityData) {
@@ -65,8 +74,8 @@ public class HotelService {
 
     private HttpHeaders createHeaders() {
         HttpHeaders headers = new HttpHeaders();
-        headers.set("X-RapidAPI-Key", "8f1afd2703mshbbaa90466010d43p1d399ajsn55b304bafe77");
-        headers.set("X-RapidAPI-Host", "booking-com15.p.rapidapi.com");
+        headers.set("X-RapidAPI-Key", apiKey);
+        headers.set("X-RapidAPI-Host", apiUrl);//"booking-com15.p.rapidapi.com"
         headers.set(HttpHeaders.ACCEPT, MediaType.APPLICATION_JSON_VALUE);
         return headers;
     }
@@ -86,7 +95,7 @@ public class HotelService {
 
     private ResponseEntity<CityResponse> getCityId(String city) {
         HttpEntity<?> entity = new HttpEntity<>(createHeaders());
-        String urlWithQuery = UriComponentsBuilder.fromHttpUrl(apiUrl + "/hotels/searchDestination")
+        String urlWithQuery = UriComponentsBuilder.fromHttpUrl(bookingUrl)
                 .queryParam("query", city)
                 .toUriString();
         return restTemplate.exchange(urlWithQuery, HttpMethod.GET, entity, CityResponse.class);
@@ -106,14 +115,12 @@ public class HotelService {
     }
 
     private URI buildSearchHotelUri(Map<String, String> queryParams) {
-        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(apiUrl + "/hotels/searchHotels");
+        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(bookingUrl + "/hotels/searchHotels");
         for (Map.Entry<String, String> entry : queryParams.entrySet()) {
             builder.queryParam(entry.getKey(), entry.getValue());
         }
         return builder.build().toUri();
     }
-
-
 
 
 }
