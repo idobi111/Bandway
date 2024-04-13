@@ -65,12 +65,45 @@ public class FlightService {
         String urlWithQuery = UriComponentsBuilder.fromHttpUrl(flightAutoCompleteApi).queryParam("fromId", flightRequestDto.getSrcAirport()).queryParam("toId", flightRequestDto.getDestAirport()).queryParam("departDate", flightRequestDto.getDepartureDate().toString()).queryParam("adults", flightRequestDto.getAdults()).queryParam("children", flightRequestDto.getChildren()).queryParam("infants", flightRequestDto.getInfants()).queryParam("cabinClass", flightRequestDto.getCabinClass()).toUriString();
         ResponseEntity<OneWayFlight> oneWayFlightResponseEntity = restTemplate.exchange(urlWithQuery, HttpMethod.GET, entity, OneWayFlight.class);
         List<FlightDetails> result = new ArrayList<>();
-//        TODO: Implement the logic to get the flight details
+        for (int i = 0; i < Objects.requireNonNull(oneWayFlightResponseEntity.getBody()).getData().getItineraries().size(); i++) {
+            Itinerary itinerary = oneWayFlightResponseEntity.getBody().getData().getItineraries().get(i);
+            for (int j = 0; j < itinerary.getLegs().size(); j++) {
+                Leg leg = itinerary.getLegs().get(j);
+                List<String> flightLogo = new ArrayList<>();
+                for (int t = 0; t < leg.getCarriers().getMarketing().size(); t++) {
+
+                    flightLogo.add(leg.getCarriers().getMarketing().get(t).logoUrl);
+                }
+                for (int k = 0; k < leg.getSegments().size(); k++) {
+                    Segment segment = itinerary.getLegs().get(j).getSegments().get(k);
+                    FlightDetails flightDetails = FlightDetails.builder()
+                            .flightNumber(buildFlightNumber(segment))
+                            .arrivalAirport(segment.getArrival())
+                            .arrivalCityName(segment.getOrigin().getName())
+                            .departureAirport(segment.getOrigin().getDisplayCode())
+                            .departureCityName(segment.getOrigin().getName())
+                            .airline(segment.getMarketingCarrier().getName())
+                            .price(itinerary.getPrice().getRaw())
+                            .departureTime(segment.getDeparture())
+                            .arrivalTime(segment.getArrival())
+                            .duration(getDurationTimeFormat(segment.getDurationInMinutes()))
+                            .build();
+                    result.add(flightDetails);
+                }
+            }
+        }
+
         return null;
     }
 
-    private String buildFlightNumber(Itinerary flightResponse) {
-        return "";
+    private String getDurationTimeFormat(Integer durationInMinutes) {
+        int hours = durationInMinutes / 60;
+        int minutes = durationInMinutes % 60;
+        return String.format("%02d:%02d", hours, minutes);
+    }
+
+    private String buildFlightNumber(Segment segment) {
+        return segment.getMarketingCarrier().getDisplayCode() + segment.getFlightNumber();
     }
 
     private List<FlightResponseDto> getTwoWayFlight(FlightRequestDto flightRequestDto) {

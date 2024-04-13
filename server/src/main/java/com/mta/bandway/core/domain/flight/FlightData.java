@@ -8,37 +8,27 @@ import lombok.Data;
 
 import java.util.List;
 
-@JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder({
-        "token",
-        "context",
-        "itineraries",
-        "messages",
-        "filterStats",
-        "flightsSessionId",
-        "destinationImageUrl"
-})
 @Data
 public class FlightData {
 
     @JsonProperty("token")
-    public String token;
+    private String token;
     @JsonProperty("context")
     @Valid
-    public Context context;
+    private Context context;
     @JsonProperty("itineraries")
     @Valid
-    public List<Itinerary> itineraries;
+    private List<Itinerary> itineraries;
     @JsonProperty("messages")
     @Valid
-    public List<Object> messages;
+    private List<Object> messages;
     @JsonProperty("filterStats")
     @Valid
-    public FilterStats filterStats;
+    private FilterStats filterStats;
     @JsonProperty("flightsSessionId")
-    public String flightsSessionId;
+    private String flightsSessionId;
     @JsonProperty("destinationImageUrl")
-    public String destinationImageUrl;
+    private String destinationImageUrl;
 
 
 }
