@@ -1,33 +1,42 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { Typography, Grid, TextField } from '@mui/material';
 import { HomeSearchGrid, SearchTextField, WindowDiv, ActionButton } from '../../styles/ComponentsStyles';
-
+import { useNavigate } from "react-router-dom";
 
 const HomeSearch: React.FC = () => {
-const HomeSearch: React.FC = () => {
+
+
+    const [performerSearchQuery, setPerformerSearchQuery] = useState('');
+    const navigate = useNavigate();
+
+    const handlPerformerSearch = () => {
+        // Navigate to the search results page with the search query as a URL parameter
+        navigate(`/event-search-results?query=${performerSearchQuery}`);
+      };
+
     return (
         <WindowDiv>
             <HomeSearchGrid container spacing={2} justifyContent="center" >
                 <Grid item xs={4}>
                     <Typography>
-                        Search Event
+                        Search Performer
                     </Typography>
-                    <SearchTextField select label="Search for events, artists or bands..." variant="standard" InputLabelProps={{
+                    <SearchTextField placeholder="Search for performers, artists or bands..." variant="standard" InputLabelProps={{
                         style: { color: 'gray' },
-                        shrink: false
-                    }} />
+                        shrink: false,
+                    }} value={performerSearchQuery}  onChange={(e) => setPerformerSearchQuery(e.target.value)} />
                 </Grid>
                 <Grid item xs={4}>
                     <Typography>
                         Place
                     </Typography>
-                    <SearchTextField select label="All cities" variant="standard" InputLabelProps={{
+                    <SearchTextField  placeholder="All cities" variant="standard" InputLabelProps={{
                         style: { color: 'gray' },
                         shrink: false
                     }} />
                 </Grid>
                 <Grid item xs={4}>
-                    <ActionButton variant='contained'>Search</ActionButton>
+                    <ActionButton variant='contained' onClick={handlPerformerSearch}>Search</ActionButton>
                 </Grid>
             </HomeSearchGrid>
         </WindowDiv>

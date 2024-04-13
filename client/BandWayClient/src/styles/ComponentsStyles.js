@@ -1,8 +1,7 @@
 import { styled } from '@mui/system';
 import { Box, Button, Typography, AppBar, Container, Grid, TextField, Card, CardMedia } from '@mui/material';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
-import { Box, Button, Typography, AppBar, Container, Grid, TextField, Card, CardMedia } from '@mui/material';
-import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+
 
 
 // Header
@@ -70,6 +69,14 @@ export const ActionButton = styled(Button)({
   textTransform: 'none',
 });
 
+export const SubActionButton = styled(Button)({
+  borderRadius: '20px', 
+  padding: '10px 20px',
+  backgroundColor: '#A9A9A9',
+  marginTop: '20px',
+  textTransform: 'none',
+});
+
 export const LearnMoreButton = styled(Button)({
   borderRadius: '20px', 
   padding: '10px 20px', 
@@ -89,7 +96,10 @@ export const HomeSearchGrid = styled(Grid)({
 
 export const SearchTextField = styled(TextField )({
   width:'300px',
-  borderColor: 'white'
+  borderColor: 'white',
+  '& input': {
+    color: 'white', // Change the font color to blue
+  },
 })
 
 export const WindowDiv = styled('div')({
@@ -108,7 +118,10 @@ export const WindowDiv = styled('div')({
 //Event Card
 export const EventCardStyled = styled(Card)({
   maxWidth: '345',
-  margin: '20px'
+  margin: '20px',
+  '&:hover': {
+      cursor: 'pointer',
+    }
 })
 
 export const EventCardMediaStyled = styled(CardMedia)({
@@ -151,14 +164,14 @@ export const FooterCopyRights = styled(Typography)({
 // Steps
 
 export const StepCircleText = styled('div')({
-  borderRadius: '20px', 
-  padding: '10px 10px',
-  backgroundColor: '#872FA6',
-  marginTop: '20px',
-  textTransform: 'none',
-  color: 'white',
-  width: '300px',
-  textAlign:'center',
+   borderRadius: '20px', 
+   padding: '10px 10px',
+   backgroundColor: '#872FA6',
+   marginTop: '20px',
+   textTransform: 'none',
+   color: 'white',
+   width: '300px',
+   textAlign:'center',
 })
 
 export const StepArrow = styled(ArrowForwardIosIcon)({
@@ -170,7 +183,6 @@ export const StepArrow = styled(ArrowForwardIosIcon)({
 
 export const GenericTopBox = styled(Box)({
   backgroundColor: '#4B0082',
-  position: 'relative',
   height: '200px',
   display: 'flex',
   alignItems: 'center',
