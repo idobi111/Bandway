@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Builder;
 import lombok.Data;
+import org.springframework.lang.Nullable;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -17,8 +18,9 @@ public class FlightRequestDto implements Serializable {
     private String dest;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private Date departureDate;
-    @JsonProperty("returnDate")
-    private String returnDate;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+    @Nullable
+    private Date returnDate;
     @JsonProperty(value = "adults", defaultValue = "1")
     private Integer adults;
     @JsonProperty(value = "children", defaultValue = "0")
@@ -27,6 +29,8 @@ public class FlightRequestDto implements Serializable {
     private Integer infants;
     @JsonProperty(value = "isRoundTrip", required = true)
     private Boolean isRoundTrip;
+    @JsonProperty(value = "isMultiCityTrip", required = true)
+    private Boolean isMultiCityTrip;
     @JsonProperty("isDirectFlight")
     private Boolean isDirectFlight;
     @JsonProperty("isOneWay")
