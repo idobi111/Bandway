@@ -26,8 +26,6 @@ public class Segment implements Serializable {
     private String id;
     @JsonProperty("origin")
     private Origin__1 origin;
-    @JsonProperty("destination")
-    private Destination__1 destination;
     @JsonProperty("departure")
     private String departure;
     @JsonProperty("arrival")

@@ -16,21 +16,7 @@ public class Itinerary implements Serializable {
     private Price price;
     @JsonProperty("legs")
     private List<Leg> legs;
-    @JsonProperty("isSelfTransfer")
-    private Boolean isSelfTransfer;
-    @JsonProperty("isProtectedSelfTransfer")
-    private Boolean isProtectedSelfTransfer;
-    @JsonProperty("farePolicy")
-    private FarePolicy farePolicy;
-    @JsonProperty("fareAttributes")
-    private FareAttributes fareAttributes;
-    @JsonProperty("isMashUp")
-    private Boolean isMashUp;
-    @JsonProperty("hasFlexibleOptions")
-    private Boolean hasFlexibleOptions;
     @JsonProperty("score")
     private Double score;
-    @JsonProperty("eco")
-    private Eco eco;
 
 }

@@ -45,8 +45,8 @@ public class BandwayController {
         return ResponseEntity.ok(flightService.getCities(text));
     }
 
-    @GetMapping("/searchFlight")
+    @PostMapping("/searchFlight")
     public ResponseEntity<?> getFlight(@RequestBody FlightRequestDto requestFlightDto) {
-        return ResponseEntity.ok(flightService.getFlight(requestFlightDto));
+        return ResponseEntity.ok(flightService.searchFlight(requestFlightDto));
     }
 }

@@ -11,10 +11,10 @@ import java.util.Date;
 @Data
 @Builder
 public class FlightRequestDto implements Serializable {
-    @JsonProperty(value = "srcAirport", required = true)
-    private String srcAirport;
-    @JsonProperty("destAirport")
-    private String destAirport;
+    @JsonProperty(value = "src", required = true)
+    private String src;
+    @JsonProperty(value = "dest", required = true)
+    private String dest;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private Date departureDate;
     @JsonProperty("returnDate")
@@ -29,7 +29,7 @@ public class FlightRequestDto implements Serializable {
     private Boolean isRoundTrip;
     @JsonProperty("isDirectFlight")
     private Boolean isDirectFlight;
-    @JsonProperty("isTwoOrMore")
+    @JsonProperty("isOneWay")
     private Boolean isOneWay;
     @JsonProperty(value = "cabinClass", defaultValue = "economy")
     private String cabinClass;

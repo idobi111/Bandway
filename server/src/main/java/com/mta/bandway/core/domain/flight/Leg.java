@@ -13,20 +13,14 @@ public class Leg implements Serializable {
     private String id;
     @JsonProperty("origin")
     private Origin origin;
-    @JsonProperty("destination")
-    private Destination destination;
     @JsonProperty("durationInMinutes")
     private Integer durationInMinutes;
     @JsonProperty("stopCount")
     private Integer stopCount;
-    @JsonProperty("isSmallestStops")
-    private Boolean isSmallestStops;
     @JsonProperty("departure")
     private String departure;
     @JsonProperty("arrival")
     private String arrival;
-    @JsonProperty("timeDeltaInDays")
-    private Integer timeDeltaInDays;
     @JsonProperty("carriers")
     private Carriers carriers;
     @JsonProperty("segments")

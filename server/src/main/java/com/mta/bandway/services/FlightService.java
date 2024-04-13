@@ -14,7 +14,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
@@ -32,11 +34,16 @@ public class FlightService {
     public FlightService(@Value("${flight.api.url}") String apiUrl, @Value("${flight.api.key}") String apiKey, RestTemplate restTemplate) {
         this.apiUrl = apiUrl;
         this.flightAutoCompleteApi = "https://" + apiUrl + "/flights/auto-complete";
-        this.flightOneWayApi = "https://" + apiUrl + "/flights/search-one-way";
-        this.flightTwoWayApi = "https://" + apiUrl + "/flights/search-roundtrip";
+        this.flightOneWayApi = "https://" + apiUrl + "/api/v1/flights/search-one-way";
+        this.flightTwoWayApi = "https://" + apiUrl + "/api/v1/flights/search-roundtrip";
         this.apiKey = apiKey;
         this.restTemplate = restTemplate;
 //        this.flightOrderRepository = flightOrderRepository;
+    }
+
+    private static String getDateTime(Date date) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        return sdf.format(date);
     }
 
     public List<AutoCompleteCityResponseDto> getCities(String text) {
@@ -51,7 +58,7 @@ public class FlightService {
         return result;
     }
 
-    public List<FlightResponseDto> getFlight(FlightRequestDto flightRequestDto) {
+    public List<FlightResponseDto> searchFlight(FlightRequestDto flightRequestDto) {
         if (flightRequestDto.getIsRoundTrip()) {
             return getTwoWayFlight(flightRequestDto);
         } else {
@@ -62,9 +69,19 @@ public class FlightService {
 
     private List<FlightDetails> getOneWayFlight(FlightRequestDto flightRequestDto) {
         HttpEntity<?> entity = new HttpEntity<>(createHeaders());
-        String urlWithQuery = UriComponentsBuilder.fromHttpUrl(flightAutoCompleteApi).queryParam("fromId", flightRequestDto.getSrcAirport()).queryParam("toId", flightRequestDto.getDestAirport()).queryParam("departDate", flightRequestDto.getDepartureDate().toString()).queryParam("adults", flightRequestDto.getAdults()).queryParam("children", flightRequestDto.getChildren()).queryParam("infants", flightRequestDto.getInfants()).queryParam("cabinClass", flightRequestDto.getCabinClass()).toUriString();
+        String urlWithQuery = UriComponentsBuilder.fromHttpUrl(flightOneWayApi)
+                .queryParam("fromId", flightRequestDto.getSrc())
+                .queryParam("toId", flightRequestDto.getDest())
+                .queryParam("departDate", getDateTime(flightRequestDto.getDepartureDate()))
+                .queryParam("adults", flightRequestDto.getAdults())
+                .queryParam("children", flightRequestDto.getChildren())
+                .queryParam("infants", flightRequestDto.getInfants())
+                .queryParam("cabinClass", flightRequestDto.getCabinClass()).toUriString();
         ResponseEntity<OneWayFlight> oneWayFlightResponseEntity = restTemplate.exchange(urlWithQuery, HttpMethod.GET, entity, OneWayFlight.class);
         List<FlightDetails> result = new ArrayList<>();
+        if (oneWayFlightResponseEntity.getBody() == null) {
+            return result;
+        }
         for (int i = 0; i < Objects.requireNonNull(oneWayFlightResponseEntity.getBody()).getData().getItineraries().size(); i++) {
             Itinerary itinerary = oneWayFlightResponseEntity.getBody().getData().getItineraries().get(i);
             for (int j = 0; j < itinerary.getLegs().size(); j++) {
@@ -93,7 +110,7 @@ public class FlightService {
             }
         }
 
-        return null;
+        return result;
     }
 
     private String getDurationTimeFormat(Integer durationInMinutes) {
