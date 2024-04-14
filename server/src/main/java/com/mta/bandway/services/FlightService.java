@@ -53,8 +53,8 @@ public class FlightService {
         String urlWithQuery = UriComponentsBuilder.fromHttpUrl(flightAutoCompleteApi).queryParam("query", text).toUriString();
         List<AutoCompleteCityResponseDto> result = new ArrayList<>();
         ResponseEntity<AutoCompleteCity> s = restTemplate.exchange(urlWithQuery, HttpMethod.GET, entity, AutoCompleteCity.class);
-        for (int i = 0; i < Objects.requireNonNull(s.getBody()).data.size(); i++) {
-            Datum data = s.getBody().data.get(i);
+        for (int i = 0; i < Objects.requireNonNull(s.getBody()).getData().size(); i++) {
+            Datum data = s.getBody().getData().get(i);
             result.add(AutoCompleteCityResponseDto.builder().id(data.id).city(data.presentation.suggestionTitle).country(data.presentation.subtitle).build());
         }
         return result;
