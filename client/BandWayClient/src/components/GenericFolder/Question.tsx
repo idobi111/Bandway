@@ -1,6 +1,7 @@
 import React from 'react';
 import { Typography, Grid, TextField, Box, Stack, Container } from '@mui/material';
 import { HomeSearchGrid, SearchTextField, WindowDiv, ActionButton, GenricWhiteText, SeparateRowsContainer, GenricTopBoxText, SubActionButton } from '../../styles/ComponentsStyles';
+import { useNavigate } from "react-router-dom";
 
 
 interface QuestionProps {
@@ -10,7 +11,25 @@ interface QuestionProps {
   rejectButtonText: string;
 }
 
+
 const Question: React.FC<QuestionProps> = ({ titleText, descriptionText, acceptButtonText, rejectButtonText }) => {
+  const navigate = useNavigate();
+
+  const handleUserNotifyInterestedServicesPackage = () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });  
+      navigate(`/services-package-finder`);
+    };
+  
+  
+    const handleIsUserInterestedServicesPackseg = (response: string) => {
+      if (response === 'yes') {
+        handleUserNotifyInterestedServicesPackage();
+      } else {
+        console.log('User is not interested in services package');
+      }
+    };
+
+
   return (
 
 
@@ -35,8 +54,8 @@ const Question: React.FC<QuestionProps> = ({ titleText, descriptionText, acceptB
 
       <Box display="flex" justifyContent="center">
         <Stack direction="row" spacing={30} sx={{ m: -5, paddingBottom: 10 }}>
-          <ActionButton variant='contained' style={{ width: '350px', height: '80px' }}>{acceptButtonText}</ActionButton>
-          <SubActionButton variant='contained' style={{ width: '350px', height: '80px' }}>{rejectButtonText}</SubActionButton>
+          <ActionButton variant='contained' onClick={()=>handleIsUserInterestedServicesPackseg("yes")} style={{ width: '350px', height: '80px' }}>{acceptButtonText}</ActionButton>
+          <SubActionButton variant='contained' onClick={()=>handleIsUserInterestedServicesPackseg("no")} style={{ width: '350px', height: '80px' }}>{rejectButtonText}</SubActionButton>
         </Stack>
       </Box>
 

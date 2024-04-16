@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import EventCard from './EventCard';
-import { events } from '../../mocks/EventMock';
+import { eventsMock } from '../../mocks/EventMock';
 import { Event } from '../../models/Event';
 
 

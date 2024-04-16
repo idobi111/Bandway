@@ -13,17 +13,20 @@ const Home: React.FC = () => {
   const [events, setEvents] = useState<Event[]>([]);
  
   useEffect(() => {
-      const eventService = new EventService();
-      eventService.getUpcomingEvents()
+    const eventService = new EventService();
+    eventService.getUpcomingEvents()
         .then((data) => {
-          setEvents(data)
-          console.log(data);
+            const eventDataWithPlaceholderImage = data.map(event => {
+                return { ...event, images: ['https://via.placeholder.com/150'] };
+            });
+            setEvents(eventDataWithPlaceholderImage);
+            console.log(eventDataWithPlaceholderImage);
         })
         .catch((error) => {
-          console.error('Error fetching event data:', error);
-        });    
-    
-  }, []);
+            console.error('Error fetching event data:', error);
+        });
+}, []);
+
  
   return (
     <>
