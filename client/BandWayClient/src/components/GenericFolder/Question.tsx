@@ -17,45 +17,30 @@ const Question: React.FC<QuestionProps> = ({ titleText, descriptionText, acceptB
     <Container maxWidth="xl">
 
       <Box display="flex" justifyContent="center">
-        <WindowDiv style={{ height: '200px'}}>
+        <WindowDiv style={{ height: '300px', width: '80%' }}>
           <SeparateRowsContainer>
-            <GenricTopBoxText variant='h2'>
-              {titleText}
-            </GenricTopBoxText>
-            <GenricTopBoxText variant='h5'>
-              {descriptionText}
-            </GenricTopBoxText>
+            <Box display={'flex'} alignItems={'center'} justifyContent={'center'}>
+              <GenricTopBoxText variant='h2'>
+                {titleText}
+              </GenricTopBoxText>
+            </Box>
+            <Box display={'flex'} alignItems={'center'} justifyContent={'center'}>
+              <GenricTopBoxText variant='h5' sx={{ textAlign: 'center', width: '600px' }}>
+                {descriptionText}
+              </GenricTopBoxText>
+            </Box>
           </SeparateRowsContainer>
         </WindowDiv>
       </Box>
 
       <Box display="flex" justifyContent="center">
-      <Stack direction="row" spacing={20}  sx={{ m: -5 }}>
-         <ActionButton>{acceptButtonText}</ActionButton>
-         <SubActionButton>{rejectButtonText}</SubActionButton>
-       </Stack>
+        <Stack direction="row" spacing={30} sx={{ m: -5, paddingBottom: 10 }}>
+          <ActionButton variant='contained' style={{ width: '350px', height: '80px' }}>{acceptButtonText}</ActionButton>
+          <SubActionButton variant='contained' style={{ width: '350px', height: '80px' }}>{rejectButtonText}</SubActionButton>
+        </Stack>
       </Box>
 
     </Container>
-
-
-
-    // <Box display="flex" justifyContent="center">
-    //   <WindowDiv>
-    //     <SeparateRowsContainer>
-    //       <GenricTopBoxText variant='h2'>
-    //         {titleText}
-    //       </GenricTopBoxText>
-    //       <GenricTopBoxText variant='h5'>
-    //         {descriptionText}
-    //       </GenricTopBoxText>
-    //     </SeparateRowsContainer>
-    //   </WindowDiv>
-    //   <Stack direction="row">
-    //     <ActionButton>{acceptButtonText}</ActionButton>
-    //     <SubActionButton>{rejectButtonText}</SubActionButton>
-    //   </Stack>
-    // </Box>
   );
 };
 

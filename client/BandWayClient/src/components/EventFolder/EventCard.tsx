@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
-import { Card, CardContent, CardMedia, Typography, Grid, Button, Modal } from '@mui/material';
+import { Card, CardContent, CardMedia, Typography, Grid, Button, Modal, Box, Stack } from '@mui/material';
 import { Event } from '../../models/Event';
-import { EventCardStyled, EventCardMediaStyled, LoadMoreButton } from '../../styles/ComponentsStyles';
+import { EventCardStyled, EventCardMediaStyled, LoadMoreButton, ActionButton, SubActionButton } from '../../styles/ComponentsStyles';
+import { useNavigate } from "react-router-dom";
+
+
 
 interface Props {
   events: Event[];
@@ -12,13 +15,21 @@ const EventCard: React.FC<Props> = ({ events, step }) => {
   const [visibleEvents, setVisibleEvents] = useState(step); // State to track the number of visible events
   const [selectedEvent, setSelectedEvent] = useState<Event | null>(null); // State to track the selected event
   const [isModalOpen, setIsModalOpen] = useState(false); // State to control the visibility of the modal
+  const navigate = useNavigate();
+
+  const handleUserNotifyTicketIsOrdered = () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });  
+      navigate(`/post-ticket-order?query=${selectedEvent?.performer}`);
+    };
+
+
 
   const loadMore = () => {
     setVisibleEvents(prevVisibleEvents => prevVisibleEvents + step); // Increase the number of visible events
   };
 
   const handleOpenModal = (event: Event) => {
-    window.open(event.ticketUrl, '_blank');  
+    window.open(event.ticketUrl, '_blank');
     setSelectedEvent(event);
     setIsModalOpen(true);
   };
@@ -30,8 +41,7 @@ const EventCard: React.FC<Props> = ({ events, step }) => {
   const handleBuyTicket = (response: string) => {
     // Handle the response from the modal
     if (response === 'yes') {
-      // Handle the case when the user bought the ticket
-      console.log('User bought the ticket');
+      handleUserNotifyTicketIsOrdered();
     } else {
       // Handle the case when the user did not buy the ticket
       console.log('User did not buy the ticket');
@@ -69,7 +79,7 @@ const EventCard: React.FC<Props> = ({ events, step }) => {
         ))}
       </Grid>
       {visibleEvents < events.length && ( // Render the "Load More" button if there are more events to load
-        <div style={{ textAlign: 'center', marginTop: '20px', paddingBottom:'20px' }}>
+        <div style={{ textAlign: 'center', marginTop: '20px', paddingBottom: '20px' }}>
           <LoadMoreButton variant="outlined" onClick={loadMore}>
             Load More
           </LoadMoreButton>
@@ -83,11 +93,13 @@ const EventCard: React.FC<Props> = ({ events, step }) => {
         aria-labelledby="modal-title"
         aria-describedby="modal-description"
       >
-        <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', backgroundColor: 'white', padding: '20px', borderRadius: '8px' }}>
-          <h2 id="modal-title">Did you buy the ticket?</h2>
-          <Button variant="contained" color="primary" onClick={() => handleBuyTicket('yes')}>Yes</Button>
-          <Button variant="contained" color="secondary" onClick={() => handleBuyTicket('no')}>No</Button>
-        </div>
+        <Box style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', backgroundColor: 'white', padding: '20px', borderRadius: '8px' }}>
+          <Typography variant='h3' id="modal-title">Did you order the ticket?</Typography>
+          <Stack direction={'row'} justifyContent={"center"} alignItems={"center"} spacing={10} sx={{paddingTop:5}}>
+            <ActionButton variant="contained" style={{width:'100px'}} onClick={() => handleBuyTicket('yes')}>Yes</ActionButton>
+            <SubActionButton variant="contained" style={{width:'100px'}} onClick={() => handleBuyTicket('no')}>No</SubActionButton>
+          </Stack>
+        </Box>
       </Modal>
     </>
   );
