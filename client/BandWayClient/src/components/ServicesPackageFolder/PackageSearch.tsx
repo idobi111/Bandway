@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import { Typography, Grid, TextField } from '@mui/material';
 import { HomeSearchGrid, SearchTextField, WindowDiv, ActionButton } from '../../styles/ComponentsStyles';
 import { useNavigate } from "react-router-dom";
-import OccupancyWindow from './OccupancyWindow';
+import OccupancyPopover from './OccupancyPopover';
+import ServicesBudgetPopover from './ServicesBudgetPopover';
 
 
 const PackageSearch: React.FC = () => {
@@ -26,16 +27,10 @@ const PackageSearch: React.FC = () => {
                     }} /> 
                 </Grid>
                 <Grid item xs={2}>
-                    <OccupancyWindow></OccupancyWindow>
+                    <OccupancyPopover></OccupancyPopover>
                 </Grid>
                 <Grid item xs={2}>
-                    <Typography>
-                        Services Budget
-                    </Typography>
-                    <SearchTextField style={{ width: '150px' }} placeholder="100$-3000$" variant="standard" InputLabelProps={{
-                        style: { color: 'gray' },
-                        shrink: false
-                    }} />
+                    <ServicesBudgetPopover></ServicesBudgetPopover>
                 </Grid>
                 <Grid item xs={2}>
                     <Typography>

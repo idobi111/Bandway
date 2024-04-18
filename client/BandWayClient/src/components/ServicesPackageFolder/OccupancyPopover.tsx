@@ -4,15 +4,20 @@ import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
 import { SearchTextField } from '../../styles/ComponentsStyles';
 
-const OccupancyWindow: React.FC = () => {
+const OccupancyPopover: React.FC = () => {
     const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
     const [adults, setAdults] = useState<number>(2);
     const [children, setChildren] = useState<number>(0);
     const [rooms, setRooms] = useState<number>(1);
     const [selectedOccupancy, setSelectedOccupancy] = useState<string>('');
 
-    const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-        setAnchorEl(event.currentTarget);
+    // const handleFocus = (event: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    //     // Call handleClick with a MouseEvent (dummy event)
+    //     handleClick(event as unknown as React.MouseEvent<HTMLButtonElement>);
+    // };
+
+    const handleClick = (event: React.MouseEvent<HTMLDivElement>) => {
+        setAnchorEl((event.currentTarget as unknown) as HTMLButtonElement | null);
     };
 
     const handleClose = () => {
@@ -48,12 +53,13 @@ const OccupancyWindow: React.FC = () => {
     return (
         <div>
             <Typography>
-            Occupancy
+                Occupancy
             </Typography>
-            <SearchTextField  onClick={handleClick} value={selectedOccupancy} style={{ width: '150px' }} placeholder="2 adults, 0 children, 1 rooms" variant="standard" InputLabelProps={{
-                style: { color: 'gray' },
-                shrink: false
-            }} />
+            <SearchTextField onClick={handleClick}
+                value={selectedOccupancy} style={{ width: '150px' }} placeholder="2 adults, 0 children, 1 rooms" variant="standard" InputLabelProps={{
+                    style: { color: 'gray' },
+                    shrink: false
+                }} />
             <Popover
                 id={id}
                 open={open}
@@ -92,4 +98,4 @@ const OccupancyWindow: React.FC = () => {
     );
 };
 
-export default OccupancyWindow;
+export default OccupancyPopover;
