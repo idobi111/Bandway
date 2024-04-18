@@ -1,6 +1,7 @@
 import React from 'react';
 import { Typography, Grid, TextField, Box, Stack, Container } from '@mui/material';
 import { HomeSearchGrid, SearchTextField, WindowDiv, ActionButton, GenricWhiteText, SeparateRowsContainer, GenricTopBoxText, SubActionButton } from '../../styles/ComponentsStyles';
+import { useNavigate } from "react-router-dom";
 
 
 interface QuestionProps {
@@ -10,52 +11,55 @@ interface QuestionProps {
   rejectButtonText: string;
 }
 
+
 const Question: React.FC<QuestionProps> = ({ titleText, descriptionText, acceptButtonText, rejectButtonText }) => {
+  const navigate = useNavigate();
+
+  const handleUserNotifyInterestedServicesPackage = () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });  
+      navigate(`/services-package-finder`);
+    };
+  
+  
+    const handleIsUserInterestedServicesPackseg = (response: string) => {
+      if (response === 'yes') {
+        handleUserNotifyInterestedServicesPackage();
+      } else {
+        console.log('User is not interested in services package');
+      }
+    };
+
+
   return (
 
 
     <Container maxWidth="xl">
 
       <Box display="flex" justifyContent="center">
-        <WindowDiv style={{ height: '200px'}}>
+        <WindowDiv style={{ height: '300px', width: '80%' }}>
           <SeparateRowsContainer>
-            <GenricTopBoxText variant='h2'>
-              {titleText}
-            </GenricTopBoxText>
-            <GenricTopBoxText variant='h5'>
-              {descriptionText}
-            </GenricTopBoxText>
+            <Box display={'flex'} alignItems={'center'} justifyContent={'center'}>
+              <GenricTopBoxText variant='h2'>
+                {titleText}
+              </GenricTopBoxText>
+            </Box>
+            <Box display={'flex'} alignItems={'center'} justifyContent={'center'}>
+              <GenricTopBoxText variant='h5' sx={{ textAlign: 'center', width: '600px' }}>
+                {descriptionText}
+              </GenricTopBoxText>
+            </Box>
           </SeparateRowsContainer>
         </WindowDiv>
       </Box>
 
       <Box display="flex" justifyContent="center">
-      <Stack direction="row" spacing={20}  sx={{ m: -5 }}>
-         <ActionButton>{acceptButtonText}</ActionButton>
-         <SubActionButton>{rejectButtonText}</SubActionButton>
-       </Stack>
+        <Stack direction="row" spacing={30} sx={{ m: -5, paddingBottom: 10 }}>
+          <ActionButton variant='contained' onClick={()=>handleIsUserInterestedServicesPackseg("yes")} style={{ width: '350px', height: '80px' }}>{acceptButtonText}</ActionButton>
+          <SubActionButton variant='contained' onClick={()=>handleIsUserInterestedServicesPackseg("no")} style={{ width: '350px', height: '80px' }}>{rejectButtonText}</SubActionButton>
+        </Stack>
       </Box>
 
     </Container>
-
-
-
-    // <Box display="flex" justifyContent="center">
-    //   <WindowDiv>
-    //     <SeparateRowsContainer>
-    //       <GenricTopBoxText variant='h2'>
-    //         {titleText}
-    //       </GenricTopBoxText>
-    //       <GenricTopBoxText variant='h5'>
-    //         {descriptionText}
-    //       </GenricTopBoxText>
-    //     </SeparateRowsContainer>
-    //   </WindowDiv>
-    //   <Stack direction="row">
-    //     <ActionButton>{acceptButtonText}</ActionButton>
-    //     <SubActionButton>{rejectButtonText}</SubActionButton>
-    //   </Stack>
-    // </Box>
   );
 };
 
