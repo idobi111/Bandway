@@ -1,8 +1,10 @@
 package com.mta.bandway.controllers;
 
+import com.mta.bandway.api.domain.request.FlightRequestDto;
 import com.mta.bandway.api.domain.request.HotelRequestDto;
 import com.mta.bandway.api.domain.response.HotelResponseDto;
 import com.mta.bandway.services.ConcertService;
+import com.mta.bandway.services.FlightService;
 import com.mta.bandway.services.HotelService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +19,7 @@ import java.util.List;
 public class BandwayController {
     private final HotelService hotelService;
     private final ConcertService concertService;
+    private final FlightService flightService;
 
     @GetMapping("/health")
     public String health() {
@@ -35,5 +38,15 @@ public class BandwayController {
             return ResponseEntity.badRequest().body("No concerts found for this performer");
         }
         return ResponseEntity.ok(concertService.getConcertsByPerformer(performer));
+    }
+
+    @GetMapping("/autoCompleteCity")
+    public ResponseEntity<?> getCities(@RequestParam String text) {
+        return ResponseEntity.ok(flightService.getCities(text));
+    }
+
+    @PostMapping("/searchFlight")
+    public ResponseEntity<?> getFlight(@RequestBody FlightRequestDto requestFlightDto) {
+        return ResponseEntity.ok(flightService.searchFlight(requestFlightDto));
     }
 }
