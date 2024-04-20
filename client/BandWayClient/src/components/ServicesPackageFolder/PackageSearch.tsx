@@ -4,6 +4,7 @@ import { HomeSearchGrid, SearchTextField, WindowDiv, ActionButton } from '../../
 import { useNavigate } from "react-router-dom";
 import OccupancyPopover from './OccupancyPopover';
 import ServicesBudgetPopover from './ServicesBudgetPopover';
+import DatePickerPopover from './DatePickerPopover';
 
 
 const PackageSearch: React.FC = () => {
@@ -18,13 +19,7 @@ const PackageSearch: React.FC = () => {
         <WindowDiv>
             <HomeSearchGrid container spacing={2} justifyContent="center" >
                 <Grid item xs={2}>
-                    <Typography>
-                        Date Range
-                    </Typography>
-                    <SearchTextField style={{width:'150px'}} placeholder="Check-in Check-out" variant="standard" InputLabelProps={{
-                        style: { color: 'gray' },
-                        shrink: false,
-                    }} /> 
+                   <DatePickerPopover></DatePickerPopover>
                 </Grid>
                 <Grid item xs={2}>
                     <OccupancyPopover></OccupancyPopover>
