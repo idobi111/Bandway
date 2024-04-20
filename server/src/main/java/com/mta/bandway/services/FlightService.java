@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import java.net.URI;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -34,7 +35,7 @@ public class FlightService {
     @Autowired
     public FlightService(@Value("${flight.api.url}") String apiUrl, @Value("${flight.api.key}") String apiKey, RestTemplate restTemplate) {
         this.apiUrl = apiUrl;
-        this.flightAutoCompleteApi = "https://" + apiUrl + "/flights/auto-complete";
+        this.flightAutoCompleteApi = "https://" + apiUrl + "/api/v1/flights/auto-complete";
         this.flightOneWayApi = "https://" + apiUrl + "/api/v1/flights/search-one-way";
         this.flightTwoWayApi = "https://" + apiUrl + "/api/v1/flights/search-roundtrip";
         this.multiCityWayApi = "https://" + apiUrl + "/api/v1/flights/search-multi-city";
@@ -52,10 +53,10 @@ public class FlightService {
         HttpEntity<?> entity = new HttpEntity<>(createHeaders());
         String urlWithQuery = UriComponentsBuilder.fromHttpUrl(flightAutoCompleteApi).queryParam("query", text).toUriString();
         List<AutoCompleteCityResponseDto> result = new ArrayList<>();
-        ResponseEntity<AutoCompleteCity> s = restTemplate.exchange(urlWithQuery, HttpMethod.GET, entity, AutoCompleteCity.class);
-        for (int i = 0; i < Objects.requireNonNull(s.getBody()).data.size(); i++) {
-            Datum data = s.getBody().data.get(i);
-            result.add(AutoCompleteCityResponseDto.builder().id(data.id).city(data.presentation.suggestionTitle).country(data.presentation.subtitle).build());
+        ResponseEntity<AutoCompleteCity> response = restTemplate.exchange(urlWithQuery, HttpMethod.GET, entity, AutoCompleteCity.class);
+        for (int i = 0; i < Objects.requireNonNull(response.getBody()).getData().size(); i++) {
+            Datum data = response.getBody().getData().get(i);
+            result.add(AutoCompleteCityResponseDto.builder().id(data.getId()).city(data.getPresentation().getSuggestionTitle()).country(data.getPresentation().getSubtitle()).build());
         }
         return result;
     }
@@ -90,60 +91,61 @@ public class FlightService {
         List<SessionFlightDetails> flightSession = getOneWayFlight(flightRequestDto);
         return FlightResponseDto.builder()
                 .isSingleWay(true)
-                .outFlightDetails(flightSession)
+                .departFlightDetails(flightSession)
                 .build();
     }
 
     private List<SessionFlightDetails> getOneWayFlight(FlightRequestDto flightRequestDto) {
         HttpEntity<?> entity = new HttpEntity<>(createHeaders());
-        String urlWithQuery = UriComponentsBuilder.fromHttpUrl(flightOneWayApi)
+        URI urlWithQuery = UriComponentsBuilder.fromHttpUrl(flightOneWayApi)
                 .queryParam("fromId", flightRequestDto.getSrc())
                 .queryParam("toId", flightRequestDto.getDest())
                 .queryParam("departDate", getDateTime(flightRequestDto.getDepartureDate()))
                 .queryParam("adults", flightRequestDto.getAdults())
                 .queryParam("children", flightRequestDto.getChildren())
                 .queryParam("infants", flightRequestDto.getInfants())
-                .queryParam("cabinClass", flightRequestDto.getCabinClass()).toUriString();
+                .queryParam("cabinClass", flightRequestDto.getCabinClass()).build().toUri();
         ResponseEntity<OneWayFlight> oneWayFlightResponseEntity = restTemplate.exchange(urlWithQuery, HttpMethod.GET, entity, OneWayFlight.class);
         List<SessionFlightDetails> result = new ArrayList<>();
         if (oneWayFlightResponseEntity.getBody() == null) {
             return result;
         }
-        for (int i = 0; i < oneWayFlightResponseEntity.getBody().getData().getItineraries().size(); i++) {
-            Itinerary itinerary = oneWayFlightResponseEntity.getBody().getData().getItineraries().get(i);
-            for (int j = 0; j < itinerary.getLegs().size(); j++) {
-                Leg leg = itinerary.getLegs().get(j);
-                List<String> flightLogo = new ArrayList<>();
-                for (int t = 0; t < leg.getCarriers().getMarketing().size(); t++) {
-
-                    flightLogo.add(leg.getCarriers().getMarketing().get(t).logoUrl);
-                }
+        FlightOneWayData data = oneWayFlightResponseEntity.getBody().getData();
+        for (Itinerary itinerary : oneWayFlightResponseEntity.getBody().getData().getItineraries()) {
+            for (Leg leg : itinerary.getLegs()) {
                 List<FlightDetails> flightDetailsList = new ArrayList<>();
-                for (int k = 0; k < leg.getSegments().size(); k++) {
-                    Segment segment = itinerary.getLegs().get(j).getSegments().get(k);
-                    FlightDetails flightDetails = FlightDetails.builder()
-                            .flightNumber(buildFlightNumber(segment))
-                            .arrivalAirport(segment.getArrival())
-                            .arrivalCityName(segment.getOrigin().getName())
-                            .departureAirport(segment.getOrigin().getDisplayCode())
-                            .departureCityName(segment.getOrigin().getName())
-                            .airline(segment.getMarketingCarrier().getName())
-                            .price(itinerary.getPrice().getRaw())
-                            .departureTime(segment.getDeparture())
-                            .arrivalTime(segment.getArrival())
-                            .duration(getDurationTimeFormat(segment.getDurationInMinutes()))
-                            .build();
-                    flightDetailsList.add(flightDetails);
+                for (Segment segment : leg.getSegments()) {
+                    flightDetailsList.add(buildFlightDetails(segment));
                 }
-                SessionFlightDetails sessionFlightDetails = SessionFlightDetails.builder()
-                        .flightDetails(flightDetailsList)
-                        .flightLogo(flightLogo)
-                        .build();
-                result.add(sessionFlightDetails);
+                result.add(buildSessionFlightDetails(data, itinerary, leg, flightDetailsList));
             }
         }
-
         return result;
+    }
+
+    private SessionFlightDetails buildSessionFlightDetails(FlightOneWayData data, Itinerary itinerary, Leg leg, List<FlightDetails> flightDetailsList) {
+        return SessionFlightDetails.builder()
+                .flightDetails(flightDetailsList)
+                .marketing(leg.getCarriers().getMarketing())
+                .price(itinerary.getPrice().getRaw())
+                .duration(getDurationTimeFormat(leg.getDurationInMinutes()))
+                .token(data.getToken())
+                .build();
+    }
+
+    private FlightDetails buildFlightDetails(Segment segment) {
+        return FlightDetails.builder()
+                .id(segment.getId())
+                .flightNumber(buildFlightNumber(segment))
+                .departureCityName(segment.getOrigin().getParent().getName())
+                .departureTime(segment.getDeparture())
+                .departureAirport(segment.getOrigin().getDisplayCode())
+                .arrivalCityName(segment.getDestination().getParent().getName())
+                .arrivalTime(segment.getArrival())
+                .arrivalAirport(segment.getDestination().getDisplayCode())
+                .airline(segment.getMarketingCarrier().getName())
+                .duration(getDurationTimeFormat(segment.getDurationInMinutes()))
+                .build();
     }
 
     private String getDurationTimeFormat(Integer durationInMinutes) {
@@ -153,7 +155,7 @@ public class FlightService {
     }
 
     private String buildFlightNumber(Segment segment) {
-        return segment.getMarketingCarrier().getDisplayCode() + segment.getFlightNumber();
+        return segment.getMarketingCarrier().getAlternateId() + segment.getFlightNumber();
     }
 
     //    TODO: Create data member of it
@@ -164,8 +166,8 @@ public class FlightService {
         if (roundWayFlightResponseEntity.getBody() == null) {
             return FlightResponseDto.builder()
                     .isSingleWay(false)
-                    .outFlightDetails(result)
-                    .inFlightDetails(result)
+                    .departFlightDetails(result)
+                    .arrivalFlightDetails(result)
                     .build();
         }
         return null;

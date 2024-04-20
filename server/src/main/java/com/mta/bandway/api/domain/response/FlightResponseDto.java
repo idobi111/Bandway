@@ -13,9 +13,9 @@ import java.util.List;
 public class FlightResponseDto {
     @JsonProperty("isSingleWay")
     private Boolean isSingleWay;
-    @JsonProperty("outFlightDetails")
-    private List<SessionFlightDetails> outFlightDetails;
+    @JsonProperty("departFlightDetails")
+    private List<SessionFlightDetails> departFlightDetails;
     @Nullable
-    @JsonProperty("inFlightDetails")
-    private List<SessionFlightDetails> inFlightDetails;
+    @JsonProperty("arrivalFlightDetails")
+    private List<SessionFlightDetails> arrivalFlightDetails;
 }

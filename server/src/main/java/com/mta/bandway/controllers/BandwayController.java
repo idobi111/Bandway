@@ -1,8 +1,10 @@
 package com.mta.bandway.controllers;
 
+import com.mta.bandway.api.domain.request.CarRentalRequestDto;
 import com.mta.bandway.api.domain.request.FlightRequestDto;
 import com.mta.bandway.api.domain.request.HotelRequestDto;
 import com.mta.bandway.api.domain.response.HotelResponseDto;
+import com.mta.bandway.services.CarRentalService;
 import com.mta.bandway.services.ConcertService;
 import com.mta.bandway.services.FlightService;
 import com.mta.bandway.services.HotelService;
@@ -10,6 +12,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,6 +23,7 @@ public class BandwayController {
     private final HotelService hotelService;
     private final ConcertService concertService;
     private final FlightService flightService;
+    private final CarRentalService carRentalService;
 
     @GetMapping("/health")
     public String health() {
@@ -40,7 +44,7 @@ public class BandwayController {
         return ResponseEntity.ok(concertService.getConcertsByPerformer(performer));
     }
 
-    @GetMapping("/autoCompleteCity")
+    @GetMapping("/flightAutoCompleteCity")
     public ResponseEntity<?> getCities(@RequestParam String text) {
         return ResponseEntity.ok(flightService.getCities(text));
     }
@@ -48,5 +52,15 @@ public class BandwayController {
     @PostMapping("/searchFlight")
     public ResponseEntity<?> getFlight(@RequestBody FlightRequestDto requestFlightDto) {
         return ResponseEntity.ok(flightService.searchFlight(requestFlightDto));
+    }
+
+    @GetMapping("/carAutoComplete")
+    public ResponseEntity<?> getCarAutoComplete(@RequestParam String query) {
+        return ResponseEntity.ok(carRentalService.getCityAutoComplete(query));
+    }
+
+    @PostMapping("/searchCarRental")
+    public ResponseEntity<?> searchCar(@RequestBody CarRentalRequestDto requestCarRentalDto) {
+        return ResponseEntity.ok(carRentalService.searchCarRental(requestCarRentalDto));
     }
 }

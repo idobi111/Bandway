@@ -3,11 +3,10 @@ package com.mta.bandway.core.domain.flight;
 import lombok.Builder;
 import lombok.Data;
 
-import java.util.List;
-
 @Data
 @Builder
 public class FlightDetails {
+    private String id;
     private String flightNumber;
     private String departureTime;
     private String arrivalTime;
@@ -17,6 +16,4 @@ public class FlightDetails {
     private String arrivalCityName;
     private String duration;
     private String airline;
-    private Double price;
-    private List<String> flightLogo;
 }

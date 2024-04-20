@@ -6,11 +6,13 @@ import lombok.Data;
 import java.util.List;
 
 @Data
-public class FlightData {
+public class FlightOneWayData {
 
     @JsonProperty("itineraries")
     private List<Itinerary> itineraries;
     @JsonProperty("messages")
     private List<Object> messages;
+    @JsonProperty("token")
+    private String token;
 
 }

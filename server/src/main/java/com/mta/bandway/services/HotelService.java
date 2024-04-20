@@ -75,7 +75,7 @@ public class HotelService {
     private HttpHeaders createHeaders() {
         HttpHeaders headers = new HttpHeaders();
         headers.set("X-RapidAPI-Key", apiKey);
-        headers.set("X-RapidAPI-Host", apiUrl);//"booking-com15.p.rapidapi.com"
+        headers.set("X-RapidAPI-Host", apiUrl);
         headers.set(HttpHeaders.ACCEPT, MediaType.APPLICATION_JSON_VALUE);
         return headers;
     }

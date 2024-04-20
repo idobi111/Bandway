@@ -8,11 +8,9 @@ import java.io.Serializable;
 @Data
 public class Marketing implements Serializable {
 
-    @JsonProperty("id")
-    public Integer id;
     @JsonProperty("logoUrl")
-    public String logoUrl;
+    private String logoUrl;
     @JsonProperty("name")
-    public String name;
+    private String name;
 
 }

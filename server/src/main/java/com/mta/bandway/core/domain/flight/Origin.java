@@ -1,25 +1,26 @@
 package com.mta.bandway.core.domain.flight;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 import java.io.Serializable;
 
-
+@JsonInclude(JsonInclude.Include.NON_NULL)
 @Data
 public class Origin implements Serializable {
 
-    @JsonProperty("id")
-    public String id;
-    @JsonProperty("name")
-    public String name;
+    @JsonProperty("flightPlaceId")
+    private String flightPlaceId;
     @JsonProperty("displayCode")
-    public String displayCode;
-    @JsonProperty("city")
-    public String city;
+    private String displayCode;
+    @JsonProperty("parent")
+    private Parent parent;
+    @JsonProperty("name")
+    private String name;
+    @JsonProperty("type")
+    private String type;
     @JsonProperty("country")
-    public String country;
-    @JsonProperty("isHighlighted")
-    public Boolean isHighlighted;
+    private String country;
 
 }
