@@ -1,5 +1,5 @@
 import { styled } from '@mui/system';
-import { Box, Button, Typography, AppBar, Container, Grid, TextField, Card, CardMedia } from '@mui/material';
+import { Box, Button, Typography, AppBar, Container, Grid, TextField, Card, CardMedia, Autocomplete } from '@mui/material';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 
 
@@ -93,6 +93,15 @@ export const LearnMoreButton = styled(Button)({
 export const HomeSearchGrid = styled(Grid)({
    marginLeft: '50px',
 })
+
+export const SearchAutoComplete = styled(Autocomplete )({
+  width:'200px',
+  borderColor: 'white',
+  '& input': {
+    color: 'white', // Change the font color to blue
+  },
+})
+
 
 export const SearchTextField = styled(TextField )({
   width:'300px',
