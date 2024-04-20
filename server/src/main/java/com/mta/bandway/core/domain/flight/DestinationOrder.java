@@ -9,13 +9,25 @@ import java.io.Serializable;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
         "id",
-        "name"
+        "name",
+        "displayCode",
+        "city",
+        "country",
+        "isHighlighted"
 })
-public class Airport__1 implements Serializable {
+public class DestinationOrder implements Serializable {
 
     @JsonProperty("id")
     public String id;
     @JsonProperty("name")
     public String name;
+    @JsonProperty("displayCode")
+    public String displayCode;
+    @JsonProperty("city")
+    public String city;
+    @JsonProperty("country")
+    public String country;
+    @JsonProperty("isHighlighted")
+    public Boolean isHighlighted;
 
 }

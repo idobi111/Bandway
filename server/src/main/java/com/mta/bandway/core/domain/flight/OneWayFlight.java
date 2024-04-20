@@ -9,6 +9,6 @@ public class OneWayFlight {
     private boolean status;
     private String message;
     @JsonProperty("data")
-    private FlightData data;
+    private FlightOneWayData data;
 
 }

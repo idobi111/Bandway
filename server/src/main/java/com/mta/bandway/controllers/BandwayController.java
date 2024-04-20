@@ -12,6 +12,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -43,7 +44,7 @@ public class BandwayController {
         return ResponseEntity.ok(concertService.getConcertsByPerformer(performer));
     }
 
-    @GetMapping("/autoCompleteCity")
+    @GetMapping("/flightAutoCompleteCity")
     public ResponseEntity<?> getCities(@RequestParam String text) {
         return ResponseEntity.ok(flightService.getCities(text));
     }

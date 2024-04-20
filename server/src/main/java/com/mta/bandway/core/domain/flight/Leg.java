@@ -12,7 +12,7 @@ public class Leg implements Serializable {
     @JsonProperty("id")
     private String id;
     @JsonProperty("origin")
-    private Origin origin;
+    private OriginOrder originOrder;
     @JsonProperty("durationInMinutes")
     private Integer durationInMinutes;
     @JsonProperty("stopCount")
