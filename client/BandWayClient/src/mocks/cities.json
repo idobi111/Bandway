@@ -1,0 +1,58 @@
+ [
+      {
+        "id": 1,
+        "name": "New York",
+        "country": "United States",
+        "timezone": "America/New_York"
+      },
+      {
+        "id": 2,
+        "name": "London",
+        "country": "United Kingdom",
+        "timezone": "Europe/London"
+      },
+      {
+        "id": 3,
+        "name": "Tokyo",
+        "country": "Japan",
+        "timezone": "Asia/Tokyo"
+      },
+      {
+        "id": 4,
+        "name": "Paris",
+        "country": "France",
+        "timezone": "Europe/Paris"
+      },
+      {
+        "id": 5,
+        "name": "Sydney",
+        "country": "Australia",
+        "timezone": "Australia/Sydney"
+      },
+      {
+        "id": 6,
+        "name": "Madrid",
+        "country": "Spain",
+        "timezone": "Europe/Madrid"
+      },
+      {
+        "id": 7,
+        "name": "Madurai",
+        "country": "India",
+        "timezone": "Asia/Kolkata"
+      },
+      {
+        "id": 8,
+        "name": "Madison",
+        "country": "United States",
+        "timezone": "America/Chicago"
+      },
+      {
+        "id": 9,
+        "name": "Madridela",
+        "country": "Colombia",
+        "timezone": "America/Bogota"
+      }
+    ]
+  
+  
