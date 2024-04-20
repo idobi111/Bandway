@@ -11,10 +11,6 @@ const OccupancyPopover: React.FC = () => {
     const [rooms, setRooms] = useState<number>(1);
     const [selectedOccupancy, setSelectedOccupancy] = useState<string>('');
 
-    // const handleFocus = (event: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    //     // Call handleClick with a MouseEvent (dummy event)
-    //     handleClick(event as unknown as React.MouseEvent<HTMLButtonElement>);
-    // };
 
     const handleClick = (event: React.MouseEvent<HTMLDivElement>) => {
         setAnchorEl((event.currentTarget as unknown) as HTMLButtonElement | null);
