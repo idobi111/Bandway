@@ -1,4 +1,5 @@
 export interface Package {
+  city: string;
   id: number;
   name: string;
   date: string;

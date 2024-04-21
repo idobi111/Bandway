@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { CssBaseline, AppBar, Toolbar, Typography, Button } from '@mui/material';
 import Header from '../GenericFolder/Header';
-import UpcomingEvents from '../EventFolder/UpcomingEvents';
+import UpcomingEvents from './UpcomingEvents';
 import Footer from '../GenericFolder/Footer';
 import TopContent from '../GenericFolder/TopContent';
 import { useLocation } from 'react-router-dom';
