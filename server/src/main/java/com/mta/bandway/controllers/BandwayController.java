@@ -3,6 +3,7 @@ package com.mta.bandway.controllers;
 import com.mta.bandway.api.domain.request.CarRentalRequestDto;
 import com.mta.bandway.api.domain.request.FlightRequestDto;
 import com.mta.bandway.api.domain.request.HotelRequestDto;
+import com.mta.bandway.api.domain.response.ConcertResponseDto;
 import com.mta.bandway.api.domain.response.HotelResponseDto;
 import com.mta.bandway.services.CarRentalService;
 import com.mta.bandway.services.ConcertService;
@@ -12,13 +13,13 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
 @RestController
 @RequestMapping("/bandway")
 @AllArgsConstructor
+@CrossOrigin
 public class BandwayController {
     private final HotelService hotelService;
     private final ConcertService concertService;
@@ -38,10 +39,11 @@ public class BandwayController {
     @GetMapping("/searchConcert")
     //TODO: should handle space in performer name (e.g. "taylor swift") should be "taylor_swift"
     public ResponseEntity<?> searchConcert(@RequestParam String performer) {
-        if (concertService.getConcertsByPerformer(performer).equals(new ArrayList<>())) {
+        List<ConcertResponseDto> res = concertService.getConcertsByPerformer(performer);
+        if (res.equals(new ArrayList<>())) {
             return ResponseEntity.badRequest().body("No concerts found for this performer");
         }
-        return ResponseEntity.ok(concertService.getConcertsByPerformer(performer));
+        return ResponseEntity.ok(res);
     }
 
     @GetMapping("/flightAutoCompleteCity")

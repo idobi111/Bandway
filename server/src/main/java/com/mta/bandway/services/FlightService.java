@@ -56,7 +56,7 @@ public class FlightService {
         ResponseEntity<AutoCompleteCity> response = restTemplate.exchange(urlWithQuery, HttpMethod.GET, entity, AutoCompleteCity.class);
         for (int i = 0; i < Objects.requireNonNull(response.getBody()).getData().size(); i++) {
             Datum data = response.getBody().getData().get(i);
-            result.add(AutoCompleteCityResponseDto.builder().id(data.getId()).city(data.getPresentation().getSuggestionTitle()).country(data.getPresentation().getSubtitle()).build());
+            result.add(AutoCompleteCityResponseDto.builder().id(data.getId()).name(data.getPresentation().getSuggestionTitle()).country(data.getPresentation().getSubtitle()).build());
         }
         return result;
     }
