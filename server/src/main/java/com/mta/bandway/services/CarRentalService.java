@@ -39,6 +39,7 @@ public class CarRentalService {
 //        this.carRentalOrderRepository = carRentalOrderRepository;
     }
 
+    //TODO: export to common
     private static String getDateTime(Date date) {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         return sdf.format(date);

@@ -21,5 +21,7 @@ public class HotelResponseDto {
     private Integer adults;
     private Integer children;
     private Double price;
+    private Double rating;
     private List<String> photoUrl;
+    private String bookingUrl;
 }
