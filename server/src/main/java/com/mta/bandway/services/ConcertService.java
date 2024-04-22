@@ -33,9 +33,9 @@ public class ConcertService {
                 .queryParam("classificationName", "music")
                 .queryParam("keyword", performer)
                 .toUriString();
-        ResponseEntity<Event> s =restTemplate.exchange(urlWithQuery, HttpMethod.GET, entity, Event.class);
-        Embedded concerts = Objects.requireNonNull(s.getBody()).get_embedded();
-        if(concerts == null) {
+        ResponseEntity<Event> eventResponseEntity = restTemplate.exchange(urlWithQuery, HttpMethod.GET, entity, Event.class);
+        Embedded concerts = Objects.requireNonNull(eventResponseEntity.getBody()).get_embedded();
+        if (concerts == null) {
             return new ArrayList<>();
         }
         return createConcertDtoResponse(concerts);
@@ -46,6 +46,7 @@ public class ConcertService {
         List<ConcertResponseDto> result = new ArrayList<>();
         for (int i = 0; i < concert.getEvents().size(); i++) {
             result.add(ConcertResponseDto.builder()
+                    .id(concert.getEvents().get(i).getId())
                     .performer(concert.getEvents().get(i).getName())
                     .date(concert.getEvents().get(i).getDates().getStart().getLocalDate())
                     .venue(concert.getEvents().get(i).get_embedded().getVenues().get(0).getName())
