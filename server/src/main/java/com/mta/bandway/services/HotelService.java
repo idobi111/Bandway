@@ -31,7 +31,7 @@ public class HotelService {
     @Autowired
     public HotelService(
             @Value("${booking.api.url}") String apiUrl,
-            @Value("${booking.api.key}") String apiKey,
+            @Value("${rapid.api.key}") String apiKey,
             RestTemplate restTemplate) {
         this.apiUrl = apiUrl;
         this.bookingUrl = "https://" + apiUrl + "/hotels/searchHotels";

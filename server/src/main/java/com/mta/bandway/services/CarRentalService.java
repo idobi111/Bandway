@@ -30,7 +30,7 @@ public class CarRentalService {
 //    private final CarRentalOrderRepository carRentalOrderRepository;
 
     @Autowired
-    public CarRentalService(@Value("${carrental.api.url}") String apiUrl, @Value("${carrental.api.key}") String apiKey, RestTemplate restTemplate) {
+    public CarRentalService(@Value("${carrental.api.url}") String apiUrl, @Value("${rapid.api.key}") String apiKey, RestTemplate restTemplate) {
         this.apiUrl = apiUrl;
         this.carRentalApi = "https://" + apiUrl + "/car/search";
         this.carAutoComplete = "https://" + apiUrl + "/car/auto-complete";

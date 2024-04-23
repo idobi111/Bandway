@@ -33,7 +33,7 @@ public class FlightService {
 //    private final FlightOrderRepository;
 
     @Autowired
-    public FlightService(@Value("${flight.api.url}") String apiUrl, @Value("${flight.api.key}") String apiKey, RestTemplate restTemplate) {
+    public FlightService(@Value("${flight.api.url}") String apiUrl, @Value("${rapid.api.key}") String apiKey, RestTemplate restTemplate) {
         this.apiUrl = apiUrl;
         this.flightAutoCompleteApi = "https://" + apiUrl + "/api/v1/flights/auto-complete";
         this.flightOneWayApi = "https://" + apiUrl + "/api/v1/flights/search-one-way";
