@@ -47,7 +47,7 @@ public class BandwayController {
         return ResponseEntity.ok(res);
     }
 
-    @GetMapping("/flightAutoCompleteCity")
+    @GetMapping("/flightCityAutoComplete")
     public ResponseEntity<?> getCities(@RequestParam String text) {
         return ResponseEntity.ok(flightService.getCities(text));
     }
@@ -57,7 +57,7 @@ public class BandwayController {
         return ResponseEntity.ok(flightService.searchFlight(requestFlightDto));
     }
 
-    @GetMapping("/carAutoComplete")
+    @GetMapping("/carRentalCityAutoComplete")
     public ResponseEntity<?> getCarAutoComplete(@RequestParam String query) {
         return ResponseEntity.ok(carRentalService.getCityAutoComplete(query));
     }
