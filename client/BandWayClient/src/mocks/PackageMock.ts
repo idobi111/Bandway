@@ -1,129 +1,105 @@
 export const packagesMock = [
-    {
-      id: 1,
-      name: 'Package 1',
-      date: '2024-03-20',
-      description: 'Description of Package 1',
-      imageUrl: 'https://via.placeholder.com/150',
+  {
+    packageId: 1,
+    hotel: {
+      hotelId: 123,
+      city: "New York",
+      hotelName: "Luxury Hotel",
+      checkIn: "2024-08-10",
+      checkOut: "2024-08-15",
+      rooms: 2,
+      adults: 2,
+      children: 1,
+      price: 1200,
+      rating: 7.7,
+      photoUrl: [
+        "https://via.placeholder.com/150",
+        "https://example.com/photo2.jpg"
+      ],
+      bookingUrl: ""
     },
-    {
-      id: 2,
-      name: 'Package 2',
-      date: '2024-03-25',
-      description: 'Description of Package 2',
-      imageUrl: 'https://via.placeholder.com/150',
+    flight: {
+      isSingleWay: true,
+      departFlightDetails: [
+        {
+          flightDetails: [
+            {
+              id: "DL123",
+              flightNumber: "DL123",
+              departureTime: "2024-08-10T08:00:00",
+              arrivalTime: "2024-08-10T10:30:00",
+              departureAirport: "JFK",
+              departureCityName: "New York",
+              arrivalAirport: "LAX",
+              arrivalCityName: "Los Angeles",
+              duration: "2h 30m",
+              airline: "Delta Airlines"
+            }
+          ],
+          marketing: [
+            {
+              logoUrl: "https://example.com/delta_logo.png",
+              name: "Delta Airlines"
+            }
+          ],
+          price: 500,
+          duration: "2h 30m",
+          token: "DL123TOKEN"
+        }
+      ],
+      arrivalFlightDetails: null
+    }
+  },
+  {
+    packageId: 2,
+    hotel: {
+      hotelId: 456,
+      city: "Paris",
+      hotelName: "Cozy Inn",
+      checkIn: "2024-09-05",
+      checkOut: "2024-09-10",
+      rooms: 1,
+      adults: 1,
+      children: 0,
+      price: 800,
+      rating: 8.5,
+      photoUrl: [
+        "https://via.placeholder.com/150",
+        "https://example.com/photo4.jpg"
+      ],
+      bookingUrl: ""
     },
-    {
-      id: 3,
-      name: 'Package 3',
-      date: '2024-03-30',
-      description: 'Description of Package 3',
-      imageUrl: 'https://via.placeholder.com/150',
-    },
-    {
-        id: 4,
-        name: 'Package 1',
-        date: '2024-03-20',
-        description: 'Description of Package 1',
-        imageUrl: 'https://via.placeholder.com/150',
-      },
-      {
-        id: 5,
-        name: 'Package 2',
-        date: '2024-03-25',
-        description: 'Description of Package 2',
-        imageUrl: 'https://via.placeholder.com/150',
-      },
-      {
-        id: 6,
-        name: 'Package 3',
-        date: '2024-03-30',
-        description: 'Description of Package 3',
-        imageUrl: 'https://via.placeholder.com/150',
-      },
-      {
-        id: 7,
-        name: 'Package 1',
-        date: '2024-03-20',
-        description: 'Description of Package 1',
-        imageUrl: 'https://via.placeholder.com/150',
-      },
-      {
-        id: 8,
-        name: 'Package 2',
-        date: '2024-03-25',
-        description: 'Description of Package 2',
-        imageUrl: 'https://via.placeholder.com/150',
-      },
-      {
-        id: 9,
-        name: 'Package 3',
-        date: '2024-03-30',
-        description: 'Description of Package 3',
-        imageUrl: 'https://via.placeholder.com/150',
-      },
-      {
-        id: 10,
-        name: 'Package 1',
-        date: '2024-03-20',
-        description: 'Description of Package 1',
-        imageUrl: 'https://via.placeholder.com/150',
-      },
-      {
-        id: 11,
-        name: 'Package 2',
-        date: '2024-03-25',
-        description: 'Description of Package 2',
-        imageUrl: 'https://via.placeholder.com/150',
-      },
-      {
-        id: 12,
-        name: 'Package 3',
-        date: '2024-03-30',
-        description: 'Description of Package 3',
-        imageUrl: 'https://via.placeholder.com/150',
-      },
-      {
-        id: 13,
-        name: 'Package 1',
-        date: '2024-03-20',
-        description: 'Description of Package 1',
-        imageUrl: 'https://via.placeholder.com/150',
-      },
-      {
-        id: 14,
-        name: 'Package 2',
-        date: '2024-03-25',
-        description: 'Description of Package 2',
-        imageUrl: 'https://via.placeholder.com/150',
-      },
-      {
-        id: 15,
-        name: 'Package 3',
-        date: '2024-03-30',
-        description: 'Description of Package 3',
-        imageUrl: 'https://via.placeholder.com/150',
-      },
-      {
-        id: 16,
-        name: 'Package 1',
-        date: '2024-03-20',
-        description: 'Description of Package 1',
-        imageUrl: 'https://via.placeholder.com/150',
-      },
-      {
-        id: 17,
-        name: 'Package 2',
-        date: '2024-03-25',
-        description: 'Description of Package 2',
-        imageUrl: 'https://via.placeholder.com/150',
-      },
-      {
-        id: 18,
-        name: 'Package 3',
-        date: '2024-03-30',
-        description: 'Description of Package 3',
-        imageUrl: 'https://via.placeholder.com/150',
-      },
-    // Add more Packages as needed
-  ];
+    flight: {
+      isSingleWay: true,
+      departFlightDetails: [
+        {
+          flightDetails: [
+            {
+              id: "AF456",
+              flightNumber: "AF456",
+              departureTime: "2024-09-05T12:00:00",
+              arrivalTime: "2024-09-05T15:30:00",
+              departureAirport: "CDG",
+              departureCityName: "Paris",
+              arrivalAirport: "LHR",
+              arrivalCityName: "London",
+              duration: "3h 30m",
+              airline: "Air France"
+            }
+          ],
+          marketing: [
+            {
+              logoUrl: "https://example.com/air_france_logo.png",
+              name: "Air France"
+            }
+          ],
+          price: 400,
+          duration: "3h 30m",
+          token: "AF456TOKEN"
+        }
+      ],
+      arrivalFlightDetails: null
+    }
+  },
+  // Add more packages as needed
+];

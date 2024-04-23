@@ -26,16 +26,25 @@ const HomeSearch: React.FC = () => {
                         shrink: false,
                     }} value={performerSearchQuery}  onChange={(e) => setPerformerSearchQuery(e.target.value)} />
                 </Grid>
-                <Grid item xs={4}>
+                <Grid item xs={3}>
                     <Typography>
-                        Place
+                        From
                     </Typography>
-                    <SearchTextField  placeholder="All cities" variant="standard" InputLabelProps={{
+                    <SearchTextField  style={{ width: '200px' }} placeholder="All cities" variant="standard" InputLabelProps={{
                         style: { color: 'gray' },
                         shrink: false
                     }} />
                 </Grid>
-                <Grid item xs={4}>
+                <Grid item xs={2}>
+                    <Typography>
+                        To
+                    </Typography>
+                    <SearchTextField  style={{ width: '200px' }}  placeholder="All cities" variant="standard" InputLabelProps={{
+                        style: { color: 'gray' },
+                        shrink: false
+                    }} />
+                </Grid>
+                <Grid item xs={2} sx={{ marginLeft: '40px' }}>
                     <ActionButton variant='contained' onClick={handlPerformerSearch}>Search</ActionButton>
                 </Grid>
             </HomeSearchGrid>

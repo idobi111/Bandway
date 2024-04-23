@@ -1,4 +1,5 @@
 export interface Event {
+  id: number;
   performer: string;
   date: string;
   venue: string;

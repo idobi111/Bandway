@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Card, CardContent, CardMedia, Typography, Grid, Button, Modal, Box, Stack } from '@mui/material';
-import { Event } from '../../models/Event';
+import { Event } from '../../models/EventResponse';
 import { EventCardStyled, EventCardMediaStyled, LoadMoreButton, ActionButton, SubActionButton } from '../../styles/ComponentsStyles';
 import { useNavigate } from "react-router-dom";
 

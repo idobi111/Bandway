@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { CssBaseline, AppBar, Toolbar, Typography, Button } from '@mui/material';
 import Header from '../GenericFolder/Header';
-import UpcomingEvents from '../EventFolder/UpcomingEvents';
+import UpcomingEvents from './UpcomingEvents';
 import Footer from '../GenericFolder/Footer';
 import TopContent from '../GenericFolder/TopContent';
 import { useLocation } from 'react-router-dom';
-import { EventService } from '../../services/EventService';
-import { Event } from '../../models/Event';
+import { EventApi } from '../../apis/EventApi';
+import { Event } from '../../models/EventResponse';
 
 
 
@@ -19,8 +19,8 @@ const EventSearchResults: React.FC = () => {
 
   useEffect(() => {
     if (searchQuery) {
-      const eventService = new EventService();
-      eventService.getEventsByPerformer(searchQuery)
+      const eventApi = new EventApi();
+      eventApi.getEventsByPerformer(searchQuery)
         .then((data) => {
           setEvents(data)
           console.log(data);

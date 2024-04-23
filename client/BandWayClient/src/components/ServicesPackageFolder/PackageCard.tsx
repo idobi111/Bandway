@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import { Card, CardContent, CardMedia, Typography, Grid, Button, Modal, Box, Stack } from '@mui/material';
-import { Event } from '../../models/Event';
+import { Divider, Card, CardContent, CardMedia, Typography, Grid, Button, Modal, Box, Stack } from '@mui/material';
+import { Event } from '../../models/EventResponse';
 import { EventCardStyled, EventCardMediaStyled, LoadMoreButton, ActionButton, SubActionButton } from '../../styles/ComponentsStyles';
 import { useNavigate } from "react-router-dom";
 import { Package } from '../../models/Package';
+import { Helpers } from '../../helpers/helpers';
 
 
 
@@ -11,6 +12,8 @@ interface Props {
   packages: Package[];
   step: number; // Step value to determine how many more events to load each time
 }
+
+const helpers = new Helpers();
 
 const PackageCard: React.FC<Props> = ({ packages, step }) => {
   const [visiblePackages, setVisiblePackages] = useState(step); // State to track the number of visible events
@@ -22,28 +25,38 @@ const PackageCard: React.FC<Props> = ({ packages, step }) => {
   };
 
 
- 
+
   return (
     <>
       <Grid container justifyContent="center" spacing={3}>
         {packages.slice(0, visiblePackages).map(servicesPackage => ( // Slice events based on the visibleEvents state
-          <Grid item xs={12} sm={6} md={4} key={servicesPackage.id}> {/* Each card occupies 12 columns on extra small screens, 6 columns on small screens, and 4 columns on medium screens */}
+          <Grid item xs={12} sm={6} md={4} key={servicesPackage.packageId}> {/* Each card occupies 12 columns on extra small screens, 6 columns on small screens, and 4 columns on medium screens */}
             <EventCardStyled>
               <EventCardMediaStyled
                 style={{ height: 140 }}
-                image={servicesPackage.imageUrl}
-                title={servicesPackage.name}
+                image={servicesPackage.hotel.photoUrl[0]}
+                title={servicesPackage.hotel.city}
               />
               <CardContent>
                 <Typography gutterBottom variant="h5" component="div">
-                  {servicesPackage.name}
+                  {servicesPackage.hotel.city}
+                </Typography>
+                <Typography variant="h6">
+                  {helpers.formatDate(servicesPackage.hotel.checkIn)} | {helpers.calculateNumberOfNights(servicesPackage.hotel.checkIn, servicesPackage.hotel.checkOut)} nights
+                </Typography>
+                <Divider></Divider>
+                <Typography variant="h6">
+                  {servicesPackage.hotel.hotelName}
+                </Typography>
+                <Divider></Divider>
+                <Typography variant="h6">
+                  <img src={servicesPackage.flight?.departFlightDetails[0].marketing[0].logoUrl} alt="Flight Icon" /> flight type
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
-                  Date: {servicesPackage.date}
+                  Flight Hours:
                 </Typography>
-                <Typography variant="body2" color="text.secondary">
-                  Description: {servicesPackage.description}
-                </Typography>
+                <Divider></Divider>
+                Package Price: 
               </CardContent>
             </EventCardStyled>
           </Grid>
@@ -57,7 +70,7 @@ const PackageCard: React.FC<Props> = ({ packages, step }) => {
         </div>
       )}
 
-     
+
     </>
   );
 };

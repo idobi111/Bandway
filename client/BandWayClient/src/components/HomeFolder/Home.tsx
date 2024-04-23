@@ -6,15 +6,15 @@ import HomeSearch from './HomeSearch';
 import UpcomingEvents from '../EventFolder/UpcomingEvents';
 import Footer from '../GenericFolder/Footer';
 import Steps from './Steps';
-import { EventService } from '../../services/EventService';
+import { EventApi } from '../../apis/EventApi';
 import { Event } from '../../models/Event';
 
 const Home: React.FC = () => {
   const [events, setEvents] = useState<Event[]>([]);
  
   useEffect(() => {
-    const eventService = new EventService();
-    eventService.getUpcomingEvents()
+    const eventApi = new EventApi();
+    eventApi.getUpcomingEvents()
         .then((data) => {
             const eventDataWithPlaceholderImage = data.map(event => {
                 return { ...event, images: ['https://via.placeholder.com/150'] };
