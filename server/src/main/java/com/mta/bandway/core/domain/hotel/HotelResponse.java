@@ -5,5 +5,5 @@ public class HotelResponse {
     private boolean status;
     private Object message;
     private long timestamp;
-    private Data data;
+    private HotelData data;
 }

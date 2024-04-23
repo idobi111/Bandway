@@ -1,0 +1,306 @@
+[
+  {
+    "hotelId": 224432,
+    "city": null,
+    "hotelName": "Butlers Townhouse",
+    "checkIn": "2024-04-25",
+    "checkOut": "2024-04-28",
+    "rooms": 1,
+    "adults": 1,
+    "children": 0,
+    "price": 809.020002455376,
+    "rating": 7.7,
+    "photoUrl": [
+      "https://cf.bstatic.com/xdata/images/hotel/square60/146736010.jpg?k=8e4a16e14e45f4476362ea9930499eceabf8abea8f869ae4617517868862e311&o="
+    ],
+    "bookingUrl": null
+  },
+  {
+    "hotelId": 40418,
+    "city": null,
+    "hotelName": "Sandymount Hotel",
+    "checkIn": "2024-04-25",
+    "checkOut": "2024-04-28",
+    "rooms": 1,
+    "adults": 1,
+    "children": 0,
+    "price": 809.829022457831,
+    "rating": 8.5,
+    "photoUrl": [
+      "https://cf.bstatic.com/xdata/images/hotel/square60/311525783.jpg?k=20defc4fec3db6e532369ade60f7072381f6fb1e3bbdaf299be8da9f3f623381&o="
+    ],
+    "bookingUrl": null
+  },
+  {
+    "hotelId": 40938,
+    "city": null,
+    "hotelName": "Herbert Park Hotel and Park Residence",
+    "checkIn": "2024-04-25",
+    "checkOut": "2024-04-28",
+    "rooms": 1,
+    "adults": 1,
+    "children": 0,
+    "price": 993.91,
+    "rating": 8.6,
+    "photoUrl": [
+      "https://cf.bstatic.com/xdata/images/hotel/square60/271123005.jpg?k=2c1df291f03e437c7a1f322d6a38d9530c231e22524b4731f05b5b8ff839adfa&o="
+    ],
+    "bookingUrl": null
+  },
+  {
+    "hotelId": 41210,
+    "city": null,
+    "hotelName": "Schoolhouse Hotel",
+    "checkIn": "2024-04-25",
+    "checkOut": "2024-04-28",
+    "rooms": 1,
+    "adults": 1,
+    "children": 0,
+    "price": 1010.21050306599,
+    "rating": 8.6,
+    "photoUrl": [
+      "https://cf.bstatic.com/xdata/images/hotel/square60/328910456.jpg?k=0a3fe4f87a34b57d506a7d66e0f8bde0c74bc773856b1645ac36591e00314fd0&o="
+    ],
+    "bookingUrl": null
+  },
+  {
+    "hotelId": 10373835,
+    "city": null,
+    "hotelName": "Bright, modern apartment in Grand Canal Dock",
+    "checkIn": "2024-04-25",
+    "checkOut": "2024-04-28",
+    "rooms": 1,
+    "adults": 1,
+    "children": 0,
+    "price": 4526.7862637388,
+    "rating": 0,
+    "photoUrl": [
+      "https://cf.bstatic.com/xdata/images/hotel/square60/474423589.jpg?k=c089b19f42b5c0bb8b0ed38120e6087929ebdfdf70012832abbd494e47894a9c&o="
+    ],
+    "bookingUrl": null
+  },
+  {
+    "hotelId": 40221,
+    "city": null,
+    "hotelName": "Dylan",
+    "checkIn": "2024-04-25",
+    "checkOut": "2024-04-28",
+    "rooms": 1,
+    "adults": 1,
+    "children": 0,
+    "price": 1364.68900414183,
+    "rating": 8.9,
+    "photoUrl": [
+      "https://cf.bstatic.com/xdata/images/hotel/square60/488911723.jpg?k=36783a58d24869906d406672a5c0908669bd777748e0743b41e02a68ec4acc56&o="
+    ],
+    "bookingUrl": null
+  },
+  {
+    "hotelId": 40570,
+    "city": null,
+    "hotelName": "Clayton Hotel Ballsbridge",
+    "checkIn": "2024-04-25",
+    "checkOut": "2024-04-28",
+    "rooms": 1,
+    "adults": 1,
+    "children": 0,
+    "price": 897.692852724498,
+    "rating": 7.8,
+    "photoUrl": [
+      "https://cf.bstatic.com/xdata/images/hotel/square60/59076227.jpg?k=29d807181b5aa55ddefe32dc09d82635fded4e66e13677167e293f9dd935817e&o="
+    ],
+    "bookingUrl": null
+  },
+  {
+    "hotelId": 41280,
+    "city": null,
+    "hotelName": "Waterloo Town House & Suites",
+    "checkIn": "2024-04-25",
+    "checkOut": "2024-04-28",
+    "rooms": 1,
+    "adults": 1,
+    "children": 0,
+    "price": 1018.72650309183,
+    "rating": 8.4,
+    "photoUrl": [
+      "https://cf.bstatic.com/xdata/images/hotel/square60/475587768.jpg?k=c82f38dd9861ccbf74d3c77edb4fdf904063c500606261438994858c5dbaec6a&o="
+    ],
+    "bookingUrl": null
+  },
+  {
+    "hotelId": 10843706,
+    "city": null,
+    "hotelName": "The Leinster",
+    "checkIn": "2024-04-25",
+    "checkOut": "2024-04-28",
+    "rooms": 1,
+    "adults": 1,
+    "children": 0,
+    "price": 1006.23991805394,
+    "rating": 8.8,
+    "photoUrl": [
+      "https://cf.bstatic.com/xdata/images/hotel/square60/536621361.jpg?k=8cd8515a05d1fa411473d1717018127298afc7fb1392823ffa4218015effd3e3&o="
+    ],
+    "bookingUrl": null
+  },
+  {
+    "hotelId": 227525,
+    "city": null,
+    "hotelName": "Clayton Hotel Cardiff Lane",
+    "checkIn": "2024-04-25",
+    "checkOut": "2024-04-28",
+    "rooms": 1,
+    "adults": 1,
+    "children": 0,
+    "price": 843.712057560666,
+    "rating": 7.7,
+    "photoUrl": [
+      "https://cf.bstatic.com/xdata/images/hotel/square60/300154625.jpg?k=d8c73567a640cd1a14c8b574d249aae0aebe5c879ab00553df480982de694b9a&o="
+    ],
+    "bookingUrl": null
+  },
+  {
+    "hotelId": 7363903,
+    "city": null,
+    "hotelName": "Beckett Locke",
+    "checkIn": "2024-04-25",
+    "checkOut": "2024-04-28",
+    "rooms": 1,
+    "adults": 1,
+    "children": 0,
+    "price": 865.119152625637,
+    "rating": 9,
+    "photoUrl": [
+      "https://cf.bstatic.com/xdata/images/hotel/square60/325377263.jpg?k=f0889156d0068acf0bf3db3924377fbfc70ea245d812b386a4bf912b96e47535&o="
+    ],
+    "bookingUrl": null
+  },
+  {
+    "hotelId": 9939938,
+    "city": null,
+    "hotelName": "Merrion Square Studios",
+    "checkIn": "2024-04-25",
+    "checkOut": "2024-04-28",
+    "rooms": 1,
+    "adults": 1,
+    "children": 0,
+    "price": 787.730002390761,
+    "rating": 8.4,
+    "photoUrl": [
+      "https://cf.bstatic.com/xdata/images/hotel/square60/498099374.jpg?k=b836ac4782cfa2938f51cb6a02dbe561331a4c8f5909e07dc6f1118105ae3693&o="
+    ],
+    "bookingUrl": null
+  },
+  {
+    "hotelId": 40284,
+    "city": null,
+    "hotelName": "Clayton Hotel Burlington Road",
+    "checkIn": "2024-04-25",
+    "checkOut": "2024-04-28",
+    "rooms": 1,
+    "adults": 1,
+    "children": 0,
+    "price": 639.019351939424,
+    "rating": 8.3,
+    "photoUrl": [
+      "https://cf.bstatic.com/xdata/images/hotel/square60/287103680.jpg?k=09fb0496532ba872c22f0ebac2a1b4a892b0269759d5bb145a78b8b5258649e9&o="
+    ],
+    "bookingUrl": null
+  },
+  {
+    "hotelId": 41324,
+    "city": null,
+    "hotelName": "The Davenport",
+    "checkIn": "2024-04-25",
+    "checkOut": "2024-04-28",
+    "rooms": 1,
+    "adults": 1,
+    "children": 0,
+    "price": 1250.78750379614,
+    "rating": 8.6,
+    "photoUrl": [
+      "https://cf.bstatic.com/xdata/images/hotel/square60/549359356.jpg?k=73097fe58a02c306f225220cafdf31be91fa21f4ec02bad379f942a5a4f616ab&o="
+    ],
+    "bookingUrl": null
+  },
+  {
+    "hotelId": 217395,
+    "city": null,
+    "hotelName": "The Spencer Hotel",
+    "checkIn": "2024-04-25",
+    "checkOut": "2024-04-28",
+    "rooms": 1,
+    "adults": 1,
+    "children": 0,
+    "price": 907.94398775561,
+    "rating": 8.4,
+    "photoUrl": [
+      "https://cf.bstatic.com/xdata/images/hotel/square60/268106346.jpg?k=3f12cd11aa4a86ee606eb1f302114954debefec7cdc0e17413323e0d1b1114b9&o="
+    ],
+    "bookingUrl": null
+  },
+  {
+    "hotelId": 40384,
+    "city": null,
+    "hotelName": "Hilton Garden Inn Dublin City Centre",
+    "checkIn": "2024-04-25",
+    "checkOut": "2024-04-28",
+    "rooms": 1,
+    "adults": 1,
+    "children": 0,
+    "price": 1040.01650315645,
+    "rating": 8.4,
+    "photoUrl": [
+      "https://cf.bstatic.com/xdata/images/hotel/square60/484041813.jpg?k=e5fbfe036001a62ab8931043920caeca57435844d622ac98d6b6b6eb3f998534&o="
+    ],
+    "bookingUrl": null
+  },
+  {
+    "hotelId": 40552,
+    "city": null,
+    "hotelName": "Conrad Dublin",
+    "checkIn": "2024-04-25",
+    "checkOut": "2024-04-28",
+    "rooms": 1,
+    "adults": 1,
+    "children": 0,
+    "price": 1615.91100490429,
+    "rating": 8.5,
+    "photoUrl": [
+      "https://cf.bstatic.com/xdata/images/hotel/square60/483775245.jpg?k=7e45df76f2c4aea58acbe1d051883e829b41542507ecfac09ea4d5dc503aec76&o="
+    ],
+    "bookingUrl": null
+  },
+  {
+    "hotelId": 7108593,
+    "city": null,
+    "hotelName": "Travelodge PLUS Dublin City Centre",
+    "checkIn": "2024-04-25",
+    "checkOut": "2024-04-28",
+    "rooms": 1,
+    "adults": 1,
+    "children": 0,
+    "price": 870.85680764305,
+    "rating": 8.3,
+    "photoUrl": [
+      "https://cf.bstatic.com/xdata/images/hotel/square60/346726166.jpg?k=3fc12375b3659cbcdb14206b4efbb76fdc605d0200f9ba6ab81059811eae4ada&o="
+    ],
+    "bookingUrl": null
+  },
+  {
+    "hotelId": 4052861,
+    "city": null,
+    "hotelName": "The Devlin Dublin",
+    "checkIn": "2024-04-25",
+    "checkOut": "2024-04-28",
+    "rooms": 1,
+    "adults": 1,
+    "children": 0,
+    "price": 890.986502704144,
+    "rating": 8.7,
+    "photoUrl": [
+      "https://cf.bstatic.com/xdata/images/hotel/square60/180029348.jpg?k=eb5d6c6365862d6985076ae9363bd2405878fea7389a3f3dfe0006ed70a4ac65&o="
+    ],
+    "bookingUrl": null
+  }
+]

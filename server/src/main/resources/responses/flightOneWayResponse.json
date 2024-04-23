@@ -1,0 +1,340 @@
+{
+  "isSingleWay": true,
+  "departFlightDetails": [
+    {
+      "flightDetails": [
+        {
+          "id": "16995-13554-2404251700-2404252020--32352",
+          "flightNumber": "LY317",
+          "departureTime": "2024-04-25T17:00:00",
+          "arrivalTime": "2024-04-25T20:20:00",
+          "departureAirport": "TLV",
+          "departureCityName": "Tel Aviv",
+          "arrivalAirport": "LHR",
+          "arrivalCityName": "London",
+          "duration": "05:20",
+          "airline": "EL AL Israel Airlines"
+        }
+      ],
+      "marketing": [
+        {
+          "logoUrl": "https://logos.skyscnr.com/images/airlines/favicon/LY.png",
+          "name": "EL AL Israel Airlines"
+        }
+      ],
+      "price": 310.9,
+      "duration": "05:20",
+      "token": "eyJhIjoiMSIsImMiOiIwIiwiaSI6IjAiLCJjYyI6ImVjb25vbXkiLCJvIjoiVExWIiwiZCI6IkxPTkQiLCJkMSI6IjIwMjQtMDQtMjUifQ=="
+    },
+    {
+      "flightDetails": [
+        {
+          "id": "16995-13771-2404251545-2404251910--32352",
+          "flightNumber": "LY313",
+          "departureTime": "2024-04-25T15:45:00",
+          "arrivalTime": "2024-04-25T19:10:00",
+          "departureAirport": "TLV",
+          "departureCityName": "Tel Aviv",
+          "arrivalAirport": "LTN",
+          "arrivalCityName": "London",
+          "duration": "05:25",
+          "airline": "EL AL Israel Airlines"
+        }
+      ],
+      "marketing": [
+        {
+          "logoUrl": "https://logos.skyscnr.com/images/airlines/favicon/LY.png",
+          "name": "EL AL Israel Airlines"
+        }
+      ],
+      "price": 300.9,
+      "duration": "05:25",
+      "token": "eyJhIjoiMSIsImMiOiIwIiwiaSI6IjAiLCJjYyI6ImVjb25vbXkiLCJvIjoiVExWIiwiZCI6IkxPTkQiLCJkMSI6IjIwMjQtMDQtMjUifQ=="
+    },
+    {
+      "flightDetails": [
+        {
+          "id": "16995-13771-2404250500-2404250825--32352",
+          "flightNumber": "LY311",
+          "departureTime": "2024-04-25T05:00:00",
+          "arrivalTime": "2024-04-25T08:25:00",
+          "departureAirport": "TLV",
+          "departureCityName": "Tel Aviv",
+          "arrivalAirport": "LTN",
+          "arrivalCityName": "London",
+          "duration": "05:25",
+          "airline": "EL AL Israel Airlines"
+        }
+      ],
+      "marketing": [
+        {
+          "logoUrl": "https://logos.skyscnr.com/images/airlines/favicon/LY.png",
+          "name": "EL AL Israel Airlines"
+        }
+      ],
+      "price": 300.9,
+      "duration": "05:25",
+      "token": "eyJhIjoiMSIsImMiOiIwIiwiaSI6IjAiLCJjYyI6ImVjb25vbXkiLCJvIjoiVExWIiwiZCI6IkxPTkQiLCJkMSI6IjIwMjQtMDQtMjUifQ=="
+    },
+    {
+      "flightDetails": [
+        {
+          "id": "16995-13771-2404251615-2404251940--30972",
+          "flightNumber": "~95302",
+          "departureTime": "2024-04-25T16:15:00",
+          "arrivalTime": "2024-04-25T19:40:00",
+          "departureAirport": "TLV",
+          "departureCityName": "Tel Aviv",
+          "arrivalAirport": "LTN",
+          "arrivalCityName": "London",
+          "duration": "05:25",
+          "airline": "Wizz Air UK"
+        }
+      ],
+      "marketing": [
+        {
+          "logoUrl": "https://logos.skyscnr.com/images/airlines/favicon/%7E9.png",
+          "name": "Wizz Air UK"
+        }
+      ],
+      "price": 273.75,
+      "duration": "05:25",
+      "token": "eyJhIjoiMSIsImMiOiIwIiwiaSI6IjAiLCJjYyI6ImVjb25vbXkiLCJvIjoiVExWIiwiZCI6IkxPTkQiLCJkMSI6IjIwMjQtMDQtMjUifQ=="
+    },
+    {
+      "flightDetails": [
+        {
+          "id": "16995-15116-2404251025-2404251320--30596",
+          "flightNumber": "I*3258",
+          "departureTime": "2024-04-25T10:25:00",
+          "arrivalTime": "2024-04-25T13:20:00",
+          "departureAirport": "TLV",
+          "departureCityName": "Tel Aviv",
+          "arrivalAirport": "OTP",
+          "arrivalCityName": "Bucharest",
+          "duration": "02:55",
+          "airline": "Wizz Air Malta"
+        },
+        {
+          "id": "15116-13771-2404251535-2404251710--30596",
+          "flightNumber": "I*3003",
+          "departureTime": "2024-04-25T15:35:00",
+          "arrivalTime": "2024-04-25T17:10:00",
+          "departureAirport": "OTP",
+          "departureCityName": "Bucharest",
+          "arrivalAirport": "LTN",
+          "arrivalCityName": "London",
+          "duration": "03:35",
+          "airline": "Wizz Air Malta"
+        }
+      ],
+      "marketing": [
+        {
+          "logoUrl": "https://logos.skyscnr.com/images/airlines/favicon/I*.png",
+          "name": "Wizz Air Malta"
+        }
+      ],
+      "price": 208.99,
+      "duration": "08:45",
+      "token": "eyJhIjoiMSIsImMiOiIwIiwiaSI6IjAiLCJjYyI6ImVjb25vbXkiLCJvIjoiVExWIiwiZCI6IkxPTkQiLCJkMSI6IjIwMjQtMDQtMjUifQ=="
+    },
+    {
+      "flightDetails": [
+        {
+          "id": "16995-27490-2404252210-2404260105--31171",
+          "flightNumber": "52448",
+          "departureTime": "2024-04-25T22:10:00",
+          "arrivalTime": "2024-04-26T01:05:00",
+          "departureAirport": "TLV",
+          "departureCityName": "Tel Aviv",
+          "arrivalAirport": "RMO",
+          "arrivalCityName": "Chisinau",
+          "duration": "02:55",
+          "airline": "FLYONE"
+        },
+        {
+          "id": "27490-13771-2404260810-2404260940--31171",
+          "flightNumber": "52617",
+          "departureTime": "2024-04-26T08:10:00",
+          "arrivalTime": "2024-04-26T09:40:00",
+          "departureAirport": "RMO",
+          "departureCityName": "Chisinau",
+          "arrivalAirport": "LTN",
+          "arrivalCityName": "London",
+          "duration": "03:30",
+          "airline": "FLYONE"
+        }
+      ],
+      "marketing": [
+        {
+          "logoUrl": "https://logos.skyscnr.com/images/airlines/favicon/52.png",
+          "name": "FLYONE"
+        }
+      ],
+      "price": 198.33,
+      "duration": "13:30",
+      "token": "eyJhIjoiMSIsImMiOiIwIiwiaSI6IjAiLCJjYyI6ImVjb25vbXkiLCJvIjoiVExWIiwiZCI6IkxPTkQiLCJkMSI6IjIwMjQtMDQtMjUifQ=="
+    },
+    {
+      "flightDetails": [
+        {
+          "id": "16995-13445-2404252030-2404252135--32352",
+          "flightNumber": "LY5133",
+          "departureTime": "2024-04-25T20:30:00",
+          "arrivalTime": "2024-04-25T21:35:00",
+          "departureAirport": "TLV",
+          "departureCityName": "Tel Aviv",
+          "arrivalAirport": "LCA",
+          "arrivalCityName": "Larnaca",
+          "duration": "01:05",
+          "airline": "EL AL Israel Airlines"
+        },
+        {
+          "id": "13445-13542-2404252240-2404260145--32356",
+          "flightNumber": "EZ8660",
+          "departureTime": "2024-04-25T22:40:00",
+          "arrivalTime": "2024-04-26T01:45:00",
+          "departureAirport": "LCA",
+          "departureCityName": "Larnaca",
+          "arrivalAirport": "LGW",
+          "arrivalCityName": "London",
+          "duration": "05:05",
+          "airline": "easyJet"
+        }
+      ],
+      "marketing": [
+        {
+          "logoUrl": "https://logos.skyscnr.com/images/airlines/favicon/LY.png",
+          "name": "EL AL Israel Airlines"
+        },
+        {
+          "logoUrl": "https://logos.skyscnr.com/images/airlines/favicon/EZ.png",
+          "name": "easyJet"
+        }
+      ],
+      "price": 288.9,
+      "duration": "07:15",
+      "token": "eyJhIjoiMSIsImMiOiIwIiwiaSI6IjAiLCJjYyI6ImVjb25vbXkiLCJvIjoiVExWIiwiZCI6IkxPTkQiLCJkMSI6IjIwMjQtMDQtMjUifQ=="
+    },
+    {
+      "flightDetails": [
+        {
+          "id": "16995-15116-2404252225-2404260105--32193",
+          "flightNumber": "6H703",
+          "departureTime": "2024-04-25T22:25:00",
+          "arrivalTime": "2024-04-26T01:05:00",
+          "departureAirport": "TLV",
+          "departureCityName": "Tel Aviv",
+          "arrivalAirport": "OTP",
+          "arrivalCityName": "Bucharest",
+          "duration": "02:40",
+          "airline": "Israir"
+        },
+        {
+          "id": "15116-13771-2404260650-2404260825--30596",
+          "flightNumber": "I*3001",
+          "departureTime": "2024-04-26T06:50:00",
+          "arrivalTime": "2024-04-26T08:25:00",
+          "departureAirport": "OTP",
+          "departureCityName": "Bucharest",
+          "arrivalAirport": "LTN",
+          "arrivalCityName": "London",
+          "duration": "03:35",
+          "airline": "Wizz Air Malta"
+        }
+      ],
+      "marketing": [
+        {
+          "logoUrl": "https://logos.skyscnr.com/images/airlines/favicon/6H.png",
+          "name": "Israir"
+        },
+        {
+          "logoUrl": "https://logos.skyscnr.com/images/airlines/favicon/I*.png",
+          "name": "Wizz Air Malta"
+        }
+      ],
+      "price": 191.99,
+      "duration": "12:00",
+      "token": "eyJhIjoiMSIsImMiOiIwIiwiaSI6IjAiLCJjYyI6ImVjb25vbXkiLCJvIjoiVExWIiwiZCI6IkxPTkQiLCJkMSI6IjIwMjQtMDQtMjUifQ=="
+    },
+    {
+      "flightDetails": [
+        {
+          "id": "16995-16337-2404250700-2404250930--32193",
+          "flightNumber": "6H571",
+          "departureTime": "2024-04-25T07:00:00",
+          "arrivalTime": "2024-04-25T09:30:00",
+          "departureAirport": "TLV",
+          "departureCityName": "Tel Aviv",
+          "arrivalAirport": "SKG",
+          "arrivalCityName": "Thessaloniki",
+          "duration": "02:30",
+          "airline": "Israir"
+        },
+        {
+          "id": "16337-13542-2404251155-2404251330--32356",
+          "flightNumber": "EZ8244",
+          "departureTime": "2024-04-25T11:55:00",
+          "arrivalTime": "2024-04-25T13:30:00",
+          "departureAirport": "SKG",
+          "departureCityName": "Thessaloniki",
+          "arrivalAirport": "LGW",
+          "arrivalCityName": "London",
+          "duration": "03:35",
+          "airline": "easyJet"
+        }
+      ],
+      "marketing": [
+        {
+          "logoUrl": "https://logos.skyscnr.com/images/airlines/favicon/6H.png",
+          "name": "Israir"
+        },
+        {
+          "logoUrl": "https://logos.skyscnr.com/images/airlines/favicon/EZ.png",
+          "name": "easyJet"
+        }
+      ],
+      "price": 257.04,
+      "duration": "08:30",
+      "token": "eyJhIjoiMSIsImMiOiIwIiwiaSI6IjAiLCJjYyI6ImVjb25vbXkiLCJvIjoiVExWIiwiZCI6IkxPTkQiLCJkMSI6IjIwMjQtMDQtMjUifQ=="
+    },
+    {
+      "flightDetails": [
+        {
+          "id": "16995-10141-2404251550-2404251940--32478",
+          "flightNumber": "SN3290",
+          "departureTime": "2024-04-25T15:50:00",
+          "arrivalTime": "2024-04-25T19:40:00",
+          "departureAirport": "TLV",
+          "departureCityName": "Tel Aviv",
+          "arrivalAirport": "BRU",
+          "arrivalCityName": "Brussels",
+          "duration": "04:50",
+          "airline": "Brussels Airlines"
+        },
+        {
+          "id": "10141-13554-2404252040-2404252055--32478",
+          "flightNumber": "SN2105",
+          "departureTime": "2024-04-25T20:40:00",
+          "arrivalTime": "2024-04-25T20:55:00",
+          "departureAirport": "BRU",
+          "departureCityName": "Brussels",
+          "arrivalAirport": "LHR",
+          "arrivalCityName": "London",
+          "duration": "01:15",
+          "airline": "Brussels Airlines"
+        }
+      ],
+      "marketing": [
+        {
+          "logoUrl": "https://logos.skyscnr.com/images/airlines/favicon/SN.png",
+          "name": "Brussels Airlines"
+        }
+      ],
+      "price": 413.68,
+      "duration": "07:05",
+      "token": "eyJhIjoiMSIsImMiOiIwIiwiaSI6IjAiLCJjYyI6ImVjb25vbXkiLCJvIjoiVExWIiwiZCI6IkxPTkQiLCJkMSI6IjIwMjQtMDQtMjUifQ=="
+    }
+  ],
+  "arrivalFlightDetails": null
+}

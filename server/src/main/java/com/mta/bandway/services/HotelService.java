@@ -5,6 +5,7 @@ import com.mta.bandway.api.domain.response.HotelResponseDto;
 import com.mta.bandway.core.domain.city.CityResponse;
 import com.mta.bandway.core.domain.city.Datum;
 import com.mta.bandway.core.domain.hotel.Hotel;
+import com.mta.bandway.core.domain.hotel.HotelDetails;
 import com.mta.bandway.core.domain.hotel.HotelResponse;
 import com.mta.bandway.core.domain.hotel.Property;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class HotelService {
@@ -27,6 +29,7 @@ public class HotelService {
     private final RestTemplate restTemplate;
     private final String bookingUrl;
     private final String bookingCityIdUrl;
+    private final String bookingHotelDetailsUrl;
 
     @Autowired
     public HotelService(
@@ -36,13 +39,14 @@ public class HotelService {
         this.apiUrl = apiUrl;
         this.bookingUrl = "https://" + apiUrl + "/hotels/searchHotels";
         this.bookingCityIdUrl = "https://" + apiUrl + "/hotels/searchDestination";
+        this.bookingHotelDetailsUrl = "https://" + apiUrl + "/hotels/getHotelDetails";
         this.apiKey = apiKey;
         this.restTemplate = restTemplate;
     }
 
 
     private static Datum getDatum(ResponseEntity<CityResponse> cityData) {
-        return cityData.getBody().getData().stream()
+        return Objects.requireNonNull(cityData.getBody()).getData().stream()
                 .filter(dat -> dat.getDestType().equalsIgnoreCase("landmark") ||
                         dat.getDestType().equalsIgnoreCase("city"))
                 .findFirst()
@@ -61,7 +65,7 @@ public class HotelService {
     private static List<HotelResponseDto> buildResponse(HotelRequestDto hotelDto, ResponseEntity<HotelResponse> hotels) {
         List<HotelResponseDto> responses = new ArrayList<>();
         if (hotels.getStatusCode() == HttpStatusCode.valueOf(200)) {
-            ArrayList<Hotel> hotelResponse = hotels.getBody().getData().getHotels();
+            ArrayList<Hotel> hotelResponse = Objects.requireNonNull(hotels.getBody()).getData().getHotels();
             for (Hotel hotel : hotelResponse) {
                 Property hotelProperty = hotel.getProperty();
                 responses.add(HotelResponseDto.builder()
@@ -114,11 +118,26 @@ public class HotelService {
         if (isValidCityResponse(cityData)) return null; //TODO: handle error
         Datum datum = getDatum(cityData);
         if (datum == null) return null;//TODO: handle error
-        URI uri = buildSearchHotelUri(datum.getDestId(), getDateTime(hotelDto.getCheckIn()), getDateTime(hotelDto.getCheckOut()), hotelDto.getAdults(), hotelDto.getRooms(), datum.getDestType(), "en-us", "US");
+        URI uri = buildSearchHotelUri(datum.getDestId(), getDateTime(hotelDto.getCheckIn()), getDateTime(hotelDto.getCheckOut()), hotelDto.getAdults(), hotelDto.getRooms(), datum.getDestType(), "en-us", "USD");
         HttpEntity<?> entity = new HttpEntity<>(createHeaders());
         ResponseEntity<HotelResponse> hotels = restTemplate.exchange(uri, HttpMethod.GET, entity, HotelResponse.class);
         List<HotelResponseDto> responses = buildResponse(hotelDto, hotels);
         return ResponseEntity.ok(responses);
+    }
+
+    public ResponseEntity<?> getLink(Integer hotelId, String checkIn, String checkOut) {
+        HttpEntity<?> entity = new HttpEntity<>(createHeaders());
+        URI uri = UriComponentsBuilder.fromHttpUrl(bookingHotelDetailsUrl)
+                .queryParam("hotel_id", hotelId)
+                .queryParam("arrival_date", checkIn)
+                .queryParam("departure_date", checkOut)
+                .queryParam("currency_code", "USD")
+                .build().toUri();
+        ResponseEntity<HotelDetails> hotelDetails = restTemplate.exchange(uri, HttpMethod.GET, entity, HotelDetails.class);
+        String hotelUrl = UriComponentsBuilder.fromHttpUrl(Objects.requireNonNull(hotelDetails.getBody()).getData().getUrl())
+                .queryParam("checkin", checkIn)
+                .queryParam("checkout", checkOut).toUriString();
+        return ResponseEntity.ok(hotelUrl);
     }
 
 }
