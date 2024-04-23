@@ -139,5 +139,4 @@ public class HotelService {
                 .queryParam("checkout", checkOut).toUriString();
         return ResponseEntity.ok(hotelUrl);
     }
-
 }
