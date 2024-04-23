@@ -49,8 +49,8 @@ const PackageCard: React.FC<Props> = ({ packages, step }) => {
                   {servicesPackage.hotel.hotelName}
                 </Typography>
                 <Divider></Divider>
-                <Typography variant="body2">
-                  Flight Icon + Flight type:
+                <Typography variant="h6">
+                  <img src={servicesPackage.flight?.departFlightDetails[0].marketing[0].logoUrl} alt="Flight Icon" /> flight type
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
                   Flight Hours:

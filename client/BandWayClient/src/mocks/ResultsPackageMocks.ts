@@ -38,7 +38,7 @@ export const ResultsPackageMocks = [
                     ],
                     marketing: [
                         {
-                            logoUrl: "https://example.com/iberia_logo.png",
+                            logoUrl: "https://logos.skyscnr.com/images/airlines/favicon/I*.png",
                             name: "Iberia"
                         }
                     ],
@@ -89,7 +89,7 @@ export const ResultsPackageMocks = [
                     ],
                     marketing: [
                         {
-                            logoUrl: "https://example.com/lufthansa_logo.png",
+                            logoUrl: "https://logos.skyscnr.com/images/airlines/favicon/I*.png",
                             name: "Lufthansa"
                         }
                     ],
@@ -140,7 +140,7 @@ export const ResultsPackageMocks = [
                     ],
                     marketing: [
                         {
-                            logoUrl: "https://example.com/airfrance_logo.png",
+                            logoUrl: "https://logos.skyscnr.com/images/airlines/favicon/I*.png",
                             name: "Air France"
                         }
                     ],
@@ -191,7 +191,7 @@ export const ResultsPackageMocks = [
                     ],
                     marketing: [
                         {
-                            logoUrl: "https://example.com/britishairways_logo.png",
+                            logoUrl: "https://logos.skyscnr.com/images/airlines/favicon/I*.png",
                             name: "British Airways"
                         }
                     ],
@@ -242,7 +242,7 @@ export const ResultsPackageMocks = [
                     ],
                     marketing: [
                         {
-                            logoUrl: "https://example.com/delta_logo.png",
+                            logoUrl: "https://logos.skyscnr.com/images/airlines/favicon/I*.png",
                             name: "Delta Airlines"
                         }
                     ],
@@ -293,7 +293,7 @@ export const ResultsPackageMocks = [
                     ],
                     marketing: [
                         {
-                            logoUrl: "https://example.com/united_logo.png",
+                            logoUrl: "https://logos.skyscnr.com/images/airlines/favicon/I*.png",
                             name: "United Airlines"
                         }
                     ],
@@ -329,6 +329,18 @@ export const ResultsPackageMocks = [
             departFlightDetails: [
                 {
                     flightDetails: [
+                        {
+                            id: "16995-10141-2404251550-2404251940--32478",
+                            flightNumber: "SN3290",
+                            departureTime: "2024-04-25T15:50:00",
+                            arrivalTime: "2024-04-25T19:40:00",
+                            departureAirport: "TLV",
+                            departureCityName: "Tel Aviv",
+                            arrivalAirport: "MAD",
+                            arrivalCityName: "Madrid",
+                            duration: "04:50",
+                            airline: "Brussels Airlines"
+                          },
                         {
                             id: "AA333",
                             flightNumber: "AA333",
