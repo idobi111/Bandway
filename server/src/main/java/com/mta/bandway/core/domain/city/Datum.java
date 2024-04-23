@@ -9,8 +9,6 @@ import lombok.NoArgsConstructor;
 public class Datum implements java.io.Serializable {
     @JsonProperty("dest_type")
     private String destType;
-    @JsonProperty("cc1")
-    private String cc1;
     @JsonProperty("city_name")
     private String cityName;
     @JsonProperty("label")
@@ -19,8 +17,6 @@ public class Datum implements java.io.Serializable {
     private double longitude;
     @JsonProperty("latitude")
     private double latitude;
-    @JsonProperty("type")
-    private String type;
     @JsonProperty("region")
     private String region;
     @JsonProperty("city_ufi")
@@ -35,10 +31,6 @@ public class Datum implements java.io.Serializable {
     private String imageUrl;
     @JsonProperty("dest_id")
     private String destId;
-    @JsonProperty("nr_hotels")
-    private int nrHotels;
-    @JsonProperty("lc")
-    private String lc;
     @JsonProperty("hotels")
     private int hotels;
 }

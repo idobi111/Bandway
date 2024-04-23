@@ -14,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -46,7 +47,7 @@ public class BandwayController {
         return ResponseEntity.ok(res);
     }
 
-    @GetMapping("/flightAutoCompleteCity")
+    @GetMapping("/flightCityAutoComplete")
     public ResponseEntity<?> getCities(@RequestParam String text) {
         return ResponseEntity.ok(flightService.getCities(text));
     }
@@ -56,7 +57,7 @@ public class BandwayController {
         return ResponseEntity.ok(flightService.searchFlight(requestFlightDto));
     }
 
-    @GetMapping("/carAutoComplete")
+    @GetMapping("/carRentalCityAutoComplete")
     public ResponseEntity<?> getCarAutoComplete(@RequestParam String query) {
         return ResponseEntity.ok(carRentalService.getCityAutoComplete(query));
     }
@@ -64,5 +65,10 @@ public class BandwayController {
     @PostMapping("/searchCarRental")
     public ResponseEntity<?> searchCar(@RequestBody CarRentalRequestDto requestCarRentalDto) {
         return ResponseEntity.ok(carRentalService.searchCarRental(requestCarRentalDto));
+    }
+
+    @GetMapping("/getHotelLink")
+    public ResponseEntity<?> getHotelLink(@RequestParam Integer hotelId, @RequestParam String checkInDate, @RequestParam String checkOutDate) {
+        return ResponseEntity.ok(hotelService.getLink(hotelId, checkInDate, checkOutDate));
     }
 }
