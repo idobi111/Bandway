@@ -7,8 +7,8 @@ import { SearchTextField } from '../../styles/ComponentsStyles';
 const DatePickerPopover: React.FC = () => {
     const [anchorEl, setAnchorEl] = useState<HTMLDivElement | null>(null);
     const [selectedText, setSelectedText] = useState<string>('');
-    const [startDate, setStartDate] = useState<Date | null>(new Date());
-    const [endDate, setEndDate] = useState<Date | null>(new Date());
+    const [startDate, setStartDate] = useState<Date | null>();
+    const [endDate, setEndDate] = useState<Date | null>();
 
 
     const handleClick = (event: React.MouseEvent<HTMLDivElement>) => {
@@ -28,12 +28,15 @@ const DatePickerPopover: React.FC = () => {
             const formattedEndDate = endDate.toLocaleDateString();
             setSelectedText(`${formattedStartDate} - ${formattedEndDate}`);
         }
+        else {
+            setSelectedText(``);
+        }
         handleClose();
     };
 
     const handleReset = () => {
-        setStartDate(new Date());
-        setEndDate(new Date());
+        setStartDate(null);
+        setEndDate(null);
     };
 
     const handleStartDateChange = (newValue: Date | null) => {
@@ -47,7 +50,7 @@ const DatePickerPopover: React.FC = () => {
     return (
         <div>
             <Typography>
-                Services Date Range
+            Services Date Range
             </Typography>
             <SearchTextField
                 onClick={handleClick}
@@ -86,6 +89,8 @@ const DatePickerPopover: React.FC = () => {
                                 selectsStart
                                 startDate={startDate}
                                 endDate={endDate}
+                                showDisabledMonthNavigation
+                                minDate={new Date()}
                             />
                         </Stack>
                         <Stack direction={'row'} justifyContent={'center'} alignItems={'center'}>
@@ -99,6 +104,7 @@ const DatePickerPopover: React.FC = () => {
                                 startDate={startDate}
                                 endDate={endDate}
                                 minDate={startDate}
+                                showDisabledMonthNavigation
                             />
                         </Stack>
                         <Stack direction={'row'}>

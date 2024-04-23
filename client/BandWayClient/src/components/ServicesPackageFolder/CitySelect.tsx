@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Typography, TextField, Autocomplete } from '@mui/material';
-import { LocationService } from '../../services/LocationService';
+import { LocationApi } from '../../apis/LocationApi';
 import { CityOption } from '../../models/CityOption';
 import { SearchAutoComplete } from '../../styles/ComponentsStyles';
 
@@ -8,7 +8,7 @@ interface CitySelectProps {
   onSelect: (city: CityOption) => void;
 }
 
-const locationService = new LocationService();
+const locationApi = new LocationApi();
 
 const CitySelect: React.FC<CitySelectProps> = ({ onSelect }) => {
   const [searchTerm, setSearchTerm] = useState<string>('');
@@ -20,7 +20,7 @@ const CitySelect: React.FC<CitySelectProps> = ({ onSelect }) => {
 
     if (newInputValue.length > 2) {
       try {
-        const cities = await locationService.getCities(newInputValue);
+        const cities = await locationApi.getCities(newInputValue);
         const formattedCities = cities.map(city => ({
           label: `${city.name}, ${city.country}`,
           value: city.name

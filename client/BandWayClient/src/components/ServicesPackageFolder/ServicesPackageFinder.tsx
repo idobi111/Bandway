@@ -3,8 +3,8 @@ import { CssBaseline, AppBar, Toolbar, Typography, Button, Container, Box } from
 import Header from '../GenericFolder/Header';
 import UpcomingEvents from '../EventFolder/UpcomingEvents';
 import Footer from '../GenericFolder/Footer';
-import { EventService } from '../../services/EventService';
-import { Event } from '../../models/Event';
+import { EventApi } from '../../apis/EventApi';
+import { Event } from '../../models/EventResponse';
 import TopContent from '../GenericFolder/TopContent';
 import PackageSearch from './PackageSearch';
 import UpcomingPackages from './UpcomingPackages';

@@ -6,16 +6,40 @@ import TopContent from '../GenericFolder/TopContent';
 import UpcomingPackages from './UpcomingPackages';
 import { Package } from '../../models/Package';
 import { packagesMock } from '../../mocks/PackageMock';
+import { HotelApi } from '../../apis/HotelApi';
+import { HotelRequest } from '../../models/HotelRequest';
+import { ResultsPackageMocks } from '../../mocks/ResultsPackageMocks';
 
 const PackageSearchResults: React.FC = () => {
     const [packages, setPackages] = useState<Package[]>([]);
     const mainText: string = "We found the best results for you...";
     const subText: string = "We're here to craft a vacation that perfectly suits you.";
 
-    0
+    const exampleHotelRequest: HotelRequest = {
+        city: "Paris",
+        checkIn: "2024-06-15",
+        checkOut: "2024-06-20",
+        rooms: 1,
+        adults: 2,
+        children: 1,
+        maxPrice: 300,
+        minPrice: 100
+    };
+
     useEffect(() => {
 
-        setPackages(packagesMock)
+        setPackages(ResultsPackageMocks)
+
+
+        const hotelApi = new HotelApi();
+        hotelApi.getHotels(exampleHotelRequest)
+          .then((data) => {
+            // setEvents(data)
+            console.log(data);
+          })
+          .catch((error) => {
+            console.error('Error fetching hotels data:', error);
+          });    
 
 
     }, []);
@@ -25,11 +49,7 @@ const PackageSearchResults: React.FC = () => {
             <CssBaseline />
             <Header />
             <TopContent mainText={mainText} subText={subText} />
-            <Container maxWidth="xl">
-                <Box display="flex" justifyContent="center">
-                    <UpcomingPackages servicePackages={packages} />
-                </Box>
-            </Container>
+            <UpcomingPackages servicePackages={packages} />
             <Footer />
         </>
     );

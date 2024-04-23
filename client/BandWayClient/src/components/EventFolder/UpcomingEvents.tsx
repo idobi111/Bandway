@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import EventCard from './EventCard';
 import { eventsMock } from '../../mocks/EventMock';
-import { Event } from '../../models/Event';
+import { Event } from '../../models/EventResponse';
 
 
 interface UpcomingEventsProps {

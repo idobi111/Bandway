@@ -1,11 +1,11 @@
 import axios from 'axios';
-import { Event } from '../models/Event';
+import { Event } from '../models/EventResponse';
 import { Helpers } from '../helpers/helpers';
 
 const helpers = new Helpers();
 
 
-export class EventService {
+export class EventApi {
 
     BASE_URL: string = "http://localhost:8080/bandway";
 

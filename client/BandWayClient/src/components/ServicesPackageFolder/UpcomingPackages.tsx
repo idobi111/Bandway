@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Event } from '../../models/Event';
+import { Event } from '../../models/EventResponse';
 import { Package } from '../../models/Package';
 import PackageCard from './PackageCard';
 
