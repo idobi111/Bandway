@@ -1,0 +1,272 @@
+{
+    "isSingleWay":true,
+    "departFlightDetails":[
+       {
+          "sourceCountry":"Israel",
+          "sourceCity":"Tel Aviv",
+          "destCountry":"London",
+          "destCity":"London",
+          "flightDetails":[
+             {
+                "id":"16995-9772-2405021315-2405021700--30967",
+                "flightNumber":"9_252",
+                "departureTime":"2024-05-02T13:15:00",
+                "arrivalTime":"2024-05-02T17:00:00",
+                "departureAirport":"TLV",
+                "departureCityName":"Tel Aviv",
+                "arrivalAirport":"BCN",
+                "arrivalCityName":"Barcelona",
+                "duration":"04:45",
+                "airline":"Blue Bird Airways"
+             },
+             {
+                "id":"9772-16574-2405021905-2405022030--31915",
+                "flightNumber":"FR9015",
+                "departureTime":"2024-05-02T19:05:00",
+                "arrivalTime":"2024-05-02T20:30:00",
+                "departureAirport":"BCN",
+                "departureCityName":"Barcelona",
+                "arrivalAirport":"STN",
+                "arrivalCityName":"London",
+                "duration":"02:25",
+                "airline":"Ryanair"
+             }
+          ],
+          "marketing":[
+             {
+                "logoUrl":"https://logos.skyscnr.com/images/airlines/favicon/9_.png",
+                "name":"Blue Bird Airways"
+             },
+             {
+                "logoUrl":"https://logos.skyscnr.com/images/airlines/favicon/FR.png",
+                "name":"Ryanair"
+             }
+          ],
+          "price":367.67,
+          "duration":"09:15",
+          "token":"eyJhIjoiMiIsImMiOiIwIiwiaSI6IjAiLCJjYyI6ImVjb25vbXkiLCJvIjoiVExWIiwiZCI6IkxPTkQiLCJkMSI6IjIwMjQtMDUtMDIifQ==",
+          "stopCount":1
+       },
+       {
+          "sourceCountry":"Israel",
+          "sourceCity":"Tel Aviv",
+          "destCountry":"London",
+          "destCity":"London",
+          "flightDetails":[
+             {
+                "id":"16995-10202-2405021055-2405021330--31669",
+                "flightNumber":"WZ2326",
+                "departureTime":"2024-05-02T10:55:00",
+                "arrivalTime":"2024-05-02T13:30:00",
+                "departureAirport":"TLV",
+                "departureCityName":"Tel Aviv",
+                "arrivalAirport":"BUD",
+                "arrivalCityName":"Budapest",
+                "duration":"03:35",
+                "airline":"Wizz Air"
+             },
+             {
+                "id":"10202-16574-2405021745-2405021920--31915",
+                "flightNumber":"FR3718",
+                "departureTime":"2024-05-02T17:45:00",
+                "arrivalTime":"2024-05-02T19:20:00",
+                "departureAirport":"BUD",
+                "departureCityName":"Budapest",
+                "arrivalAirport":"STN",
+                "arrivalCityName":"London",
+                "duration":"02:35",
+                "airline":"Ryanair"
+             }
+          ],
+          "marketing":[
+             {
+                "logoUrl":"https://logos.skyscnr.com/images/airlines/favicon/WZ.png",
+                "name":"Wizz Air"
+             },
+             {
+                "logoUrl":"https://logos.skyscnr.com/images/airlines/favicon/FR.png",
+                "name":"Ryanair"
+             }
+          ],
+          "price":327.9,
+          "duration":"10:25",
+          "token":"eyJhIjoiMiIsImMiOiIwIiwiaSI6IjAiLCJjYyI6ImVjb25vbXkiLCJvIjoiVExWIiwiZCI6IkxPTkQiLCJkMSI6IjIwMjQtMDUtMDIifQ==",
+          "stopCount":1
+       },
+       {
+          "sourceCountry":"Israel",
+          "sourceCity":"Tel Aviv",
+          "destCountry":"London",
+          "destCity":"London",
+          "flightDetails":[
+             {
+                "id":"16995-9592-2405021400-2405021610--30967",
+                "flightNumber":"9_704",
+                "departureTime":"2024-05-02T14:00:00",
+                "arrivalTime":"2024-05-02T16:10:00",
+                "departureAirport":"TLV",
+                "departureCityName":"Tel Aviv",
+                "arrivalAirport":"ATH",
+                "arrivalCityName":"Athens",
+                "duration":"02:10",
+                "airline":"Blue Bird Airways"
+             },
+             {
+                "id":"9592-9772-2405022225-2405030040--31685",
+                "flightNumber":"078103",
+                "departureTime":"2024-05-02T22:25:00",
+                "arrivalTime":"2024-05-03T00:40:00",
+                "departureAirport":"ATH",
+                "departureCityName":"Athens",
+                "arrivalAirport":"BCN",
+                "arrivalCityName":"Barcelona",
+                "duration":"03:15",
+                "airline":"Vueling Airlines"
+             },
+             {
+                "id":"9772-13554-2405030800-2405030915--31685",
+                "flightNumber":"076650",
+                "departureTime":"2024-05-03T08:00:00",
+                "arrivalTime":"2024-05-03T09:15:00",
+                "departureAirport":"BCN",
+                "departureCityName":"Barcelona",
+                "arrivalAirport":"LHR",
+                "arrivalCityName":"London",
+                "duration":"02:15",
+                "airline":"Vueling Airlines"
+             }
+          ],
+          "marketing":[
+             {
+                "logoUrl":"https://logos.skyscnr.com/images/airlines/favicon/9_.png",
+                "name":"Blue Bird Airways"
+             },
+             {
+                "logoUrl":"https://logos.skyscnr.com/images/airlines/favicon/07.png",
+                "name":"Vueling Airlines"
+             }
+          ],
+          "price":646.4,
+          "duration":"21:15",
+          "token":"eyJhIjoiMiIsImMiOiIwIiwiaSI6IjAiLCJjYyI6ImVjb25vbXkiLCJvIjoiVExWIiwiZCI6IkxPTkQiLCJkMSI6IjIwMjQtMDUtMDIifQ==",
+          "stopCount":2
+       },
+       {
+          "sourceCountry":"Israel",
+          "sourceCity":"Tel Aviv",
+          "destCountry":"London",
+          "destCity":"London",
+          "flightDetails":[
+             {
+                "id":"16995-9592-2405020740-2405020950--30967",
+                "flightNumber":"9_702",
+                "departureTime":"2024-05-02T07:40:00",
+                "arrivalTime":"2024-05-02T09:50:00",
+                "departureAirport":"TLV",
+                "departureCityName":"Tel Aviv",
+                "arrivalAirport":"ATH",
+                "arrivalCityName":"Athens",
+                "duration":"02:10",
+                "airline":"Blue Bird Airways"
+             },
+             {
+                "id":"9592-9772-2405021500-2405021715--31685",
+                "flightNumber":"078101",
+                "departureTime":"2024-05-02T15:00:00",
+                "arrivalTime":"2024-05-02T17:15:00",
+                "departureAirport":"ATH",
+                "departureCityName":"Athens",
+                "arrivalAirport":"BCN",
+                "arrivalCityName":"Barcelona",
+                "duration":"03:15",
+                "airline":"Vueling Airlines"
+             },
+             {
+                "id":"9772-13554-2405021830-2405021945--31685",
+                "flightNumber":"076652",
+                "departureTime":"2024-05-02T18:30:00",
+                "arrivalTime":"2024-05-02T19:45:00",
+                "departureAirport":"BCN",
+                "departureCityName":"Barcelona",
+                "arrivalAirport":"LHR",
+                "arrivalCityName":"London",
+                "duration":"02:15",
+                "airline":"Vueling Airlines"
+             }
+          ],
+          "marketing":[
+             {
+                "logoUrl":"https://logos.skyscnr.com/images/airlines/favicon/9_.png",
+                "name":"Blue Bird Airways"
+             },
+             {
+                "logoUrl":"https://logos.skyscnr.com/images/airlines/favicon/07.png",
+                "name":"Vueling Airlines"
+             }
+          ],
+          "price":1202.17,
+          "duration":"14:05",
+          "token":"eyJhIjoiMiIsImMiOiIwIiwiaSI6IjAiLCJjYyI6ImVjb25vbXkiLCJvIjoiVExWIiwiZCI6IkxPTkQiLCJkMSI6IjIwMjQtMDUtMDIifQ==",
+          "stopCount":2
+       },
+       {
+          "sourceCountry":"Israel",
+          "sourceCity":"Tel Aviv",
+          "destCountry":"London",
+          "destCity":"London",
+          "flightDetails":[
+             {
+                "id":"16995-9592-2405020740-2405020950--30967",
+                "flightNumber":"9_702",
+                "departureTime":"2024-05-02T07:40:00",
+                "arrivalTime":"2024-05-02T09:50:00",
+                "departureAirport":"TLV",
+                "departureCityName":"Tel Aviv",
+                "arrivalAirport":"ATH",
+                "arrivalCityName":"Athens",
+                "duration":"02:10",
+                "airline":"Blue Bird Airways"
+             },
+             {
+                "id":"9592-9772-2405022225-2405030040--31685",
+                "flightNumber":"078103",
+                "departureTime":"2024-05-02T22:25:00",
+                "arrivalTime":"2024-05-03T00:40:00",
+                "departureAirport":"ATH",
+                "departureCityName":"Athens",
+                "arrivalAirport":"BCN",
+                "arrivalCityName":"Barcelona",
+                "duration":"03:15",
+                "airline":"Vueling Airlines"
+             },
+             {
+                "id":"9772-13554-2405030800-2405030915--31685",
+                "flightNumber":"076650",
+                "departureTime":"2024-05-03T08:00:00",
+                "arrivalTime":"2024-05-03T09:15:00",
+                "departureAirport":"BCN",
+                "departureCityName":"Barcelona",
+                "arrivalAirport":"LHR",
+                "arrivalCityName":"London",
+                "duration":"02:15",
+                "airline":"Vueling Airlines"
+             }
+          ],
+          "marketing":[
+             {
+                "logoUrl":"https://logos.skyscnr.com/images/airlines/favicon/9_.png",
+                "name":"Blue Bird Airways"
+             },
+             {
+                "logoUrl":"https://logos.skyscnr.com/images/airlines/favicon/07.png",
+                "name":"Vueling Airlines"
+             }
+          ],
+          "price":689.16,
+          "duration":"27:35",
+          "token":"eyJhIjoiMiIsImMiOiIwIiwiaSI6IjAiLCJjYyI6ImVjb25vbXkiLCJvIjoiVExWIiwiZCI6IkxPTkQiLCJkMSI6IjIwMjQtMDUtMDIifQ==",
+          "stopCount":2
+       }
+    ],
+    "arrivalFlightDetails":null
+ }

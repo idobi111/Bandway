@@ -28,6 +28,25 @@ export class PackageBuilderService {
         return packages;
       }
 
+      public getPackagePrice(servicePackage: Package): number {
+        let totalPrice = 0;
+    
+        // Add hotel price
+        totalPrice += servicePackage.hotel.price;
+    
+        // Add flight price
+        if (servicePackage.flight) {
+            const departFlightPrice = servicePackage.flight.departFlightDetails.reduce((acc, flight) => acc + flight.price, 0);
+            totalPrice += departFlightPrice;
+        }
+    
+        // Add car rental price
+        if (servicePackage.carRental) {
+            totalPrice += servicePackage.carRental.price;
+        }
+    
+        return totalPrice;
+      }
 }
 
 

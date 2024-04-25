@@ -19,12 +19,14 @@ export class Helpers {
     }
 
     public formatDate(dateString: string): string {
-        const parts: string[] = dateString.split("-");
-        const year: string = parts[0].slice(-2);
-        const month: string = parts[1];
-        const day: string = parts[2];
-    
-        return `${month}/${day}/${year}`;
+        const date = new Date(dateString);
+        const day = date.getDate();
+        const monthNames = ["January", "February", "March", "April", "May", "June",
+                            "July", "August", "September", "October", "November", "December"];
+        const monthName = monthNames[date.getMonth()];
+        
+        return `${day} ${monthName}`;
     }
+    
 }
 
