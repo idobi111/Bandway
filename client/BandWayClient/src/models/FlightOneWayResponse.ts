@@ -16,12 +16,20 @@ export interface Marketing {
     name: string;
 }
 
-export interface DepartFlight {
+interface SourceAndDest {
+    sourceCountry: string;
+    sourceCity: string;
+    destCountry: string;
+    destCity: string;
+}
+
+export interface DepartFlight extends SourceAndDest {
     flightDetails: FlightDetails[];
     marketing: Marketing[];
     price: number;
     duration: string;
     token: string;
+    stopCount: number;
 }
 
 export interface FlightOneWayResponse {
@@ -29,3 +37,6 @@ export interface FlightOneWayResponse {
     departFlightDetails: DepartFlight[];
     arrivalFlightDetails: DepartFlight[] | null;
 }
+
+export interface FlightResponse extends FlightOneWayResponse {}
+

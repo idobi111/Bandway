@@ -11,9 +11,9 @@ export const ResultsPackageMocks = [
             adults: 2,
             children: 0,
             price: 350,
-            rating: 0,
+            rating: 8.8,
             photoUrl: [
-                "http://photos.hotelbeds.com/giata/00/004200/004200a_hb_ro_006.jpg",
+                "https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
                 "https://example.com/photo4.jpg"
             ],
             bookingUrl: ""
@@ -22,6 +22,10 @@ export const ResultsPackageMocks = [
             isSingleWay: true,
             departFlightDetails: [
                 {
+                    sourceCountry: "Israel",
+                    sourceCity: "Tel Aviv",
+                    destCountry: "United Kingdom",
+                    destCity: "London",
                     flightDetails: [
                         {
                             id: "IB123",
@@ -44,10 +48,16 @@ export const ResultsPackageMocks = [
                     ],
                     price: 200,
                     duration: "2h 30m",
-                    token: "IB123TOKEN"
+                    token: "IB123TOKEN",
+                    stopCount: 1
+
                 }
             ],
             arrivalFlightDetails: null
+        },
+        carRental: {
+            id: 1,
+            price: 100
         }
     },
     {
@@ -62,9 +72,9 @@ export const ResultsPackageMocks = [
             adults: 2,
             children: 0,
             price: 700,
-            rating: 0,
+            rating: 7.6,
             photoUrl: [
-                "http://photos.hotelbeds.com/giata/00/004200/004200a_hb_ro_006.jpg",
+                "https://images.unsplash.com/photo-1582719508461-905c673771fd?q=80&w=1925&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
                 "https://example.com/photo6.jpg"
             ],
             bookingUrl: ""
@@ -73,6 +83,10 @@ export const ResultsPackageMocks = [
             isSingleWay: true,
             departFlightDetails: [
                 {
+                    sourceCountry: "Israel",
+                    sourceCity: "Tel Aviv",
+                    destCountry: "United Kingdom",
+                    destCity: "London",
                     flightDetails: [
                         {
                             id: "LH456",
@@ -95,10 +109,15 @@ export const ResultsPackageMocks = [
                     ],
                     price: 300,
                     duration: "2h 30m",
-                    token: "LH456TOKEN"
+                    token: "LH456TOKEN",
+                    stopCount: 1
                 }
             ],
             arrivalFlightDetails: null
+        },
+        carRental: {
+            id: 2,
+            price: 100
         }
     },
     {
@@ -113,9 +132,9 @@ export const ResultsPackageMocks = [
             adults: 2,
             children: 0,
             price: 450,
-            rating: 0,
+            rating: 9.4,
             photoUrl: [
-                "http://photos.hotelbeds.com/giata/00/004200/004200a_hb_ro_006.jpg",
+                "https://images.unsplash.com/photo-1568084680786-a84f91d1153c?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
                 "https://example.com/photo8.jpg"
             ],
             bookingUrl: ""
@@ -124,6 +143,10 @@ export const ResultsPackageMocks = [
             isSingleWay: true,
             departFlightDetails: [
                 {
+                    sourceCountry: "Israel",
+                    sourceCity: "Tel Aviv",
+                    destCountry: "United Kingdom",
+                    destCity: "London",
                     flightDetails: [
                         {
                             id: "AF789",
@@ -146,10 +169,15 @@ export const ResultsPackageMocks = [
                     ],
                     price: 400,
                     duration: "2h 30m",
-                    token: "AF789TOKEN"
+                    token: "AF789TOKEN",
+                    stopCount: 1
                 }
             ],
             arrivalFlightDetails: null
+        },
+        carRental: {
+            id: 3,
+            price: 100
         }
     },
     {
@@ -164,9 +192,9 @@ export const ResultsPackageMocks = [
             adults: 2,
             children: 0,
             price: 600,
-            rating: 0,
+            rating: 4.5,
             photoUrl: [
-                "http://photos.hotelbeds.com/giata/00/004200/004200a_hb_ro_006.jpg",
+                "https://images.unsplash.com/photo-1600011689032-8b628b8a8747?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
                 "https://example.com/photo10.jpg"
             ],
             bookingUrl: ""
@@ -175,6 +203,10 @@ export const ResultsPackageMocks = [
             isSingleWay: true,
             departFlightDetails: [
                 {
+                    sourceCountry: "Israel",
+                    sourceCity: "Tel Aviv",
+                    destCountry: "United Kingdom",
+                    destCity: "London",
                     flightDetails: [
                         {
                             id: "BA101",
@@ -197,10 +229,15 @@ export const ResultsPackageMocks = [
                     ],
                     price: 500,
                     duration: "2h 30m",
-                    token: "BA101TOKEN"
+                    token: "BA101TOKEN",
+                    stopCount: 1
                 }
             ],
             arrivalFlightDetails: null
+        },
+        carRental: {
+            id: 4,
+            price: 100
         }
     },
     {
@@ -215,9 +252,9 @@ export const ResultsPackageMocks = [
             adults: 2,
             children: 0,
             price: 400,
-            rating: 0,
+            rating: 1.2,
             photoUrl: [
-                "http://photos.hotelbeds.com/giata/00/004200/004200a_hb_ro_006.jpg",
+                "https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
                 "https://example.com/photo12.jpg"
             ],
             bookingUrl: ""
@@ -226,6 +263,10 @@ export const ResultsPackageMocks = [
             isSingleWay: true,
             departFlightDetails: [
                 {
+                    sourceCountry: "Israel",
+                    sourceCity: "Tel Aviv",
+                    destCountry: "United Kingdom",
+                    destCity: "London",
                     flightDetails: [
                         {
                             id: "DL111",
@@ -248,10 +289,15 @@ export const ResultsPackageMocks = [
                     ],
                     price: 300,
                     duration: "2h 30m",
-                    token: "DL111TOKEN"
+                    token: "DL111TOKEN",
+                    stopCount: 1
                 }
             ],
             arrivalFlightDetails: null
+        },
+        carRental: {
+            id: 5,
+            price: 100
         }
     },
     {
@@ -266,9 +312,9 @@ export const ResultsPackageMocks = [
             adults: 2,
             children: 0,
             price: 800,
-            rating: 0,
+            rating: 1.1,
             photoUrl: [
-                "http://photos.hotelbeds.com/giata/00/004200/004200a_hb_ro_006.jpg",
+                "https://images.unsplash.com/photo-1584132967334-10e028bd69f7?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
                 "https://example.com/photo14.jpg"
             ],
             bookingUrl: ""
@@ -277,6 +323,10 @@ export const ResultsPackageMocks = [
             isSingleWay: true,
             departFlightDetails: [
                 {
+                    sourceCountry: "Israel",
+                    sourceCity: "Tel Aviv",
+                    destCountry: "United Kingdom",
+                    destCity: "London",
                     flightDetails: [
                         {
                             id: "UA222",
@@ -299,10 +349,15 @@ export const ResultsPackageMocks = [
                     ],
                     price: 900,
                     duration: "8h 30m",
-                    token: "UA222TOKEN"
+                    token: "UA222TOKEN",
+                    stopCount: 1
                 }
             ],
             arrivalFlightDetails: null
+        },
+        carRental: {
+            id: 6,
+            price: 100
         }
     },
     {
@@ -317,7 +372,7 @@ export const ResultsPackageMocks = [
             adults: 2,
             children: 0,
             price: 800,
-            rating: 0,
+            rating: 5.3,
             photoUrl: [
                 "http://photos.hotelbeds.com/giata/00/004200/004200a_hb_ro_006.jpg",
                 "https://example.com/photo14.jpg"
@@ -328,6 +383,10 @@ export const ResultsPackageMocks = [
             isSingleWay: true,
             departFlightDetails: [
                 {
+                    sourceCountry: "Israel",
+                    sourceCity: "Tel Aviv",
+                    destCountry: "United Kingdom",
+                    destCity: "London",
                     flightDetails: [
                         {
                             id: "16995-10141-2404251550-2404251940--32478",
@@ -356,16 +415,21 @@ export const ResultsPackageMocks = [
                     ],
                     marketing: [
                         {
-                            logoUrl: "https://example.com/american_logo.png",
+                            logoUrl: "https://logos.skyscnr.com/images/airlines/favicon/I*.png",
                             name: "American Airlines"
                         }
                     ],
                     price: 1000,
                     duration: "12h 30m",
-                    token: "AA333TOKEN"
+                    token: "AA333TOKEN",
+                    stopCount: 1
                 }
             ],
             arrivalFlightDetails: null
+        },
+        carRental: {
+            id: 7,
+            price: 100
         }
     }
     // Add more packages as needed
