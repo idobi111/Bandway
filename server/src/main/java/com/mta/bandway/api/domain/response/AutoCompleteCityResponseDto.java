@@ -13,4 +13,6 @@ public class AutoCompleteCityResponseDto {
     private String name;
     @JsonProperty("country")
     private String country;
+    @JsonProperty("entityType")
+    private String entityType;
 }

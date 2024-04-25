@@ -1,0 +1,14 @@
+{
+  "departureDate": "2024-05-02T07:48:55.661Z",
+  "returnDate": "2024-04-25T07:48:55.661Z",
+  "src": "eyJzIjoiVExWIiwiZSI6Ijk1NjczNjM1IiwiaCI6IjI3NTQ2Mjk2In0=",
+  "dest": "eyJzIjoiTE9ORCIsImUiOiIyNzU0NDAwOCIsImgiOiIyNzU0NDAwOCJ9",
+  "adults": 2,
+  "children": 0,
+  "infants": 0,
+  "isRoundTrip": false,
+  "isMultiCityTrip": false,
+  "isDirectFlight": false,
+  "isOneWay": true,
+  "cabinClass": "economy"
+}

@@ -56,7 +56,12 @@ public class FlightService {
         ResponseEntity<AutoCompleteCity> response = restTemplate.exchange(urlWithQuery, HttpMethod.GET, entity, AutoCompleteCity.class);
         for (int i = 0; i < Objects.requireNonNull(response.getBody()).getData().size(); i++) {
             Datum data = response.getBody().getData().get(i);
-            result.add(AutoCompleteCityResponseDto.builder().id(data.getId()).name(data.getPresentation().getSuggestionTitle()).country(data.getPresentation().getSubtitle()).build());
+            result.add(AutoCompleteCityResponseDto.builder()
+                    .id(data.getId())
+                    .name(data.getPresentation().getSuggestionTitle())
+                    .country(data.getPresentation().getSubtitle())
+                    .entityType(data.getNavigation().getEntityType())
+                    .build());
         }
         return result;
     }
@@ -126,10 +131,15 @@ public class FlightService {
     private SessionFlightDetails buildSessionFlightDetails(FlightOneWayData data, Itinerary itinerary, Leg leg, List<FlightDetails> flightDetailsList) {
         return SessionFlightDetails.builder()
                 .flightDetails(flightDetailsList)
+                .sourceCity(leg.getOriginOrder().getCity())
+                .sourceCountry(leg.getOriginOrder().getCountry())
+                .destCity(leg.getSegments().get(leg.getSegments().size() - 1).getDestination().getParent().getName())
+                .destCountry(leg.getSegments().get(leg.getSegments().size() - 1).getDestination().getCountry())
                 .marketing(leg.getCarriers().getMarketing())
                 .price(itinerary.getPrice().getRaw())
                 .duration(getDurationTimeFormat(leg.getDurationInMinutes()))
                 .token(data.getToken())
+                .stopCount(leg.getStopCount())
                 .build();
     }
 

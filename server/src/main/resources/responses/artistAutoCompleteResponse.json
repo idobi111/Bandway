@@ -1,0 +1,135 @@
+[
+  {
+    "artist_name": "Taylor Swift",
+    "artist_id": "06HL4z0CvFAxyc27GXpf02",
+    "spotify_link": "https://open.spotify.com/artist/06HL4z0CvFAxyc27GXpf02",
+    "genres": [
+      "pop"
+    ],
+    "images": [
+      {
+        "height": 640,
+        "url": "https://i.scdn.co/image/ab6761610000e5ebe672b5f553298dcdccb0e676",
+        "width": 640
+      },
+      {
+        "height": 320,
+        "url": "https://i.scdn.co/image/ab67616100005174e672b5f553298dcdccb0e676",
+        "width": 320
+      },
+      {
+        "height": 160,
+        "url": "https://i.scdn.co/image/ab6761610000f178e672b5f553298dcdccb0e676",
+        "width": 160
+      }
+    ],
+    "popularity": 100
+  },
+  {
+    "artist_name": "Taylor",
+    "artist_id": "388sAC0WYTJWunGAr0P8Hj",
+    "spotify_link": "https://open.spotify.com/artist/388sAC0WYTJWunGAr0P8Hj",
+    "genres": [
+      "korean r&b"
+    ],
+    "images": [
+      {
+        "height": 640,
+        "url": "https://i.scdn.co/image/ab6761610000e5eb62ad3c1c023f625ca27714bb",
+        "width": 640
+      },
+      {
+        "height": 320,
+        "url": "https://i.scdn.co/image/ab6761610000517462ad3c1c023f625ca27714bb",
+        "width": 320
+      },
+      {
+        "height": 160,
+        "url": "https://i.scdn.co/image/ab6761610000f17862ad3c1c023f625ca27714bb",
+        "width": 160
+      }
+    ],
+    "popularity": 13
+  },
+  {
+    "artist_name": "Taylor Acorn",
+    "artist_id": "1A0WloDoRE88uUwo3wensY",
+    "spotify_link": "https://open.spotify.com/artist/1A0WloDoRE88uUwo3wensY",
+    "genres": [
+      "singer-songwriter pop"
+    ],
+    "images": [
+      {
+        "height": 640,
+        "url": "https://i.scdn.co/image/ab6761610000e5ebb0f41bf75b7e1f038a4a7e44",
+        "width": 640
+      },
+      {
+        "height": 320,
+        "url": "https://i.scdn.co/image/ab67616100005174b0f41bf75b7e1f038a4a7e44",
+        "width": 320
+      },
+      {
+        "height": 160,
+        "url": "https://i.scdn.co/image/ab6761610000f178b0f41bf75b7e1f038a4a7e44",
+        "width": 160
+      }
+    ],
+    "popularity": 53
+  },
+  {
+    "artist_name": "Kendrick Lamar",
+    "artist_id": "2YZyLoL8N0Wb9xBt1NhZWg",
+    "spotify_link": "https://open.spotify.com/artist/2YZyLoL8N0Wb9xBt1NhZWg",
+    "genres": [
+      "conscious hip hop",
+      "hip hop",
+      "rap",
+      "west coast rap"
+    ],
+    "images": [
+      {
+        "height": 640,
+        "url": "https://i.scdn.co/image/ab6761610000e5eb437b9e2a82505b3d93ff1022",
+        "width": 640
+      },
+      {
+        "height": 320,
+        "url": "https://i.scdn.co/image/ab67616100005174437b9e2a82505b3d93ff1022",
+        "width": 320
+      },
+      {
+        "height": 160,
+        "url": "https://i.scdn.co/image/ab6761610000f178437b9e2a82505b3d93ff1022",
+        "width": 160
+      }
+    ],
+    "popularity": 87
+  },
+  {
+    "artist_name": "Taylor Ray Holbrook",
+    "artist_id": "58nB2Z6IiDdTUTwHYw56xI",
+    "spotify_link": "https://open.spotify.com/artist/58nB2Z6IiDdTUTwHYw56xI",
+    "genres": [
+      "redneck"
+    ],
+    "images": [
+      {
+        "height": 640,
+        "url": "https://i.scdn.co/image/ab6761610000e5eba0fc6e8727e4183e95e344f7",
+        "width": 640
+      },
+      {
+        "height": 320,
+        "url": "https://i.scdn.co/image/ab67616100005174a0fc6e8727e4183e95e344f7",
+        "width": 320
+      },
+      {
+        "height": 160,
+        "url": "https://i.scdn.co/image/ab6761610000f178a0fc6e8727e4183e95e344f7",
+        "width": 160
+      }
+    ],
+    "popularity": 49
+  }
+]

@@ -11,16 +11,17 @@ import com.mta.bandway.services.FlightService;
 import com.mta.bandway.services.HotelService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @RestController
 @RequestMapping("/bandway")
 @AllArgsConstructor
 @CrossOrigin
+@EnableScheduling
 public class BandwayController {
     private final HotelService hotelService;
     private final ConcertService concertService;
@@ -70,5 +71,10 @@ public class BandwayController {
     @GetMapping("/getHotelLink")
     public ResponseEntity<?> getHotelLink(@RequestParam Integer hotelId, @RequestParam String checkInDate, @RequestParam String checkOutDate) {
         return ResponseEntity.ok(hotelService.getLink(hotelId, checkInDate, checkOutDate));
+    }
+
+    @GetMapping("/getArtistAutoComplete")
+    public ResponseEntity<?> artistAutoComplete(@RequestParam String artistName) {
+        return ResponseEntity.ok(concertService.getArtistAutoComplete(artistName));
     }
 }

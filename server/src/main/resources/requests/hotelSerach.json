@@ -1,0 +1,10 @@
+{
+  "checkIn": "2024-04-25T08:52:11.285Z",
+  "checkOut": "2024-04-25T08:52:11.285Z",
+  "venueName": "string",
+  "rooms": 0,
+  "adults": 0,
+  "children": 0,
+  "maxPrice": 1000,
+  "minPrice": 0
+}

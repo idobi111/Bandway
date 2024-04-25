@@ -12,4 +12,5 @@ public class Datum implements Serializable {
     private String id;
     @JsonProperty("presentation")
     private Presentation presentation;
+    private Navigation navigation;
 }

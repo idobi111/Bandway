@@ -1,32 +1,50 @@
 [
   {
-    "id": "eyJzIjoiVExWIiwiZSI6Ijk1NjczNjM1IiwiaCI6IjI3NTQ2Mjk2In0=",
-    "name": "Ben Gurion Intl (TLV)",
-    "country": "Israel"
+    "id": "eyJzIjoiTE9ORCIsImUiOiIyNzU0NDAwOCIsImgiOiIyNzU0NDAwOCJ9",
+    "name": "London (Any)",
+    "country": "United Kingdom",
+    "entityType": "CITY"
   },
   {
-    "id": "eyJzIjoiVEVYIiwiZSI6IjEwNDEyMDMyNCIsImgiOiIyNzU0NzE2MyJ9",
-    "name": "Telluride (TEX)",
-    "country": "United States"
+    "id": "eyJzIjoiTEhSIiwiZSI6Ijk1NTY1MDUwIiwiaCI6IjI3NTQ0MDA4In0=",
+    "name": "London Heathrow (LHR)",
+    "country": "United Kingdom",
+    "entityType": "AIRPORT"
   },
   {
-    "id": "eyJzIjoiVEVDIiwiZSI6IjEyOTA1MzQ4MCIsImgiOiIyNzU1MDg3NyJ9",
-    "name": "Telemaco Borba (TEC)",
-    "country": "Brazil"
+    "id": "eyJzIjoiTEdXIiwiZSI6Ijk1NTY1MDUxIiwiaCI6IjI3NTQ0MDA4In0=",
+    "name": "London Gatwick (LGW)",
+    "country": "United Kingdom",
+    "entityType": "AIRPORT"
   },
   {
-    "id": "eyJzIjoiS1RTIiwiZSI6IjEyODY2NzEyMCIsImgiOiIyNzU0MzkxMiJ9",
-    "name": "Teller Mission (KTS)",
-    "country": "United States"
+    "id": "eyJzIjoiU1ROIiwiZSI6Ijk1NTY1MDUyIiwiaCI6IjI3NTQ0MDA4In0=",
+    "name": "London Stansted (STN)",
+    "country": "United Kingdom",
+    "entityType": "AIRPORT"
   },
   {
-    "id": "eyJzIjoiVExBIiwiZSI6IjEyODY2OTA2MyIsImgiOiIyNzU0NzE5OSJ9",
-    "name": "Teller (TLA)",
-    "country": "United States"
+    "id": "eyJzIjoiTFROIiwiZSI6Ijk1NTY1MDUzIiwiaCI6IjI3NTQ0MDA4In0=",
+    "name": "London Luton (LTN)",
+    "country": "United Kingdom",
+    "entityType": "AIRPORT"
   },
   {
-    "id": "eyJzIjoiVEtHIiwiZSI6Ijk1NjczNTkzIiwiaCI6IjI3NTQ3MTk2In0=",
-    "name": "Bandar Lampung (TKG)",
-    "country": "Indonesia"
+    "id": "eyJzIjoiTENZIiwiZSI6Ijk1NTY1MDQ3IiwiaCI6IjI3NTQ0MDA4In0=",
+    "name": "London City (LCY)",
+    "country": "United Kingdom",
+    "entityType": "AIRPORT"
+  },
+  {
+    "id": "eyJzIjoiU0VOIiwiZSI6Ijk1NTY1MDU0IiwiaCI6IjI3NTQ0MDA4In0=",
+    "name": "London Southend (SEN)",
+    "country": "United Kingdom",
+    "entityType": "AIRPORT"
+  },
+  {
+    "id": "eyJzIjoiTERCIiwiZSI6Ijk1NjczNzYxIiwiaCI6IjI3NTQ0MDEwIn0=",
+    "name": "Londrina (LDB)",
+    "country": "Brazil",
+    "entityType": "AIRPORT"
   }
 ]
