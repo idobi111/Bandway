@@ -52,12 +52,15 @@ public class CarRentalService {
         ResponseEntity<AutoCompleteCarCity> s = restTemplate.exchange(urlWithQuery, HttpMethod.GET, entity, AutoCompleteCarCity.class);
         for (int i = 0; i < Objects.requireNonNull(s.getBody()).getData().size(); i++) {
             CarDatum data = s.getBody().getData().get(i);
-            result.add(AutoCompleteCityResponseDto.builder().id(data.getId()).name(data.getCity()).country(data.getCountry()).build());
+            result.add(AutoCompleteCityResponseDto.builder()
+                    .id(data.getId())
+                    .name(data.getCity())
+                    .country(data.getCountry())
+                    .build());
         }
         return result;
     }
 
-    //TODO: WTF!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     public List<CarRentalResponseDto> searchCarRental(CarRentalRequestDto requestCarRentalDto) {
         HttpEntity<String> entity = new HttpEntity<>(createHeaders());
         String urlWithQuery = UriComponentsBuilder.fromHttpUrl(carRentalApi)

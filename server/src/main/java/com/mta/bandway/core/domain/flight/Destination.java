@@ -9,16 +9,12 @@ import java.io.Serializable;
 public class Destination implements Serializable {
 
     @JsonProperty("flightPlaceId")
-    public String flightPlaceId;
+    private String flightPlaceId;
     @JsonProperty("displayCode")
-    public String displayCode;
+    private String displayCode;
     @JsonProperty("parent")
-    public Parent parent;
-    @JsonProperty("name")
-    public String name;
-    @JsonProperty("type")
-    public String type;
+    private Parent parent;
     @JsonProperty("country")
-    public String country;
+    private String country;
 
 }

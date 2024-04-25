@@ -1,35 +1,62 @@
 package com.mta.bandway.services;
 
+import com.mta.bandway.api.domain.response.ArtistAutoCompleteResponseDto;
 import com.mta.bandway.api.domain.response.ConcertResponseDto;
 import com.mta.bandway.core.domain.concert.Embedded;
 import com.mta.bandway.core.domain.concert.Event;
 import com.mta.bandway.core.domain.concert.Image;
-import com.mta.bandway.repositories.ConcertOrderRepository;
+import com.mta.bandway.core.domain.concert.artist.ArtistResponse;
+import com.mta.bandway.core.domain.concert.artist.Item;
+import com.mta.bandway.core.domain.concert.artist.SpotifyToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 @Service
 public class ConcertService {
-    @Value("${ticketmaster.api.url}")
-    private String apiUrl;
-    @Value("${ticketmaster.api.key}")
-    private String apiKey;
+    private final String ticketmasterApiUrl;
+    private final String ticketmasterApiKey;
+    private final String spotifyClientId;
+    private final String spotifyClientSecret;
+    private final String spotifyTokenUrl;
+    private final String spotifyArtistSearchUrl;
+    private final RestTemplate restTemplate;
+    private String spotifyToken;
+
     @Autowired
-    private RestTemplate restTemplate;
-    private ConcertOrderRepository concertOrderRepository;
+    public ConcertService(@Value("${ticketmaster.api.url}") String ticketmasterApiUrl,
+                          @Value("${ticketmaster.api.key}") String ticketmasterApiKey,
+                          @Value("${spotify.api.url}") String spotifyApiUrl,
+                          @Value("${spotify.api.token.url}") String spotifyTokenUrl,
+                          @Value("${spotify.client.id}") String spotifyClientId,
+                          @Value("${spotify.client.secret}") String spotifyClientSecret,
+                          RestTemplate restTemplate) {
+        this.ticketmasterApiUrl = ticketmasterApiUrl;
+        this.ticketmasterApiKey = ticketmasterApiKey;
+        this.spotifyArtistSearchUrl = spotifyApiUrl + "/search";
+        this.spotifyClientId = spotifyClientId;
+        this.spotifyClientSecret = spotifyClientSecret;
+        this.restTemplate = restTemplate;
+        this.spotifyTokenUrl = spotifyTokenUrl;
+
+    }
 
     public List<ConcertResponseDto> getConcertsByPerformer(String performer) {
+        performer = performer.replace(" ", "_");
         HttpEntity<?> entity = new HttpEntity<>(createHeaders());
-        String urlWithQuery = UriComponentsBuilder.fromHttpUrl(apiUrl)
-                .queryParam("apikey", apiKey)
+        String urlWithQuery = UriComponentsBuilder.fromHttpUrl(ticketmasterApiUrl)
+                .queryParam("apikey", ticketmasterApiKey)
                 .queryParam("classificationName", "music")
                 .queryParam("keyword", performer)
                 .toUriString();
@@ -73,4 +100,49 @@ public class ConcertService {
         return headers;
     }
 
+    public List<ArtistAutoCompleteResponseDto> getArtistAutoComplete(String artistName) {
+        HttpHeaders headers = new HttpHeaders();
+        headers.setBearerAuth(spotifyToken);
+        HttpEntity<?> entity = new HttpEntity<>(headers);
+
+        URI uri = UriComponentsBuilder.fromHttpUrl(spotifyArtistSearchUrl)
+                .queryParam("q", artistName)
+                .queryParam("type", "artist")
+                .queryParam("limit", "5").build().toUri();
+        ResponseEntity<ArtistResponse> responseEntity = restTemplate.exchange(uri, HttpMethod.GET, entity, ArtistResponse.class);
+        List<ArtistAutoCompleteResponseDto> result = new ArrayList<>();
+        if (responseEntity.getBody() != null) {
+            for (Item artist : responseEntity.getBody().getArtists().getItems()) {
+                {
+                    result.add(ArtistAutoCompleteResponseDto.builder()
+                            .artistName(artist.getName())
+                            .artistId(artist.getId())
+                            .spotifyLink(artist.getExternalUrls().getSpotify())
+                            .genres(artist.getGenres())
+                            .images(artist.getImages())
+                            .popularity(artist.getPopularity())
+                            .build());
+                }
+            }
+        }
+        return result;
+    }
+
+    @Scheduled(fixedDelay = 3600000) // each 1 hour
+    public void getSpotifyToken() {
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
+
+        MultiValueMap<String, String> requestBody = new LinkedMultiValueMap<>();
+        requestBody.add("grant_type", "client_credentials");
+        requestBody.add("client_id", spotifyClientId);
+        requestBody.add("client_secret", spotifyClientSecret);
+
+        HttpEntity<MultiValueMap<String, String>> requestEntity = new HttpEntity<>(requestBody, headers);
+
+        ResponseEntity<SpotifyToken> responseEntity = restTemplate.exchange(spotifyTokenUrl, HttpMethod.POST, requestEntity, SpotifyToken.class);
+        if (responseEntity.getStatusCode() == HttpStatus.OK && responseEntity.getBody() != null) {
+            spotifyToken = responseEntity.getBody().getAccessToken();
+        }
+    }
 }
