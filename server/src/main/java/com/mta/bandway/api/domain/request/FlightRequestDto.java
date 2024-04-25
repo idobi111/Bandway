@@ -14,11 +14,11 @@ import java.util.Date;
 @Builder
 public class FlightRequestDto implements Serializable {
 
-    @Schema(description = "Source airport code", example = "(tel aviv): eyJzIjoiVExWIiwiZSI6Ijk1NjczNjM1IiwiaCI6IjI3NTQ2Mjk2In0=")
+    @Schema(description = "Source airport code", example = "eyJzIjoiVExWIiwiZSI6Ijk1NjczNjM1IiwiaCI6IjI3NTQ2Mjk2In0=")
     @JsonProperty(value = "src", required = true)
     private String src;
 
-    @Schema(description = "Destination airport code", example = "(london): eyJzIjoiTE9ORCIsImUiOiIyNzU0NDAwOCIsImgiOiIyNzU0NDAwOCJ9")
+    @Schema(description = "Destination airport code", example = "eyJzIjoiTE9ORCIsImUiOiIyNzU0NDAwOCIsImgiOiIyNzU0NDAwOCJ9")
     @JsonProperty(value = "dest", required = true)
     private String dest;
 

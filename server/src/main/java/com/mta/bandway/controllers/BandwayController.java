@@ -3,8 +3,7 @@ package com.mta.bandway.controllers;
 import com.mta.bandway.api.domain.request.CarRentalRequestDto;
 import com.mta.bandway.api.domain.request.FlightRequestDto;
 import com.mta.bandway.api.domain.request.HotelRequestDto;
-import com.mta.bandway.api.domain.response.ConcertResponseDto;
-import com.mta.bandway.api.domain.response.HotelResponseDto;
+import com.mta.bandway.api.domain.response.*;
 import com.mta.bandway.services.CarRentalService;
 import com.mta.bandway.services.ConcertService;
 import com.mta.bandway.services.FlightService;
@@ -14,7 +13,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -28,53 +26,50 @@ public class BandwayController {
     private final FlightService flightService;
     private final CarRentalService carRentalService;
 
-    @GetMapping("/health")
-    public String health() {
-        return "Bandway is healthy!";
+    @GetMapping(value = "/health", consumes = "application/json", produces = "application/json", headers = "Accept=application/json")
+    public ResponseEntity<String> health() {
+        return ResponseEntity.ok("Bandway is healthy!");
     }
 
-    @PostMapping("/searchHotel")
+    @PostMapping(value = "/searchHotel", consumes = "application/json", produces = "application/json", headers = "Accept=application/json")
     public ResponseEntity<List<HotelResponseDto>> searchHotel(@RequestBody HotelRequestDto requestHotelDto) {
-        return hotelService.getHotels(requestHotelDto);
+        return ResponseEntity.ok(hotelService.getHotels(requestHotelDto));
     }
 
-    @GetMapping("/searchConcert")
+    @GetMapping(value = "/searchConcert", consumes = "application/json", produces = "application/json", headers = "Accept=application/json")
     //TODO: should handle space in performer name (e.g. "taylor swift") should be "taylor_swift"
-    public ResponseEntity<?> searchConcert(@RequestParam String performer) {
+    public ResponseEntity<List<ConcertResponseDto>> searchConcert(@RequestParam String performer) {
         List<ConcertResponseDto> res = concertService.getConcertsByPerformer(performer);
-        if (res.equals(new ArrayList<>())) {
-            return ResponseEntity.badRequest().body("No concerts found for this performer");
-        }
         return ResponseEntity.ok(res);
     }
 
-    @GetMapping("/flightCityAutoComplete")
-    public ResponseEntity<?> getCities(@RequestParam String text) {
+    @GetMapping(value = "/flightCityAutoComplete", consumes = "application/json", produces = "application/json", headers = "Accept=application/json")
+    public ResponseEntity<List<AutoCompleteCityResponseDto>> getCities(@RequestParam String text) {
         return ResponseEntity.ok(flightService.getCities(text));
     }
 
-    @PostMapping("/searchFlight")
-    public ResponseEntity<?> getFlight(@RequestBody FlightRequestDto requestFlightDto) {
+    @PostMapping(value = "/searchFlight", consumes = "application/json", produces = "application/json", headers = "Accept=application/json")
+    public ResponseEntity<FlightResponseDto> getFlight(@RequestBody FlightRequestDto requestFlightDto) {
         return ResponseEntity.ok(flightService.searchFlight(requestFlightDto));
     }
 
-    @GetMapping("/carRentalCityAutoComplete")
-    public ResponseEntity<?> getCarAutoComplete(@RequestParam String query) {
+    @GetMapping(value = "/carRentalCityAutoComplete", consumes = "application/json", produces = "application/json", headers = "Accept=application/json")
+    public ResponseEntity<List<AutoCompleteCityResponseDto>> getCarAutoComplete(@RequestParam String query) {
         return ResponseEntity.ok(carRentalService.getCityAutoComplete(query));
     }
 
-    @PostMapping("/searchCarRental")
-    public ResponseEntity<?> searchCar(@RequestBody CarRentalRequestDto requestCarRentalDto) {
+    @PostMapping(value = "/searchCarRental", consumes = "application/json", produces = "application/json", headers = "Accept=application/json")
+    public ResponseEntity<List<CarRentalResponseDto>> searchCar(@RequestBody CarRentalRequestDto requestCarRentalDto) {
         return ResponseEntity.ok(carRentalService.searchCarRental(requestCarRentalDto));
     }
 
-    @GetMapping("/getHotelLink")
-    public ResponseEntity<?> getHotelLink(@RequestParam Integer hotelId, @RequestParam String checkInDate, @RequestParam String checkOutDate) {
+    @GetMapping(value = "/getHotelLink", consumes = "application/json", produces = "application/json", headers = "Accept=application/json")
+    public ResponseEntity<String> getHotelLink(@RequestParam Integer hotelId, @RequestParam String checkInDate, @RequestParam String checkOutDate) {
         return ResponseEntity.ok(hotelService.getLink(hotelId, checkInDate, checkOutDate));
     }
 
-    @GetMapping("/getArtistAutoComplete")
-    public ResponseEntity<?> artistAutoComplete(@RequestParam String artistName) {
+    @GetMapping(value = "/getArtistAutoComplete", consumes = "application/json", produces = "application/json", headers = "Accept=application/json")
+    public ResponseEntity<List<ArtistAutoCompleteResponseDto>> artistAutoComplete(@RequestParam String artistName) {
         return ResponseEntity.ok(concertService.getArtistAutoComplete(artistName));
     }
 }

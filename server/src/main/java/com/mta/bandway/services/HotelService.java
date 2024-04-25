@@ -114,7 +114,7 @@ public class HotelService {
         return restTemplate.exchange(urlWithQuery, HttpMethod.GET, entity, CityResponse.class);
     }
 
-    public ResponseEntity<List<HotelResponseDto>> getHotels(HotelRequestDto hotelDto) {
+    public List<HotelResponseDto> getHotels(HotelRequestDto hotelDto) {
         ResponseEntity<CityResponse> cityData = getCityId(hotelDto.getVenueName());
         if (isValidCityResponse(cityData)) return null; //TODO: handle error
         Datum datum = getDatum(cityData);
@@ -122,11 +122,10 @@ public class HotelService {
         URI uri = buildSearchHotelUri(datum.getDestId(), getDateTime(hotelDto.getCheckIn()), getDateTime(hotelDto.getCheckOut()), hotelDto.getAdults(), hotelDto.getRooms(), datum.getDestType());
         HttpEntity<?> entity = new HttpEntity<>(createHeaders());
         ResponseEntity<HotelResponse> hotels = restTemplate.exchange(uri, HttpMethod.GET, entity, HotelResponse.class);
-        List<HotelResponseDto> responses = buildResponse(hotelDto, hotels);
-        return ResponseEntity.ok(responses);
+        return buildResponse(hotelDto, hotels);
     }
 
-    public ResponseEntity<?> getLink(Integer hotelId, String checkIn, String checkOut) {
+    public String getLink(Integer hotelId, String checkIn, String checkOut) {
         HttpEntity<?> entity = new HttpEntity<>(createHeaders());
         URI uri = UriComponentsBuilder.fromHttpUrl(bookingHotelDetailsUrl)
                 .queryParam("hotel_id", hotelId)
@@ -135,9 +134,8 @@ public class HotelService {
                 .queryParam("currency_code", "USD")
                 .build().toUri();
         ResponseEntity<HotelDetails> hotelDetails = restTemplate.exchange(uri, HttpMethod.GET, entity, HotelDetails.class);
-        String hotelUrl = UriComponentsBuilder.fromHttpUrl(Objects.requireNonNull(hotelDetails.getBody()).getData().getUrl())
+        return UriComponentsBuilder.fromHttpUrl(Objects.requireNonNull(hotelDetails.getBody()).getData().getUrl())
                 .queryParam("checkin", checkIn)
                 .queryParam("checkout", checkOut).toUriString();
-        return ResponseEntity.ok(hotelUrl);
     }
 }

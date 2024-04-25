@@ -20,11 +20,11 @@ public class CarRentalRequestDto {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private Date dropoffEndDate;
 
-    @Schema(description = "Pickup city", example = "(new york): eyJsYXRpdHVkZSI6IjQwLjc1OTU5IiwibG9uZ2l0dWRlIjoiLTczLjk4NDkxIn0=")
+    @Schema(description = "Pickup city", example = "eyJsYXRpdHVkZSI6IjQwLjc1OTU5IiwibG9uZ2l0dWRlIjoiLTczLjk4NDkxIn0=")
     @JsonProperty(value = "pickupCity", required = true)
     private String pickupCity;
 
-    @Schema(description = "Dropoff city", example = "(new york): eyJsYXRpdHVkZSI6IjQwLjc1OTU5IiwibG9uZ2l0dWRlIjoiLTczLjk4NDkxIn0=")
+    @Schema(description = "Dropoff city", example = "eyJsYXRpdHVkZSI6IjQwLjc1OTU5IiwibG9uZ2l0dWRlIjoiLTczLjk4NDkxIn0=")
     @JsonProperty(value = "dropoffCity", required = true)
     private String dropoffCity;
 
@@ -36,7 +36,7 @@ public class CarRentalRequestDto {
     @JsonProperty(value = "dropoffTime", defaultValue = "00:00")
     private String dropoffTime;
 
-    @Schema(description = "Driver age")
+    @Schema(description = "Driver age", defaultValue = "25", example = "25")
     @JsonProperty("driverAge")
     private Integer driverAge;
 
