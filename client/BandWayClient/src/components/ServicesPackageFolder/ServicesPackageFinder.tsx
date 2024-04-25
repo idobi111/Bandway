@@ -19,7 +19,7 @@ const ServicesPackageFinder: React.FC = () => {
  0
   useEffect(() => {
   
-            setPackages(packagesMock)
+            // setPackages(packagesMock)
 
     
   }, []);
