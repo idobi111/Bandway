@@ -10,6 +10,7 @@ import PackageCardFlightSection from './PackageCardFlightSection';
 import PackageCardImageSection from './PackageCardImageSection';
 import PackageCardPriceSection from './PackageCardPriceSection';
 import { PackageFilter } from '../../../models/PackageFilter';
+import PackageDialog from './PackageDialog';
 
 
 
@@ -72,13 +73,8 @@ const PackageCard: React.FC<Props> = ({ packages, step, packageFilters }) => {
         </div>
       )}
       {/* Dialog Component */}
-      <Modal open={openDialog} onClose={handleCloseDialog}>
-        <Box display={'flex'} style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', backgroundColor: 'white', padding: '20px', borderRadius: '8px' }}>
-        <Typography variant='h3'>Your vacation details</Typography>
-          <Box display={'flex'}>
-
-          </Box>
-        </Box>
+      <Modal open={openDialog} onClose={handleCloseDialog} sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+        <PackageDialog servicesPackage={selectedPackage} packageFilters={packageFilters} ></PackageDialog>
       </Modal>
 
     </>
