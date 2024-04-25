@@ -3,17 +3,17 @@ export const ResultsPackageMocks = [
         packageId: 1,
         hotel: {
             hotelId: 5678,
-            city: "Madrid",
-            hotelName: "Sunset View Hotel",
-            checkIn: "2024-07-10",
-            checkOut: "2024-07-15",
+            city: "Dublin",
+            hotelName: "The Devlin Dublin",
+            checkIn: "2024-05-25",
+            checkOut: "2024-05-28",
             rooms: 1,
             adults: 2,
             children: 0,
-            price: 350,
+            price: 779,
             rating: 8.8,
             photoUrl: [
-                "https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+                "https://cf.bstatic.com/xdata/images/hotel/max1280x900/172841856.jpg?k=7f0f31fa161ad8dac7d3c49dc58c2dfaa80768facd720ab54af9532b1ca84b75&o=&hp=1",
                 "https://example.com/photo4.jpg"
             ],
             bookingUrl: ""
@@ -24,8 +24,8 @@ export const ResultsPackageMocks = [
                 {
                     sourceCountry: "Israel",
                     sourceCity: "Tel Aviv",
-                    destCountry: "United Kingdom",
-                    destCity: "London",
+                    destCountry: "Ireland",
+                    destCity: "Dublin",
                     flightDetails: [
                         {
                             id: "IB123",
