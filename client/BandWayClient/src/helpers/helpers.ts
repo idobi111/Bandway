@@ -20,14 +20,30 @@ export class Helpers {
 
     }
 
-    public formatDate(dateString: string): string {
-        const date = new Date(dateString);
-        const day = date.getDate();
-        const monthNames = ["January", "February", "March", "April", "May", "June",
-            "July", "August", "September", "October", "November", "December"];
-        const monthName = monthNames[date.getMonth()];
+    public formatDate(dateString: string | undefined): string | undefined {
+        if (dateString) {
+            const date = new Date(dateString);
+            const day = date.getDate();
+            const monthNames = ["January", "February", "March", "April", "May", "June",
+                "July", "August", "September", "October", "November", "December"];
+            const monthName = monthNames[date.getMonth()];
 
-        return `${day} ${monthName}`;
+            return `${day} ${monthName}`;
+        }
+    }
+
+    public formatDateAndYear(dateString: string | undefined): string | undefined {
+        if (dateString) {
+            const date = new Date(dateString);
+            const day = date.getDate();
+            const monthNames = ["January", "February", "March", "April", "May", "June",
+                "July", "August", "September", "October", "November", "December"];
+            const monthName = monthNames[date.getMonth()];
+            const year = date.getFullYear();
+
+
+            return `${day} ${monthName}, ${year}`;
+        }
     }
 
     public formatDatesRange(servicesPackage: Package): string {
@@ -51,6 +67,12 @@ export class Helpers {
         return `${formattedCheckInDate} - ${formattedCheckOutDate}`;
     }
 
+
+    public formatHour(hour: string | undefined) {
+        if (hour) {
+            return new Date(hour).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: false });
+        }
+    }
 
 }
 

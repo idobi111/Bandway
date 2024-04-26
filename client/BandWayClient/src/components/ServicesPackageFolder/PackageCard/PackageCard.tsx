@@ -10,7 +10,8 @@ import PackageCardFlightSection from './PackageCardFlightSection';
 import PackageCardImageSection from './PackageCardImageSection';
 import PackageCardPriceSection from './PackageCardPriceSection';
 import { PackageFilter } from '../../../models/PackageFilter';
-import PackageDialog from './PackageDialog';
+import PackageDialog from './PackageDialog/PackageDialog';
+
 
 
 

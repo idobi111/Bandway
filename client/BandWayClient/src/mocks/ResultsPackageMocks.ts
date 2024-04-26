@@ -397,9 +397,9 @@ export const ResultsPackageMocks = [
                             departureCityName: "Tel Aviv",
                             arrivalAirport: "MAD",
                             arrivalCityName: "Madrid",
-                            duration: "04:50",
+                            duration: "4h 50m",
                             airline: "Brussels Airlines"
-                          },
+                        },
                         {
                             id: "AA333",
                             flightNumber: "AA333",
@@ -417,6 +417,10 @@ export const ResultsPackageMocks = [
                         {
                             logoUrl: "https://logos.skyscnr.com/images/airlines/favicon/I*.png",
                             name: "American Airlines"
+                        },
+                        {
+                            "logoUrl": "https://logos.skyscnr.com/images/airlines/favicon/9_.png",
+                            "name": "Blue Bird Airways"
                         }
                     ],
                     price: 1000,
