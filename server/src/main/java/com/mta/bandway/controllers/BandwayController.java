@@ -26,50 +26,59 @@ public class BandwayController {
     private final FlightService flightService;
     private final CarRentalService carRentalService;
 
-    @GetMapping(value = "/health", consumes = "application/json", produces = "application/json", headers = "Accept=application/json")
+    @GetMapping(value = "/health", produces = "application/json", headers = "Accept=application/json")
     public ResponseEntity<String> health() {
         return ResponseEntity.ok("Bandway is healthy!");
     }
 
-    @PostMapping(value = "/searchHotel", consumes = "application/json", produces = "application/json", headers = "Accept=application/json")
+    @PostMapping(value = "/searchHotel", produces = "application/json", headers = "Accept=application/json")
     public ResponseEntity<List<HotelResponseDto>> searchHotel(@RequestBody HotelRequestDto requestHotelDto) {
         return ResponseEntity.ok(hotelService.getHotels(requestHotelDto));
     }
 
-    @GetMapping(value = "/searchConcert", consumes = "application/json", produces = "application/json", headers = "Accept=application/json")
-    //TODO: should handle space in performer name (e.g. "taylor swift") should be "taylor_swift"
+    @GetMapping(value = "/searchConcert", produces = "application/json", headers = "Accept=application/json")
     public ResponseEntity<List<ConcertResponseDto>> searchConcert(@RequestParam String performer) {
         List<ConcertResponseDto> res = concertService.getConcertsByPerformer(performer);
         return ResponseEntity.ok(res);
     }
 
-    @GetMapping(value = "/flightCityAutoComplete", consumes = "application/json", produces = "application/json", headers = "Accept=application/json")
+    @GetMapping(value = "/flightCityAutoComplete", produces = "application/json", headers = "Accept=application/json")
     public ResponseEntity<List<AutoCompleteCityResponseDto>> getCities(@RequestParam String text) {
         return ResponseEntity.ok(flightService.getCities(text));
     }
 
-    @PostMapping(value = "/searchFlight", consumes = "application/json", produces = "application/json", headers = "Accept=application/json")
+    @PostMapping(value = "/searchFlight", produces = "application/json", headers = "Accept=application/json")
     public ResponseEntity<FlightResponseDto> getFlight(@RequestBody FlightRequestDto requestFlightDto) {
         return ResponseEntity.ok(flightService.searchFlight(requestFlightDto));
     }
 
-    @GetMapping(value = "/carRentalCityAutoComplete", consumes = "application/json", produces = "application/json", headers = "Accept=application/json")
+    @GetMapping(value = "/carRentalCityAutoComplete", produces = "application/json", headers = "Accept=application/json")
     public ResponseEntity<List<AutoCompleteCityResponseDto>> getCarAutoComplete(@RequestParam String query) {
         return ResponseEntity.ok(carRentalService.getCityAutoComplete(query));
     }
 
-    @PostMapping(value = "/searchCarRental", consumes = "application/json", produces = "application/json", headers = "Accept=application/json")
+    @PostMapping(value = "/searchCarRental", produces = "application/json", headers = "Accept=application/json")
     public ResponseEntity<List<CarRentalResponseDto>> searchCar(@RequestBody CarRentalRequestDto requestCarRentalDto) {
         return ResponseEntity.ok(carRentalService.searchCarRental(requestCarRentalDto));
     }
 
-    @GetMapping(value = "/getHotelLink", consumes = "application/json", produces = "application/json", headers = "Accept=application/json")
+    @GetMapping(value = "/getHotelLink", produces = "application/json", headers = "Accept=application/json")
     public ResponseEntity<String> getHotelLink(@RequestParam Integer hotelId, @RequestParam String checkInDate, @RequestParam String checkOutDate) {
         return ResponseEntity.ok(hotelService.getLink(hotelId, checkInDate, checkOutDate));
     }
 
-    @GetMapping(value = "/getArtistAutoComplete", consumes = "application/json", produces = "application/json", headers = "Accept=application/json")
+    @GetMapping(value = "/artistAutoComplete", produces = "application/json", headers = "Accept=application/json")
     public ResponseEntity<List<ArtistAutoCompleteResponseDto>> artistAutoComplete(@RequestParam String artistName) {
         return ResponseEntity.ok(concertService.getArtistAutoComplete(artistName));
+    }
+
+    @GetMapping(value = "/upcomingConcert", headers = "Accept=application/json")
+    public ResponseEntity<List<ConcertResponseDto>> upcomingConcert() {
+        return ResponseEntity.ok(concertService.getUpcomingConcert());
+    }
+
+    @GetMapping(value = "/artistSpotifyLink", headers = "Accept=application/json")
+    public ResponseEntity<SpotifyLinkResponseDto> getArtistSpotifyLink(String artistId) {
+        return ResponseEntity.ok(concertService.getArtistUrl(artistId));
     }
 }

@@ -2,10 +2,11 @@ package com.mta.bandway.services;
 
 import com.mta.bandway.api.domain.response.ArtistAutoCompleteResponseDto;
 import com.mta.bandway.api.domain.response.ConcertResponseDto;
+import com.mta.bandway.api.domain.response.SpotifyLinkResponseDto;
 import com.mta.bandway.core.domain.concert.Embedded;
 import com.mta.bandway.core.domain.concert.Event;
 import com.mta.bandway.core.domain.concert.Image;
-import com.mta.bandway.core.domain.concert.artist.ArtistResponse;
+import com.mta.bandway.core.domain.concert.artist.AutoCompleteArtistResponse;
 import com.mta.bandway.core.domain.concert.artist.Item;
 import com.mta.bandway.core.domain.concert.artist.SpotifyToken;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +31,8 @@ public class ConcertService {
     private final String spotifyClientId;
     private final String spotifyClientSecret;
     private final String spotifyTokenUrl;
-    private final String spotifyArtistSearchUrl;
+    private final String spotifyArtistData;
+    private final String spotifyAutoCompleteArtist;
     private final RestTemplate restTemplate;
     private String spotifyToken;
 
@@ -44,7 +46,8 @@ public class ConcertService {
                           RestTemplate restTemplate) {
         this.ticketmasterApiUrl = ticketmasterApiUrl;
         this.ticketmasterApiKey = ticketmasterApiKey;
-        this.spotifyArtistSearchUrl = spotifyApiUrl + "/search";
+        this.spotifyAutoCompleteArtist = spotifyApiUrl + "/search";
+        this.spotifyArtistData = spotifyApiUrl + "/artists";
         this.spotifyClientId = spotifyClientId;
         this.spotifyClientSecret = spotifyClientSecret;
         this.restTemplate = restTemplate;
@@ -100,16 +103,31 @@ public class ConcertService {
         return headers;
     }
 
+    public SpotifyLinkResponseDto getArtistUrl(String artistId) {
+        HttpHeaders headers = new HttpHeaders();
+        headers.setBearerAuth(spotifyToken);
+        HttpEntity<?> entity = new HttpEntity<>(headers);
+        URI uri = UriComponentsBuilder.fromHttpUrl(spotifyArtistData)
+                .path("/" + artistId).build().toUri();
+        ResponseEntity<Item> responseEntity = restTemplate.exchange(uri, HttpMethod.GET, entity, Item.class);
+        Item item = Objects.requireNonNull(responseEntity.getBody());
+        return SpotifyLinkResponseDto.builder()
+                .spotifyLink(item.getExternalUrls().getSpotify())
+                .artistName(item.getName())
+                .imageList(item.getImages())
+                .build();
+    }
+
     public List<ArtistAutoCompleteResponseDto> getArtistAutoComplete(String artistName) {
         HttpHeaders headers = new HttpHeaders();
         headers.setBearerAuth(spotifyToken);
         HttpEntity<?> entity = new HttpEntity<>(headers);
 
-        URI uri = UriComponentsBuilder.fromHttpUrl(spotifyArtistSearchUrl)
+        URI uri = UriComponentsBuilder.fromHttpUrl(spotifyAutoCompleteArtist)
                 .queryParam("q", artistName)
                 .queryParam("type", "artist")
-                .queryParam("limit", "5").build().toUri();
-        ResponseEntity<ArtistResponse> responseEntity = restTemplate.exchange(uri, HttpMethod.GET, entity, ArtistResponse.class);
+                .queryParam("limit", "10").build().toUri();
+        ResponseEntity<AutoCompleteArtistResponse> responseEntity = restTemplate.exchange(uri, HttpMethod.GET, entity, AutoCompleteArtistResponse.class);
         List<ArtistAutoCompleteResponseDto> result = new ArrayList<>();
         if (responseEntity.getBody() != null) {
             for (Item artist : responseEntity.getBody().getArtists().getItems()) {
@@ -144,5 +162,20 @@ public class ConcertService {
         if (responseEntity.getStatusCode() == HttpStatus.OK && responseEntity.getBody() != null) {
             spotifyToken = responseEntity.getBody().getAccessToken();
         }
+    }
+
+    public List<ConcertResponseDto> getUpcomingConcert() {
+        HttpEntity<?> entity = new HttpEntity<>(createHeaders());
+        String urlWithQuery = UriComponentsBuilder.fromHttpUrl(ticketmasterApiUrl)
+                .queryParam("apikey", ticketmasterApiKey)
+                .queryParam("classificationName", "music")
+                .queryParam("marketId", "3")
+                .toUriString();
+        ResponseEntity<Event> eventResponseEntity = restTemplate.exchange(urlWithQuery, HttpMethod.GET, entity, Event.class);
+        Embedded concerts = Objects.requireNonNull(eventResponseEntity.getBody()).get_embedded();
+        if (concerts == null) {
+            return new ArrayList<>();
+        }
+        return createConcertDtoResponse(concerts);
     }
 }

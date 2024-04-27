@@ -13,8 +13,6 @@ public class AutoCompleteCity implements Serializable {
 
     @JsonProperty("status")
     private Boolean status;
-    @JsonProperty("message")
-    private String message;
     @JsonProperty("data")
     private List<Datum> data;
 

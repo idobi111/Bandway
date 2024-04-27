@@ -7,7 +7,6 @@ import lombok.Data;
 public class OneWayFlight {
 
     private boolean status;
-    private String message;
     @JsonProperty("data")
     private FlightOneWayData data;
 
