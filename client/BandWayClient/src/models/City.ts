@@ -1,5 +1,6 @@
-export interface City {
-    id: number;
-    name: string;
-    country: string;
-  }
+export interface CityRespsone {
+  id: string;
+  name: string;
+  country: string;
+  entityType: string;
+}

@@ -1,21 +1,24 @@
 import React, { useState } from 'react';
 import { Card, CardContent, CardMedia, Typography, Grid, Button, Modal, Box, Stack } from '@mui/material';
-import { Event } from '../../models/EventResponse';
 import { EventCardStyled, EventCardMediaStyled, LoadMoreButton, ActionButton, SubActionButton } from '../../styles/ComponentsStyles';
 import { useNavigate } from "react-router-dom";
+import { EventResponse } from '../../models/EventResponse';
+import { Helpers } from '../../helpers/helpers';
 
 
 
 interface Props {
-  events: Event[];
+  events: EventResponse[];
   step: number; // Step value to determine how many more events to load each time
 }
 
 const EventCard: React.FC<Props> = ({ events, step }) => {
   const [visibleEvents, setVisibleEvents] = useState(step); // State to track the number of visible events
-  const [selectedEvent, setSelectedEvent] = useState<Event | null>(null); // State to track the selected event
+  const [selectedEvent, setSelectedEvent] = useState<EventResponse | null>(null); // State to track the selected event
   const [isModalOpen, setIsModalOpen] = useState(false); // State to control the visibility of the modal
   const navigate = useNavigate();
+
+  const helpers = new Helpers();
 
   const handleUserNotifyTicketIsOrdered = () => {
       window.scrollTo({ top: 0, behavior: 'smooth' });  
@@ -28,7 +31,7 @@ const EventCard: React.FC<Props> = ({ events, step }) => {
     setVisibleEvents(prevVisibleEvents => prevVisibleEvents + step); // Increase the number of visible events
   };
 
-  const handleOpenModal = (event: Event) => {
+  const handleOpenModal = (event: EventResponse) => {
     window.open(event.ticketUrl, '_blank');
     setSelectedEvent(event);
     setIsModalOpen(true);
@@ -54,7 +57,7 @@ const EventCard: React.FC<Props> = ({ events, step }) => {
       <Grid container justifyContent="center" spacing={3}>
         {events.slice(0, visibleEvents).map(event => ( // Slice events based on the visibleEvents state
           <Grid item xs={12} sm={6} md={4} key={event.ticketUrl}> {/* Each card occupies 12 columns on extra small screens, 6 columns on small screens, and 4 columns on medium screens */}
-            <EventCardStyled onClick={() => handleOpenModal(event)}>
+            <EventCardStyled onClick={() => handleOpenModal(event)} sx={{height: '350px'}}>
               <EventCardMediaStyled
                 style={{ height: 140 }}
                 image={event.images[0]}
@@ -65,13 +68,13 @@ const EventCard: React.FC<Props> = ({ events, step }) => {
                   {event.performer}
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
-                  Date: {event.date}
+                  {helpers.formatDateAndYear(event.date)}
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
-                  Venue: {event.venue}
+                  {event.venue}
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
-                  Place: {event.city}, {event.country}
+                  {event.city}, {event.country}
                 </Typography>
               </CardContent>
             </EventCardStyled>
