@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { CssBaseline, AppBar, Toolbar, Typography, Button, CircularProgress } from '@mui/material';
+import { CssBaseline, AppBar, Toolbar, Typography, Button, CircularProgress, Box } from '@mui/material';
 import Header from '../GenericFolder/Header';
 import UpcomingEvents from './UpcomingEvents';
 import Footer from '../GenericFolder/Footer';
@@ -15,6 +15,7 @@ const EventSearchResults: React.FC = () => {
   const queryParams = new URLSearchParams(location.search);
   const searchQuery = queryParams.get('performer');
   const toCity = queryParams.get('toCity');
+  const fromCity =  queryParams.get('fromCity');
   const performer: string | null = searchQuery;
 
   useEffect(() => {
@@ -43,11 +44,13 @@ const EventSearchResults: React.FC = () => {
       <CssBaseline />
       <Header />
       <TopContent mainText="We Discovered Outstanding Results for You..." subText='' />
+      <Box display="flex" justifyContent="center">
       {isLoading ? (
         <CircularProgress />
       ) : (
-        <UpcomingEvents events={events} title={`${performer} Events${toCity ? ` in ${toCity}` : ''}`} />
+        <UpcomingEvents events={events} title={`${performer} Events${toCity ? ` in ${toCity}` : ''}`}  fromCity={fromCity}/>
       )}
+      </Box>
       <Footer />
     </>
   );

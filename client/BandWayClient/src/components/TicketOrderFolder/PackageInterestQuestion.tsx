@@ -12,14 +12,26 @@ interface QuestionProps {
 }
 
 
-const Question: React.FC<QuestionProps> = ({ titleText, descriptionText, acceptButtonText, rejectButtonText }) => {
+const PackageInterestQuestion: React.FC<QuestionProps> = ({ titleText, descriptionText, acceptButtonText, rejectButtonText }) => {
+  const queryParams = new URLSearchParams(location.search);
+  const checkIn = queryParams.get('checkIn');
+  const venue = queryParams.get('venue');
+  const fromCity = queryParams.get('fromCity');
+  const toCity = queryParams.get('toCity');
+
   const navigate = useNavigate();
 
   const handleUserNotifyInterestedServicesPackage = () => {
-      window.scrollTo({ top: 0, behavior: 'smooth' });  
-      navigate(`/services-package-finder`);
-    };
-  
+    const checkInQueryParam = checkIn ? `checkIn=${checkIn}` : '';
+    const venueNameQueryParam = venue ? `venue=${venue}` : '';
+    const fromCityQueryParam = fromCity ? `fromCity=${fromCity}` : '';
+    const toCityQueryParam = toCity ? `toCity=${toCity}` : '';
+
+    const queryParams = [checkInQueryParam, venueNameQueryParam, fromCityQueryParam, toCityQueryParam].filter(param => !!param).join('&');
+
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    navigate(`/services-package-finder?${queryParams}`);
+  };
   
     const handleIsUserInterestedServicesPackseg = (response: string) => {
       if (response === 'yes') {
@@ -63,4 +75,4 @@ const Question: React.FC<QuestionProps> = ({ titleText, descriptionText, acceptB
   );
 };
 
-export default Question;
+export default PackageInterestQuestion;

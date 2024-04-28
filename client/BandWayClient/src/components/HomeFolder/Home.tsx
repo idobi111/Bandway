@@ -44,7 +44,7 @@ const Home: React.FC<HomeProps> = () => {
           {isLoading ? (
             <CircularProgress />
           ) : (
-            <UpcomingEvents title="Upcoming Events" events={events} />
+            <UpcomingEvents title="Upcoming Events" events={events} fromCity={null} />
           )}
         </Box>
       </Container>

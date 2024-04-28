@@ -10,9 +10,10 @@ import { Helpers } from '../../helpers/helpers';
 interface Props {
   events: EventResponse[];
   step: number; // Step value to determine how many more events to load each time
+  fromCity: string | null
 }
 
-const EventCard: React.FC<Props> = ({ events, step }) => {
+const EventCard: React.FC<Props> = ({ events, step, fromCity }) => {
   const [visibleEvents, setVisibleEvents] = useState(step); // State to track the number of visible events
   const [selectedEvent, setSelectedEvent] = useState<EventResponse | null>(null); // State to track the selected event
   const [isModalOpen, setIsModalOpen] = useState(false); // State to control the visibility of the modal
@@ -20,10 +21,18 @@ const EventCard: React.FC<Props> = ({ events, step }) => {
 
   const helpers = new Helpers();
 
+
   const handleUserNotifyTicketIsOrdered = () => {
-      window.scrollTo({ top: 0, behavior: 'smooth' });  
-      navigate(`/post-ticket-order?query=${selectedEvent?.performer}`);
-    };
+    const checkInQueryParam = selectedEvent ? `checkIn=${selectedEvent.date}` : '';
+    const venueNameQueryParam = selectedEvent ? `venue=${selectedEvent.venue}` : '';
+    const fromCityQueryParam = fromCity ? `fromCity=${fromCity}` : '';
+    const toCityQueryParam = selectedEvent ? `toCity=${selectedEvent.city}` : '';
+
+    const queryParams = [checkInQueryParam, venueNameQueryParam, fromCityQueryParam, toCityQueryParam].filter(param => !!param).join('&');
+
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    navigate(`/post-ticket-order?${queryParams}`);
+  };
 
 
 
@@ -57,7 +66,7 @@ const EventCard: React.FC<Props> = ({ events, step }) => {
       <Grid container justifyContent="center" spacing={3}>
         {events.slice(0, visibleEvents).map(event => ( // Slice events based on the visibleEvents state
           <Grid item xs={12} sm={6} md={4} key={event.ticketUrl}> {/* Each card occupies 12 columns on extra small screens, 6 columns on small screens, and 4 columns on medium screens */}
-            <EventCardStyled onClick={() => handleOpenModal(event)} sx={{height: '350px'}}>
+            <EventCardStyled onClick={() => handleOpenModal(event)} sx={{ height: '350px' }}>
               <EventCardMediaStyled
                 style={{ height: 140 }}
                 image={event.images[0]}
@@ -98,9 +107,9 @@ const EventCard: React.FC<Props> = ({ events, step }) => {
       >
         <Box style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', backgroundColor: 'white', padding: '20px', borderRadius: '8px' }}>
           <Typography variant='h3' id="modal-title">Did you order the ticket?</Typography>
-          <Stack direction={'row'} justifyContent={"center"} alignItems={"center"} spacing={10} sx={{paddingTop:5}}>
-            <ActionButton variant="contained" style={{width:'100px'}} onClick={() => handleBuyTicket('yes')}>Yes</ActionButton>
-            <SubActionButton variant="contained" style={{width:'100px'}} onClick={() => handleBuyTicket('no')}>No</SubActionButton>
+          <Stack direction={'row'} justifyContent={"center"} alignItems={"center"} spacing={10} sx={{ paddingTop: 5 }}>
+            <ActionButton variant="contained" style={{ width: '100px' }} onClick={() => handleBuyTicket('yes')}>Yes</ActionButton>
+            <SubActionButton variant="contained" style={{ width: '100px' }} onClick={() => handleBuyTicket('no')}>No</SubActionButton>
           </Stack>
         </Box>
       </Modal>

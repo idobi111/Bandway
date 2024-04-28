@@ -4,7 +4,7 @@ import Header from '../GenericFolder/Header';
 import UpcomingEvents from '../EventFolder/UpcomingEvents';
 import Footer from '../GenericFolder/Footer';
 import TopContent from '../GenericFolder/TopContent';
-import Question from '../GenericFolder/Question';
+import PackageInterestQuestion from './PackageInterestQuestion';
 
 const PostTicketOrder: React.FC = () => {
 
@@ -16,7 +16,7 @@ const PostTicketOrder: React.FC = () => {
       <CssBaseline />
       <Header />
       <TopContent mainText="You got a ticket !" subText='First step on the way to vacation...'/>
-      <Question titleText={titleText} descriptionText={descriptionText} acceptButtonText="Find my vacation deal" rejectButtonText="No, Thanks"></Question>
+      <PackageInterestQuestion titleText={titleText} descriptionText={descriptionText} acceptButtonText="Find my vacation deal" rejectButtonText="No, Thanks"></PackageInterestQuestion>
       <Footer/>
     </>
   );
