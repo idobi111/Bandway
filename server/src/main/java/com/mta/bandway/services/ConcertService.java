@@ -55,14 +55,27 @@ public class ConcertService {
 
     }
 
-    public List<ConcertResponseDto> getConcertsByPerformer(String performer) {
+    public List<ConcertResponseDto> getConcertsByPerformer(String performer, List<String> cities) {
         performer = performer.replace(" ", "_");
+        URI urlWithQuery;
+        if (cities == null) {
+            urlWithQuery = UriComponentsBuilder.fromHttpUrl(ticketmasterApiUrl)
+                    .queryParam("apikey", ticketmasterApiKey)
+                    .queryParam("classificationName", "music")
+                    .queryParam("keyword", performer)
+                    .build().toUri();
+        }
+        else {
+            urlWithQuery = UriComponentsBuilder.fromHttpUrl(ticketmasterApiUrl)
+                    .queryParam("apikey", ticketmasterApiKey)
+                    .queryParam("classificationName", "music")
+                    .queryParam("keyword", performer)
+                    .queryParam("city", String.join(",", cities))
+                    .build().toUri();
+        }
+
         HttpEntity<?> entity = new HttpEntity<>(createHeaders());
-        String urlWithQuery = UriComponentsBuilder.fromHttpUrl(ticketmasterApiUrl)
-                .queryParam("apikey", ticketmasterApiKey)
-                .queryParam("classificationName", "music")
-                .queryParam("keyword", performer)
-                .toUriString();
+
         ResponseEntity<Event> eventResponseEntity = restTemplate.exchange(urlWithQuery, HttpMethod.GET, entity, Event.class);
         Embedded concerts = Objects.requireNonNull(eventResponseEntity.getBody()).get_embedded();
         if (concerts == null) {

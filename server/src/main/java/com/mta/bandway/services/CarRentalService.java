@@ -3,6 +3,10 @@ package com.mta.bandway.services;
 import com.mta.bandway.api.domain.request.CarRentalRequestDto;
 import com.mta.bandway.api.domain.response.AutoCompleteCityResponseDto;
 import com.mta.bandway.api.domain.response.CarRentalResponseDto;
+import com.mta.bandway.core.domain.car.CarResponse;
+import com.mta.bandway.core.domain.car.RouteInfo;
+import com.mta.bandway.core.domain.car.SearchResult;
+import com.mta.bandway.core.domain.car.VehicleInfo;
 import com.mta.bandway.core.domain.car.auto.correct.AutoCompleteCarCity;
 import com.mta.bandway.core.domain.car.auto.correct.CarCategory;
 import com.mta.bandway.core.domain.car.auto.correct.CarDatum;
@@ -13,11 +17,15 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import java.net.URI;
 import java.text.SimpleDateFormat;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 @Service
@@ -63,7 +71,7 @@ public class CarRentalService {
 
     public List<CarRentalResponseDto> searchCarRental(CarRentalRequestDto requestCarRentalDto) {
         HttpEntity<String> entity = new HttpEntity<>(createHeaders());
-        String urlWithQuery = UriComponentsBuilder.fromHttpUrl(carRentalApi)
+        URI uri = UriComponentsBuilder.fromHttpUrl(carRentalApi)
                 .queryParam("pickUpId", requestCarRentalDto.getPickupCity())
                 .queryParam("dropOffId", requestCarRentalDto.getDropoffCity())
                 .queryParam("pickUpDate", getDateTime(requestCarRentalDto.getPickupStartDate()))
@@ -73,9 +81,62 @@ public class CarRentalService {
                 .queryParam("driverAge", requestCarRentalDto.getDriverAge())
                 .queryParam("carType", getCarTypeAsString(requestCarRentalDto.getCarType()))
                 .queryParam("hasAirConditioning", requestCarRentalDto.getHasHairConditioner())
-                .toUriString();
-        ResponseEntity<String> response = restTemplate.exchange(urlWithQuery, HttpMethod.GET, entity, String.class);
-        return null;
+                .queryParam("currencyCode", "USD")
+                .build().toUri();
+        Integer daysDuration = calcDaysDuration(requestCarRentalDto.getPickupStartDate(), requestCarRentalDto.getDropoffEndDate(), requestCarRentalDto.getPickupTime(), requestCarRentalDto.getDropoffTime());
+        ResponseEntity<CarResponse> response = restTemplate.exchange(uri, HttpMethod.GET, entity, CarResponse.class);
+        if (response.getBody() == null) {
+            return new ArrayList<>();
+        }
+        return createCarRentalResponseDto(response.getBody(), daysDuration);
+    }
+
+    private Integer calcDaysDuration(Date pickupStartDate, Date dropoffEndDate, String pickupTime, String dropoffTime) {
+        Integer days = (int) TimeUnit.DAYS.convert(dropoffEndDate.getTime() - pickupStartDate.getTime(), TimeUnit.MILLISECONDS);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
+
+        // Parse the time strings into LocalTime objects
+        LocalTime pickTime = LocalTime.parse(pickupTime, formatter);
+        LocalTime dropTime = LocalTime.parse(dropoffTime, formatter);
+        if (!pickupTime.equals(dropoffTime) && dropTime.isAfter(pickTime)) {
+            days++;
+        }
+        return days;
+    }
+
+
+    private List<CarRentalResponseDto> createCarRentalResponseDto(CarResponse responseBody, Integer daysDuration) {
+        List<CarRentalResponseDto> result = new ArrayList<>();
+        for (int i = 0; i < responseBody.getData().getSearchResults().size(); i++) {
+            SearchResult data = responseBody.getData().getSearchResults().get(i);
+            VehicleInfo vehicleInfo = data.getVehicleInfo();
+            RouteInfo routeInfo = data.getRouteInfo();
+            result.add(CarRentalResponseDto.builder()
+                    .model(vehicleInfo.getVName())
+                    .pricePerDay(calcPricePerDay(data, daysDuration))
+                    .pickUpAddress(routeInfo.getPickup().getAddress())
+                    .pickUpPlaceName(routeInfo.getPickup().getName())
+                    .dropOffAddress(routeInfo.getDropoff().getAddress())
+                    .dropOffPlaceName(routeInfo.getDropoff().getName())
+                    .image(vehicleInfo.getImageUrl())
+                    .carLink(data.getForwardUrl())
+                    .totalPrice(data.getPricingInfo().getBasePrice())
+                    .rentalPeriod(daysDuration)
+                    .rating(data.getRatingInfo().getAverage())
+                    .ratingDescription(data.getRatingInfo().getAverageText())
+                    .supplierName(data.getSupplierInfo().getName())
+                    .supplierLogo(data.getSupplierInfo().getLogoUrl())
+                    .seats(Integer.valueOf(vehicleInfo.getSeats()))
+                    .carGroup(vehicleInfo.getGroup())
+                    .transmission(vehicleInfo.getTransmission())
+                    .build());
+        }
+        return result;
+    }
+
+
+    private Double calcPricePerDay(SearchResult data, Integer daysDuration) {
+        return data.getPricingInfo().getBasePrice() / daysDuration;
     }
 
     private String getCarTypeAsString(List<CarCategory> carTypes) {

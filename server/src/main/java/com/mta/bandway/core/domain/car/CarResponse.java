@@ -12,10 +12,8 @@ import java.io.Serializable;
 public class CarResponse implements Serializable {
 
     @JsonProperty("data")
-    public CarData data;
+    private CarData data;
     @JsonProperty("status")
-    public Boolean status;
-    @JsonProperty("message")
-    public String message;
+    private Boolean status;
 
 }
