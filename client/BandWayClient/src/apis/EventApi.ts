@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { Event } from '../models/EventResponse';
 import { Helpers } from '../helpers/helpers';
+import { ArtistResponse } from '../models/ArtistResponse';
 
 const helpers = new Helpers();
 
@@ -31,6 +32,18 @@ export class EventApi {
             return response.data;
         } catch (error) {
             console.error('Error fetching upcoming events:', error);
+            return [];
+        }
+    }
+
+    public async getArtistAutoComplete(artist:string): Promise<ArtistResponse[]> {
+        try {
+            // const response = await axios.get<Event[]>(`${this.BASE_URL}/...`);
+            const response = await axios.get<ArtistResponse[]>(`https://mocki.io/v1/bf096b39-229d-4f0f-ba13-35ba4dbcde1a`);
+
+            return response.data;
+        } catch (error) {
+            console.error('Error fetching artists:', error);
             return [];
         }
     }

@@ -2,6 +2,8 @@ import React, {useState} from 'react';
 import { Typography, Grid, TextField } from '@mui/material';
 import { HomeSearchGrid, SearchTextField, WindowDiv, ActionButton } from '../../styles/ComponentsStyles';
 import { useNavigate } from "react-router-dom";
+import ArtistSelect from './ArtistSelect';
+import { ArtistOption } from '../../models/ArtistOption';
 
 const HomeSearch: React.FC = () => {
 
@@ -14,17 +16,22 @@ const HomeSearch: React.FC = () => {
         navigate(`/event-search-results?query=${performerSearchQuery}`);
       };
 
+      const handleSelectArtist = (artist: ArtistOption) => {
+        console.log('Selected artist:', artist);
+      };
+
     return (
         <WindowDiv>
             <HomeSearchGrid container spacing={2} justifyContent="center" >
                 <Grid item xs={4}>
-                    <Typography>
+                    <ArtistSelect onSelect={handleSelectArtist}></ArtistSelect>
+                    {/* <Typography>
                         Search Performer
                     </Typography>
                     <SearchTextField placeholder="Search for performers, artists or bands..." variant="standard" InputLabelProps={{
                         style: { color: 'gray' },
                         shrink: false,
-                    }} value={performerSearchQuery}  onChange={(e) => setPerformerSearchQuery(e.target.value)} />
+                    }} value={performerSearchQuery}  onChange={(e) => setPerformerSearchQuery(e.target.value)} /> */}
                 </Grid>
                 <Grid item xs={3}>
                     <Typography>
