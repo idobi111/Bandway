@@ -7,7 +7,8 @@ import UpcomingEvents from '../EventFolder/UpcomingEvents';
 import Footer from '../GenericFolder/Footer';
 import Steps from './Steps';
 import { EventApi } from '../../apis/EventApi';
-import { Event } from '../../models/Event';
+import { Event } from '../../models/EventResponse';
+
 
 const Home: React.FC = () => {
   const [events, setEvents] = useState<Event[]>([]);
