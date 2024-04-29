@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { Event } from '../../models/EventResponse';
 import { Package } from '../../models/Package';
 import PackageCard from './PackageCard/PackageCard';
 import { PackageFilter } from '../../models/PackageFilter';

@@ -16,6 +16,8 @@ const EventSearchResults: React.FC = () => {
   const searchQuery = queryParams.get('performer');
   const toCity = queryParams.get('toCity');
   const fromCity =  queryParams.get('fromCity');
+  const toCityId = queryParams.get('toCityId');
+  const fromCityId =  queryParams.get('fromCityId');
   const performer: string | null = searchQuery;
 
   useEffect(() => {
@@ -48,7 +50,7 @@ const EventSearchResults: React.FC = () => {
       {isLoading ? (
         <CircularProgress />
       ) : (
-        <UpcomingEvents events={events} title={`${performer} Events${toCity ? ` in ${toCity}` : ''}`}  fromCity={fromCity}/>
+        <UpcomingEvents events={events} title={`${performer} Events${toCity ? ` in ${toCity}` : ''}`}  fromCity={fromCity} fromCityId={fromCityId} toCityId={toCityId}/>
       )}
       </Box>
       <Footer />

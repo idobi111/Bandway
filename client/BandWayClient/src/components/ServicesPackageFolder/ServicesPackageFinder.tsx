@@ -12,10 +12,14 @@ import { packagesMock } from '../../mocks/PackageMock';
 import { HotelApi } from '../../apis/HotelApi';
 import { PackageBuilderService } from '../../services/PackageBuilderService';
 import { HotelResponse } from '../../models/HotelResponse';
+import { FlightApi } from '../../apis/FlightApi';
+import { FlightResponse } from '../../models/FlightOneWayResponse';
 
 const ServicesPackageFinder: React.FC = () => {
   const [packages, setPackages] = useState<Package[]>([]);
   const [hotels, setHotels] = useState<HotelResponse[]>([]);
+  const [flights, setFlights] = useState<FlightResponse[]>([]);
+
 
   const mainText: string = "Services Package Finder";
   const subText: string = "Explore our comprehensive service package finder for a complete and enhanced experience !";
@@ -24,26 +28,49 @@ const ServicesPackageFinder: React.FC = () => {
   const venue = queryParams.get('venue');
   const fromCity = queryParams.get('fromCity');
   const toCity = queryParams.get('toCity');
+  const fromCityId = queryParams.get('fromCityId');
+  const toCityId = queryParams.get('toCityId');
   const hotelApi = new HotelApi();
+  const flightApi = new FlightApi();
+
   const packageBuilderService = new PackageBuilderService();
 
 
   
   useEffect(() => {
 
-    const hotelRequest = packageBuilderService.createCustomHotelRequestByEventData(checkIn, venue, fromCity, toCity);
+    const hotelRequest = packageBuilderService.createHotelRequestByEventData(checkIn, venue, fromCity, toCity);
     console.log(hotelRequest);
     hotelApi.getHotels(hotelRequest)
       .then((data) => {
-        setHotels(data)
+        setHotels(data);
         console.log(data);
       })
       .catch((error) => {
         console.error('Error fetching hotels data:', error);
       });
 
+      // const flightRequest = packageBuilderService.createFlightRequestByEventData(checkIn, fromCityId, toCityId);
+      // console.log(flightRequest);
+
+      // flightApi.getOneWayFlights(flightRequest)
+      // .then((data) => {
+      //   setFlights(data)
+      //   console.log(data);
+      // })
+      // .catch((error) => {
+      //   console.error('Error fetching flights data:', error);
+      // });
+
 
   }, []);
+
+  useEffect(() => {
+
+      // setPackages(packageBuilderService.combineResults(hotels, null, null));
+      console.log(packages);
+
+  }, [hotels, flights]);
 
   return (
     <>

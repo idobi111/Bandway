@@ -20,7 +20,9 @@ const HomeSearch: React.FC = () => {
         const performerQueryParam = selectedPerformer ? `performer=${selectedPerformer.value}` : '';
         const fromCityQueryParam = selectedFromCity ? `fromCity=${selectedFromCity.value}` : '';
         const toCityQueryParam = selectedToCity ? `toCity=${selectedToCity.value}` : '';
-        const queryParams = [performerQueryParam, fromCityQueryParam, toCityQueryParam].filter(param => !!param).join('&');
+        const fromCityIdQueryParam= selectedFromCity ? `fromCityId=${selectedFromCity.id}` : '';
+        const toCityIdQueryParam = selectedToCity ? `toCityId=${selectedToCity.id}` : '';
+        const queryParams = [performerQueryParam, fromCityQueryParam, toCityQueryParam, fromCityIdQueryParam, toCityIdQueryParam].filter(param => !!param).join('&');
       
         navigate(`/event-search-results?${queryParams}`);
       };

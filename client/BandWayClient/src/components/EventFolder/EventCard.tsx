@@ -11,9 +11,11 @@ interface Props {
   events: EventResponse[];
   step: number; // Step value to determine how many more events to load each time
   fromCity: string | null
+  fromCityId:  string | null;
+  toCityId: string | null;
 }
 
-const EventCard: React.FC<Props> = ({ events, step, fromCity }) => {
+const EventCard: React.FC<Props> = ({ events, step, fromCity, fromCityId, toCityId}) => {
   const [visibleEvents, setVisibleEvents] = useState(step); // State to track the number of visible events
   const [selectedEvent, setSelectedEvent] = useState<EventResponse | null>(null); // State to track the selected event
   const [isModalOpen, setIsModalOpen] = useState(false); // State to control the visibility of the modal
@@ -26,9 +28,11 @@ const EventCard: React.FC<Props> = ({ events, step, fromCity }) => {
     const checkInQueryParam = selectedEvent ? `checkIn=${selectedEvent.date}` : '';
     const venueNameQueryParam = selectedEvent ? `venue=${selectedEvent.venue}` : '';
     const fromCityQueryParam = fromCity ? `fromCity=${fromCity}` : '';
-    const toCityQueryParam = selectedEvent ? `toCity=${selectedEvent.city}` : '';
+    const toCityQueryParam = selectedEvent ? `toCity=${selectedEvent.city}` : '';;
+    const fromCityIdQueryParam = fromCityId ? `fromCityId=${fromCityId}` : '';
+    const toCityIdQueryParam = toCityId ? `toCityId=${toCityId}` : '';
 
-    const queryParams = [checkInQueryParam, venueNameQueryParam, fromCityQueryParam, toCityQueryParam].filter(param => !!param).join('&');
+    const queryParams = [checkInQueryParam, venueNameQueryParam, fromCityQueryParam, toCityQueryParam, fromCityIdQueryParam, toCityIdQueryParam].filter(param => !!param).join('&');
 
     window.scrollTo({ top: 0, behavior: 'smooth' });
     navigate(`/post-ticket-order?${queryParams}`);

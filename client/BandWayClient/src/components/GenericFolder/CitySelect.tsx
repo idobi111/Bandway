@@ -25,7 +25,8 @@ const CitySelect: React.FC<CitySelectProps> = ({ onSelect, placeholder, title })
         const cities = await locationApi.getCities(newInputValue);
         const formattedCities = cities.map(city => ({
           label: `${city.name}, ${city.country}`,
-          value: city.name
+          value: city.name,
+          id : city.id
         }));
         setSearchResults(formattedCities);
       } catch (error) {
