@@ -6,6 +6,8 @@ import ArtistSelect from './ArtistSelect';
 import { ArtistOption } from '../../models/ArtistOption';
 import CitySelect from '../GenericFolder/CitySelect';
 import { CityOption } from '../../models/CityOption';
+import { SearchEventData } from '../../models/SearchEventData';
+import { EventService } from '../../services/EventService';
 
 const HomeSearch: React.FC = () => {
 
@@ -15,17 +17,22 @@ const HomeSearch: React.FC = () => {
     const [selectedFromCity, setSelectedFromCity] = useState<CityOption | null>(null);
     const [selectedToCity, setSelectedToCity] = useState<CityOption | null>(null);
     const navigate = useNavigate();
+    const eventService = new EventService();
  
 
     const handlPerformerSearch = () => {
-        const performerQueryParam = selectedPerformer ? `performer=${selectedPerformer.value}` : '';
-        const fromCityQueryParam = selectedFromCity ? `fromCity=${selectedFromCity.value}` : '';
-        const fromCountryQueryParam = selectedFromCity ? `fromCountry=${selectedFromCity.country}` : '';
-        const toCityQueryParam = selectedToCity ? `toCity=${selectedToCity.value}` : '';
-        const toCountryQueryParam = selectedToCity ? `toCountry=${selectedToCity.country}` : '';
-        const fromCityIdQueryParam= selectedFromCity ? `fromCityId=${selectedFromCity.id}` : '';
-        const toCityIdQueryParam = selectedToCity ? `toCityId=${selectedToCity.id}` : '';
-        const queryParams = [performerQueryParam, fromCityQueryParam, fromCountryQueryParam, toCityQueryParam, toCountryQueryParam,  fromCityIdQueryParam, toCityIdQueryParam].filter(param => !!param).join('&');
+
+        const searchEventData : SearchEventData= {
+
+            performer: selectedPerformer ? selectedPerformer.value : '',
+            fromCity:  selectedFromCity ? selectedFromCity.value : '',
+            fromCountry: selectedFromCity ? selectedFromCity.country : '',
+            toCity: selectedToCity ? selectedToCity.value : '',
+            toCountry: selectedToCity ? selectedToCity.country : '',
+            fromCityId: selectedFromCity ? selectedFromCity.id : '',
+            toCityId: selectedToCity ? selectedToCity.id : ''
+        }
+        const queryParams = eventService.createSearchQueryParams(searchEventData);
       
         navigate(`/event-search-results?${queryParams}`);
       };

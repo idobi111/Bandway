@@ -8,8 +8,9 @@ import { useLocation } from 'react-router-dom';
 import { EventApi } from '../../apis/EventApi';
 import { EventResponse } from '../../models/EventResponse';
 import { SearchEventData } from '../../models/SearchEventData';
+import { EventService } from '../../services/EventService';
 
-export const SearchEventDataContext = React.createContext<SearchEventData>({
+export const EventSearchResultsSearchEventDataContext = React.createContext<SearchEventData>({
   performer: '',
   toCity: '',
   toCountry: '',
@@ -23,18 +24,11 @@ export const SearchEventDataContext = React.createContext<SearchEventData>({
 const EventSearchResults: React.FC = () => {
   const [events, setEvents] = useState<EventResponse[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  const eventService = new EventService();
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
 
-  const searchEventData: SearchEventData = {
-    performer: queryParams.get('performer'),
-    toCity:  queryParams.get('toCity'),
-    toCountry:  queryParams.get('toCountry'),
-    fromCity: queryParams.get('fromCity'),
-    fromCountry:  queryParams.get('fromCountry'),
-    toCityId: queryParams.get('toCityId'),
-    fromCityId :  queryParams.get('fromCityId')
-  }
+  const searchEventData: SearchEventData = eventService.getSearchQueryParams(queryParams);
 
   useEffect(() => {
     if (searchEventData.performer) {
@@ -66,9 +60,9 @@ const EventSearchResults: React.FC = () => {
       {isLoading ? (
         <CircularProgress />
       ) : (
-        <SearchEventDataContext.Provider value={searchEventData}>
+        <EventSearchResultsSearchEventDataContext.Provider value={searchEventData}>
         <UpcomingEvents events={events} title={`${searchEventData.performer} Events${searchEventData.toCity ? ` in ${searchEventData.toCity}` : ''}`}/>
-        </SearchEventDataContext.Provider>
+        </EventSearchResultsSearchEventDataContext.Provider>
       )}
       </Box>
       <Footer />

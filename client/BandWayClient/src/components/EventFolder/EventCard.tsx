@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Card, CardContent, CardMedia, Typography, Grid, Button, Modal, Box, Stack } from '@mui/material';
 import { EventCardStyled, EventCardMediaStyled, LoadMoreButton, ActionButton, SubActionButton } from '../../styles/ComponentsStyles';
 import { useNavigate } from "react-router-dom";
 import { EventResponse } from '../../models/EventResponse';
 import { Helpers } from '../../helpers/helpers';
+import { EventSearchResultsSearchEventDataContext } from './EventSearchResults';
+import { EventService } from '../../services/EventService';
 
 
 
@@ -19,13 +21,16 @@ const EventCard: React.FC<Props> = ({ events, step}) => {
   const navigate = useNavigate();
 
   const helpers = new Helpers();
+  const eventService = new EventService();
 
+  const searchEventData = useContext(EventSearchResultsSearchEventDataContext);
 
   const handleUserNotifyTicketIsOrdered = () => {
     const checkInQueryParam = selectedEvent ? `checkIn=${selectedEvent.date}` : '';
     const venueNameQueryParam = selectedEvent ? `venue=${selectedEvent.venue}` : '';
 
-    const queryParams = [checkInQueryParam, venueNameQueryParam].filter(param => !!param).join('&');
+    const eventSearchQueryParams = eventService.createSearchQueryParams(searchEventData);
+    const queryParams = [eventSearchQueryParams, checkInQueryParam, venueNameQueryParam].filter(param => !!param).join('&');
 
     window.scrollTo({ top: 0, behavior: 'smooth' });
     navigate(`/post-ticket-order?${queryParams}`);

@@ -6,7 +6,7 @@ import StarIcon from '@mui/icons-material/Star';
 import { FlightService } from '../../../services/FlightService';
 import FlightIcon from '@mui/icons-material/Flight';
 import { EventCardMediaStyled } from '../../../styles/ComponentsStyles';
-import { SearchEventDataContext } from '../../EventFolder/EventSearchResults';
+import { ServiceFinderSearchEventDataContext } from '../ServicesPackageFinder';
 
 
 interface Props {
@@ -15,8 +15,7 @@ interface Props {
 
 const PackageCardImageSection: React.FC<Props> = ({ servicesPackage}) => {
 
-  const searchEventData = useContext(SearchEventDataContext);
-
+  const searchEventData = useContext(ServiceFinderSearchEventDataContext);  
 
   const flightService = new FlightService();
 
@@ -41,7 +40,7 @@ const PackageCardImageSection: React.FC<Props> = ({ servicesPackage}) => {
             textShadow: '2px 2px 4px rgba(0,0,0,0.5)', // Corrected shadow opacity
           }}
         >
-          {servicesPackage.flight?.departFlightDetails[0].destCity || searchEventData.toCity}
+          {searchEventData.toCity}
         </Typography>
         <Typography
           variant="h6" // Changed variant to h6 for smaller font size
@@ -54,7 +53,7 @@ const PackageCardImageSection: React.FC<Props> = ({ servicesPackage}) => {
             zIndex: 1,
           }}
         >
-          {servicesPackage.flight?.departFlightDetails[0].destCountry || searchEventData.toCountry}
+          {searchEventData.toCountry}
         </Typography>
       </Box>
     </>

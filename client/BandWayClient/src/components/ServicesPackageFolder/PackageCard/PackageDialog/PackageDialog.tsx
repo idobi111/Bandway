@@ -39,25 +39,23 @@ const PackageDialog: React.FC<Props> = ({ servicesPackage, packageFilters }) => 
 
     return (
         <>
-            <Box sx={{ maxHeight: '80vh', overflowY: 'auto', width: '80%', maxWidth: '1200px', backgroundColor: 'white', padding: '20px', borderRadius: '8px' }}>
-                <Box display="flex">
-                    <Box sx={{ flex: 1 }}>
-                        <Typography variant='h2' gutterBottom>Your vacation details</Typography>
-                        <Stack display={'flex'}>
-                            <Typography sx={{ paddingLeft: 1 }} variant='h4'>Vacation to  {servicesPackage && servicesPackage.flight?.departFlightDetails[0].destCity}</Typography>
-                            <Typography sx={{ paddingLeft: 1 }} variant='h4'>{servicesPackage && helpers.formatDatesRange(servicesPackage)}</Typography>
-                            <Typography sx={{ paddingLeft: 1 }} variant='h4'>{servicesPackage && helpers.calculateNumberOfNights(servicesPackage?.hotel?.checkIn, servicesPackage?.hotel.checkOut)} nights</Typography>
-                        </Stack>
-                        {packageFilters.hotel && (
-                            <PackageDialogHotelSection servicesPackage={servicesPackage}></PackageDialogHotelSection>
-                        )}
-                         {packageFilters.flight && (
-                            <PackageDialogFlightSection servicesPackage={servicesPackage}></PackageDialogFlightSection>
-                        )}
-                    </Box>
-                    <Box sx={{ flex: 1, display: 'flex', justifyContent: 'flex-end' }}>
-                        <img src={servicesPackage?.hotel.photoUrl[0]} style={{ width: '400px', height: '300px' }}></img>
-                    </Box>
+            <Box display="flex">
+                <Box sx={{ flex: 1 }}>
+                    <Typography variant='h2' gutterBottom>Your vacation details</Typography>
+                    <Stack display={'flex'}>
+                        <Typography sx={{ paddingLeft: 1 }} variant='h4'>Vacation to  {servicesPackage && servicesPackage.flight?.departFlightDetails[0].destCity}</Typography>
+                        <Typography sx={{ paddingLeft: 1 }} variant='h4'>{servicesPackage && helpers.formatDatesRange(servicesPackage)}</Typography>
+                        <Typography sx={{ paddingLeft: 1 }} variant='h4'>{servicesPackage && helpers.calculateNumberOfNights(servicesPackage?.hotel?.checkIn, servicesPackage?.hotel.checkOut)} nights</Typography>
+                    </Stack>
+                    {packageFilters.hotel && (
+                        <PackageDialogHotelSection servicesPackage={servicesPackage}></PackageDialogHotelSection>
+                    )}
+                    {packageFilters.flight && (
+                        <PackageDialogFlightSection servicesPackage={servicesPackage}></PackageDialogFlightSection>
+                    )}
+                </Box>
+                <Box sx={{ flex: 1, display: 'flex', justifyContent: 'flex-end' }}>
+                    <img src={servicesPackage?.hotel.photoUrl[0]} style={{ width: '400px', height: '300px' }}></img>
                 </Box>
             </Box>
         </>

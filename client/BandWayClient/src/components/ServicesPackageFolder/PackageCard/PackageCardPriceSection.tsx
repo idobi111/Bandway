@@ -21,6 +21,9 @@ const PackageCardPriceSection: React.FC<Props> = ({ servicesPackage, packageFilt
     const flightService = new FlightService();
     const packageBuilderService = new PackageBuilderService();
 
+    const roundedPrice = Math.round(packageBuilderService.getPackagePrice(servicesPackage, packageFilters));
+
+
     return (
         <>
          <Box display={'flex'} justifyContent={'right'} alignItems={'right'}>
@@ -29,7 +32,7 @@ const PackageCardPriceSection: React.FC<Props> = ({ servicesPackage, packageFilt
                       Start from
                     </Typography>
                     <Typography variant="h6" >
-                      ${packageBuilderService.getPackagePrice(servicesPackage, packageFilters)}
+                      ${roundedPrice}
                     </Typography>
                     <Typography variant="body2" color="text.secondary">
                       per person

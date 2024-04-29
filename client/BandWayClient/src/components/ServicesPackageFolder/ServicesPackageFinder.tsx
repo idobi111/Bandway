@@ -14,23 +14,35 @@ import { PackageBuilderService } from '../../services/PackageBuilderService';
 import { HotelResponse } from '../../models/HotelResponse';
 import { FlightApi } from '../../apis/FlightApi';
 import { FlightResponse } from '../../models/FlightOneWayResponse';
-import { SearchEventDataContext } from '../EventFolder/EventSearchResults';
+import { SearchEventData } from '../../models/SearchEventData';
+import { EventService } from '../../services/EventService';
+
+
+export const ServiceFinderSearchEventDataContext = React.createContext<SearchEventData>({
+  performer: '',
+  toCity: '',
+  toCountry: '',
+  fromCity: '',
+  fromCountry: '',
+  toCityId: '',
+  fromCityId: ''
+});
 
 const ServicesPackageFinder: React.FC = () => {
-
-  const searchEventData = useContext(SearchEventDataContext);
-
 
   const [packages, setPackages] = useState<Package[]>([]);
   const [hotels, setHotels] = useState<HotelResponse[]>([]);
   const [flights, setFlights] = useState<FlightResponse[]>([]);
 
+  const eventService = new EventService();
 
   const mainText: string = "Services Package Finder";
   const subText: string = "Explore our comprehensive service package finder for a complete and enhanced experience !";
   const queryParams = new URLSearchParams(location.search);
   const checkIn = queryParams.get('checkIn');
   const venue = queryParams.get('venue');
+  const searchEventData: SearchEventData = eventService.getSearchQueryParams(queryParams);
+
 
   const hotelApi = new HotelApi();
   const flightApi = new FlightApi();
@@ -56,9 +68,9 @@ const ServicesPackageFinder: React.FC = () => {
   //   // You can perform any action here that depends on 'packages'
   //   console.log("Packages updated:", packages);
   // }, [packages]);
-  
 
-  
+
+
   // useEffect(() => {
 
   //   const hotelRequest = packageBuilderService.createHotelRequestByEventData(checkIn, venue, fromCity, toCity);
@@ -104,7 +116,11 @@ const ServicesPackageFinder: React.FC = () => {
           {/* <Steps /> */}
         </Box>
         <Box display="flex" justifyContent="center">
-        {packages.length > 0 ? (  < UpcomingPackages servicePackages={packages} />) : ( <p>Loading packages...</p> )}
+          {packages.length > 0 ? (
+            <ServiceFinderSearchEventDataContext.Provider value={searchEventData}>
+              < UpcomingPackages servicePackages={packages} />
+            </ServiceFinderSearchEventDataContext.Provider>
+          ) : (<p>Loading packages...</p>)}
         </Box>
       </Container>
       <Footer />
