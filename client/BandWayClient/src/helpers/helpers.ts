@@ -75,7 +75,7 @@ export class Helpers {
     }
 
 
-    public formatDateForPackageBuilder (date: Date) {
+    public formatDateForPackageBuilder(date: Date) {
         const year = date.getFullYear();
         const month = String(date.getMonth() + 1).padStart(2, '0'); // Pad month with leading zero
         const day = String(date.getDate()).padStart(2, '0'); // Pad day with leading zero
@@ -84,7 +84,11 @@ export class Helpers {
         const seconds = String(date.getSeconds()).padStart(2, '0'); // Pad seconds with leading zero
         const milliseconds = String(date.getMilliseconds()).padStart(3, '0'); // Pad milliseconds with leading zeros
         return `${year}-${month}-${day}T${hours}:${minutes}:${seconds}.${milliseconds}Z`;
-      };
+    };
+
+    public getRoundedPrice(price: number) {
+        return Math.round(price);
+    }
 
 }
 

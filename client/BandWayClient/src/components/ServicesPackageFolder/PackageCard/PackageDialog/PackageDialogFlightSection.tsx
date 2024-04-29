@@ -7,6 +7,7 @@ import { ActionButton } from '../../../../styles/ComponentsStyles';
 import { HotelApi } from '../../../../apis/HotelApi';
 import FlightDetailsGrid from './FlightDetailsGrid';
 import { FlightService } from '../../../../services/FlightService';
+import { Helpers } from '../../../../helpers/helpers';
 
 
 interface Props {
@@ -17,6 +18,7 @@ const PackageDialogFlightSection: React.FC<Props> = ({ servicesPackage }) => {
 
     const hotelApi = new HotelApi();
     const flightService = new FlightService();
+    const helpers = new Helpers();
 
     const handleSeeFlightAvailability = async () => {
         // try {
@@ -44,7 +46,7 @@ const PackageDialogFlightSection: React.FC<Props> = ({ servicesPackage }) => {
                         </Box>
                     ))
                 ))}
-                 <Typography variant='h6'> Start from ${servicesPackage?.flight?.departFlightDetails[0].price} per person</Typography>
+                 <Typography variant='h6'> Start from ${ servicesPackage && servicesPackage.flight && helpers.getRoundedPrice(servicesPackage?.flight?.departFlightDetails[0].price)} per person</Typography>
                 {/* Add onClick event to trigger API request */}
                 <ActionButton
                     variant="contained"

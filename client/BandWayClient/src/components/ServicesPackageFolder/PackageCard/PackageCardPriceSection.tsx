@@ -7,6 +7,7 @@ import { FlightService } from '../../../services/FlightService';
 import FlightIcon from '@mui/icons-material/Flight';
 import { PackageBuilderService } from '../../../services/PackageBuilderService';
 import { PackageFilter } from '../../../models/PackageFilter';
+import { Helpers } from '../../../helpers/helpers';
 
 
 interface Props {
@@ -19,10 +20,8 @@ interface Props {
 const PackageCardPriceSection: React.FC<Props> = ({ servicesPackage, packageFilters}) => {
 
     const flightService = new FlightService();
+    const helpers = new Helpers();
     const packageBuilderService = new PackageBuilderService();
-
-    const roundedPrice = Math.round(packageBuilderService.getPackagePrice(servicesPackage, packageFilters));
-
 
     return (
         <>
@@ -32,7 +31,7 @@ const PackageCardPriceSection: React.FC<Props> = ({ servicesPackage, packageFilt
                       Start from
                     </Typography>
                     <Typography variant="h6" >
-                      ${roundedPrice}
+                      ${helpers.getRoundedPrice(packageBuilderService.getPackagePrice(servicesPackage, packageFilters))}
                     </Typography>
                     <Typography variant="body2" color="text.secondary">
                       per person
