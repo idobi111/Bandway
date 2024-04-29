@@ -15,14 +15,17 @@ const HomeSearch: React.FC = () => {
     const [selectedFromCity, setSelectedFromCity] = useState<CityOption | null>(null);
     const [selectedToCity, setSelectedToCity] = useState<CityOption | null>(null);
     const navigate = useNavigate();
+ 
 
     const handlPerformerSearch = () => {
         const performerQueryParam = selectedPerformer ? `performer=${selectedPerformer.value}` : '';
         const fromCityQueryParam = selectedFromCity ? `fromCity=${selectedFromCity.value}` : '';
+        const fromCountryQueryParam = selectedFromCity ? `fromCountry=${selectedFromCity.country}` : '';
         const toCityQueryParam = selectedToCity ? `toCity=${selectedToCity.value}` : '';
+        const toCountryQueryParam = selectedToCity ? `toCountry=${selectedToCity.country}` : '';
         const fromCityIdQueryParam= selectedFromCity ? `fromCityId=${selectedFromCity.id}` : '';
         const toCityIdQueryParam = selectedToCity ? `toCityId=${selectedToCity.id}` : '';
-        const queryParams = [performerQueryParam, fromCityQueryParam, toCityQueryParam, fromCityIdQueryParam, toCityIdQueryParam].filter(param => !!param).join('&');
+        const queryParams = [performerQueryParam, fromCityQueryParam, fromCountryQueryParam, toCityQueryParam, toCountryQueryParam,  fromCityIdQueryParam, toCityIdQueryParam].filter(param => !!param).join('&');
       
         navigate(`/event-search-results?${queryParams}`);
       };

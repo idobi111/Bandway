@@ -26,7 +26,8 @@ const CitySelect: React.FC<CitySelectProps> = ({ onSelect, placeholder, title })
         const formattedCities = cities.map(city => ({
           label: `${city.name}, ${city.country}`,
           value: city.name,
-          id : city.id
+          id : city.id, 
+          country: `${city.country}`
         }));
         setSearchResults(formattedCities);
       } catch (error) {

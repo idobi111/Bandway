@@ -32,6 +32,8 @@ export class PackageBuilderService {
       packages.push(packageObj);
     });
 
+    console.log ("BuilderService", packages);
+
     return packages;
   }
 

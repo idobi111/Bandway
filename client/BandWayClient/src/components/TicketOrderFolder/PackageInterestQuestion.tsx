@@ -16,22 +16,15 @@ const PackageInterestQuestion: React.FC<QuestionProps> = ({ titleText, descripti
   const queryParams = new URLSearchParams(location.search);
   const checkIn = queryParams.get('checkIn');
   const venue = queryParams.get('venue');
-  const fromCity = queryParams.get('fromCity');
-  const toCity = queryParams.get('toCity');
-  const fromCityId = queryParams.get('fromCityId');
-  const toCityId = queryParams.get('toCityId');
 
   const navigate = useNavigate();
 
   const handleUserNotifyInterestedServicesPackage = () => {
     const checkInQueryParam = checkIn ? `checkIn=${checkIn}` : '';
     const venueNameQueryParam = venue ? `venue=${venue}` : '';
-    const fromCityQueryParam = fromCity ? `fromCity=${fromCity}` : '';
-    const toCityQueryParam = toCity ? `toCity=${toCity}` : '';
-    const fromCityIdQueryParam = fromCity ? `fromCityId=${fromCityId}` : '';
-    const toCityIdQueryParam = toCity ? `toCityId=${toCityId}` : '';
 
-    const queryParams = [checkInQueryParam, venueNameQueryParam, fromCityQueryParam, toCityQueryParam, fromCityIdQueryParam, toCityIdQueryParam].filter(param => !!param).join('&');
+
+    const queryParams = [checkInQueryParam, venueNameQueryParam].filter(param => !!param).join('&');
 
     window.scrollTo({ top: 0, behavior: 'smooth' });
     navigate(`/services-package-finder?${queryParams}`);

@@ -12,7 +12,7 @@ export class HotelApi {
     public async getHotels(hotel: HotelRequest): Promise<HotelResponse[]> {
         try {
        //     const response = await axios.post<HotelResponse[]>(`${this.BASE_URL}/searchHotel`, hotel);
-            const response = await axios.get<HotelResponse[]>(`https://mocki.io/v1/f147c523-358c-4f4c-8a90-e7759271405b`);
+            const response = await axios.get<HotelResponse[]>(`https://mocki.io/v1/192e1d0d-6cd7-47ab-9102-906d0c07257e`);
             return response.data;
         } catch (error) {
             throw new Error('Error fetching hotels');
