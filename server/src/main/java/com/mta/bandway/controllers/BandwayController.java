@@ -37,8 +37,8 @@ public class BandwayController {
     }
 
     @GetMapping(value = "/searchConcert", produces = "application/json", headers = "Accept=application/json")
-    public ResponseEntity<List<ConcertResponseDto>> searchConcert(@RequestParam String performer) {
-        List<ConcertResponseDto> res = concertService.getConcertsByPerformer(performer);
+    public ResponseEntity<List<ConcertResponseDto>> searchConcert(@RequestParam String performer, @RequestParam(required = false) List<String> cities) {
+        List<ConcertResponseDto> res = concertService.getConcertsByPerformer(performer, cities);
         return ResponseEntity.ok(res);
     }
 

@@ -1,56 +1,37 @@
-
 package com.mta.bandway.core.domain.car;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Data;
 
 import java.io.Serializable;
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-
-@JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder({
-    "provider",
-    "filter",
-    "sort",
-    "count",
-    "meta",
-    "is_genius_location",
-    "type",
-    "search_results",
-    "discount_banner",
-    "search_key",
-    "title",
-    "content"
-})
-
-public class CarData implements Serializable
-{
+@Data
+public class CarData implements Serializable {
 
     @JsonProperty("provider")
-    public String provider;
+    private String provider;
     @JsonProperty("filter")
-    public List<Filter> filter;
+    private List<Filter> filter;
     @JsonProperty("sort")
-    public List<Sort> sort;
+    private List<Sort> sort;
     @JsonProperty("count")
-    public Integer count;
+    private Integer count;
     @JsonProperty("meta")
-    public Meta meta;
+    private Meta meta;
     @JsonProperty("is_genius_location")
-    public Boolean isGeniusLocation;
+    private Boolean isGeniusLocation;
     @JsonProperty("type")
-    public String type;
+    private String type;
     @JsonProperty("search_results")
-    public List<SearchResult> searchResults;
+    private List<SearchResult> searchResults;
     @JsonProperty("discount_banner")
-    public Object discountBanner;
+    private Object discountBanner;
     @JsonProperty("search_key")
-    public String searchKey;
+    private String searchKey;
     @JsonProperty("title")
-    public String title;
+    private String title;
     @JsonProperty("content")
-    public Content__1 content;
-    private final static long serialVersionUID = 3343433554523883958L;
+    private Content__1 content;
 
 }

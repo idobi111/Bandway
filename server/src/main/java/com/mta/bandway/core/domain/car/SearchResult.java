@@ -1,56 +1,37 @@
-
 package com.mta.bandway.core.domain.car;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Data;
 
 import java.io.Serializable;
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-
-@JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder({
-    "pricing_info",
-    "applied_discount_types",
-    "freebies",
-    "route_info",
-    "rating_info",
-    "content",
-    "pay_when_text",
-    "fee_info",
-    "accessibility",
-    "supplier_info",
-    "forward_url",
-    "vehicle_info"
-})
-
-public class SearchResult implements Serializable
-{
+@Data
+public class SearchResult implements Serializable {
 
     @JsonProperty("pricing_info")
-    public PricingInfo pricingInfo;
+    private PricingInfo pricingInfo;
     @JsonProperty("applied_discount_types")
-    public List<Object> appliedDiscountTypes;
+    private List<Object> appliedDiscountTypes;
     @JsonProperty("freebies")
-    public List<Object> freebies;
+    private List<Object> freebies;
     @JsonProperty("route_info")
-    public RouteInfo routeInfo;
+    private RouteInfo routeInfo;
     @JsonProperty("rating_info")
-    public RatingInfo ratingInfo;
+    private RatingInfo ratingInfo;
     @JsonProperty("content")
-    public Content content;
+    private Content content;
     @JsonProperty("pay_when_text")
-    public String payWhenText;
+    private String payWhenText;
     @JsonProperty("fee_info")
-    public FeeInfo feeInfo;
+    private FeeInfo feeInfo;
     @JsonProperty("accessibility")
-    public Accessibility accessibility;
+    private Accessibility accessibility;
     @JsonProperty("supplier_info")
-    public SupplierInfo supplierInfo;
+    private SupplierInfo supplierInfo;
     @JsonProperty("forward_url")
-    public String forwardUrl;
+    private String forwardUrl;
     @JsonProperty("vehicle_info")
-    public VehicleInfo vehicleInfo;
-    private final static long serialVersionUID = 5173601047851557795L;
+    private VehicleInfo vehicleInfo;
 
 }
