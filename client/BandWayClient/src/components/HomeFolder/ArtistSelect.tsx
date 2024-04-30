@@ -24,8 +24,8 @@ const ArtistSelect: React.FC<ArtistSelectProps> = ({ onSelect }) => {
       try {
         const artists = await eventApi.getArtistAutoComplete(newInputValue);
         const formattedArtists = artists.map(artist => ({
-          label: `${artist.artist_name}`,
-          value: artist.artist_id
+          label: `${artist.artistName}`,
+          value: artist.artistName
         }));
         setSearchResults(formattedArtists);
       } catch (error) {

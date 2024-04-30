@@ -1,26 +1,40 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Card, CardContent, CardMedia, Typography, Grid, Button, Modal, Box, Stack } from '@mui/material';
-import { Event } from '../../models/EventResponse';
 import { EventCardStyled, EventCardMediaStyled, LoadMoreButton, ActionButton, SubActionButton } from '../../styles/ComponentsStyles';
 import { useNavigate } from "react-router-dom";
+import { EventResponse } from '../../models/EventResponse';
+import { Helpers } from '../../helpers/helpers';
+import { EventSearchResultsSearchEventDataContext } from './EventSearchResults';
+import { EventService } from '../../services/EventService';
 
 
 
 interface Props {
-  events: Event[];
+  events: EventResponse[];
   step: number; // Step value to determine how many more events to load each time
 }
 
-const EventCard: React.FC<Props> = ({ events, step }) => {
+const EventCard: React.FC<Props> = ({ events, step}) => {
   const [visibleEvents, setVisibleEvents] = useState(step); // State to track the number of visible events
-  const [selectedEvent, setSelectedEvent] = useState<Event | null>(null); // State to track the selected event
+  const [selectedEvent, setSelectedEvent] = useState<EventResponse | null>(null); // State to track the selected event
   const [isModalOpen, setIsModalOpen] = useState(false); // State to control the visibility of the modal
   const navigate = useNavigate();
 
+  const helpers = new Helpers();
+  const eventService = new EventService();
+
+  const searchEventData = useContext(EventSearchResultsSearchEventDataContext);
+
   const handleUserNotifyTicketIsOrdered = () => {
-      window.scrollTo({ top: 0, behavior: 'smooth' });  
-      navigate(`/post-ticket-order?query=${selectedEvent?.performer}`);
-    };
+    const checkInQueryParam = selectedEvent ? `checkIn=${selectedEvent.date}` : '';
+    const venueNameQueryParam = selectedEvent ? `venue=${selectedEvent.venue}` : '';
+
+    const eventSearchQueryParams = eventService.createSearchQueryParams(searchEventData);
+    const queryParams = [eventSearchQueryParams, checkInQueryParam, venueNameQueryParam].filter(param => !!param).join('&');
+
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    navigate(`/post-ticket-order?${queryParams}`);
+  };
 
 
 
@@ -28,7 +42,7 @@ const EventCard: React.FC<Props> = ({ events, step }) => {
     setVisibleEvents(prevVisibleEvents => prevVisibleEvents + step); // Increase the number of visible events
   };
 
-  const handleOpenModal = (event: Event) => {
+  const handleOpenModal = (event: EventResponse) => {
     window.open(event.ticketUrl, '_blank');
     setSelectedEvent(event);
     setIsModalOpen(true);
@@ -54,7 +68,7 @@ const EventCard: React.FC<Props> = ({ events, step }) => {
       <Grid container justifyContent="center" spacing={3}>
         {events.slice(0, visibleEvents).map(event => ( // Slice events based on the visibleEvents state
           <Grid item xs={12} sm={6} md={4} key={event.ticketUrl}> {/* Each card occupies 12 columns on extra small screens, 6 columns on small screens, and 4 columns on medium screens */}
-            <EventCardStyled onClick={() => handleOpenModal(event)}>
+            <EventCardStyled onClick={() => handleOpenModal(event)} sx={{ height: '350px' }}>
               <EventCardMediaStyled
                 style={{ height: 140 }}
                 image={event.images[0]}
@@ -65,13 +79,13 @@ const EventCard: React.FC<Props> = ({ events, step }) => {
                   {event.performer}
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
-                  Date: {event.date}
+                  {helpers.formatDateAndYear(event.date)}
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
-                  Venue: {event.venue}
+                  {event.venue}
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
-                  Place: {event.city}, {event.country}
+                  {event.city}, {event.country}
                 </Typography>
               </CardContent>
             </EventCardStyled>
@@ -95,9 +109,9 @@ const EventCard: React.FC<Props> = ({ events, step }) => {
       >
         <Box style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', backgroundColor: 'white', padding: '20px', borderRadius: '8px' }}>
           <Typography variant='h3' id="modal-title">Did you order the ticket?</Typography>
-          <Stack direction={'row'} justifyContent={"center"} alignItems={"center"} spacing={10} sx={{paddingTop:5}}>
-            <ActionButton variant="contained" style={{width:'100px'}} onClick={() => handleBuyTicket('yes')}>Yes</ActionButton>
-            <SubActionButton variant="contained" style={{width:'100px'}} onClick={() => handleBuyTicket('no')}>No</SubActionButton>
+          <Stack direction={'row'} justifyContent={"center"} alignItems={"center"} spacing={10} sx={{ paddingTop: 5 }}>
+            <ActionButton variant="contained" style={{ width: '100px' }} onClick={() => handleBuyTicket('yes')}>Yes</ActionButton>
+            <SubActionButton variant="contained" style={{ width: '100px' }} onClick={() => handleBuyTicket('no')}>No</SubActionButton>
           </Stack>
         </Box>
       </Modal>

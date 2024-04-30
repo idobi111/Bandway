@@ -6,11 +6,13 @@ import { SearchAutoComplete } from '../../styles/ComponentsStyles';
 
 interface CitySelectProps {
   onSelect: (city: CityOption) => void;
+  placeholder: string;
+  title: string;
 }
 
 const locationApi = new LocationApi();
 
-const CitySelect: React.FC<CitySelectProps> = ({ onSelect }) => {
+const CitySelect: React.FC<CitySelectProps> = ({ onSelect, placeholder, title }) => {
   const [searchTerm, setSearchTerm] = useState<string>('');
   const [searchResults, setSearchResults] = useState<CityOption[]>([]);
   const [selectedCity, setSelectedCity] = useState<CityOption | null>(null);
@@ -23,7 +25,9 @@ const CitySelect: React.FC<CitySelectProps> = ({ onSelect }) => {
         const cities = await locationApi.getCities(newInputValue);
         const formattedCities = cities.map(city => ({
           label: `${city.name}, ${city.country}`,
-          value: city.name
+          value: city.name,
+          id : city.id, 
+          country: `${city.country}`
         }));
         setSearchResults(formattedCities);
       } catch (error) {
@@ -37,7 +41,7 @@ const CitySelect: React.FC<CitySelectProps> = ({ onSelect }) => {
 
   return (
     <div>
-      <Typography>Place</Typography>
+      <Typography>{title}</Typography>
       <SearchAutoComplete
         value={selectedCity}
         onChange={(event, value) => {
@@ -48,7 +52,7 @@ const CitySelect: React.FC<CitySelectProps> = ({ onSelect }) => {
         onInputChange={(event, newInputValue) => handleCitySearch(newInputValue)}
         disablePortal
         options={searchResults}
-        renderInput={(params) => <TextField {...params} id="especieField" variant="standard" placeholder="Event City"/>}
+        renderInput={(params) => <TextField {...params} id="especieField" variant="standard" placeholder={placeholder}/>}
       />
     </div>
   );

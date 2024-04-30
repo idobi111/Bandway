@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Typography, Grid, TextField, Box, Stack, Container } from '@mui/material';
 import { HomeSearchGrid, SearchTextField, WindowDiv, ActionButton, GenricWhiteText, SeparateRowsContainer, GenricTopBoxText, SubActionButton } from '../../styles/ComponentsStyles';
 import { useNavigate } from "react-router-dom";
+import { PostTicketOrderSearchEventDataContext } from './PostTicketOrder';
+import { EventService } from '../../services/EventService';
 
 
 interface QuestionProps {
@@ -12,14 +14,28 @@ interface QuestionProps {
 }
 
 
-const Question: React.FC<QuestionProps> = ({ titleText, descriptionText, acceptButtonText, rejectButtonText }) => {
+const PackageInterestQuestion: React.FC<QuestionProps> = ({ titleText, descriptionText, acceptButtonText, rejectButtonText }) => {
+  const queryParams = new URLSearchParams(location.search);
+  const checkIn = queryParams.get('checkIn');
+  const venue = queryParams.get('venue');
+
   const navigate = useNavigate();
 
+  const searchEventData = useContext(PostTicketOrderSearchEventDataContext);
+  const eventService = new EventService();
+
+
   const handleUserNotifyInterestedServicesPackage = () => {
-      window.scrollTo({ top: 0, behavior: 'smooth' });  
-      navigate(`/services-package-finder`);
-    };
-  
+    const checkInQueryParam = checkIn ? `checkIn=${checkIn}` : '';
+    const venueNameQueryParam = venue ? `venue=${venue}` : '';
+
+    const eventSearchQueryParams = eventService.createSearchQueryParams(searchEventData);
+
+    const queryParams = [eventSearchQueryParams, checkInQueryParam, venueNameQueryParam].filter(param => !!param).join('&');
+
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    navigate(`/services-package-finder?${queryParams}`);
+  };
   
     const handleIsUserInterestedServicesPackseg = (response: string) => {
       if (response === 'yes') {
@@ -63,4 +79,4 @@ const Question: React.FC<QuestionProps> = ({ titleText, descriptionText, acceptB
   );
 };
 
-export default Question;
+export default PackageInterestQuestion;

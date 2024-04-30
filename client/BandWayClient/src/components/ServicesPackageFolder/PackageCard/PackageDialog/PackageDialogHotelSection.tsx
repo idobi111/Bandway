@@ -5,6 +5,7 @@ import StarIcon from '@mui/icons-material/Star';
 import { PackageFilter } from '../../../../models/PackageFilter';
 import { ActionButton } from '../../../../styles/ComponentsStyles';
 import { HotelApi } from '../../../../apis/HotelApi';
+import { Helpers } from '../../../../helpers/helpers';
 
 
 interface Props {
@@ -14,6 +15,7 @@ interface Props {
 const PackageDialogHotelSection: React.FC<Props> = ({ servicesPackage }) => {
 
     const hotelApi = new HotelApi();
+    const helpers = new Helpers();
 
     const handleSeeHotelAvailability = async () => {
         try {
@@ -41,7 +43,7 @@ const PackageDialogHotelSection: React.FC<Props> = ({ servicesPackage }) => {
                 </Typography>
                 <Typography variant='h6' color='text.secondary'>adults: {servicesPackage?.hotel.adults}, children: {servicesPackage?.hotel.children} </Typography>
                 <Typography variant='h6' color='text.secondary'>rooms: {servicesPackage?.hotel.rooms} </Typography>
-                <Typography variant='h6'> Start from ${servicesPackage?.hotel.price} per person</Typography>
+                <Typography variant='h6'> Start from ${ servicesPackage && helpers.getRoundedPrice(servicesPackage?.hotel.price)} per person</Typography>
                 {/* Add onClick event to trigger API request */}
                 <ActionButton
                     variant="contained"

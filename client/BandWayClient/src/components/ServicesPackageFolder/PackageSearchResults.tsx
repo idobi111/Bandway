@@ -20,17 +20,7 @@ const PackageSearchResults: React.FC = () => {
     const mainText: string = "We found the best results for you...";
     const subText: string = "We're here to craft a vacation that perfectly suits you.";
 
-    const exampleHotelRequest: HotelRequest = {
-        city: "Paris",
-        checkIn: "2024-06-15",
-        checkOut: "2024-06-20",
-        rooms: 1,
-        adults: 2,
-        children: 1,
-        maxPrice: 300,
-        minPrice: 100
-    };
-
+  
     useEffect(() => {
 
         setPackages(ResultsPackageMocks)

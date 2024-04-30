@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { Event } from '../../models/EventResponse';
 import { Package } from '../../models/Package';
 import PackageCard from './PackageCard/PackageCard';
 import { PackageFilter } from '../../models/PackageFilter';
@@ -65,7 +64,7 @@ const UpcomingPackages: React.FC<UpcomingPackagesProps> = ({ servicePackages }) 
         </Stack>
         {/* Package card */}
         <h2 style={{ textAlign: 'left' }}>Best Deals</h2>
-        <PackageCard packages={servicePackages} step={step} packageFilters={packageFilters} />
+        {servicePackages.length > 0 ? (   <PackageCard packages={servicePackages} step={step} packageFilters={packageFilters}/>) : ( <p>Loading packages...</p> )}
       </div>
     </div>
   );

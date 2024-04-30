@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { CssBaseline, AppBar, Toolbar, Typography, Button, Container, Box } from '@mui/material';
+import React, { useState, useEffect } from 'react';
+import { CssBaseline, AppBar, Toolbar, Typography, Button, Container, Box, CircularProgress } from '@mui/material';
 import Header from '../GenericFolder/Header';
 import HomeTopContent from './HomeTopContent';
 import HomeSearch from './HomeSearch';
@@ -7,28 +7,27 @@ import UpcomingEvents from '../EventFolder/UpcomingEvents';
 import Footer from '../GenericFolder/Footer';
 import Steps from './Steps';
 import { EventApi } from '../../apis/EventApi';
-import { Event } from '../../models/EventResponse';
+import { EventResponse } from '../../models/EventResponse';
 
+interface HomeProps {}
 
-const Home: React.FC = () => {
-  const [events, setEvents] = useState<Event[]>([]);
- 
+const Home: React.FC<HomeProps> = () => {
+  const [events, setEvents] = useState<EventResponse[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+
   useEffect(() => {
     const eventApi = new EventApi();
     eventApi.getUpcomingEvents()
-        .then((data) => {
-            const eventDataWithPlaceholderImage = data.map(event => {
-                return { ...event, images: ['https://via.placeholder.com/150'] };
-            });
-            setEvents(eventDataWithPlaceholderImage);
-            console.log(eventDataWithPlaceholderImage);
-        })
-        .catch((error) => {
-            console.error('Error fetching event data:', error);
-        });
-}, []);
+      .then((data) => {
+        setEvents(data);
+        setIsLoading(false);
+      })
+      .catch((error) => {
+        console.error('Error fetching event data:', error);
+        setIsLoading(false); // Set loading to false even on error
+      });
+  }, []);
 
- 
   return (
     <>
       <CssBaseline />
@@ -42,12 +41,16 @@ const Home: React.FC = () => {
           <Steps />
         </Box>
         <Box display="flex" justifyContent="center">
-        <UpcomingEvents performer="" events={events} />
+          {isLoading ? (
+            <CircularProgress />
+          ) : (
+            <UpcomingEvents title="Upcoming Events" events={events}/>
+          )}
         </Box>
       </Container>
       <Footer />
     </>
   );
-}
+};
 
 export default Home;

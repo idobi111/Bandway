@@ -1,5 +1,5 @@
-export interface Event {
-  id: number;
+export interface EventResponse {
+  id: string;
   performer: string;
   date: string;
   venue: string;
