@@ -11,6 +11,12 @@ import { useLocation } from 'react-router';
 
 const PostTicketOrder: React.FC = () => {
 
+  const eventService = new EventService();
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const searchEventData: SearchEventData = eventService.getSearchQueryParams(queryParams);
+
+
   const titleText = "Allow us to simplify your life!"
   const descriptionText = "We'll discover the optimal package for you... encompassing flights, hotels, car rentals, and additional services"
 
