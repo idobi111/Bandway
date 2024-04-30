@@ -9,6 +9,8 @@ import ServicesPackageFinder from './components/ServicesPackageFolder/ServicesPa
 import PackageSearchResults from './components/ServicesPackageFolder/PackageSearchResults';
 import SignUp from './components/SignUserFolder/SignUp';
 import SignIn from './components/SignUserFolder/SignIn';
+import store from './redux/store';
+import { Provider } from 'react-redux';
 
 const App = () => {
   return (
@@ -16,12 +18,20 @@ const App = () => {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/home" element={<Home />} />
-        <Route path="/event-search-results" element={<EventSearchResults />} />
+        <Route path="/event-search-results" element={
+          <Provider store={store}>
+            <EventSearchResults />
+          </Provider>
+        } />
         <Route path="/sign-up" element={<SignUp />} />
         <Route path="/sign-in" element={<SignIn />} />
         <Route path="/post-ticket-order" element={<PostTicketOrder />} />
-        <Route path='/services-package-finder' element={<ServicesPackageFinder/>}></Route>
-        <Route path='/package-search-results' element={<PackageSearchResults/>}></Route>
+        <Route path='/services-package-finder' element={
+          <Provider store={store}>
+            <ServicesPackageFinder />
+          </Provider>
+        }></Route>
+        <Route path='/package-search-results' element={<PackageSearchResults />}></Route>
 
       </Routes>
     </BrowserRouter>

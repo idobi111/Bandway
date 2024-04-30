@@ -8,6 +8,8 @@ import Footer from '../GenericFolder/Footer';
 import Steps from './Steps';
 import { EventApi } from '../../apis/EventApi';
 import { EventResponse } from '../../models/EventResponse';
+import { Provider } from 'react-redux';
+import store from '../../redux/store';
 
 interface HomeProps {}
 
@@ -35,7 +37,9 @@ const Home: React.FC<HomeProps> = () => {
       <HomeTopContent />
       <Container maxWidth="xl">
         <Box display="flex" justifyContent="center" sx={{ m: -5 }}>
+        <Provider store={store}>
           <HomeSearch />
+          </Provider>
         </Box>
         <Box display="flex" justifyContent="center" sx={{ m: 2 }}>
           <Steps />

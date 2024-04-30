@@ -4,8 +4,10 @@ import { EventCardStyled, EventCardMediaStyled, LoadMoreButton, ActionButton, Su
 import { useNavigate } from "react-router-dom";
 import { EventResponse } from '../../models/EventResponse';
 import { Helpers } from '../../helpers/helpers';
-import { EventSearchResultsSearchEventDataContext } from './EventSearchResults';
-import { EventService } from '../../services/EventService';
+import { useDispatch, useSelector } from 'react-redux';
+import { AppState } from '../../redux/types';
+import { setEventData } from '../../redux/actions';
+import { SearchEventData } from '../../models/SearchEventData';
 
 
 
@@ -21,19 +23,21 @@ const EventCard: React.FC<Props> = ({ events, step}) => {
   const navigate = useNavigate();
 
   const helpers = new Helpers();
-  const eventService = new EventService();
+  const eventData = useSelector((state: AppState) => state.eventData);
+  const dispatch = useDispatch();
 
-  const searchEventData = useContext(EventSearchResultsSearchEventDataContext);
 
   const handleUserNotifyTicketIsOrdered = () => {
-    const checkInQueryParam = selectedEvent ? `checkIn=${selectedEvent.date}` : '';
-    const venueNameQueryParam = selectedEvent ? `venue=${selectedEvent.venue}` : '';
-
-    const eventSearchQueryParams = eventService.createSearchQueryParams(searchEventData);
-    const queryParams = [eventSearchQueryParams, checkInQueryParam, venueNameQueryParam].filter(param => !!param).join('&');
-
+    const updatedEventData: SearchEventData = {
+      ...eventData,
+      checkIn: selectedEvent ? `${selectedEvent.date}` : '',
+      venue: selectedEvent ? `${selectedEvent.venue}` : ''
+    };
+  
+    dispatch(setEventData(updatedEventData));
+  
     window.scrollTo({ top: 0, behavior: 'smooth' });
-    navigate(`/post-ticket-order?${queryParams}`);
+    navigate(`/post-ticket-order`);
   };
 
 

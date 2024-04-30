@@ -91,7 +91,7 @@ export const LearnMoreButton = styled(Button)({
 // Home Search
 
 export const HomeSearchGrid = styled(Grid)({
-   marginLeft: '50px',
+  //  marginLeft: '50px',
 })
 
 export const SearchAutoComplete = styled(Autocomplete )({

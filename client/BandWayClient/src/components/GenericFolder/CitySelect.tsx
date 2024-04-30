@@ -42,7 +42,7 @@ const CitySelect: React.FC<CitySelectProps> = ({ onSelect, placeholder, title })
   return (
     <div>
       <Typography>{title}</Typography>
-      <SearchAutoComplete
+      <SearchAutoComplete style={{ width: '150px' }}
         value={selectedCity}
         onChange={(event, value) => {
           setSelectedCity(value as CityOption);

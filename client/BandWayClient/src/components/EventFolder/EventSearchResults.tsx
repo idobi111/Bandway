@@ -8,35 +8,33 @@ import { useLocation } from 'react-router-dom';
 import { EventApi } from '../../apis/EventApi';
 import { EventResponse } from '../../models/EventResponse';
 import { SearchEventData } from '../../models/SearchEventData';
-import { EventService } from '../../services/EventService';
+import { Provider, useSelector } from 'react-redux';
+import { AppState } from '../../redux/types';
+import store from '../../redux/store';
 
-export const EventSearchResultsSearchEventDataContext = React.createContext<SearchEventData>({
-  performer: '',
-  toCity: '',
-  toCountry: '',
-  fromCity: '',
-  fromCountry: '',
-  toCityId: '',
-  fromCityId: ''
-});
+// export const EventSearchResultsSearchEventDataContext = React.createContext<SearchEventData>({
+//   performer: '',
+//   toCity: '',
+//   toCountry: '',
+//   fromCity: '',
+//   fromCountry: '',
+//   toCityId: '',
+//   fromCityId: ''
+// });
 
 
 const EventSearchResults: React.FC = () => {
   const [events, setEvents] = useState<EventResponse[]>([]);
   const [isLoading, setIsLoading] = useState(true);
-  const eventService = new EventService();
-  const location = useLocation();
-  const queryParams = new URLSearchParams(location.search);
-
-  const searchEventData: SearchEventData = eventService.getSearchQueryParams(queryParams);
+  const eventData = useSelector((state: AppState) => state.eventData);
 
   useEffect(() => {
-    if (searchEventData.performer) {
+    if (eventData.performer) {
       const eventApi = new EventApi();
-      eventApi.getEventsByPerformer(searchEventData.performer)
+      eventApi.getEventsByPerformer(eventData.performer)
         .then((data) => {
-          if (searchEventData.toCity) {
-            const filteredEvents = data.filter((event) => event.city === searchEventData.toCity);
+          if (eventData.toCity) {
+            const filteredEvents = data.filter((event) => event.city === eventData.toCity);
             setEvents(filteredEvents);
           } else {
             setEvents(data); // Set all events if toCity is not provided
@@ -49,7 +47,7 @@ const EventSearchResults: React.FC = () => {
           setIsLoading(false);
         });
     }
-  }, [searchEventData.performer, searchEventData.toCity]); // Update effect only when searchQuery or toCity changes
+  }, [eventData.performer, eventData.toCity]); // Update effect only when searchQuery or toCity changes
 
   return (
     <>
@@ -57,13 +55,11 @@ const EventSearchResults: React.FC = () => {
       <Header />
       <TopContent mainText="We Discovered Outstanding Results for You..." subText='' />
       <Box display="flex" justifyContent="center">
-      {isLoading ? (
-        <CircularProgress />
-      ) : (
-        <EventSearchResultsSearchEventDataContext.Provider value={searchEventData}>
-        <UpcomingEvents events={events} title={`${searchEventData.performer} Events${searchEventData.toCity ? ` in ${searchEventData.toCity}` : ''}`}/>
-        </EventSearchResultsSearchEventDataContext.Provider>
-      )}
+        {isLoading ? (
+          <CircularProgress />
+        ) : (
+            <UpcomingEvents events={events} title={`${eventData.performer} Events${eventData.toCity ? ` in ${eventData.toCity}` : ''}`} />
+        )}
       </Box>
       <Footer />
     </>

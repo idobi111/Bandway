@@ -52,10 +52,10 @@ const DatePickerPopover: React.FC = () => {
             <Typography>
             Services Date Range
             </Typography>
-            <SearchTextField
+            <SearchTextField 
                 onClick={handleClick}
                 value={selectedText}
-                style={{ width: '200px' }}
+                style={{ width: '150px' }}
                 placeholder="Select Date Range"
                 variant="standard"
                 InputLabelProps={{

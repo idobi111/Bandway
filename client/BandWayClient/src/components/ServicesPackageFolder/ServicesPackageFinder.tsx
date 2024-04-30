@@ -15,18 +15,10 @@ import { HotelResponse } from '../../models/HotelResponse';
 import { FlightApi } from '../../apis/FlightApi';
 import { FlightResponse } from '../../models/FlightOneWayResponse';
 import { SearchEventData } from '../../models/SearchEventData';
-import { EventService } from '../../services/EventService';
+import { useDispatch, useSelector } from 'react-redux';
+import { AppState } from '../../redux/types';
+import { setEventData } from '../../redux/actions';
 
-
-export const ServiceFinderSearchEventDataContext = React.createContext<SearchEventData>({
-  performer: '',
-  toCity: '',
-  toCountry: '',
-  fromCity: '',
-  fromCountry: '',
-  toCityId: '',
-  fromCityId: ''
-});
 
 const ServicesPackageFinder: React.FC = () => {
 
@@ -34,24 +26,45 @@ const ServicesPackageFinder: React.FC = () => {
   const [hotels, setHotels] = useState<HotelResponse[]>([]);
   const [flights, setFlights] = useState<FlightResponse[]>([]);
 
-  const eventService = new EventService();
+  const eventData = useSelector((state: AppState) => state.eventData);
+
 
   const mainText: string = "Services Package Finder";
   const subText: string = "Explore our comprehensive service package finder for a complete and enhanced experience !";
-  const queryParams = new URLSearchParams(location.search);
-  const checkIn = queryParams.get('checkIn');
-  const venue = queryParams.get('venue');
-  const searchEventData: SearchEventData = eventService.getSearchQueryParams(queryParams);
-
 
   const hotelApi = new HotelApi();
   const flightApi = new FlightApi();
 
   const packageBuilderService = new PackageBuilderService();
 
+  const dispatch = useDispatch();
 
+  // Load eventData from localStorage on component mount
   useEffect(() => {
-    const hotelRequest = packageBuilderService.createHotelRequestByEventData(checkIn, venue, searchEventData?.fromCity, searchEventData?.toCity);
+    const storedEventDataString = localStorage.getItem('eventData');
+    console.log("Stored eventDataString:", storedEventDataString);
+    if (storedEventDataString) {
+      try {
+        const storedEventData: SearchEventData = JSON.parse(storedEventDataString);
+        console.log("Parsed eventData:", storedEventData);
+        // Dispatch action to update eventData in Redux state
+        dispatch(setEventData(storedEventData));
+      } catch (error) {
+        console.error("Error parsing JSON:", error);
+      }
+    }
+  }, [dispatch]);
+
+  // Save eventData to localStorage whenever it changes
+  useEffect(() => {
+    if (eventData) {
+      localStorage.setItem('eventData', JSON.stringify(eventData));
+    }
+  }, [eventData]);
+
+  
+  useEffect(() => {
+    const hotelRequest = packageBuilderService.createHotelRequestByEventData(eventData.checkIn, eventData.venue, eventData.fromCity, eventData.toCity);
     hotelApi.getHotels(hotelRequest)
       .then((data) => {
         setHotels(data);
@@ -117,9 +130,7 @@ const ServicesPackageFinder: React.FC = () => {
         </Box>
         <Box display="flex" justifyContent="center">
           {packages.length > 0 ? (
-            <ServiceFinderSearchEventDataContext.Provider value={searchEventData}>
               < UpcomingPackages servicePackages={packages} />
-            </ServiceFinderSearchEventDataContext.Provider>
           ) : (<p>Loading packages...</p>)}
         </Box>
       </Container>
