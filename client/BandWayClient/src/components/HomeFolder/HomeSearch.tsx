@@ -7,7 +7,9 @@ import { ArtistOption } from '../../models/ArtistOption';
 import CitySelect from '../GenericFolder/CitySelect';
 import { CityOption } from '../../models/CityOption';
 import { SearchEventData } from '../../models/SearchEventData';
-import { EventService } from '../../services/EventService';
+import { useDispatch } from 'react-redux';
+import { setEventData } from '../../redux/actions';
+import { SetEventDataAction } from '../../redux/types';
 
 const HomeSearch: React.FC = () => {
 
@@ -17,8 +19,8 @@ const HomeSearch: React.FC = () => {
     const [selectedFromCity, setSelectedFromCity] = useState<CityOption | null>(null);
     const [selectedToCity, setSelectedToCity] = useState<CityOption | null>(null);
     const navigate = useNavigate();
-    const eventService = new EventService();
- 
+    const dispatch = useDispatch();
+
 
     const handlPerformerSearch = () => {
 
@@ -30,11 +32,15 @@ const HomeSearch: React.FC = () => {
             toCity: selectedToCity ? selectedToCity.value : '',
             toCountry: selectedToCity ? selectedToCity.country : '',
             fromCityId: selectedFromCity ? selectedFromCity.id : '',
-            toCityId: selectedToCity ? selectedToCity.id : ''
+            toCityId: selectedToCity ? selectedToCity.id : '',
+            checkIn: '',
+            venue: ''
         }
-        const queryParams = eventService.createSearchQueryParams(searchEventData);
       
-        navigate(`/event-search-results?${queryParams}`);
+        dispatch(setEventData(searchEventData));
+
+
+        navigate(`/event-search-results`);
       };
 
     const handleSelectArtist = (artist: ArtistOption) => {

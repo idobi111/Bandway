@@ -13,7 +13,8 @@ import { ActionButton, EventCardMediaStyled } from '../../../../styles/Component
 import { HotelApi } from '../../../../apis/HotelApi';
 import PackageDialogHotelSection from './PackageDialogHotelSection';
 import PackageDialogFlightSection from './PackageDialogFlightSection';
-import { ServiceFinderSearchEventDataContext } from '../../ServicesPackageFinder';
+import { useSelector } from 'react-redux';
+import { AppState } from '../../../../redux/types';
 
 
 interface Props {
@@ -27,7 +28,7 @@ const PackageDialog: React.FC<Props> = ({ servicesPackage, packageFilters }) => 
     const helpers = new Helpers();
     const hotelApi = new HotelApi();
 
-    const searchEventData = useContext(ServiceFinderSearchEventDataContext);
+    const eventData = useSelector((state: AppState) => state.eventData);
 
 
     const handleSeeHotelAvailability = async () => {
@@ -47,7 +48,7 @@ const PackageDialog: React.FC<Props> = ({ servicesPackage, packageFilters }) => 
                 <Box sx={{ flex: 1 }}>
                     <Typography variant='h2' gutterBottom>Your vacation details</Typography>
                     <Stack display={'flex'}>
-                        <Typography sx={{ paddingLeft: 1 }} variant='h4'>Vacation to  {searchEventData.toCity}</Typography>
+                        <Typography sx={{ paddingLeft: 1 }} variant='h4'>Vacation to  {eventData.toCity}</Typography>
                         <Typography sx={{ paddingLeft: 1 }} variant='h4'>{servicesPackage && helpers.formatDatesRange(servicesPackage)}</Typography>
                         <Typography sx={{ paddingLeft: 1 }} variant='h4'>{servicesPackage && helpers.calculateNumberOfNights(servicesPackage?.hotel?.checkIn, servicesPackage?.hotel.checkOut)} nights</Typography>
                     </Stack>

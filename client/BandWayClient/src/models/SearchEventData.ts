@@ -6,4 +6,6 @@ export interface SearchEventData {
   fromCountry: string | null;
   toCityId: string | null;
   fromCityId: string | null;
+  checkIn: string | null;
+  venue: string | null;
 }

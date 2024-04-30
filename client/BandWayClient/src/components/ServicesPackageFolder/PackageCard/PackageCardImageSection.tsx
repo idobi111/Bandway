@@ -6,7 +6,8 @@ import StarIcon from '@mui/icons-material/Star';
 import { FlightService } from '../../../services/FlightService';
 import FlightIcon from '@mui/icons-material/Flight';
 import { EventCardMediaStyled } from '../../../styles/ComponentsStyles';
-import { ServiceFinderSearchEventDataContext } from '../ServicesPackageFinder';
+import { useSelector } from 'react-redux';
+import { AppState } from '../../../redux/types';
 
 
 interface Props {
@@ -15,7 +16,7 @@ interface Props {
 
 const PackageCardImageSection: React.FC<Props> = ({ servicesPackage}) => {
 
-  const searchEventData = useContext(ServiceFinderSearchEventDataContext);  
+  const eventData = useSelector((state: AppState) => state.eventData);
 
   const flightService = new FlightService();
 
@@ -40,7 +41,7 @@ const PackageCardImageSection: React.FC<Props> = ({ servicesPackage}) => {
             textShadow: '2px 2px 4px rgba(0,0,0,0.5)', // Corrected shadow opacity
           }}
         >
-          {searchEventData.toCity}
+          {eventData.toCity}
         </Typography>
         <Typography
           variant="h6" // Changed variant to h6 for smaller font size
@@ -53,7 +54,7 @@ const PackageCardImageSection: React.FC<Props> = ({ servicesPackage}) => {
             zIndex: 1,
           }}
         >
-          {searchEventData.toCountry}
+          {eventData.toCountry}
         </Typography>
       </Box>
     </>
