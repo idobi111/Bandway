@@ -8,13 +8,17 @@ import { CityOption } from '../../models/CityOption';
 import CitySelect from '../GenericFolder/CitySelect';
 
 const PackageSearch: React.FC = () => {
-  const handleSelectCity = (city: CityOption) => {
-    console.log('Selected city:', city);
+  const handleSelectFromCity = (city: CityOption) => {
+    console.log('Selected From city:', city);
+  };
+
+  const handleSelectToCity = (city: CityOption) => {
+    console.log('Selected To city:', city);
   };
 
   return (
     <WindowDiv>
-      <HomeSearchGrid container spacing={2} justifyContent="center">
+      <HomeSearchGrid container spacing={2} justifyContent="center" sx={{ marginLeft: '40px' }}>
         <Grid item xs={2}>
           <DatePickerPopover />
         </Grid>
@@ -25,9 +29,12 @@ const PackageSearch: React.FC = () => {
           <ServicesBudgetPopover />
         </Grid>
         <Grid item xs={2}>
-          <CitySelect onSelect={handleSelectCity} placeholder='Event City' title='Place' />
+          <CitySelect onSelect={handleSelectFromCity} placeholder='All Cities' title='From' />
         </Grid>
-        <Grid item xs={2} sx={{ marginLeft: '40px' }}>
+        <Grid item xs={2}>
+          <CitySelect onSelect={handleSelectToCity} placeholder='All Cities' title='To' />
+        </Grid>
+        <Grid item xs={2}>
           <ActionButton variant='contained'>Search</ActionButton>
         </Grid>
       </HomeSearchGrid>

@@ -15,8 +15,9 @@ import { HotelResponse } from '../../models/HotelResponse';
 import { FlightApi } from '../../apis/FlightApi';
 import { FlightResponse } from '../../models/FlightOneWayResponse';
 import { SearchEventData } from '../../models/SearchEventData';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { AppState } from '../../redux/types';
+import { setEventData } from '../../redux/actions';
 
 
 const ServicesPackageFinder: React.FC = () => {
@@ -36,7 +37,32 @@ const ServicesPackageFinder: React.FC = () => {
 
   const packageBuilderService = new PackageBuilderService();
 
+  const dispatch = useDispatch();
 
+  // Load eventData from localStorage on component mount
+  useEffect(() => {
+    const storedEventDataString = localStorage.getItem('eventData');
+    console.log("Stored eventDataString:", storedEventDataString);
+    if (storedEventDataString) {
+      try {
+        const storedEventData: SearchEventData = JSON.parse(storedEventDataString);
+        console.log("Parsed eventData:", storedEventData);
+        // Dispatch action to update eventData in Redux state
+        dispatch(setEventData(storedEventData));
+      } catch (error) {
+        console.error("Error parsing JSON:", error);
+      }
+    }
+  }, [dispatch]);
+
+  // Save eventData to localStorage whenever it changes
+  useEffect(() => {
+    if (eventData) {
+      localStorage.setItem('eventData', JSON.stringify(eventData));
+    }
+  }, [eventData]);
+
+  
   useEffect(() => {
     const hotelRequest = packageBuilderService.createHotelRequestByEventData(eventData.checkIn, eventData.venue, eventData.fromCity, eventData.toCity);
     hotelApi.getHotels(hotelRequest)
