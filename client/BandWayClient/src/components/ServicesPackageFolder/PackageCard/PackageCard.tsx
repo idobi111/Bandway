@@ -11,7 +11,6 @@ import PackageCardImageSection from './PackageCardImageSection';
 import PackageCardPriceSection from './PackageCardPriceSection';
 import { PackageFilter } from '../../../models/PackageFilter';
 import PackageDialog from './PackageDialog/PackageDialog';
-import { ServiceFinderSearchEventDataContext } from '../ServicesPackageFinder';
 
 
 
@@ -31,8 +30,6 @@ const PackageCard: React.FC<Props> = ({ packages, step, packageFilters }) => {
   const [selectedPackage, setSelectedPackage] = useState<Package | null>(null); // State to track the selected package
   const [openDialog, setOpenDialog] = useState(false); // State to track whether the dialog is open
 
-
-  const searchEventData = useContext(ServiceFinderSearchEventDataContext);
 
 
   const loadMore = () => {
