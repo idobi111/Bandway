@@ -37,7 +37,7 @@ const ServicesPackageFinder: React.FC = () => {
   const flightApi = new FlightApi();
 
   const packageBuilderService = new PackageBuilderService();
-
+  
   const dispatch = useDispatch();
 
   // Load eventData from localStorage on component mount
