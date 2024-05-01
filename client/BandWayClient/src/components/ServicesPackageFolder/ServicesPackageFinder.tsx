@@ -15,9 +15,10 @@ import { HotelResponse } from '../../models/HotelResponse';
 import { FlightApi } from '../../apis/FlightApi';
 import { FlightResponse } from '../../models/FlightOneWayResponse';
 import { SearchEventData } from '../../models/SearchEventData';
-import { useDispatch, useSelector } from 'react-redux';
+import { Provider, useDispatch, useSelector } from 'react-redux';
 import { AppState } from '../../redux/types';
 import { setEventData } from '../../redux/actions';
+import store from '../../redux/store';
 
 
 const ServicesPackageFinder: React.FC = () => {
@@ -36,7 +37,7 @@ const ServicesPackageFinder: React.FC = () => {
   const flightApi = new FlightApi();
 
   const packageBuilderService = new PackageBuilderService();
-
+  
   const dispatch = useDispatch();
 
   // Load eventData from localStorage on component mount
@@ -123,7 +124,9 @@ const ServicesPackageFinder: React.FC = () => {
       <TopContent mainText={mainText} subText={subText} />
       <Container maxWidth="xl">
         <Box display="flex" justifyContent="center" sx={{ m: -5 }}>
+        <Provider store={store}>
           <PackageSearch />
+          </Provider>
         </Box>
         <Box display="flex" justifyContent="center" sx={{ m: 2 }}>
           {/* <Steps /> */}
