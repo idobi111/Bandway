@@ -2,8 +2,6 @@ import React, { useContext } from 'react';
 import { Typography, Grid, TextField, Box, Stack, Container } from '@mui/material';
 import { HomeSearchGrid, SearchTextField, WindowDiv, ActionButton, GenricWhiteText, SeparateRowsContainer, GenricTopBoxText, SubActionButton } from '../../styles/ComponentsStyles';
 import { useNavigate } from "react-router-dom";
-import { PostTicketOrderSearchEventDataContext } from './PostTicketOrder';
-import { EventService } from '../../services/EventService';
 
 
 interface QuestionProps {
@@ -17,9 +15,6 @@ interface QuestionProps {
 const PackageInterestQuestion: React.FC<QuestionProps> = ({ titleText, descriptionText, acceptButtonText, rejectButtonText }) => {
 
   const navigate = useNavigate();
-
-  const searchEventData = useContext(PostTicketOrderSearchEventDataContext);
-  const eventService = new EventService();
 
 
   const handleUserNotifyInterestedServicesPackage = () => {

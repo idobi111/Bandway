@@ -6,7 +6,6 @@ import OccupancyPopover from './OccupancyPopover';
 import ServicesBudgetPopover from './ServicesBudgetPopover';
 import { CityOption } from '../../models/CityOption';
 import CitySelect from '../GenericFolder/CitySelect';
-import CitySelect from '../GenericFolder/CitySelect';
 
 const PackageSearch: React.FC = () => {
   const handleSelectFromCity = (city: CityOption) => {
