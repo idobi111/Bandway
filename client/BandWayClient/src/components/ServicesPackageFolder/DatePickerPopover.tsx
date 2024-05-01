@@ -4,7 +4,12 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { SearchTextField } from '../../styles/ComponentsStyles';
 
-const DatePickerPopover: React.FC = () => {
+interface DatePickerPopoverProps {
+    onSelect: (checkIn: string, checkOut: string) => void;
+  }
+
+
+const DatePickerPopover: React.FC<DatePickerPopoverProps> = ({onSelect}) => {
     const [anchorEl, setAnchorEl] = useState<HTMLDivElement | null>(null);
     const [selectedText, setSelectedText] = useState<string>('');
     const [startDate, setStartDate] = useState<Date | null>();
@@ -27,9 +32,12 @@ const DatePickerPopover: React.FC = () => {
             const formattedStartDate = startDate.toLocaleDateString();
             const formattedEndDate = endDate.toLocaleDateString();
             setSelectedText(`${formattedStartDate} - ${formattedEndDate}`);
+            onSelect(formattedStartDate, formattedEndDate);
         }
         else {
             setSelectedText(``);
+            onSelect('', '');
+
         }
         handleClose();
     };

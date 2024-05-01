@@ -2,7 +2,12 @@ import React, { useState } from 'react';
 import { Typography, Box, Popover, Slider, Button } from '@mui/material';
 import { SearchTextField } from '../../styles/ComponentsStyles';
 
-const ServicesBudgetPopover: React.FC = () => {
+
+interface ServicesBudgetPopoverProps {
+  onSelect: (minPrice: number, maxPrice: number) => void;
+}
+
+const ServicesBudgetPopover: React.FC<ServicesBudgetPopoverProps> = ({onSelect}) => {
   const minBudget: number = 100;
   const maxBudget: number = 10000;
   const [anchorEl, setAnchorEl] = useState<HTMLDivElement | null>(null);
@@ -22,6 +27,7 @@ const ServicesBudgetPopover: React.FC = () => {
 
   const handleSave = () => {
     setSelectedBudget(`${budget[0]}$-${budget[1]}$`);
+    onSelect(budget[0],budget[1]);
     handleClose();
   };
 

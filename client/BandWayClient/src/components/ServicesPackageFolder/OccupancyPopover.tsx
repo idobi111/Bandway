@@ -4,7 +4,11 @@ import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
 import { SearchTextField } from '../../styles/ComponentsStyles';
 
-const OccupancyPopover: React.FC = () => {
+interface OccupancyPopoverProps {
+    onSelect: (adults: number, children: number, rooms: number) => void;
+  }
+
+const OccupancyPopover: React.FC<OccupancyPopoverProps> = ({onSelect}) => {
     const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
     const [adults, setAdults] = useState<number>(2);
     const [children, setChildren] = useState<number>(0);
@@ -25,6 +29,7 @@ const OccupancyPopover: React.FC = () => {
 
     const handleSave = () => {
         setSelectedOccupancy(`${adults} adults, ${children} children, ${rooms} rooms`);
+        onSelect(adults, children, rooms);
         handleClose();
     };
 
