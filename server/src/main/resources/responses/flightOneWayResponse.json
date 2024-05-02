@@ -1,191 +1,28 @@
 {
-  "isSingleWay": true,
   "departFlightDetails": [
     {
       "sourceCountry": "Israel",
       "sourceCity": "Tel Aviv",
-      "destCountry": "London",
+      "destCountry": "United Kingdom",
       "destCity": "London",
       "flightDetails": [
         {
-          "id": "16995-9772-2405021315-2405021700--30967",
+          "id": "16995-9772-2405031335-2405031715--30967",
           "flightNumber": "9_252",
-          "departureTime": "2024-05-02T13:15:00",
-          "arrivalTime": "2024-05-02T17:00:00",
+          "departureTime": "2024-05-03T13:35:00",
+          "arrivalTime": "2024-05-03T17:15:00",
           "departureAirport": "TLV",
           "departureCityName": "Tel Aviv",
           "arrivalAirport": "BCN",
           "arrivalCityName": "Barcelona",
-          "duration": "04:45",
+          "duration": "04:40",
           "airline": "Blue Bird Airways"
         },
         {
-          "id": "9772-16574-2405021905-2405022030--31915",
-          "flightNumber": "FR9015",
-          "departureTime": "2024-05-02T19:05:00",
-          "arrivalTime": "2024-05-02T20:30:00",
-          "departureAirport": "BCN",
-          "departureCityName": "Barcelona",
-          "arrivalAirport": "STN",
-          "arrivalCityName": "London",
-          "duration": "02:25",
-          "airline": "Ryanair"
-        }
-      ],
-      "marketing": [
-        {
-          "logoUrl": "https://logos.skyscnr.com/images/airlines/favicon/9_.png",
-          "name": "Blue Bird Airways"
-        },
-        {
-          "logoUrl": "https://logos.skyscnr.com/images/airlines/favicon/FR.png",
-          "name": "Ryanair"
-        }
-      ],
-      "price": 367.67,
-      "duration": "09:15",
-      "token": "eyJhIjoiMiIsImMiOiIwIiwiaSI6IjAiLCJjYyI6ImVjb25vbXkiLCJvIjoiVExWIiwiZCI6IkxPTkQiLCJkMSI6IjIwMjQtMDUtMDIifQ==",
-      "stopCount": 1
-    },
-    {
-      "sourceCountry": "Israel",
-      "sourceCity": "Tel Aviv",
-      "destCountry": "London",
-      "destCity": "London",
-      "flightDetails": [
-        {
-          "id": "16995-10202-2405021055-2405021330--31669",
-          "flightNumber": "WZ2326",
-          "departureTime": "2024-05-02T10:55:00",
-          "arrivalTime": "2024-05-02T13:30:00",
-          "departureAirport": "TLV",
-          "departureCityName": "Tel Aviv",
-          "arrivalAirport": "BUD",
-          "arrivalCityName": "Budapest",
-          "duration": "03:35",
-          "airline": "Wizz Air"
-        },
-        {
-          "id": "10202-16574-2405021745-2405021920--31915",
-          "flightNumber": "FR3718",
-          "departureTime": "2024-05-02T17:45:00",
-          "arrivalTime": "2024-05-02T19:20:00",
-          "departureAirport": "BUD",
-          "departureCityName": "Budapest",
-          "arrivalAirport": "STN",
-          "arrivalCityName": "London",
-          "duration": "02:35",
-          "airline": "Ryanair"
-        }
-      ],
-      "marketing": [
-        {
-          "logoUrl": "https://logos.skyscnr.com/images/airlines/favicon/WZ.png",
-          "name": "Wizz Air"
-        },
-        {
-          "logoUrl": "https://logos.skyscnr.com/images/airlines/favicon/FR.png",
-          "name": "Ryanair"
-        }
-      ],
-      "price": 327.9,
-      "duration": "10:25",
-      "token": "eyJhIjoiMiIsImMiOiIwIiwiaSI6IjAiLCJjYyI6ImVjb25vbXkiLCJvIjoiVExWIiwiZCI6IkxPTkQiLCJkMSI6IjIwMjQtMDUtMDIifQ==",
-      "stopCount": 1
-    },
-    {
-      "sourceCountry": "Israel",
-      "sourceCity": "Tel Aviv",
-      "destCountry": "London",
-      "destCity": "London",
-      "flightDetails": [
-        {
-          "id": "16995-9592-2405021400-2405021610--30967",
-          "flightNumber": "9_704",
-          "departureTime": "2024-05-02T14:00:00",
-          "arrivalTime": "2024-05-02T16:10:00",
-          "departureAirport": "TLV",
-          "departureCityName": "Tel Aviv",
-          "arrivalAirport": "ATH",
-          "arrivalCityName": "Athens",
-          "duration": "02:10",
-          "airline": "Blue Bird Airways"
-        },
-        {
-          "id": "9592-9772-2405022225-2405030040--31685",
-          "flightNumber": "078103",
-          "departureTime": "2024-05-02T22:25:00",
-          "arrivalTime": "2024-05-03T00:40:00",
-          "departureAirport": "ATH",
-          "departureCityName": "Athens",
-          "arrivalAirport": "BCN",
-          "arrivalCityName": "Barcelona",
-          "duration": "03:15",
-          "airline": "Vueling Airlines"
-        },
-        {
-          "id": "9772-13554-2405030800-2405030915--31685",
-          "flightNumber": "076650",
-          "departureTime": "2024-05-03T08:00:00",
-          "arrivalTime": "2024-05-03T09:15:00",
-          "departureAirport": "BCN",
-          "departureCityName": "Barcelona",
-          "arrivalAirport": "LHR",
-          "arrivalCityName": "London",
-          "duration": "02:15",
-          "airline": "Vueling Airlines"
-        }
-      ],
-      "marketing": [
-        {
-          "logoUrl": "https://logos.skyscnr.com/images/airlines/favicon/9_.png",
-          "name": "Blue Bird Airways"
-        },
-        {
-          "logoUrl": "https://logos.skyscnr.com/images/airlines/favicon/07.png",
-          "name": "Vueling Airlines"
-        }
-      ],
-      "price": 646.4,
-      "duration": "21:15",
-      "token": "eyJhIjoiMiIsImMiOiIwIiwiaSI6IjAiLCJjYyI6ImVjb25vbXkiLCJvIjoiVExWIiwiZCI6IkxPTkQiLCJkMSI6IjIwMjQtMDUtMDIifQ==",
-      "stopCount": 2
-    },
-    {
-      "sourceCountry": "Israel",
-      "sourceCity": "Tel Aviv",
-      "destCountry": "London",
-      "destCity": "London",
-      "flightDetails": [
-        {
-          "id": "16995-9592-2405020740-2405020950--30967",
-          "flightNumber": "9_702",
-          "departureTime": "2024-05-02T07:40:00",
-          "arrivalTime": "2024-05-02T09:50:00",
-          "departureAirport": "TLV",
-          "departureCityName": "Tel Aviv",
-          "arrivalAirport": "ATH",
-          "arrivalCityName": "Athens",
-          "duration": "02:10",
-          "airline": "Blue Bird Airways"
-        },
-        {
-          "id": "9592-9772-2405021500-2405021715--31685",
-          "flightNumber": "078101",
-          "departureTime": "2024-05-02T15:00:00",
-          "arrivalTime": "2024-05-02T17:15:00",
-          "departureAirport": "ATH",
-          "departureCityName": "Athens",
-          "arrivalAirport": "BCN",
-          "arrivalCityName": "Barcelona",
-          "duration": "03:15",
-          "airline": "Vueling Airlines"
-        },
-        {
-          "id": "9772-13554-2405021830-2405021945--31685",
+          "id": "9772-13554-2405031830-2405031945--31685",
           "flightNumber": "076652",
-          "departureTime": "2024-05-02T18:30:00",
-          "arrivalTime": "2024-05-02T19:45:00",
+          "departureTime": "2024-05-03T18:30:00",
+          "arrivalTime": "2024-05-03T19:45:00",
           "departureAirport": "BCN",
           "departureCityName": "Barcelona",
           "arrivalAirport": "LHR",
@@ -204,69 +41,387 @@
           "name": "Vueling Airlines"
         }
       ],
-      "price": 1202.17,
-      "duration": "14:05",
-      "token": "eyJhIjoiMiIsImMiOiIwIiwiaSI6IjAiLCJjYyI6ImVjb25vbXkiLCJvIjoiVExWIiwiZCI6IkxPTkQiLCJkMSI6IjIwMjQtMDUtMDIifQ==",
-      "stopCount": 2
+      "price": 202,
+      "duration": "08:10",
+      "stopCount": 1
     },
     {
       "sourceCountry": "Israel",
       "sourceCity": "Tel Aviv",
-      "destCountry": "London",
+      "destCountry": "United Kingdom",
       "destCity": "London",
       "flightDetails": [
         {
-          "id": "16995-9592-2405020740-2405020950--30967",
-          "flightNumber": "9_702",
-          "departureTime": "2024-05-02T07:40:00",
-          "arrivalTime": "2024-05-02T09:50:00",
+          "id": "16995-15538-2405031310-2405031610--32562",
+          "flightNumber": "IZ283",
+          "departureTime": "2024-05-03T13:10:00",
+          "arrivalTime": "2024-05-03T16:10:00",
+          "departureAirport": "TLV",
+          "departureCityName": "Tel Aviv",
+          "arrivalAirport": "PRG",
+          "arrivalCityName": "Prague",
+          "duration": "04:00",
+          "airline": "arkia"
+        },
+        {
+          "id": "15538-13771-2405031700-2405031805--32356",
+          "flightNumber": "EZ2634",
+          "departureTime": "2024-05-03T17:00:00",
+          "arrivalTime": "2024-05-03T18:05:00",
+          "departureAirport": "PRG",
+          "departureCityName": "Prague",
+          "arrivalAirport": "LTN",
+          "arrivalCityName": "London",
+          "duration": "02:05",
+          "airline": "easyJet"
+        }
+      ],
+      "marketing": [
+        {
+          "logoUrl": "https://logos.skyscnr.com/images/airlines/favicon/IZ.png",
+          "name": "arkia"
+        },
+        {
+          "logoUrl": "https://logos.skyscnr.com/images/airlines/favicon/EZ.png",
+          "name": "easyJet"
+        }
+      ],
+      "price": 233,
+      "duration": "06:55",
+      "stopCount": 1
+    },
+    {
+      "sourceCountry": "Israel",
+      "sourceCity": "Tel Aviv",
+      "destCountry": "United Kingdom",
+      "destCity": "London",
+      "flightDetails": [
+        {
+          "id": "16995-15538-2405031545-2405031850--32193",
+          "flightNumber": "6H761",
+          "departureTime": "2024-05-03T15:45:00",
+          "arrivalTime": "2024-05-03T18:50:00",
+          "departureAirport": "TLV",
+          "departureCityName": "Tel Aviv",
+          "arrivalAirport": "PRG",
+          "arrivalCityName": "Prague",
+          "duration": "04:05",
+          "airline": "Israir"
+        },
+        {
+          "id": "15538-13542-2405032135-2405032230--30972",
+          "flightNumber": "~95776",
+          "departureTime": "2024-05-03T21:35:00",
+          "arrivalTime": "2024-05-03T22:30:00",
+          "departureAirport": "PRG",
+          "departureCityName": "Prague",
+          "arrivalAirport": "LGW",
+          "arrivalCityName": "London",
+          "duration": "01:55",
+          "airline": "Wizz Air UK"
+        }
+      ],
+      "marketing": [
+        {
+          "logoUrl": "https://logos.skyscnr.com/images/airlines/favicon/6H.png",
+          "name": "Israir"
+        },
+        {
+          "logoUrl": "https://logos.skyscnr.com/images/airlines/favicon/%7E9.png",
+          "name": "Wizz Air UK"
+        }
+      ],
+      "price": 188.99,
+      "duration": "08:45",
+      "stopCount": 1
+    },
+    {
+      "sourceCountry": "Israel",
+      "sourceCity": "Tel Aviv",
+      "destCountry": "United Kingdom",
+      "destCity": "London",
+      "flightDetails": [
+        {
+          "id": "16995-15868-2405031655-2405031835--32193",
+          "flightNumber": "6H513",
+          "departureTime": "2024-05-03T16:55:00",
+          "arrivalTime": "2024-05-03T18:35:00",
+          "departureAirport": "TLV",
+          "departureCityName": "Tel Aviv",
+          "arrivalAirport": "RHO",
+          "arrivalCityName": "Rhodes",
+          "duration": "01:40",
+          "airline": "Israir"
+        },
+        {
+          "id": "15868-13542-2405031935-2405032150--32356",
+          "flightNumber": "EZ6310",
+          "departureTime": "2024-05-03T19:35:00",
+          "arrivalTime": "2024-05-03T21:50:00",
+          "departureAirport": "RHO",
+          "departureCityName": "Rhodes",
+          "arrivalAirport": "LGW",
+          "arrivalCityName": "London",
+          "duration": "04:15",
+          "airline": "easyJet"
+        }
+      ],
+      "marketing": [
+        {
+          "logoUrl": "https://logos.skyscnr.com/images/airlines/favicon/6H.png",
+          "name": "Israir"
+        },
+        {
+          "logoUrl": "https://logos.skyscnr.com/images/airlines/favicon/EZ.png",
+          "name": "easyJet"
+        }
+      ],
+      "price": 235,
+      "duration": "06:55",
+      "stopCount": 1
+    },
+    {
+      "sourceCountry": "Israel",
+      "sourceCity": "Tel Aviv",
+      "destCountry": "United Kingdom",
+      "destCity": "London",
+      "flightDetails": [
+        {
+          "id": "16995-15538-2405031545-2405031850--32193",
+          "flightNumber": "6H761",
+          "departureTime": "2024-05-03T15:45:00",
+          "arrivalTime": "2024-05-03T18:50:00",
+          "departureAirport": "TLV",
+          "departureCityName": "Tel Aviv",
+          "arrivalAirport": "PRG",
+          "arrivalCityName": "Prague",
+          "duration": "04:05",
+          "airline": "Israir"
+        },
+        {
+          "id": "15538-13542-2405032155-2405032300--32356",
+          "flightNumber": "EZ8784",
+          "departureTime": "2024-05-03T21:55:00",
+          "arrivalTime": "2024-05-03T23:00:00",
+          "departureAirport": "PRG",
+          "departureCityName": "Prague",
+          "arrivalAirport": "LGW",
+          "arrivalCityName": "London",
+          "duration": "02:05",
+          "airline": "easyJet"
+        }
+      ],
+      "marketing": [
+        {
+          "logoUrl": "https://logos.skyscnr.com/images/airlines/favicon/6H.png",
+          "name": "Israir"
+        },
+        {
+          "logoUrl": "https://logos.skyscnr.com/images/airlines/favicon/EZ.png",
+          "name": "easyJet"
+        }
+      ],
+      "price": 181,
+      "duration": "09:15",
+      "stopCount": 1
+    },
+    {
+      "sourceCountry": "Israel",
+      "sourceCity": "Tel Aviv",
+      "destCountry": "United Kingdom",
+      "destCity": "London",
+      "flightDetails": [
+        {
+          "id": "16995-13445-2405031940-2405032045--32193",
+          "flightNumber": "6H581",
+          "departureTime": "2024-05-03T19:40:00",
+          "arrivalTime": "2024-05-03T20:45:00",
+          "departureAirport": "TLV",
+          "departureCityName": "Tel Aviv",
+          "arrivalAirport": "LCA",
+          "arrivalCityName": "Larnaca",
+          "duration": "01:05",
+          "airline": "Israir"
+        },
+        {
+          "id": "13445-13542-2405032240-2405040145--32356",
+          "flightNumber": "EZ8660",
+          "departureTime": "2024-05-03T22:40:00",
+          "arrivalTime": "2024-05-04T01:45:00",
+          "departureAirport": "LCA",
+          "departureCityName": "Larnaca",
+          "arrivalAirport": "LGW",
+          "arrivalCityName": "London",
+          "duration": "05:05",
+          "airline": "easyJet"
+        }
+      ],
+      "marketing": [
+        {
+          "logoUrl": "https://logos.skyscnr.com/images/airlines/favicon/6H.png",
+          "name": "Israir"
+        },
+        {
+          "logoUrl": "https://logos.skyscnr.com/images/airlines/favicon/EZ.png",
+          "name": "easyJet"
+        }
+      ],
+      "price": 209.4,
+      "duration": "08:05",
+      "stopCount": 1
+    },
+    {
+      "sourceCountry": "Israel",
+      "sourceCity": "Tel Aviv",
+      "destCountry": "United Kingdom",
+      "destCity": "London",
+      "flightDetails": [
+        {
+          "id": "16995-14385-2405031705-2405032015--32090",
+          "flightNumber": "LH681",
+          "departureTime": "2024-05-03T17:05:00",
+          "arrivalTime": "2024-05-03T20:15:00",
+          "departureAirport": "TLV",
+          "departureCityName": "Tel Aviv",
+          "arrivalAirport": "MUC",
+          "arrivalCityName": "Munich",
+          "duration": "04:10",
+          "airline": "Lufthansa"
+        },
+        {
+          "id": "14385-13554-2405032140-2405032240--32090",
+          "flightNumber": "LH2484",
+          "departureTime": "2024-05-03T21:40:00",
+          "arrivalTime": "2024-05-03T22:40:00",
+          "departureAirport": "MUC",
+          "departureCityName": "Munich",
+          "arrivalAirport": "LHR",
+          "arrivalCityName": "London",
+          "duration": "02:00",
+          "airline": "Lufthansa"
+        }
+      ],
+      "marketing": [
+        {
+          "logoUrl": "https://logos.skyscnr.com/images/airlines/favicon/LH.png",
+          "name": "Lufthansa"
+        }
+      ],
+      "price": 310.99,
+      "duration": "07:35",
+      "stopCount": 1
+    },
+    {
+      "sourceCountry": "Israel",
+      "sourceCity": "Tel Aviv",
+      "destCountry": "United Kingdom",
+      "destCity": "London",
+      "flightDetails": [
+        {
+          "id": "16995-17517-2405031520-2405031805--32544",
+          "flightNumber": "OS858",
+          "departureTime": "2024-05-03T15:20:00",
+          "arrivalTime": "2024-05-03T18:05:00",
+          "departureAirport": "TLV",
+          "departureCityName": "Tel Aviv",
+          "arrivalAirport": "VIE",
+          "arrivalCityName": "Vienna",
+          "duration": "03:45",
+          "airline": "Austrian Airlines"
+        },
+        {
+          "id": "17517-13554-2405032020-2405032140--32544",
+          "flightNumber": "OS457",
+          "departureTime": "2024-05-03T20:20:00",
+          "arrivalTime": "2024-05-03T21:40:00",
+          "departureAirport": "VIE",
+          "departureCityName": "Vienna",
+          "arrivalAirport": "LHR",
+          "arrivalCityName": "London",
+          "duration": "02:20",
+          "airline": "Austrian Airlines"
+        }
+      ],
+      "marketing": [
+        {
+          "logoUrl": "https://logos.skyscnr.com/images/airlines/favicon/OS.png",
+          "name": "Austrian Airlines"
+        }
+      ],
+      "price": 305.99,
+      "duration": "08:20",
+      "stopCount": 1
+    },
+    {
+      "sourceCountry": "Israel",
+      "sourceCity": "Tel Aviv",
+      "destCountry": "United Kingdom",
+      "destCity": "London",
+      "flightDetails": [
+        {
+          "id": "16995-9592-2405030500-2405030710--32756",
+          "flightNumber": "A3929",
+          "departureTime": "2024-05-03T05:00:00",
+          "arrivalTime": "2024-05-03T07:10:00",
           "departureAirport": "TLV",
           "departureCityName": "Tel Aviv",
           "arrivalAirport": "ATH",
           "arrivalCityName": "Athens",
           "duration": "02:10",
-          "airline": "Blue Bird Airways"
+          "airline": "Aegean Airlines"
         },
         {
-          "id": "9592-9772-2405022225-2405030040--31685",
-          "flightNumber": "078103",
-          "departureTime": "2024-05-02T22:25:00",
-          "arrivalTime": "2024-05-03T00:40:00",
+          "id": "9592-13554-2405030915-2405031115--32756",
+          "flightNumber": "A3600",
+          "departureTime": "2024-05-03T09:15:00",
+          "arrivalTime": "2024-05-03T11:15:00",
           "departureAirport": "ATH",
           "departureCityName": "Athens",
-          "arrivalAirport": "BCN",
-          "arrivalCityName": "Barcelona",
-          "duration": "03:15",
-          "airline": "Vueling Airlines"
-        },
-        {
-          "id": "9772-13554-2405030800-2405030915--31685",
-          "flightNumber": "076650",
-          "departureTime": "2024-05-03T08:00:00",
-          "arrivalTime": "2024-05-03T09:15:00",
-          "departureAirport": "BCN",
-          "departureCityName": "Barcelona",
           "arrivalAirport": "LHR",
           "arrivalCityName": "London",
-          "duration": "02:15",
-          "airline": "Vueling Airlines"
+          "duration": "04:00",
+          "airline": "Aegean Airlines"
         }
       ],
       "marketing": [
         {
-          "logoUrl": "https://logos.skyscnr.com/images/airlines/favicon/9_.png",
-          "name": "Blue Bird Airways"
-        },
-        {
-          "logoUrl": "https://logos.skyscnr.com/images/airlines/favicon/07.png",
-          "name": "Vueling Airlines"
+          "logoUrl": "https://logos.skyscnr.com/images/airlines/favicon/A3.png",
+          "name": "Aegean Airlines"
         }
       ],
-      "price": 689.16,
-      "duration": "27:35",
-      "token": "eyJhIjoiMiIsImMiOiIwIiwiaSI6IjAiLCJjYyI6ImVjb25vbXkiLCJvIjoiVExWIiwiZCI6IkxPTkQiLCJkMSI6IjIwMjQtMDUtMDIifQ==",
-      "stopCount": 2
+      "price": 404.55,
+      "duration": "08:15",
+      "stopCount": 1
+    },
+    {
+      "sourceCountry": "Israel",
+      "sourceCity": "Tel Aviv",
+      "destCountry": "United Kingdom",
+      "destCity": "London",
+      "flightDetails": [
+        {
+          "id": "16995-13554-2405031010-2405031335--32352",
+          "flightNumber": "LY315",
+          "departureTime": "2024-05-03T10:10:00",
+          "arrivalTime": "2024-05-03T13:35:00",
+          "departureAirport": "TLV",
+          "departureCityName": "Tel Aviv",
+          "arrivalAirport": "LHR",
+          "arrivalCityName": "London",
+          "duration": "05:25",
+          "airline": "EL AL Israel Airlines"
+        }
+      ],
+      "marketing": [
+        {
+          "logoUrl": "https://logos.skyscnr.com/images/airlines/favicon/LY.png",
+          "name": "EL AL Israel Airlines"
+        }
+      ],
+      "price": 652,
+      "duration": "05:25",
+      "stopCount": 0
     }
   ],
-  "arrivalFlightDetails": null
+  "token": "eyJhIjoiMSIsImMiOiIwIiwiaSI6IjAiLCJjYyI6ImVjb25vbXkiLCJvIjoiVExWIiwiZCI6IkxPTkQiLCJkMSI6IjIwMjQtMDUtMDMifQ=="
 }

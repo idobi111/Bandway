@@ -47,14 +47,24 @@ public class BandwayController {
         return ResponseEntity.ok(flightService.getCities(text));
     }
 
-    @PostMapping(value = "/searchFlight", produces = "application/json", headers = "Accept=application/json")
-    public ResponseEntity<FlightResponseDto> getFlight(@RequestBody FlightRequestDto requestFlightDto) {
-        return ResponseEntity.ok(flightService.searchFlight(requestFlightDto));
+    @PostMapping(value = "/searchOneWayFlight", produces = "application/json", headers = "Accept=application/json")
+    public ResponseEntity<OneWayFlightResponseDto> getOneWayFlight(@RequestBody FlightRequestDto requestFlightDto) {
+        return ResponseEntity.ok(flightService.searchOneWayFlight(requestFlightDto));
+    }
+
+    @PostMapping(value = "/searchRoundWayFlight", produces = "application/json", headers = "Accept=application/json")
+    public ResponseEntity<RoundWayFlightResponseDto> getRoundWayFlight(@RequestBody FlightRequestDto requestFlightDto) {
+        return ResponseEntity.ok(flightService.searchRoundWayFlight(requestFlightDto));
     }
 
     @GetMapping(value = "/carRentalCityAutoComplete", produces = "application/json", headers = "Accept=application/json")
     public ResponseEntity<List<AutoCompleteCityResponseDto>> getCarAutoComplete(@RequestParam String query) {
         return ResponseEntity.ok(carRentalService.getCityAutoComplete(query));
+    }
+
+    @GetMapping(value = "/flightPrice")
+    public ResponseEntity<List<FlightPriceResponseDto>> getFlightPrice(@RequestParam String token, @RequestParam String itineraryId) {
+        return ResponseEntity.ok(flightService.getFlightPricing(token, itineraryId));
     }
 
     @PostMapping(value = "/searchCarRental", produces = "application/json", headers = "Accept=application/json")

@@ -16,7 +16,6 @@ public class SessionFlightDetails {
     private List<Marketing> marketing;
     private Double price;
     private String duration;
-    private String token;
     private Integer stopCount;
 
 }
