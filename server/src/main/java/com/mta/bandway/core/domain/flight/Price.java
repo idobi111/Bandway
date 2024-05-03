@@ -10,9 +10,5 @@ public class Price implements Serializable {
 
     @JsonProperty("raw")
     private Double raw;
-    @JsonProperty("formatted")
-    private String formatted;
-    @JsonProperty("pricingOptionId")
-    private String pricingOptionId;
 
 }

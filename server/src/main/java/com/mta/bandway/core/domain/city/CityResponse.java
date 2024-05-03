@@ -9,8 +9,6 @@ import java.util.ArrayList;
 @NoArgsConstructor
 public class CityResponse {
     private boolean status;
-    private Object message;
-    private long timestamp;
     private ArrayList<Datum> data;
 
 }

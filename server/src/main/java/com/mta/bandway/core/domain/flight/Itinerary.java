@@ -16,7 +16,5 @@ public class Itinerary implements Serializable {
     private Price price;
     @JsonProperty("legs")
     private List<Leg> legs;
-    @JsonProperty("score")
-    private Double score;
 
 }

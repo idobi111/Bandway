@@ -6,8 +6,6 @@ import lombok.Data;
 @Data
 public class Agent {
 
-    @JsonProperty("id")
-    public String id;
     @JsonProperty("name")
     public String name;
     @JsonProperty("url")

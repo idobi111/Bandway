@@ -5,8 +5,4 @@ import lombok.Data;
 @Data
 public class EventDate {
     private Start start;
-    private String timezone;
-    private DateStatus status;
-    private boolean spanMultipleDays;
-
 }
