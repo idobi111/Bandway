@@ -11,8 +11,8 @@ export class FlightApi {
 
     public async getOneWayFlights(flight: FlightRequest): Promise<FlightOneWayResponse[]> {
         try {
-            //const response = await axios.post<FlightOneWayResponse[]>(`${this.BASE_URL}/searchFlight`, flight);
-             const response = await axios.get<FlightOneWayResponse[]>(``);
+            const response = await axios.post<FlightOneWayResponse[]>(`${this.BASE_URL}/searchFlight`, flight);
+            // const response = await axios.get<FlightOneWayResponse[]>(``);
             return response.data;
         } catch (error) {
             throw new Error('Error fetching one way flights');
