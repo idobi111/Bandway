@@ -43,21 +43,9 @@ public class FlightRequestDto implements Serializable {
     @JsonProperty(value = "infants", defaultValue = "0")
     private Integer infants;
 
-    @Schema(description = "Is it a round trip", example = "true")
-    @JsonProperty(value = "isRoundTrip", required = true)
-    private Boolean isRoundTrip;
-
-    @Schema(description = "Is it a multi-city trip", example = "false")
-    @JsonProperty(value = "isMultiCityTrip", required = true)
-    private Boolean isMultiCityTrip;
-
     @Schema(description = "Is it a direct flight", example = "true")
     @JsonProperty("isDirectFlight")
     private Boolean isDirectFlight;
-
-    @Schema(description = "Is it a one-way trip", example = "false")
-    @JsonProperty("isOneWay")
-    private Boolean isOneWay;
 
     @Schema(description = "Cabin class", example = "economy", defaultValue = "economy")
     @JsonProperty(value = "cabinClass", defaultValue = "economy")

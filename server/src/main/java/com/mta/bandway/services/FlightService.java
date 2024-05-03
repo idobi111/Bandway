@@ -2,7 +2,9 @@ package com.mta.bandway.services;
 
 import com.mta.bandway.api.domain.request.FlightRequestDto;
 import com.mta.bandway.api.domain.response.AutoCompleteCityResponseDto;
-import com.mta.bandway.api.domain.response.FlightResponseDto;
+import com.mta.bandway.api.domain.response.FlightPriceResponseDto;
+import com.mta.bandway.api.domain.response.OneWayFlightResponseDto;
+import com.mta.bandway.api.domain.response.RoundWayFlightResponseDto;
 import com.mta.bandway.core.domain.flight.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -26,8 +28,8 @@ public class FlightService {
     private final String apiUrl;
     private final String flightAutoCompleteApi;
     private final String flightTwoWayApi;
-    private final String multiCityWayApi;
     private final String flightOneWayApi;
+    private final String flightPrice;
     private final String apiKey;
     private final RestTemplate restTemplate;
 //    private final FlightOrderRepository;
@@ -38,7 +40,7 @@ public class FlightService {
         this.flightAutoCompleteApi = "https://" + apiUrl + "/api/v1/flights/auto-complete";
         this.flightOneWayApi = "https://" + apiUrl + "/api/v1/flights/search-one-way";
         this.flightTwoWayApi = "https://" + apiUrl + "/api/v1/flights/search-roundtrip";
-        this.multiCityWayApi = "https://" + apiUrl + "/api/v1/flights/search-multi-city";
+        this.flightPrice = "https://" + apiUrl + "/api/v1/flights/detail";
         this.apiKey = apiKey;
         this.restTemplate = restTemplate;
 //        this.flightOrderRepository = flightOrderRepository;
@@ -66,41 +68,7 @@ public class FlightService {
         return result;
     }
 
-    public FlightResponseDto searchFlight(FlightRequestDto flightRequestDto) {
-        if (flightRequestDto.getIsRoundTrip()) {
-            return getRoundTrip(flightRequestDto);
-        } else if (flightRequestDto.getIsMultiCityTrip()) {
-            return getMultiCityFlight(flightRequestDto);
-        } else {
-            return handleOneWayFlight(flightRequestDto);
-        }
-    }
-
-    private FlightResponseDto getRoundTrip(FlightRequestDto flightRequestDto) {
-        HttpEntity<?> entity = new HttpEntity<>(createHeaders());
-        String urlWithQuery = UriComponentsBuilder.fromHttpUrl(flightTwoWayApi)
-                .queryParam("fromId", flightRequestDto.getSrc())
-                .queryParam("toId", flightRequestDto.getDest())
-                .queryParam("departDate", getDateTime(flightRequestDto.getDepartureDate()))
-                .queryParam("returnDate", getDateTime(flightRequestDto.getReturnDate()))
-                .queryParam("adults", flightRequestDto.getAdults())
-                .queryParam("children", flightRequestDto.getChildren())
-                .queryParam("infants", flightRequestDto.getInfants())
-                .queryParam("cabinClass", flightRequestDto.getCabinClass()).toUriString();
-        ResponseEntity<RoundWayFlights> oneWayFlightResponseEntity = restTemplate.exchange(urlWithQuery, HttpMethod.GET, entity, RoundWayFlights.class);
-//       //TODO: Create data member of it
-        return null;
-    }
-
-    private FlightResponseDto handleOneWayFlight(FlightRequestDto flightRequestDto) {
-        List<SessionFlightDetails> flightSession = getOneWayFlight(flightRequestDto);
-        return FlightResponseDto.builder()
-                .isSingleWay(true)
-                .departFlightDetails(flightSession)
-                .build();
-    }
-
-    private List<SessionFlightDetails> getOneWayFlight(FlightRequestDto flightRequestDto) {
+    public OneWayFlightResponseDto searchOneWayFlight(FlightRequestDto flightRequestDto) {
         HttpEntity<?> entity = new HttpEntity<>(createHeaders());
         URI urlWithQuery = UriComponentsBuilder.fromHttpUrl(flightOneWayApi)
                 .queryParam("fromId", flightRequestDto.getSrc())
@@ -111,24 +79,69 @@ public class FlightService {
                 .queryParam("infants", flightRequestDto.getInfants())
                 .queryParam("cabinClass", flightRequestDto.getCabinClass()).build().toUri();
         ResponseEntity<OneWayFlight> oneWayFlightResponseEntity = restTemplate.exchange(urlWithQuery, HttpMethod.GET, entity, OneWayFlight.class);
-        List<SessionFlightDetails> result = new ArrayList<>();
-        if (oneWayFlightResponseEntity.getBody() == null) {
-            return result;
+        if (oneWayFlightResponseEntity.getBody() == null || oneWayFlightResponseEntity.getBody().getData() == null) {
+            return OneWayFlightResponseDto.builder().build();
         }
+        List<SessionFlightDetails> sessionFlightDetails = new ArrayList<>();
         FlightOneWayData data = oneWayFlightResponseEntity.getBody().getData();
         for (Itinerary itinerary : oneWayFlightResponseEntity.getBody().getData().getItineraries()) {
             for (Leg leg : itinerary.getLegs()) {
                 List<FlightDetails> flightDetailsList = new ArrayList<>();
                 for (Segment segment : leg.getSegments()) {
-                    flightDetailsList.add(buildFlightDetails(segment));
+                    flightDetailsList.add(buildFlightDetails(segment, itinerary.getId()));
                 }
-                result.add(buildSessionFlightDetails(data, itinerary, leg, flightDetailsList));
+                sessionFlightDetails.add(buildSessionFlightDetails(itinerary, leg, flightDetailsList));
             }
         }
-        return result;
+        return OneWayFlightResponseDto.builder()
+                .departFlightDetails(sessionFlightDetails)
+                .token(data.getToken())
+                .build();
     }
 
-    private SessionFlightDetails buildSessionFlightDetails(FlightOneWayData data, Itinerary itinerary, Leg leg, List<FlightDetails> flightDetailsList) {
+    public RoundWayFlightResponseDto searchRoundWayFlight(FlightRequestDto flightRequestDto) {
+        HttpEntity<?> entity = new HttpEntity<>(createHeaders());
+        URI urlWithQuery = UriComponentsBuilder.fromHttpUrl(flightTwoWayApi)
+                .queryParam("fromId", flightRequestDto.getSrc())
+                .queryParam("toId", flightRequestDto.getDest())
+                .queryParam("departDate", getDateTime(flightRequestDto.getDepartureDate()))
+                .queryParam("returnDate", getDateTime(flightRequestDto.getReturnDate()))
+                .queryParam("adults", flightRequestDto.getAdults())
+                .queryParam("children", flightRequestDto.getChildren())
+                .queryParam("infants", flightRequestDto.getInfants())
+                .queryParam("cabinClass", flightRequestDto.getCabinClass())
+                .queryParam("currency", "USD").build().toUri();
+        ResponseEntity<RoundWayFlights> roundWayFlightsResponseEntity = restTemplate.exchange(urlWithQuery, HttpMethod.GET, entity, RoundWayFlights.class);
+        if (roundWayFlightsResponseEntity.getBody() == null || roundWayFlightsResponseEntity.getBody().getData() == null) {
+            return null;
+        }
+        List<SessionFlightDetails> departFlights = new ArrayList<>();
+        List<SessionFlightDetails> returnFlights = new ArrayList<>();
+        RoundWayDataResponse data = roundWayFlightsResponseEntity.getBody().getData();
+        List<RoundWaySessionFlight> res = new ArrayList<>();
+        for (Itinerary itinerary : roundWayFlightsResponseEntity.getBody().getData().getItineraries()) {
+            for (int i = 0; i < itinerary.getLegs().size(); i++) {
+                List<FlightDetails> flightDetailsList = new ArrayList<>();
+                Leg leg = itinerary.getLegs().get(i);
+                for (Segment segment : leg.getSegments()) {
+                    flightDetailsList.add(buildFlightDetails(segment, itinerary.getId()));
+                }
+                if (i == 0) {
+                    departFlights.add(buildSessionFlightDetails(itinerary, leg, flightDetailsList));
+                } else {
+                    returnFlights.add(buildSessionFlightDetails(itinerary, leg, flightDetailsList));
+                }
+            }
+            res.add(RoundWaySessionFlight.builder()
+                    .departFlightDetails(departFlights)
+                    .arriveFlightDetails(returnFlights)
+                    .build());
+        }
+        return RoundWayFlightResponseDto.builder()
+                .roundWayFlightDetails(res).token(data.getToken()).build();
+    }
+
+    private SessionFlightDetails buildSessionFlightDetails(Itinerary itinerary, Leg leg, List<FlightDetails> flightDetailsList) {
         return SessionFlightDetails.builder()
                 .flightDetails(flightDetailsList)
                 .sourceCity(leg.getOriginOrder().getCity())
@@ -138,14 +151,13 @@ public class FlightService {
                 .marketing(leg.getCarriers().getMarketing())
                 .price(itinerary.getPrice().getRaw())
                 .duration(getDurationTimeFormat(leg.getDurationInMinutes()))
-                .token(data.getToken())
                 .stopCount(leg.getStopCount())
                 .build();
     }
 
-    private FlightDetails buildFlightDetails(Segment segment) {
+    private FlightDetails buildFlightDetails(Segment segment, String id) {
         return FlightDetails.builder()
-                .id(segment.getId())
+                .id(id)
                 .flightNumber(buildFlightNumber(segment))
                 .departureCityName(segment.getOrigin().getParent().getName())
                 .departureTime(segment.getDeparture())
@@ -168,21 +180,6 @@ public class FlightService {
         return segment.getMarketingCarrier().getAlternateId() + segment.getFlightNumber();
     }
 
-    //    TODO: Create data member of it
-    private FlightResponseDto getMultiCityFlight(FlightRequestDto flightRequestDto) {
-        HttpEntity<MultiCityFlight> entity = createEntity(flightRequestDto);
-        ResponseEntity<RoundWayFlights> roundWayFlightResponseEntity = restTemplate.exchange(multiCityWayApi, HttpMethod.POST, entity, RoundWayFlights.class);
-        List<SessionFlightDetails> result = new ArrayList<>();
-        if (roundWayFlightResponseEntity.getBody() == null) {
-            return FlightResponseDto.builder()
-                    .isSingleWay(false)
-                    .departFlightDetails(result)
-                    .arrivalFlightDetails(result)
-                    .build();
-        }
-        return null;
-    }
-
     private HttpHeaders createHeaders() {
         HttpHeaders headers = new HttpHeaders();
         headers.set("X-RapidAPI-Key", apiKey);
@@ -190,28 +187,24 @@ public class FlightService {
         return headers;
     }
 
-    private HttpEntity<MultiCityFlight> createEntity(FlightRequestDto flightRequestDto) {
-        HttpHeaders headers = createHeaders();
-        MultiCityFlight requestBody = MultiCityFlight.builder()
-                .adults(flightRequestDto.getAdults())
-                .infants(flightRequestDto.getInfants())
-                .children(flightRequestDto.getChildren())
-                .cabinClass(flightRequestDto.getCabinClass())
-                .currency("USD")
-                .market("US")
-                .locale("en-US")
-                .flights(List.of(Flight.builder()
-                                .fromId(flightRequestDto.getSrc())
-                                .toId(flightRequestDto.getDest())
-                                .departDate(getDateTime(flightRequestDto.getDepartureDate()))
-                                .build(),
-                        Flight.builder()
-                                .fromId(flightRequestDto.getDest())
-                                .toId(flightRequestDto.getSrc())
-                                .departDate(getDateTime(flightRequestDto.getReturnDate()))
-                                .build()))
-                .build();
-        return new HttpEntity<>(requestBody, headers);
+    public List<FlightPriceResponseDto> getFlightPricing(String token, String itineraryId) {
+        HttpEntity<?> entity = new HttpEntity<>(createHeaders());
+        URI urlWithQuery = UriComponentsBuilder.fromHttpUrl(flightPrice)
+                .queryParam("itineraryId", itineraryId)
+                .queryParam("token", token).build().toUri();
+        ResponseEntity<FlightPrice> flightPriceResponseEntity = restTemplate.exchange(urlWithQuery, HttpMethod.GET, entity, FlightPrice.class);
+        if (flightPriceResponseEntity.getBody() == null || flightPriceResponseEntity.getBody().getData() == null) {
+            return null;
+        }
+        List<FlightPriceResponseDto> flightPriceResponseDtos = new ArrayList<>();
+        FlightPrice data = flightPriceResponseEntity.getBody();
+        for (PricingOption price : data.getData().getItinerary().getPricingOptions()) {
+            flightPriceResponseDtos.add(FlightPriceResponseDto.builder()
+                    .agencyName(price.getAgents().get(0).getName())
+                    .url(price.getAgents().get(0).getUrl())
+                    .price(price.getAgents().get(0).getPrice())
+                    .build());
+        }
+        return flightPriceResponseDtos;
     }
-
 }

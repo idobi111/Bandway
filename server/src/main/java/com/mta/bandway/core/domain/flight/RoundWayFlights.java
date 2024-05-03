@@ -10,8 +10,6 @@ public class RoundWayFlights implements Serializable {
 
     @JsonProperty("status")
     private Boolean status;
-    @JsonProperty("message")
-    private Object message;
     @JsonProperty("data")
     private RoundWayDataResponse data;
 
