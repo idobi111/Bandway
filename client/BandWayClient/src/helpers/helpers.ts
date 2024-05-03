@@ -90,5 +90,10 @@ export class Helpers {
         return Math.round(price);
     }
 
+    public removeValueInBrackets(input: string): string {
+        const regex = /\(([^)]+)\)/;
+        return input.replace(regex, '').trim();
+    }
+
 }
 

@@ -3,6 +3,7 @@ import { Typography, TextField, Autocomplete } from '@mui/material';
 import { LocationApi } from '../../apis/LocationApi';
 import { CityOption } from '../../models/CityOption';
 import { SearchAutoComplete } from '../../styles/ComponentsStyles';
+import { Helpers } from '../../helpers/helpers';
 
 interface CitySelectProps {
   onSelect: (city: CityOption) => void;
@@ -17,6 +18,8 @@ const CitySelect: React.FC<CitySelectProps> = ({ onSelect, placeholder, title })
   const [searchResults, setSearchResults] = useState<CityOption[]>([]);
   const [selectedCity, setSelectedCity] = useState<CityOption | null>(null);
 
+
+  const helpers = new Helpers();
   const handleCitySearch = async (newInputValue: string) => {
     setSearchTerm(newInputValue);
 
@@ -24,8 +27,8 @@ const CitySelect: React.FC<CitySelectProps> = ({ onSelect, placeholder, title })
       try {
         const cities = await locationApi.getCities(newInputValue);
         const formattedCities = cities.map(city => ({
-          label: `${city.name}, ${city.country}`,
-          value: city.name,
+          label: `${helpers.removeValueInBrackets(city.name)}, ${city.country}`,
+          value: helpers.removeValueInBrackets(city.name),
           id : city.id, 
           country: `${city.country}`
         }));

@@ -35,24 +35,38 @@ const PackageDialogFlightSection: React.FC<Props> = ({ servicesPackage }) => {
         <>
             <Stack display={'flex'} sx={{ p: 4 }}>
                 <Typography variant='h4'>Your Flights:</Typography>
-                <Typography variant='h6'> {servicesPackage && flightService.getFlightType(servicesPackage)}</Typography>
-                {servicesPackage?.flight?.departFlightDetails.map((departDetail, index) => (
-                    departDetail.flightDetails.map((flightDetail, flightIndex) => (
-                        <Box key={`${index}-${flightIndex}`} sx={{ mb: 2 }}>
-                            <FlightDetailsGrid
-                                flightDetails={flightDetail}
-                                marketing={departDetail.marketing[flightIndex]} 
-                            />
-                        </Box>
-                    ))
+                <Typography variant='h6'>{servicesPackage && flightService.getFlightType(servicesPackage)}</Typography>
+                {servicesPackage?.flights && servicesPackage?.flights.roundWayFlightDetails.map((roundWayDetail, roundWayIndex) => (
+                    <React.Fragment key={roundWayIndex}>
+                        {roundWayDetail.departFlightDetails.map((departDetail, index) => (
+                            departDetail.flightDetails.map((flightDetail, flightIndex) => (
+                                <Box key={`${roundWayIndex}-${index}-${flightIndex}`} sx={{ mb: 2 }}>
+                                    <FlightDetailsGrid
+                                        flightDetails={flightDetail}
+                                        marketing={departDetail.marketing[flightIndex]}
+                                    />
+                                </Box>
+                            ))
+                        ))}
+                        {roundWayDetail.arriveFlightDetails.map((arriveDetail, index) => (
+                            arriveDetail.flightDetails.map((flightDetail, flightIndex) => (
+                                <Box key={`${roundWayIndex}-arrive-${index}-${flightIndex}`} sx={{ mb: 2 }}>
+                                    <FlightDetailsGrid
+                                        flightDetails={flightDetail}
+                                        marketing={arriveDetail.marketing[flightIndex]}
+                                    />
+                                </Box>
+                            ))
+                        ))}
+                    </React.Fragment>
                 ))}
-                 <Typography variant='h6'> Start from ${ servicesPackage && servicesPackage.flight && helpers.getRoundedPrice(servicesPackage?.flight?.departFlightDetails[0].price)} per person</Typography>
+                {/* <Typography variant='h6'> Start from ${servicesPackage && servicesPackage.flight && helpers.getRoundedPrice(servicesPackage?.flight?.departFlightDetails[0].price)} per person</Typography> */}
                 {/* Add onClick event to trigger API request */}
                 <ActionButton
                     variant="contained"
                     color="primary"
                     sx={{ width: '300px', fontSize: '20px' }}
-                    onClick={handleSeeFlightAvailability} 
+                    onClick={handleSeeFlightAvailability}
                 >
                     See flight availability
                 </ActionButton>

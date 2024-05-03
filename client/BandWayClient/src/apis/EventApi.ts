@@ -15,7 +15,7 @@ export class EventApi {
         try {
             const queryPerformer: string = helpers.replaceSpacesWithUnderscores(performer);
              const response = await axios.get<EventResponse[]>(`${this.BASE_URL}/searchConcert?performer=${queryPerformer}`);
-            //const response = await axios.get<EventResponse[]>(`https://mocki.io/v1/fad6d714-7a57-417e-a45e-087f930ab345`);
+          //  const response = await axios.get<EventResponse[]>(`https://mocki.io/v1/fad6d714-7a57-417e-a45e-087f930ab345`);
 
             return response.data;
         } catch (error) {
@@ -27,7 +27,7 @@ export class EventApi {
     public async getUpcomingEvents(): Promise<EventResponse[]> {
         try {
              const response = await axios.get<EventResponse[]>(`${this.BASE_URL}/upcomingConcert`);
-         //   const response = await axios.get<EventResponse[]>(`https://mocki.io/v1/fad6d714-7a57-417e-a45e-087f930ab345`);
+          //  const response = await axios.get<EventResponse[]>(`https://mocki.io/v1/fad6d714-7a57-417e-a45e-087f930ab345`);
 
             return response.data;
         } catch (error) {

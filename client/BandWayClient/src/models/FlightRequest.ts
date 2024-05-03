@@ -6,9 +6,6 @@ export interface FlightRequest {
   adults: number;
   children: number;
   infants: number;
-  isRoundTrip: boolean;
-  isMultiCityTrip: boolean;
   isDirectFlight: boolean;
-  isOneWay: boolean;
   cabinClass: string;
   }

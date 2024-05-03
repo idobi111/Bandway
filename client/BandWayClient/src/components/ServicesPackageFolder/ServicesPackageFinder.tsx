@@ -19,13 +19,14 @@ import { Provider, useDispatch, useSelector } from 'react-redux';
 import { AppState } from '../../redux/types';
 import { setEventData } from '../../redux/actions';
 import store from '../../redux/store';
+import { FlightRoundWayResponse } from '../../models/FlightRoundWayResponse';
 
 
 const ServicesPackageFinder: React.FC = () => {
 
   const [packages, setPackages] = useState<Package[]>([]);
   const [hotels, setHotels] = useState<HotelResponse[]>([]);
-  const [flights, setFlights] = useState<FlightResponse[]>([]);
+  const [flights, setFlights] = useState<FlightRoundWayResponse[]>([]);
 
   const eventData = useSelector((state: AppState) => state.eventData);
 
@@ -65,16 +66,39 @@ const ServicesPackageFinder: React.FC = () => {
 
   
   useEffect(() => {
-    const hotelRequest = packageBuilderService.createHotelRequestByEventData(eventData.checkIn, eventData.venue, eventData.fromCity, eventData.toCity);
-    hotelApi.getHotels(hotelRequest)
-      .then((data) => {
-        setHotels(data);
-        const combinedPackages = packageBuilderService.combineResults(data);
+
+    const fetchPackages = async () => {
+      try {
+        const checkInDate = eventData.checkIn || null;
+        const fromCityId = eventData.fromCity || null;
+        const toCityId = eventData.toCity || null;
+  
+        const hotelRequest = packageBuilderService.createHotelRequestByEventData(eventData.checkIn, eventData.venue, eventData.fromCity, eventData.toCity);
+        const hotelsData = await hotelApi.getHotels(hotelRequest);
+        setHotels(hotelsData);
+
+        console.log("hotelsData", hotelsData);
+
+
+        const flightRequest = packageBuilderService.createFlightRequestByEventData(checkInDate, fromCityId, toCityId);
+        const flightsData = await flightApi.getRoundWayFlights(flightRequest);
+        setFlights(flightsData);
+
+        console.log("flightsData", flightsData);
+        
+        const combinedPackages = packageBuilderService.combineResults(hotelsData, flightsData);
         setPackages(combinedPackages);
-      })
-      .catch((error) => {
-        console.error('Error fetching hotels data:', error);
-      });
+
+        console.log("combinedPackages", combinedPackages);
+        console.log("packages", packages);
+
+
+      } catch (error) {
+        console.error('Error fetching hotel or flight data:', error);
+      }
+    };
+    fetchPackages();
+
   }, []);
 
   // useEffect(() => {

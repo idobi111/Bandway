@@ -2,6 +2,7 @@ import { Helpers } from "../helpers/helpers";
 import { CarRentalResponse } from "../models/CarRentalResponse";
 import { FlightOneWayResponse } from "../models/FlightOneWayResponse";
 import { FlightRequest } from "../models/FlightRequest";
+import { FlightRoundWayResponse } from "../models/FlightRoundWayResponse";
 import { HotelRequest } from "../models/HotelRequest";
 import { HotelResponse } from "../models/HotelResponse";
 import { Package } from "../models/Package";
@@ -12,30 +13,26 @@ const helpers = new Helpers();
 export class PackageBuilderService {
 
 
-  public combineResults(hotels: HotelResponse[], flights?: FlightOneWayResponse[], carRentals?: CarRentalResponse[]): Package[] {
+  public combineResults(hotels: HotelResponse[], flights?: FlightRoundWayResponse[], carRentals?: CarRentalResponse[]): Package[] {
     const packages: Package[] = [];
 
     hotels.forEach((hotel, index) => {
       const packageId = index + 1; // Generate unique package ID
-      const packageObj: Package = { packageId, hotel };
+      const packageObj: Package = { packageId, hotel, flights};
 
-      // Add flight if available
-      if (flights && flights[index]) {
-        packageObj.flight = flights[index];
-      }
-
-      // Add car rental if available
-      if (carRentals && carRentals[index]) {
-        packageObj.carRental = carRentals[index];
-      }
+      // // Add car rental if available
+      // if (carRentals && carRentals[index]) {
+      //   packageObj.carRental = carRentals[index];
+      // }
 
       packages.push(packageObj);
     });
 
-    console.log ("BuilderService", packages);
+    console.log("BuilderService", packages);
 
     return packages;
   }
+
 
   public getPackagePrice(servicePackage: Package, packageFilters: PackageFilter): number {
     let totalPrice = 0;
@@ -45,11 +42,15 @@ export class PackageBuilderService {
       totalPrice += servicePackage.hotel.price;
     }
 
-    // Add flight price
-    if (packageFilters.flight && servicePackage.flight) {
-      const departFlightPrice = servicePackage.flight.departFlightDetails.reduce((acc, flight) => acc + flight.price, 0);
-      totalPrice += departFlightPrice;
-    }
+    // // Add flight price
+    // if (packageFilters.flight && servicePackage.flight) {
+    //   const departFlightPrice = servicePackage.flight.roundWayFlightDetails.reduce((acc, flightDetail) => {
+    //     const departPrice = flightDetail.departFlightDetails.reduce((acc, departFlight) => acc + departFlight.price, 0);
+    //     const arrivePrice = flightDetail.arriveFlightDetails.reduce((acc, arriveFlight) => acc + arriveFlight.price, 0);
+    //     return acc + departPrice + arrivePrice;
+    //   }, 0);
+    //   totalPrice += departFlightPrice;
+    // }
 
     // Add car rental price
     if (packageFilters.carRental && servicePackage.carRental) {
@@ -101,10 +102,7 @@ export class PackageBuilderService {
       adults: 2, // Set adults to 2 by default
       children: 0, // Set children to 0 by default
       infants: 0, // Set infants to 0 by default
-      isRoundTrip: false, // One-way flight
-      isMultiCityTrip: false, // Single flight
       isDirectFlight: false, // Information about direct flight might not be available
-      isOneWay: true, // One-way flight
       cabinClass: "economy", // Set cabin class to economy by default
     };
   }
