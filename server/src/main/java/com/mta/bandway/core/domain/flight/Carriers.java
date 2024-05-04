@@ -11,7 +11,4 @@ public class Carriers implements Serializable {
 
     @JsonProperty("marketing")
     private List<Marketing> marketing;
-    @JsonProperty("operationType")
-    private String operationType;
-
 }

@@ -9,18 +9,13 @@ import java.util.List;
 @Data
 public class Leg implements Serializable {
 
-    @JsonProperty("id")
-    private String id;
+
     @JsonProperty("origin")
     private OriginOrder originOrder;
     @JsonProperty("durationInMinutes")
     private Integer durationInMinutes;
     @JsonProperty("stopCount")
     private Integer stopCount;
-    @JsonProperty("departure")
-    private String departure;
-    @JsonProperty("arrival")
-    private String arrival;
     @JsonProperty("carriers")
     private Carriers carriers;
     @JsonProperty("segments")

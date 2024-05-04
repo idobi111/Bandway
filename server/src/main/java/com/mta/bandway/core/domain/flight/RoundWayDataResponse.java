@@ -13,17 +13,6 @@ public class RoundWayDataResponse implements Serializable {
 
     @JsonProperty("token")
     private String token;
-    @JsonProperty("context")
-    private Context context;
     @JsonProperty("itineraries")
     private List<Itinerary> itineraries;
-    @JsonProperty("messages")
-    private List<Object> messages;
-    @JsonProperty("filterStats")
-    private FilterStats filterStats;
-    @JsonProperty("flightsSessionId")
-    private String flightsSessionId;
-    @JsonProperty("destinationImageUrl")
-    private String destinationImageUrl;
-
 }

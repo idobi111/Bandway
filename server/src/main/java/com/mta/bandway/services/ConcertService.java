@@ -77,7 +77,7 @@ public class ConcertService {
         HttpEntity<?> entity = new HttpEntity<>(createHeaders());
 
         ResponseEntity<Event> eventResponseEntity = restTemplate.exchange(urlWithQuery, HttpMethod.GET, entity, Event.class);
-        Embedded concerts = Objects.requireNonNull(eventResponseEntity.getBody()).get_embedded();
+        Embedded concerts = Objects.requireNonNull(eventResponseEntity.getBody()).getEmbedded();
         if (concerts == null) {
             return new ArrayList<>();
         }
@@ -92,9 +92,9 @@ public class ConcertService {
                     .id(concert.getEvents().get(i).getId())
                     .performer(concert.getEvents().get(i).getName())
                     .date(concert.getEvents().get(i).getDates().getStart().getLocalDate())
-                    .venue(concert.getEvents().get(i).get_embedded().getVenues().get(0).getName())
-                    .city(concert.getEvents().get(i).get_embedded().getVenues().get(0).getCity().getName())
-                    .country(concert.getEvents().get(i).get_embedded().getVenues().get(0).getCountry().getCountryCode())
+                    .venue(concert.getEvents().get(i).getEmbedded().getVenues().get(0).getName())
+                    .city(concert.getEvents().get(i).getEmbedded().getVenues().get(0).getCity().getName())
+                    .country(concert.getEvents().get(i).getEmbedded().getVenues().get(0).getCountry().getCountryCode())
                     .ticketUrl(concert.getEvents().get(i).getUrl())
                     .images(getImagesFromConcert(concert.getEvents().get(i).getImages()))
                     .build());
@@ -185,7 +185,7 @@ public class ConcertService {
                 .queryParam("marketId", "3")
                 .toUriString();
         ResponseEntity<Event> eventResponseEntity = restTemplate.exchange(urlWithQuery, HttpMethod.GET, entity, Event.class);
-        Embedded concerts = Objects.requireNonNull(eventResponseEntity.getBody()).get_embedded();
+        Embedded concerts = Objects.requireNonNull(eventResponseEntity.getBody()).getEmbedded();
         if (concerts == null) {
             return new ArrayList<>();
         }

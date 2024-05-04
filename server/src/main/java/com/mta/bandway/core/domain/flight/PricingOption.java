@@ -10,7 +10,5 @@ public class PricingOption {
 
     @JsonProperty("agents")
     private List<Agent> agents;
-    @JsonProperty("totalPrice")
-    private Double totalPrice;
 
 }

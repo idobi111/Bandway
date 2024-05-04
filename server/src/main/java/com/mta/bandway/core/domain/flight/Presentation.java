@@ -8,8 +8,6 @@ import java.io.Serializable;
 @Data
 public class Presentation implements Serializable {
 
-    @JsonProperty("title")
-    private String title;
     @JsonProperty("suggestionTitle")
     private String suggestionTitle;
     @JsonProperty("subtitle")

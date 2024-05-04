@@ -22,8 +22,6 @@ import java.io.Serializable;
 @Data
 public class Segment implements Serializable {
 
-    @JsonProperty("id")
-    private String id;
     @JsonProperty("origin")
     private Origin origin;
     @JsonProperty("departure")
@@ -38,8 +36,5 @@ public class Segment implements Serializable {
     private String flightNumber;
     @JsonProperty("marketingCarrier")
     private MarketingCarrier marketingCarrier;
-    @JsonProperty("operatingCarrier")
-    private OperatingCarrier operatingCarrier;
-
 
 }

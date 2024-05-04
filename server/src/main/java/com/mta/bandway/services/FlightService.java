@@ -84,7 +84,14 @@ public class FlightService {
         }
         List<SessionFlightDetails> sessionFlightDetails = new ArrayList<>();
         FlightOneWayData data = oneWayFlightResponseEntity.getBody().getData();
+        double minRaw = Double.MAX_VALUE;
+        List<OneWaySessionFlight> oneWaySessionFlights = new ArrayList<>();
         for (Itinerary itinerary : oneWayFlightResponseEntity.getBody().getData().getItineraries()) {
+            Price price = itinerary.getPrice();
+            if (price != null) {
+                Double raw = price.getRaw();
+                minRaw = Math.min(minRaw, raw);
+            }
             for (Leg leg : itinerary.getLegs()) {
                 List<FlightDetails> flightDetailsList = new ArrayList<>();
                 for (Segment segment : leg.getSegments()) {
@@ -92,10 +99,14 @@ public class FlightService {
                 }
                 sessionFlightDetails.add(buildSessionFlightDetails(itinerary, leg, flightDetailsList));
             }
+            oneWaySessionFlights.add(OneWaySessionFlight.builder()
+                    .departFlightDetails(sessionFlightDetails)
+                    .build());
         }
         return OneWayFlightResponseDto.builder()
-                .departFlightDetails(sessionFlightDetails)
+                .departFlightDetails(oneWaySessionFlights)
                 .token(data.getToken())
+                .minPrice(minRaw)
                 .build();
     }
 
@@ -115,11 +126,18 @@ public class FlightService {
         if (roundWayFlightsResponseEntity.getBody() == null || roundWayFlightsResponseEntity.getBody().getData() == null) {
             return null;
         }
-        List<SessionFlightDetails> departFlights = new ArrayList<>();
-        List<SessionFlightDetails> returnFlights = new ArrayList<>();
+
         RoundWayDataResponse data = roundWayFlightsResponseEntity.getBody().getData();
-        List<RoundWaySessionFlight> res = new ArrayList<>();
+        double minRaw = Double.MAX_VALUE;
+        List<RoundWaySessionFlight> roundWaySessionFlights = new ArrayList<>();
         for (Itinerary itinerary : roundWayFlightsResponseEntity.getBody().getData().getItineraries()) {
+            List<SessionFlightDetails> departFlights = new ArrayList<>();
+            List<SessionFlightDetails> returnFlights = new ArrayList<>();
+            Price price = itinerary.getPrice();
+            if (price != null) {
+                Double raw = price.getRaw();
+                minRaw = Math.min(minRaw, raw);
+            }
             for (int i = 0; i < itinerary.getLegs().size(); i++) {
                 List<FlightDetails> flightDetailsList = new ArrayList<>();
                 Leg leg = itinerary.getLegs().get(i);
@@ -132,13 +150,16 @@ public class FlightService {
                     returnFlights.add(buildSessionFlightDetails(itinerary, leg, flightDetailsList));
                 }
             }
-            res.add(RoundWaySessionFlight.builder()
+            roundWaySessionFlights.add(RoundWaySessionFlight.builder()
                     .departFlightDetails(departFlights)
                     .arriveFlightDetails(returnFlights)
                     .build());
         }
         return RoundWayFlightResponseDto.builder()
-                .roundWayFlightDetails(res).token(data.getToken()).build();
+                .roundWayFlightDetails(roundWaySessionFlights)
+                .token(data.getToken())
+                .minPrice(minRaw)
+                .build();
     }
 
     private SessionFlightDetails buildSessionFlightDetails(Itinerary itinerary, Leg leg, List<FlightDetails> flightDetailsList) {

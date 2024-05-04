@@ -10,17 +10,9 @@ import java.io.Serializable;
 @Data
 public class Origin implements Serializable {
 
-    @JsonProperty("flightPlaceId")
-    private String flightPlaceId;
     @JsonProperty("displayCode")
     private String displayCode;
     @JsonProperty("parent")
     private Parent parent;
-    @JsonProperty("name")
-    private String name;
-    @JsonProperty("type")
-    private String type;
-    @JsonProperty("country")
-    private String country;
 
 }

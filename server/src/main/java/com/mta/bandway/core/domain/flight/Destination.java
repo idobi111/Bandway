@@ -8,8 +8,6 @@ import java.io.Serializable;
 @Data
 public class Destination implements Serializable {
 
-    @JsonProperty("flightPlaceId")
-    private String flightPlaceId;
     @JsonProperty("displayCode")
     private String displayCode;
     @JsonProperty("parent")

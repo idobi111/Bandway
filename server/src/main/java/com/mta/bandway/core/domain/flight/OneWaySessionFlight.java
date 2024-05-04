@@ -13,11 +13,8 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class RoundWaySessionFlight {
+public class OneWaySessionFlight {
     @Schema(description = "Details of departing flights")
     @JsonProperty("departFlightDetails")
     private List<SessionFlightDetails> departFlightDetails;
-    @Schema(description = "Details of arrive flights")
-    @JsonProperty("arriveFlightDetails")
-    private List<SessionFlightDetails> arriveFlightDetails;
 }
