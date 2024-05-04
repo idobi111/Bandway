@@ -21,7 +21,7 @@ export class HotelApi {
 
     public async getHotelLink(hotelId: number | undefined): Promise<HotelLinkResponse> {
         try {
-          //  const response = await axios.get<HotelResponse[]>(`${this.BASE_URL}/...`, hotel);
+           // const response = await axios.get<HotelLinkResponse[]>(`${this.BASE_URL}/...`, hotel);
             const response = await axios.get<HotelLinkResponse>(`https://mocki.io/v1/8774b9d6-7c8a-4974-acf5-0a5aade0c467`);
             return response.data;
         } catch (error) {

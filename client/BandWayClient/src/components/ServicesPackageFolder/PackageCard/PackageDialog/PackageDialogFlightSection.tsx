@@ -1,5 +1,5 @@
 import React from 'react';
-import { Typography, Stack, Box, Tooltip, Modal } from '@mui/material';
+import { Typography, Stack, Box, Tooltip, Modal, Accordion, AccordionDetails, AccordionSummary, Divider } from '@mui/material';
 import { Package } from '../../../../models/Package';
 import StarIcon from '@mui/icons-material/Star';
 import { PackageFilter } from '../../../../models/PackageFilter';
@@ -34,28 +34,55 @@ const PackageDialogFlightSection: React.FC<Props> = ({ servicesPackage }) => {
     return (
         <>
             <Stack display={'flex'} sx={{ p: 4 }}>
-                <Typography variant='h4'>Your Flights:</Typography>
-                <Typography variant='h6'> {servicesPackage && flightService.getFlightType(servicesPackage)}</Typography>
-                {servicesPackage?.flight?.departFlightDetails.map((departDetail, index) => (
-                    departDetail.flightDetails.map((flightDetail, flightIndex) => (
-                        <Box key={`${index}-${flightIndex}`} sx={{ mb: 2 }}>
-                            <FlightDetailsGrid
-                                flightDetails={flightDetail}
-                                marketing={departDetail.marketing[flightIndex]} 
-                            />
-                        </Box>
-                    ))
+                <Typography variant='h4'>Choose Your Flight:</Typography>
+                {servicesPackage?.flights && servicesPackage?.flights.roundWayFlightDetails.map((roundWayDetail, roundWayIndex) => (
+                    <Accordion key={roundWayIndex} sx={{ width: '150%', marginBottom: '10px', border: '2px solid #ccc' }}>
+                        <AccordionSummary>
+                            <Stack>
+                                <Stack direction={'row'}>
+                                    <Typography variant='h6' sx={{ paddingRight: 1 }}>Outbound flights:</Typography>
+                                    <Typography variant='h6' color="text.secondary">{flightService.getFlightType(roundWayDetail.departFlightDetails[0])} &middot; {flightService.getFlightData(roundWayDetail.departFlightDetails[0])} &middot; {flightService.getFlightDuration(roundWayDetail.departFlightDetails[0].duration)}</Typography>
+                                </Stack>
+                                <Stack direction={'row'}>
+                                    <Typography variant='h6' sx={{ paddingRight: 1 }}>Return flights:</Typography>
+                                    <Typography variant='h6' color="text.secondary">{flightService.getFlightType(roundWayDetail.arriveFlightDetails[0])} &middot; {flightService.getFlightData(roundWayDetail.arriveFlightDetails[0])} &middot; {flightService.getFlightDuration(roundWayDetail.arriveFlightDetails[0].duration)}</Typography>
+                                </Stack>
+                                <Typography variant='h6' sx={{ paddingRight: 1 }}>Start from ${flightService.getRoundWayFlightPrice(roundWayDetail.departFlightDetails[0], roundWayDetail.arriveFlightDetails[0])} per person</Typography>
+                            </Stack>
+                        </AccordionSummary>
+                        <AccordionDetails>
+                            <Divider sx={{ border: '1px solid #ccc' }}></Divider>
+                            <React.Fragment>
+                                {/* Depart Flight Details */}
+                                <Typography variant='h6'>Outbound flights:</Typography>
+                                {roundWayDetail.departFlightDetails.map((departDetail, index) => (
+                                    departDetail.flightDetails.map((flightDetail, flightIndex) => (
+                                        <Box key={`${roundWayIndex}-${index}-${flightIndex}`} sx={{ mb: 2 }}>
+                                            <FlightDetailsGrid
+                                                flightDetails={flightDetail}
+                                                marketing={departDetail.marketing[flightIndex]}
+                                                token={servicesPackage.flights?.token}
+                                            />
+                                        </Box>
+                                    ))
+                                ))}
+                                {/* Arrive Flight Details */}
+                                <Typography variant='h6'>Return flights:</Typography>
+                                {roundWayDetail.arriveFlightDetails.map((arriveDetail, index) => (
+                                    arriveDetail.flightDetails.map((flightDetail, flightIndex) => (
+                                        <Box key={`${roundWayIndex}-arrive-${index}-${flightIndex}`} sx={{ mb: 2 }}>
+                                            <FlightDetailsGrid
+                                                flightDetails={flightDetail}
+                                                marketing={arriveDetail.marketing[flightIndex]}
+                                                token={servicesPackage.flights?.token}
+                                            />
+                                        </Box>
+                                    ))
+                                ))}
+                            </React.Fragment>
+                        </AccordionDetails>
+                    </Accordion>
                 ))}
-                 <Typography variant='h6'> Start from ${ servicesPackage && servicesPackage.flight && helpers.getRoundedPrice(servicesPackage?.flight?.departFlightDetails[0].price)} per person</Typography>
-                {/* Add onClick event to trigger API request */}
-                <ActionButton
-                    variant="contained"
-                    color="primary"
-                    sx={{ width: '300px', fontSize: '20px' }}
-                    onClick={handleSeeFlightAvailability} 
-                >
-                    See flight availability
-                </ActionButton>
             </Stack>
         </>
     );
