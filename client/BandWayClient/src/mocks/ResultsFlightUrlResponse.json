@@ -1,0 +1,17 @@
+[
+    {
+      "price": 872.3,
+      "agencyName": "British Airways",
+      "url": "https://www.skyscanner.net/transport_deeplink/4.0/US/en-US/USD/ba__/1/13416.13554.2024-03-11/air/airli/flights?itinerary=flight|-32480|280|13416|2024-03-11T19:10|13554|2024-03-12T12:30|620|VLX0C4M5|V|Standard&carriers=-32480&operators=-32480&passengers=1&channel=iphone&cabin_class=economy&fps_session_id=5fe46f0c-7373-4b49-b703-863102f2eaea&ticket_price=872.30&is_npt=false&is_multipart=false&client_id=skyscanner_app&q_ids=H4sIAAAAAAAA_-OS4mJJSoyPF2Lm-KAkxcxxS0WhYfLO9WxGTAqMAKwTdhEcAAAA|-8006054085657039263|2&q_sources=JACQUARD&commercial_filters=false&q_datetime_utc=2024-03-11T06:47:42&pqid=false"
+    },
+    {
+      "price": 882.99,
+      "agencyName": "GotoGate",
+      "url": "https://www.skyscanner.net/transport_deeplink/4.0/US/en-US/USD/gtus/1/13416.13554.2024-03-11/air/trava/flights?itinerary=flight|-32480|280|13416|2024-03-11T19:10|13554|2024-03-12T12:30|620|-|-|-&carriers=-32480&operators=-32480&passengers=1&channel=iphone&cabin_class=economy&fps_session_id=5fe46f0c-7373-4b49-b703-863102f2eaea&ticket_price=882.99&is_npt=false&is_multipart=false&client_id=skyscanner_app&q_ids=H4sIAAAAAAAA_-OS4mJJLyktFmLm-KAkxcxxS0WhYfLO9WxGTAqMAIlwR9wcAAAA|2610160890937402867|2&q_sources=JACQUARD&commercial_filters=false&q_datetime_utc=2024-03-10T00:44:58&pqid=true"
+    },
+    {
+      "price": 886.3,
+      "agencyName": "Expedia",
+      "url": "https://www.skyscanner.net/transport_deeplink/4.0/US/en-US/USD/xpus/1/13416.13554.2024-03-11/air/trava/flights?itinerary=flight|-32480|280|13416|2024-03-11T19:10|13554|2024-03-12T12:30|620|VLX0C4M5|V|-&carriers=-32480&operators=-32480&passengers=1&channel=iphone&cabin_class=economy&fps_session_id=5fe46f0c-7373-4b49-b703-863102f2eaea&ticket_price=886.30&is_npt=false&is_multipart=false&client_id=skyscanner_app&q_ids=H4sIAAAAAAAA_-OS4mKpKCgtFmLm-KAkxcxxS0WhYfLO9WxGTAqMAO6lZUAcAAAA|3194493394722424151|2&q_sources=JACQUARD&commercial_filters=false&q_datetime_utc=2024-03-10T00:44:55&pqid=true"
+    }
+  ]

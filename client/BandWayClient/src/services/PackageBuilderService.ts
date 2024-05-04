@@ -13,7 +13,7 @@ const helpers = new Helpers();
 export class PackageBuilderService {
 
 
-  public combineResults(hotels: HotelResponse[], flights?: FlightRoundWayResponse[], carRentals?: CarRentalResponse[]): Package[] {
+  public combineResults(hotels: HotelResponse[], flights?: FlightRoundWayResponse, carRentals?: CarRentalResponse[]): Package[] {
     const packages: Package[] = [];
 
     hotels.forEach((hotel, index) => {

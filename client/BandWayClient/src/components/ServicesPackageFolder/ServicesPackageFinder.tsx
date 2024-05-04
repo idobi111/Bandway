@@ -20,16 +20,17 @@ import { AppState } from '../../redux/types';
 import { setEventData } from '../../redux/actions';
 import store from '../../redux/store';
 import { FlightRoundWayResponse } from '../../models/FlightRoundWayResponse';
+import { FlightService } from '../../services/FlightService';
 
 
 const ServicesPackageFinder: React.FC = () => {
 
   const [packages, setPackages] = useState<Package[]>([]);
   const [hotels, setHotels] = useState<HotelResponse[]>([]);
-  const [flights, setFlights] = useState<FlightRoundWayResponse[]>([]);
+  const [flights, setFlights] = useState<FlightRoundWayResponse>();
 
   const eventData = useSelector((state: AppState) => state.eventData);
-
+  const flightService = new FlightService();
 
   const mainText: string = "Services Package Finder";
   const subText: string = "Explore our comprehensive service package finder for a complete and enhanced experience !";
@@ -82,6 +83,7 @@ const ServicesPackageFinder: React.FC = () => {
 
         const flightRequest = packageBuilderService.createFlightRequestByEventData(checkInDate, fromCityId, toCityId);
         const flightsData = await flightApi.getRoundWayFlights(flightRequest);
+        const sortedFligtsData = flightService.sortFlightsFromLowestToHighestPrice(flightsData.roundWayFlightDetails);
         setFlights(flightsData);
 
         console.log("flightsData", flightsData);

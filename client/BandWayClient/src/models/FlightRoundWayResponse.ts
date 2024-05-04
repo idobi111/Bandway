@@ -1,40 +1,40 @@
-interface RoundFlightDetail {
-    id: string;
-    flightNumber: string;
-    departureTime: string;
-    arrivalTime: string;
-    departureAirport: string;
-    departureCityName: string;
-    arrivalAirport: string;
-    arrivalCityName: string;
-    duration: string;
-    airline: string;
-  }
-  
-  interface RoundMarketing {
-    logoUrl: string;
-    name: string;
-  }
-  
-  interface DepartArriveFlightDetails {
-    sourceCountry: string;
-    sourceCity: string;
-    destCountry: string;
-    destCity: string;
-    flightDetails: RoundFlightDetail[];
-    marketing: RoundMarketing[];
-    price: number;
-    duration: string;
-    stopCount: number;
-  }
-  
-  interface RoundWayFlightDetails {
-    departFlightDetails: DepartArriveFlightDetails[];
-    arriveFlightDetails: DepartArriveFlightDetails[];
-  }
-  
-  export interface FlightRoundWayResponse {
-    roundWayFlightDetails: RoundWayFlightDetails[];
-    token: string;
-  }
-  
+export interface RoundWayFlightDetails {
+  id: string;
+  flightNumber: string;
+  departureTime: string;
+  arrivalTime: string;
+  departureAirport: string;
+  departureCityName: string;
+  arrivalAirport: string;
+  arrivalCityName: string;
+  duration: string;
+  airline: string;
+}
+
+export interface RoundWayMarketing {
+  logoUrl: string;
+  name: string;
+}
+
+export interface RoundWayFlightSegment {
+  sourceCountry: string;
+  sourceCity: string;
+  destCountry: string;
+  destCity: string;
+  flightDetails: RoundWayFlightDetails[];
+  marketing: RoundWayMarketing[];
+  price: number;
+  duration: string;
+  stopCount: number;
+}
+
+export interface RoundWayFlightData {
+  departFlightDetails: RoundWayFlightSegment[];
+  arriveFlightDetails: RoundWayFlightSegment[];
+}
+
+export interface FlightRoundWayResponse {
+  roundWayFlightDetails: RoundWayFlightData[];
+  token: number;
+  minPrice: number;
+}
