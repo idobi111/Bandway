@@ -1,52 +1,90 @@
 import React, { useEffect, useState } from 'react';
-import { CssBaseline, AppBar, Toolbar, Typography, Button, Container, Box } from '@mui/material';
-import Header from '../GenericFolder/Header';
-import Footer from '../GenericFolder/Footer';
-import TopContent from '../GenericFolder/TopContent';
-import UpcomingPackages from './UpcomingPackages';
-import { Package } from '../../models/Package';
-import { packagesMock } from '../../mocks/PackageMock';
+import { useSelector } from 'react-redux';
+import { AppState } from '../../redux/types';
 import { HotelApi } from '../../apis/HotelApi';
-import { HotelRequest } from '../../models/HotelRequest';
-import { ResultsPackageMocks } from '../../mocks/ResultsPackageMocks';
+import { FlightApi } from '../../apis/FlightApi';
+import { PackageBuilderService } from '../../services/PackageBuilderService';
+import { Package } from '../../models/Package';
+import UpcomingPackages from './UpcomingPackages';
+import Header from '../GenericFolder/Header';
+import TopContent from '../GenericFolder/TopContent';
+import Footer from '../GenericFolder/Footer';
 import { HotelResponse } from '../../models/HotelResponse';
-import { FlightOneWayResponse } from '../../models/FlightOneWayResponse';
+import { FlightRoundWayResponse } from '../../models/FlightRoundWayResponse';
+import { HotelRequest } from '../../models/HotelRequest';
+import { FlightRequest } from '../../models/FlightRequest';
+import { CssBaseline } from '@mui/material';
 
 const PackageSearchResults: React.FC = () => {
-  const [hotels, setHotels] = useState<HotelResponse[]>([]);
-  const [Flights, setFlights] = useState<FlightOneWayResponse[]>([]);
-
     const [packages, setPackages] = useState<Package[]>([]);
-    const mainText: string = "We found the best results for you...";
-    const subText: string = "We're here to craft a vacation that perfectly suits you.";
+    const [hotels, setHotels] = useState<HotelResponse[]>([]); // Added state for hotels
+    const [flights, setFlights] = useState<FlightRoundWayResponse>(); // Added state for flights
+    const packageData = useSelector((state: AppState) => state.packageData);
 
-  
     useEffect(() => {
+        const hotelApi = new HotelApi();
+        const flightApi = new FlightApi();
+        const packageBuilderService = new PackageBuilderService();
 
-        setPackages(ResultsPackageMocks)
+        const fetchPackages = async () => {
+            try {
+                // Create hotel request object
+                const hotelRequest: HotelRequest = {
+                    checkIn: packageData.checkIn || '',
+                    checkOut: packageData.checkOut || '',
+                    venueName: packageData.toCity || '',
+                    rooms: packageData.rooms || 0,
+                    adults: packageData.adults || 0,
+                    children: packageData.children || 0,
+                    maxPrice: packageData.maxPrice || 0,
+                    minPrice: packageData.minPrice || 0,
+                };
 
+                // Create flight request object
+                const flightRequest: FlightRequest = {
+                    departureDate: packageData.checkIn || '',
+                    returnDate: packageData.checkOut || '',
+                    src: packageData.fromCity || '',
+                    dest: packageData.toCity || '',
+                    adults: packageData.adults || 0,
+                    children: packageData.children || 0,
+                    infants: 0,
+                    isDirectFlight: false, // Set this based on your requirements
+                    cabinClass: 'economy', // Set this based on your requirements
+                };
 
-        // const hotelApi = new HotelApi();
-        // hotelApi.getHotels(exampleHotelRequest)
-        //   .then((data) => {
-        //     setHotels(data)
-        //   })
-        //   .catch((error) => {
-        //     console.error('Error fetching hotels data:', error);
-        //   });    
+                // Fetch hotel data
+                console.log(hotelRequest);
+                const hotelsData = await hotelApi.getHotels(hotelRequest);
+                setHotels(hotelsData);
 
+                // Fetch flight data
+                console.log(flightRequest);
+                const flightsData = await flightApi.getRoundWayFlights(flightRequest);
+                setFlights(flightsData);
 
-    }, []);
+                // Combine hotel and flight data to generate packages
+                const combinedPackages = packageBuilderService.combineResults(hotelsData, flightsData);
+
+                // Set the packages state with the combined packages
+                setPackages(combinedPackages);
+            } catch (error) {
+                console.error('Error fetching hotel or flight data:', error);
+            }
+        };
+
+        fetchPackages();
+    }, [packageData]);
 
     return (
         <>
             <CssBaseline />
             <Header />
-            <TopContent mainText={mainText} subText={subText} />
+            <TopContent mainText="We found the best results for you..." subText="We're here to craft a vacation that perfectly suits you." />
             <UpcomingPackages servicePackages={packages} />
             <Footer />
         </>
     );
-}
+};
 
 export default PackageSearchResults;

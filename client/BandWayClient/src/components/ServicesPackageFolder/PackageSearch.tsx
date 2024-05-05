@@ -6,15 +6,20 @@ import OccupancyPopover from './OccupancyPopover';
 import ServicesBudgetPopover from './ServicesBudgetPopover';
 import { CityOption } from '../../models/CityOption';
 import CitySelect from '../GenericFolder/CitySelect';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { AppState } from '../../redux/types';
 import { SearchPackageData } from '../../models/SearchPackageData';
+import { setPackageData } from '../../redux/actions';
+import { useNavigate } from 'react-router';
 
 const PackageSearch: React.FC = () => {
 
   const eventData = useSelector((state: AppState) => state.eventData);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-  const [packageData, setPackageData] = useState<SearchPackageData>({
+
+  const [packageData, setPackage] = useState<SearchPackageData>({
     checkIn: eventData?.checkIn ?? null,
     checkOut: eventData?.checkIn ? eventData.checkIn + 3 : null,
     rooms: 1,
@@ -35,28 +40,31 @@ const PackageSearch: React.FC = () => {
 
 
   const handleSelectDateRange = (checkIn: string, checkOut: string) => {
-    setPackageData({ ...packageData, checkIn, checkOut });
+    setPackage({ ...packageData, checkIn, checkOut });
   };
 
   const handleSelectOccupancy = (adults: number, children: number, rooms: number) => {
-    setPackageData({ ...packageData, adults, children, rooms });
+    setPackage({ ...packageData, adults, children, rooms });
   };
 
   const handleSelectServicesBudget = (minPrice: number, maxPrice: number) => {
-    setPackageData({ ...packageData, minPrice, maxPrice });
+    setPackage({ ...packageData, minPrice, maxPrice });
   };
 
   const handleSelectFromCity = (city: CityOption) => {
-    setPackageData({ ...packageData, fromCity: city.value, fromCountry: city.country });
+    setPackage({ ...packageData, fromCity: city.value, fromCountry: city.country });
   };
 
   const handleSelectToCity = (city: CityOption) => {
-    setPackageData({ ...packageData, toCity: city.value, toCountry: city.country });
+    setPackage({ ...packageData, toCity: city.value, toCountry: city.country });
   };
 
-  const handleSearch = () => {
-    console.log('Search Data:', packageData);
-    // Perform further actions with searchData, like dispatching it to Redux or making an API call.
+  const handlPerformerSearch = () => {
+  
+    dispatch(setPackageData(packageData));
+
+
+    navigate(`/package-search-results`);
   };
 
 
@@ -79,7 +87,7 @@ const PackageSearch: React.FC = () => {
           <CitySelect onSelect={handleSelectToCity} placeholder={eventData ? `${eventData.toCity}, ${eventData.toCountry}` : "All Cities"} title='To' />
         </Grid>
         <Grid item xs={2}>
-          {isSearchDataFilled() && (<ActionButton variant='contained' onClick={handleSearch}>Search</ActionButton>)}
+          {isSearchDataFilled() && (<ActionButton variant='contained' onClick={handlPerformerSearch}>Search</ActionButton>)}
         </Grid>
         <Box display={'flex'} justifyContent={'left'} alignItems={'left'}>
           {!isSearchDataFilled() && (<Typography padding={2}>Choose your preferences to activate the search</Typography>)}

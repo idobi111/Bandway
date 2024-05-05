@@ -31,10 +31,14 @@ const App = () => {
             <ServicesPackageFinder />
           </Provider>
         }></Route>
-        <Route path='/package-search-results' element={<PackageSearchResults />}></Route>
+        <Route path='/package-search-results' element={
+          <Provider store={store}>
+            <PackageSearchResults />
+          </Provider>
+        }></Route>
 
       </Routes>
-    </BrowserRouter>
+    </BrowserRouter >
   );
 };
 

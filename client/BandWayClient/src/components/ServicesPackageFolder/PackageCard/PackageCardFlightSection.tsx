@@ -19,21 +19,12 @@ const PackageCardFlightSection: React.FC<Props> = ({ servicesPackage }) => {
 
     return (
         <>
-            {/* <Box display={'flex'} justifyContent={'left'}  >
-                  <Tooltip title={`Number of flights: ${servicesPackage.flight?.departFlightDetails[0].flightDetails.length}`}>
-                    {flightService.isConnectionFlight(servicesPackage) ? (
-                      <FlightIcon /> // Render FlightIcon
-                    ) : (
-                      <img src={servicesPackage.flight?.departFlightDetails[0].marketing[0].logoUrl} alt="Flight Icon" />
-                    )}
-                  </Tooltip>
+            <Box display={'flex'} justifyContent={'left'}  >
+                  <FlightIcon />
                   <Typography variant="h6" sx={{ marginLeft: 1 }}>
-                    {flightService.getFlightType(servicesPackage)}
+                    Flight is Included
                   </Typography>
                 </Box>
-                <Typography variant="body2" color="text.secondary">
-                  {flightService.getFlightHours(servicesPackage)}
-                </Typography> */}
         </>
     );
 };

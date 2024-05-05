@@ -64,7 +64,7 @@ const UpcomingPackages: React.FC<UpcomingPackagesProps> = ({ servicePackages }) 
         </Stack>
         {/* Package card */}
         <h2 style={{ textAlign: 'left' }}>Best Deals</h2>
-        {servicePackages.length > 0 ? (   <PackageCard packages={servicePackages} step={step} packageFilters={packageFilters}/>) : ( <p>Loading packages...</p> )}
+        { servicePackages.length > 0 ? (   <PackageCard packages={servicePackages} step={step} packageFilters={packageFilters}/>) : ( <p>Loading packages...</p> )}
       </div>
     </div>
   );

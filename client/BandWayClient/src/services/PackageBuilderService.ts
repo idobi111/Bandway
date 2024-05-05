@@ -42,15 +42,11 @@ export class PackageBuilderService {
       totalPrice += servicePackage.hotel.price;
     }
 
-    // // Add flight price
-    // if (packageFilters.flight && servicePackage.flight) {
-    //   const departFlightPrice = servicePackage.flight.roundWayFlightDetails.reduce((acc, flightDetail) => {
-    //     const departPrice = flightDetail.departFlightDetails.reduce((acc, departFlight) => acc + departFlight.price, 0);
-    //     const arrivePrice = flightDetail.arriveFlightDetails.reduce((acc, arriveFlight) => acc + arriveFlight.price, 0);
-    //     return acc + departPrice + arrivePrice;
-    //   }, 0);
-    //   totalPrice += departFlightPrice;
-    // }
+    // Add flight price
+    if (packageFilters.flight && servicePackage.flights) {
+      totalPrice += servicePackage.flights.minPrice*2;
+
+    }
 
     // Add car rental price
     if (packageFilters.carRental && servicePackage.carRental) {
