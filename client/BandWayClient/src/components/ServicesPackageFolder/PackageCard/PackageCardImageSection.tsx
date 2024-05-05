@@ -41,7 +41,7 @@ const PackageCardImageSection: React.FC<Props> = ({ servicesPackage}) => {
             textShadow: '2px 2px 4px rgba(0,0,0,0.5)', // Corrected shadow opacity
           }}
         >
-          {eventData.toCity}
+          {servicesPackage.hotel.city || servicesPackage.flights?.roundWayFlightDetails[0].arriveFlightDetails[0].sourceCity}
         </Typography>
         <Typography
           variant="h6" // Changed variant to h6 for smaller font size
@@ -54,7 +54,7 @@ const PackageCardImageSection: React.FC<Props> = ({ servicesPackage}) => {
             zIndex: 1,
           }}
         >
-          {eventData.toCountry}
+        { servicesPackage.flights?.roundWayFlightDetails[0].arriveFlightDetails[0].sourceCountry}
         </Typography>
       </Box>
     </>

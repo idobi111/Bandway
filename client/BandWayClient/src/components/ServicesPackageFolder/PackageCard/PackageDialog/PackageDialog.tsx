@@ -48,7 +48,7 @@ const PackageDialog: React.FC<Props> = ({ servicesPackage, packageFilters }) => 
                 <Box sx={{ flex: 1 }}>
                     <Typography variant='h2' gutterBottom>Your vacation details</Typography>
                     <Stack display={'flex'}>
-                        <Typography sx={{ paddingLeft: 1 }} variant='h4'>Vacation to  {eventData.toCity}</Typography>
+                        <Typography sx={{ paddingLeft: 1 }} variant='h4'>Vacation to  {servicesPackage?.hotel.city || servicesPackage?.flights?.roundWayFlightDetails[0].arriveFlightDetails[0].sourceCity}</Typography>
                         <Typography sx={{ paddingLeft: 1 }} variant='h4'>{servicesPackage && helpers.formatDatesRange(servicesPackage)}</Typography>
                         <Typography sx={{ paddingLeft: 1 }} variant='h4'>{servicesPackage && helpers.calculateNumberOfNights(servicesPackage?.hotel?.checkIn, servicesPackage?.hotel.checkOut)} nights</Typography>
                     </Stack>

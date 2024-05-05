@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Typography, Stack, Box, Tooltip, Modal, Accordion, AccordionDetails, AccordionSummary, Divider } from '@mui/material';
 import { Package } from '../../../../models/Package';
 import StarIcon from '@mui/icons-material/Star';
 import { PackageFilter } from '../../../../models/PackageFilter';
-import { ActionButton } from '../../../../styles/ComponentsStyles';
+import { ActionButton, SubActionButton } from '../../../../styles/ComponentsStyles';
 import { HotelApi } from '../../../../apis/HotelApi';
 import FlightDetailsGrid from './FlightDetailsGrid';
 import { FlightService } from '../../../../services/FlightService';
@@ -15,6 +15,8 @@ interface Props {
 }
 
 const PackageDialogFlightSection: React.FC<Props> = ({ servicesPackage }) => {
+
+    const [expandedAccordion, setExpandedAccordion] = useState<number | false>(false);
 
     const hotelApi = new HotelApi();
     const flightService = new FlightService();
@@ -31,12 +33,17 @@ const PackageDialogFlightSection: React.FC<Props> = ({ servicesPackage }) => {
         // }
     };
 
+    const handleAccordionChange = (panel: number) => (event: React.ChangeEvent<{}>, isExpanded: boolean) => {
+        setExpandedAccordion(isExpanded ? panel : false);
+    };
+
     return (
         <>
             <Stack display={'flex'} sx={{ p: 4 }}>
                 <Typography variant='h4'>Choose Your Flight:</Typography>
                 {servicesPackage?.flights && servicesPackage?.flights.roundWayFlightDetails.map((roundWayDetail, roundWayIndex) => (
-                    <Accordion key={roundWayIndex} sx={{ width: '150%', marginBottom: '10px', border: '2px solid #ccc' }}>
+                    <Accordion key={roundWayIndex} sx={{ width: '150%', marginBottom: '10px', border: '2px solid #ccc' }} expanded={expandedAccordion === roundWayIndex}
+                    onChange={handleAccordionChange(roundWayIndex)}>
                         <AccordionSummary>
                             <Stack>
                                 <Stack direction={'row'}>
@@ -80,6 +87,7 @@ const PackageDialogFlightSection: React.FC<Props> = ({ servicesPackage }) => {
                                     ))
                                 ))}
                             </React.Fragment>
+                            <SubActionButton onClick={() => setExpandedAccordion(false)} variant="contained" color="secondary">Close</SubActionButton>
                         </AccordionDetails>
                     </Accordion>
                 ))}
