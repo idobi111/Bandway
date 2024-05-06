@@ -22,6 +22,8 @@ import store from '../../redux/store';
 import { FlightRoundWayResponse } from '../../models/FlightRoundWayResponse';
 import { FlightService } from '../../services/FlightService';
 import { HeaderBox } from '../../styles/ComponentsStyles';
+import { CarApi } from '../../apis/CarApi';
+import { CarRentalResponse } from '../../models/CarRentalResponse';
 
 
 const ServicesPackageFinder: React.FC = () => {
@@ -29,6 +31,8 @@ const ServicesPackageFinder: React.FC = () => {
   const [packages, setPackages] = useState<Package[]>([]);
   const [hotels, setHotels] = useState<HotelResponse[]>([]);
   const [flights, setFlights] = useState<FlightRoundWayResponse>();
+  const [cars, setCars] = useState<CarRentalResponse[]>([]);
+
 
   const eventData = useSelector((state: AppState) => state.eventData);
   const flightService = new FlightService();
@@ -38,6 +42,7 @@ const ServicesPackageFinder: React.FC = () => {
 
   const hotelApi = new HotelApi();
   const flightApi = new FlightApi();
+  const carApi = new CarApi();
 
   const packageBuilderService = new PackageBuilderService();
 
@@ -89,7 +94,11 @@ const ServicesPackageFinder: React.FC = () => {
 
         console.log("flightsData", flightsData);
 
-        const combinedPackages = packageBuilderService.combineResults(hotelsData, flightsData);
+        const carRequest = packageBuilderService.createCarRequestByEventData(checkInDate, eventData.fromCity, eventData.toCity);
+        const carData = await carApi.getCarRentals(carRequest);
+        setCars(carData);
+
+        const combinedPackages = packageBuilderService.combineResults(hotelsData, flightsData, carData);
         setPackages(combinedPackages);
 
         console.log("combinedPackages", combinedPackages);
