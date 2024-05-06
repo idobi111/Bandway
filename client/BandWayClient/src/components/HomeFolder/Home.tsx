@@ -31,12 +31,18 @@ const Home: React.FC<HomeProps> = () => {
       });
   }, []);
 
+  const scrollToUpcomingEvents = () => {
+    console.log("Scrolling to Upcoming Events");
+    const upcomingEventsElement = document.getElementById('upcoming-events');
+    upcomingEventsElement?.scrollIntoView({ behavior: 'smooth' });
+  };
+
   return (
     <>
       <CssBaseline />
       <HeaderBox>
       <Header />
-      <HomeTopContent />
+      <HomeTopContent scrollToUpcomingEvents={scrollToUpcomingEvents} />
       </HeaderBox>
       <Container maxWidth="xl">
         <Box display="flex" justifyContent="center" sx={{ m: -8 }}>
@@ -51,7 +57,7 @@ const Home: React.FC<HomeProps> = () => {
         <Box display="flex" justifyContent="center" sx={{ m: 8 }}>
           <Steps />
         </Box>
-        <Box display="flex" justifyContent="center">
+        <Box  id="upcoming-events" display="flex" justifyContent="center">
           {isLoading ? (
             <CircularProgress />
           ) : (
