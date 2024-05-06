@@ -200,7 +200,7 @@ export const StepArrow = styled(ArrowForwardIosIcon)({
 // Generic
 
 export const GenericTopBox = styled(Box)({
-  height: '300px',
+  height: '200px',
   display: 'flex',
   alignItems: 'center',
   width: '100%',

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { CssBaseline, AppBar, Toolbar, Typography, Button, Container, Box, CircularProgress } from '@mui/material';
+import { CssBaseline, AppBar, Toolbar, Typography, Button, Container, Box, CircularProgress, Stack } from '@mui/material';
 import Header from '../GenericFolder/Header';
 import HomeTopContent from './HomeTopContent';
 import HomeSearch from './HomeSearch';
@@ -39,12 +39,16 @@ const Home: React.FC<HomeProps> = () => {
       <HomeTopContent />
       </HeaderBox>
       <Container maxWidth="xl">
-        <Box display="flex" justifyContent="center" sx={{ m: -5 }}>
-        <Provider store={store}>
+        <Box display="flex" justifyContent="center" sx={{ m: -8 }}>
+          <Stack  justifyContent="center" alignItems="center">
+          <Typography variant='h6' sx={{color:'white'}}>The package of your dreams awaits…</Typography>
+          <Provider store={store}>
           <HomeSearch />
           </Provider>
+          </Stack>
+       
         </Box>
-        <Box display="flex" justifyContent="center" sx={{ m: 2 }}>
+        <Box display="flex" justifyContent="center" sx={{ m: 8 }}>
           <Steps />
         </Box>
         <Box display="flex" justifyContent="center">
