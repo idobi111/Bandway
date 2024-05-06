@@ -1,4 +1,5 @@
 import { Helpers } from "../helpers/helpers";
+import { CarRentalRequest } from "../models/CarRentalRequest";
 import { CarRentalResponse } from "../models/CarRentalResponse";
 import { FlightOneWayResponse } from "../models/FlightOneWayResponse";
 import { FlightRequest } from "../models/FlightRequest";
@@ -18,7 +19,7 @@ export class PackageBuilderService {
 
     hotels.forEach((hotel, index) => {
       const packageId = index + 1; // Generate unique package ID
-      const packageObj: Package = { packageId, hotel, flights};
+      const packageObj: Package = { packageId, hotel, flights, carRentals};
 
       // // Add car rental if available
       // if (carRentals && carRentals[index]) {
@@ -49,9 +50,9 @@ export class PackageBuilderService {
     }
 
     // Add car rental price
-    if (packageFilters.carRental && servicePackage.carRental) {
-      totalPrice += servicePackage.carRental.price;
-    }
+    // if (packageFilters.carRental && servicePackage.carRental) {
+    //   totalPrice += servicePackage.carRental.price;
+    // }
 
     return totalPrice;
   }
@@ -102,6 +103,33 @@ export class PackageBuilderService {
       cabinClass: "economy", // Set cabin class to economy by default
     };
   }
+
+
+  public createCarRequestByEventData(
+    checkIn: string | null,
+    fromCity: string | null,
+    toCity: string | null
+  ): CarRentalRequest {
+    // Use the checkIn date for a one-way flight
+    const carRentalDate = checkIn ? new Date(checkIn) : null;
+    const defaultCheckInDate = new Date(); // Use the current date as default
+    const threeDaysFromCheckIn = new Date(defaultCheckInDate.setDate(defaultCheckInDate.getDate() + 3));
+
+
+    return {
+      pickupStartDate: carRentalDate? helpers.formatDateForPackageBuilder(new Date(carRentalDate)) : helpers.formatDateForPackageBuilder(defaultCheckInDate),
+      dropoffEndDate: carRentalDate  ? helpers.formatDateForPackageBuilder(new Date(new Date(carRentalDate).setDate(new Date(carRentalDate).getDate() + 3))) // Chain setDate and new Date
+      : helpers.formatDateForPackageBuilder(threeDaysFromCheckIn),
+      pickupCity: fromCity ? fromCity : '' ,
+      dropoffCity: toCity ? toCity: '',
+      pickupTime: '',
+      dropoffTime: '',
+      driverAge: 25,
+      carType: [],
+      hasHairConditioner: true
+    };
+  }
+
 
 
 

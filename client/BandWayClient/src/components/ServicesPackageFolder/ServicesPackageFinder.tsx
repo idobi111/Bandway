@@ -21,6 +21,9 @@ import { setEventData } from '../../redux/actions';
 import store from '../../redux/store';
 import { FlightRoundWayResponse } from '../../models/FlightRoundWayResponse';
 import { FlightService } from '../../services/FlightService';
+import { HeaderBox } from '../../styles/ComponentsStyles';
+import { CarApi } from '../../apis/CarApi';
+import { CarRentalResponse } from '../../models/CarRentalResponse';
 
 
 const ServicesPackageFinder: React.FC = () => {
@@ -28,6 +31,8 @@ const ServicesPackageFinder: React.FC = () => {
   const [packages, setPackages] = useState<Package[]>([]);
   const [hotels, setHotels] = useState<HotelResponse[]>([]);
   const [flights, setFlights] = useState<FlightRoundWayResponse>();
+  const [cars, setCars] = useState<CarRentalResponse[]>([]);
+
 
   const eventData = useSelector((state: AppState) => state.eventData);
   const flightService = new FlightService();
@@ -37,9 +42,10 @@ const ServicesPackageFinder: React.FC = () => {
 
   const hotelApi = new HotelApi();
   const flightApi = new FlightApi();
+  const carApi = new CarApi();
 
   const packageBuilderService = new PackageBuilderService();
-  
+
   const dispatch = useDispatch();
 
   // Load eventData from localStorage on component mount
@@ -65,7 +71,7 @@ const ServicesPackageFinder: React.FC = () => {
     }
   }, [eventData]);
 
-  
+
   useEffect(() => {
 
     const fetchPackages = async () => {
@@ -73,7 +79,7 @@ const ServicesPackageFinder: React.FC = () => {
         const checkInDate = eventData.checkIn || null;
         const fromCityId = eventData.fromCity || null;
         const toCityId = eventData.toCity || null;
-  
+
         const hotelRequest = packageBuilderService.createHotelRequestByEventData(eventData.checkIn, eventData.venue, eventData.fromCity, eventData.toCity);
         const hotelsData = await hotelApi.getHotels(hotelRequest);
         setHotels(hotelsData);
@@ -87,8 +93,12 @@ const ServicesPackageFinder: React.FC = () => {
         setFlights(flightsData);
 
         console.log("flightsData", flightsData);
-        
-        const combinedPackages = packageBuilderService.combineResults(hotelsData, flightsData);
+
+        const carRequest = packageBuilderService.createCarRequestByEventData(checkInDate, eventData.fromCity, eventData.toCity);
+        const carData = await carApi.getCarRentals(carRequest);
+        setCars(carData);
+
+        const combinedPackages = packageBuilderService.combineResults(hotelsData, flightsData, carData);
         setPackages(combinedPackages);
 
         console.log("combinedPackages", combinedPackages);
@@ -146,12 +156,11 @@ const ServicesPackageFinder: React.FC = () => {
   return (
     <>
       <CssBaseline />
-      <Header />
-      <TopContent mainText={mainText} subText={subText} />
+        <TopContent mainText={mainText} subText={subText} />
       <Container maxWidth="xl">
         <Box display="flex" justifyContent="center" sx={{ m: -5 }}>
-        <Provider store={store}>
-          <PackageSearch />
+          <Provider store={store}>
+            <PackageSearch />
           </Provider>
         </Box>
         <Box display="flex" justifyContent="center" sx={{ m: 2 }}>
@@ -159,7 +168,7 @@ const ServicesPackageFinder: React.FC = () => {
         </Box>
         <Box display="flex" justifyContent="center">
           {packages.length > 0 ? (
-              < UpcomingPackages servicePackages={packages} />
+            < UpcomingPackages servicePackages={packages} />
           ) : (<p>Loading packages...</p>)}
         </Box>
       </Container>

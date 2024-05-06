@@ -1,21 +1,22 @@
+// HomeTopContent.tsx
 import React from 'react';
 import { Box, Container, Grid, Typography, Stack } from '@mui/material';
 import { HomeTopContainer, ShadowImage, BandImage, TypographyTitle, SubTitle, ActionButton, LearnMoreButton } from '../../styles/ComponentsStyles';
 import bandPic from '../../pics/BandPic.png';
 import bandShadow from '../../pics/BandShadow.png';
 
-const HomeTopContent: React.FC = () => {
+interface HomeTopContentProps {
+  scrollToUpcomingEvents: () => void;
+}
+
+const HomeTopContent: React.FC<HomeTopContentProps> = ({ scrollToUpcomingEvents }) => {
   return (
-
-    <HomeTopContainer maxWidth="xl" >
-      
-      
-      <Box  display="flex" justifyContent="flex-end" style={{ height: "500px"}} >
+    <HomeTopContainer maxWidth="xl">
+      <Box display="flex" justifyContent="flex-end" style={{ height: "500px" }} >
         <Box display="flex" style={{ height: "500px" }} >
-
           <BandImage src={bandPic} alt="Band Picture" />
         </Box>
-        <Box  display="flex" style={{ height: "500px" }} >
+        <Box display="flex" style={{ height: "500px" }} >
           <Stack justifyContent="center" >
             <TypographyTitle variant='h3'>
               Find your next ticket & vacation
@@ -25,18 +26,15 @@ const HomeTopContent: React.FC = () => {
             </SubTitle>
             <Grid container spacing={2}>
               <Grid item>
-                <ActionButton variant='contained'>Get Ticket</ActionButton>
+                {/* Call scrollToUpcomingEvents function when button is clicked */}
+                <ActionButton variant='contained' onClick={() => scrollToUpcomingEvents()}>Get Ticket</ActionButton>
                 <LearnMoreButton variant='outlined'>Learn More</LearnMoreButton>
               </Grid>
             </Grid>
           </Stack>
         </Box>
       </Box>
-
     </HomeTopContainer>
-
-
-  
   );
 };
 

@@ -2,13 +2,24 @@ import { styled } from '@mui/system';
 import { Box, Button, Typography, AppBar, Container, Grid, TextField, Card, CardMedia, Autocomplete } from '@mui/material';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 
+// HeaderBox
+export const HeaderBox = styled(Box)({
+  background: `
+  linear-gradient(to right, rgba(237, 70, 144, 0.7) 0%, rgba(85, 34, 204, 0.7) 100%),
+  url('src/pics/Crowd.png')`,
+backgroundSize: 'cover',
+});
 
 
 // Header
 export const HeaderAppBar = styled(AppBar)({
   width: '100%',
-  backgroundColor: '#4B0082',
-  height: '20%'
+  background: `
+  linear-gradient(to right, rgba(237, 70, 144, 0.7) 0%, rgba(85, 34, 204, 0.7) 100%),
+  url('src/pics/Crowd.png')`,
+backgroundSize: 'cover',
+  height: '20%',
+  boxShadow: 'none'
 });
 
 export const HeaderButton = styled(Button)({
@@ -20,10 +31,8 @@ export const HeaderButton = styled(Button)({
 // Home Top Content
 
 export const HomeTopContainer = styled(Container)({
-  backgroundColor: '#4B0082',
-  height:"500px"
+  height: '500px'
 });
-
 
 // export const HomeTopBox = styled(Box)({
 //   backgroundColor: '#4B0082',
@@ -191,7 +200,6 @@ export const StepArrow = styled(ArrowForwardIosIcon)({
 // Generic
 
 export const GenericTopBox = styled(Box)({
-  backgroundColor: '#4B0082',
   height: '200px',
   display: 'flex',
   alignItems: 'center',

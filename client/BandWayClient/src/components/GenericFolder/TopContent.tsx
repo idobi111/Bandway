@@ -1,5 +1,6 @@
 import React from 'react';
-import { GenericTopBox, GenricTopBoxText, SeparateRowsContainer } from '../../styles/ComponentsStyles';
+import { GenericTopBox, GenricTopBoxText, HeaderBox, SeparateRowsContainer } from '../../styles/ComponentsStyles';
+import Header from './Header';
 
 
 interface TopContentProps {
@@ -9,6 +10,9 @@ interface TopContentProps {
 
 const TopContent: React.FC<TopContentProps> = ({ mainText, subText }) => {
     return (
+       <>
+       <HeaderBox>
+        <Header />
         <GenericTopBox>
         <SeparateRowsContainer>
           <GenricTopBoxText variant='h2'>
@@ -19,6 +23,9 @@ const TopContent: React.FC<TopContentProps> = ({ mainText, subText }) => {
           </GenricTopBoxText>
         </SeparateRowsContainer>
       </GenericTopBox>
+      </HeaderBox>
+
+      </>
     );
 };
 

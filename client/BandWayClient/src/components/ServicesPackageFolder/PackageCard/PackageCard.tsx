@@ -11,6 +11,7 @@ import PackageCardImageSection from './PackageCardImageSection';
 import PackageCardPriceSection from './PackageCardPriceSection';
 import { PackageFilter } from '../../../models/PackageFilter';
 import PackageDialog from './PackageDialog/PackageDialog';
+import PackageCardCarSection from './PackageCardCarSection';
 
 
 
@@ -61,6 +62,8 @@ const PackageCard: React.FC<Props> = ({ packages, step, packageFilters }) => {
                 {packageFilters.hotel && (<PackageCardHotelSection servicesPackage={servicesPackage}></PackageCardHotelSection>)}
                 <Divider></Divider>
                 {packageFilters.flight && (<PackageCardFlightSection servicesPackage={servicesPackage}></PackageCardFlightSection>)}
+                <Divider></Divider>
+                {packageFilters.carRental && (<PackageCardCarSection servicesPackage={servicesPackage}></PackageCardCarSection>)}
                 <Divider></Divider>
                 <PackageCardPriceSection servicesPackage={servicesPackage} packageFilters={packageFilters}></PackageCardPriceSection>
               </CardContent>

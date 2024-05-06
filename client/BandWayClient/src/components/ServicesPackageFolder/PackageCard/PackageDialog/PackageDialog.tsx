@@ -15,6 +15,7 @@ import PackageDialogHotelSection from './PackageDialogHotelSection';
 import PackageDialogFlightSection from './PackageDialogFlightSection';
 import { useSelector } from 'react-redux';
 import { AppState } from '../../../../redux/types';
+import PackageDialogCarSection from './PackageDialogCarSection';
 
 
 interface Props {
@@ -62,6 +63,12 @@ const PackageDialog: React.FC<Props> = ({ servicesPackage, packageFilters }) => 
                     {packageFilters.flight && (
                         <div>
                             <PackageDialogFlightSection servicesPackage={servicesPackage}></PackageDialogFlightSection>
+                            <Divider></Divider>
+                        </div>
+                    )}
+                    {packageFilters.carRental && (
+                        <div>
+                            <PackageDialogCarSection servicesPackage={servicesPackage}></PackageDialogCarSection>
                             <Divider></Divider>
                         </div>
                     )}

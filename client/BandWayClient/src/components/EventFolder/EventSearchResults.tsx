@@ -52,7 +52,6 @@ const EventSearchResults: React.FC = () => {
   return (
     <>
       <CssBaseline />
-      <Header />
       <TopContent mainText="We Discovered Outstanding Results for You..." subText='' />
       <Box display="flex" justifyContent="center">
         {isLoading ? (
