@@ -10,6 +10,7 @@ import { EventApi } from '../../apis/EventApi';
 import { EventResponse } from '../../models/EventResponse';
 import { Provider } from 'react-redux';
 import store from '../../redux/store';
+import { HeaderBox } from '../../styles/ComponentsStyles';
 
 interface HomeProps {}
 
@@ -33,8 +34,10 @@ const Home: React.FC<HomeProps> = () => {
   return (
     <>
       <CssBaseline />
+      <HeaderBox>
       <Header />
       <HomeTopContent />
+      </HeaderBox>
       <Container maxWidth="xl">
         <Box display="flex" justifyContent="center" sx={{ m: -5 }}>
         <Provider store={store}>

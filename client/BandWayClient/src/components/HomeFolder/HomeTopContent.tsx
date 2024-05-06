@@ -7,7 +7,7 @@ import bandShadow from '../../pics/BandShadow.png';
 const HomeTopContent: React.FC = () => {
   return (
 
-    <HomeTopContainer maxWidth="xl" >
+    <HomeTopContainer maxWidth="xl">
       
       
       <Box  display="flex" justifyContent="flex-end" style={{ height: "500px"}} >

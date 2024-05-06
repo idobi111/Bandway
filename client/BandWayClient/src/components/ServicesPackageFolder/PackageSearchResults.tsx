@@ -79,7 +79,6 @@ const PackageSearchResults: React.FC = () => {
     return (
         <>
             <CssBaseline />
-            <Header />
             <TopContent mainText="We found the best results for you..." subText="We're here to craft a vacation that perfectly suits you." />
             <UpcomingPackages servicePackages={packages} />
             <Footer />

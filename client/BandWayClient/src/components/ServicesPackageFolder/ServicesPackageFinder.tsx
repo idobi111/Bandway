@@ -21,6 +21,7 @@ import { setEventData } from '../../redux/actions';
 import store from '../../redux/store';
 import { FlightRoundWayResponse } from '../../models/FlightRoundWayResponse';
 import { FlightService } from '../../services/FlightService';
+import { HeaderBox } from '../../styles/ComponentsStyles';
 
 
 const ServicesPackageFinder: React.FC = () => {
@@ -39,7 +40,7 @@ const ServicesPackageFinder: React.FC = () => {
   const flightApi = new FlightApi();
 
   const packageBuilderService = new PackageBuilderService();
-  
+
   const dispatch = useDispatch();
 
   // Load eventData from localStorage on component mount
@@ -65,7 +66,7 @@ const ServicesPackageFinder: React.FC = () => {
     }
   }, [eventData]);
 
-  
+
   useEffect(() => {
 
     const fetchPackages = async () => {
@@ -73,7 +74,7 @@ const ServicesPackageFinder: React.FC = () => {
         const checkInDate = eventData.checkIn || null;
         const fromCityId = eventData.fromCity || null;
         const toCityId = eventData.toCity || null;
-  
+
         const hotelRequest = packageBuilderService.createHotelRequestByEventData(eventData.checkIn, eventData.venue, eventData.fromCity, eventData.toCity);
         const hotelsData = await hotelApi.getHotels(hotelRequest);
         setHotels(hotelsData);
@@ -87,7 +88,7 @@ const ServicesPackageFinder: React.FC = () => {
         setFlights(flightsData);
 
         console.log("flightsData", flightsData);
-        
+
         const combinedPackages = packageBuilderService.combineResults(hotelsData, flightsData);
         setPackages(combinedPackages);
 
@@ -146,12 +147,11 @@ const ServicesPackageFinder: React.FC = () => {
   return (
     <>
       <CssBaseline />
-      <Header />
-      <TopContent mainText={mainText} subText={subText} />
+        <TopContent mainText={mainText} subText={subText} />
       <Container maxWidth="xl">
         <Box display="flex" justifyContent="center" sx={{ m: -5 }}>
-        <Provider store={store}>
-          <PackageSearch />
+          <Provider store={store}>
+            <PackageSearch />
           </Provider>
         </Box>
         <Box display="flex" justifyContent="center" sx={{ m: 2 }}>
@@ -159,7 +159,7 @@ const ServicesPackageFinder: React.FC = () => {
         </Box>
         <Box display="flex" justifyContent="center">
           {packages.length > 0 ? (
-              < UpcomingPackages servicePackages={packages} />
+            < UpcomingPackages servicePackages={packages} />
           ) : (<p>Loading packages...</p>)}
         </Box>
       </Container>
