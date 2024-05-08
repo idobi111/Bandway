@@ -14,10 +14,10 @@ export class CarApi {
 
 
 
-    public async getCarRentals(car: CarRentalRequest): Promise<CarRentalResponse[]> {
+    public async getCarRentals(car: CarRentalRequest): Promise<CarRentalResponse> {
         try {
             //           const response = await axios.post<FlightRoundWayResponse[]>(`${this.BASE_URL}/searchCarRental`, car);
-            const response = await axios.get<CarRentalResponse[]>(`https://mocki.io/v1/9b91b783-7c47-45c8-b48f-3f560cd854a3`);
+            const response = await axios.get<CarRentalResponse>(`https://mocki.io/v1/bda8ef09-a860-481a-9dec-8c5515dfb1c3`);
             return response.data;
         } catch (error) {
             throw new Error('Error fetching car rental');
