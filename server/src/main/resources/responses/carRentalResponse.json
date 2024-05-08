@@ -1,0 +1,62 @@
+{
+  "carRentalData": [
+    {
+      "model": "Hyundai Veloster",
+      "pricePerDay": 45.6,
+      "dropOffAddress": "318, John F. Kennedy Airport, Building 318, Jfk Airport (JFK), USA, 11430-9508",
+      "dropOffPlaceName": "John F Kennedy International Airport",
+      "pickUpAddress": "318, John F. Kennedy Airport, Building 318, Jfk Airport (JFK), USA, 11430-9508",
+      "pickUpPlaceName": "John F Kennedy International Airport",
+      "image": "https://cdn.rcstatic.com/images/car_images/new_images/hyundai/veloster_lrg.png",
+      "carLink": "https://cars.booking.com/DriverExtras.do?location=4601342&dropLocation=4601342&vehicleInfo.vehicle.id=726525341&serverName=cars.booking.com&gaCampInfo=true&adplat=connectApp&driversAge=27&puDay=15&puMonth=5&puYear=2024&puHour=0&puMinute=0&doDay=20&doMonth=5&doYear=2024&doHour=0&doMinute=0&affiliateCode=booking-cars&seed=01d8b7fed84f1746e39574fbd2f909ca2b&cor=us&preflang=us&prefcurrency=EUR",
+      "totalPrice": 228,
+      "rentalPeriod": 5,
+      "rating": 7,
+      "ratingDescription": "Very good",
+      "supplierName": "Hertz",
+      "supplierLogo": "https://cdn.rcstatic.com/sp/images/suppliers/4004_logo_200.png",
+      "seats": 4,
+      "carGroup": "Economy",
+      "transmission": "Automatic"
+    },
+    {
+      "model": "Hyundai Veloster",
+      "pricePerDay": 53.408,
+      "dropOffAddress": "22, Marine Air Terminal, Laguardia Airport (LGA), USA, 11371-1041",
+      "dropOffPlaceName": "La Guardia Airport",
+      "pickUpAddress": "22, Marine Air Terminal, Laguardia Airport (LGA), USA, 11371-1041",
+      "pickUpPlaceName": "La Guardia Airport",
+      "image": "https://cdn.rcstatic.com/images/car_images/new_images/hyundai/veloster_lrg.png",
+      "carLink": "https://cars.booking.com/DriverExtras.do?location=4601343&dropLocation=4601343&vehicleInfo.vehicle.id=726525281&serverName=cars.booking.com&gaCampInfo=true&adplat=connectApp&driversAge=27&puDay=15&puMonth=5&puYear=2024&puHour=0&puMinute=0&doDay=20&doMonth=5&doYear=2024&doHour=0&doMinute=0&affiliateCode=booking-cars&seed=01d8b7fed84f1746e39574fbd2f909ca2b&cor=us&preflang=us&prefcurrency=EUR",
+      "totalPrice": 267.04,
+      "rentalPeriod": 5,
+      "rating": 8.2,
+      "ratingDescription": "Excellent",
+      "supplierName": "Hertz",
+      "supplierLogo": "https://cdn.rcstatic.com/sp/images/suppliers/4004_logo_200.png",
+      "seats": 4,
+      "carGroup": "Economy",
+      "transmission": "Automatic"
+    },
+    {
+      "model": "Hyundai Accent",
+      "pricePerDay": 73.852,
+      "dropOffAddress": "Newark, Nj, Newark, NJ, USA - Other, 7114",
+      "dropOffPlaceName": "Newark Airport",
+      "pickUpAddress": "Newark, Nj, Newark, NJ, USA - Other, 7114",
+      "pickUpPlaceName": "Newark Airport",
+      "image": "https://cdn.rcstatic.com/images/car_images/web/hyundai/accent_lrg.png",
+      "carLink": "https://cars.booking.com/DriverExtras.do?location=4247352&dropLocation=4247352&vehicleInfo.vehicle.id=678150201&serverName=cars.booking.com&gaCampInfo=true&adplat=connectApp&driversAge=27&puDay=15&puMonth=5&puYear=2024&puHour=0&puMinute=0&doDay=20&doMonth=5&doYear=2024&doHour=0&doMinute=0&affiliateCode=booking-cars&seed=01d8b7fed84f1746e39574fbd2f909ca2b&cor=us&preflang=us&prefcurrency=EUR",
+      "totalPrice": 369.26,
+      "rentalPeriod": 5,
+      "rating": 7.4,
+      "ratingDescription": "Very good",
+      "supplierName": "Payless",
+      "supplierLogo": "https://cdn.rcstatic.com/sp/images/suppliers/1811_logo_200.png",
+      "seats": 5,
+      "carGroup": "Economy",
+      "transmission": "Automatic"
+    }
+  ],
+  "minPrice": 228
+}

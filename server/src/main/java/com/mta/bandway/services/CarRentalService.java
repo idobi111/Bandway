@@ -3,10 +3,7 @@ package com.mta.bandway.services;
 import com.mta.bandway.api.domain.request.CarRentalRequestDto;
 import com.mta.bandway.api.domain.response.AutoCompleteCityResponseDto;
 import com.mta.bandway.api.domain.response.CarRentalResponseDto;
-import com.mta.bandway.core.domain.car.CarResponse;
-import com.mta.bandway.core.domain.car.RouteInfo;
-import com.mta.bandway.core.domain.car.SearchResult;
-import com.mta.bandway.core.domain.car.VehicleInfo;
+import com.mta.bandway.core.domain.car.*;
 import com.mta.bandway.core.domain.car.auto.correct.AutoCompleteCarCity;
 import com.mta.bandway.core.domain.car.auto.correct.CarCategory;
 import com.mta.bandway.core.domain.car.auto.correct.CarDatum;
@@ -69,7 +66,7 @@ public class CarRentalService {
         return result;
     }
 
-    public List<CarRentalResponseDto> searchCarRental(CarRentalRequestDto requestCarRentalDto) {
+    public CarRentalResponseDto searchCarRental(CarRentalRequestDto requestCarRentalDto) {
         HttpEntity<String> entity = new HttpEntity<>(createHeaders());
         URI uri = UriComponentsBuilder.fromHttpUrl(carRentalApi)
                 .queryParam("pickUpId", requestCarRentalDto.getPickupCity())
@@ -86,7 +83,7 @@ public class CarRentalService {
         Integer daysDuration = calcDaysDuration(requestCarRentalDto.getPickupStartDate(), requestCarRentalDto.getDropoffEndDate(), requestCarRentalDto.getPickupTime(), requestCarRentalDto.getDropoffTime());
         ResponseEntity<CarResponse> response = restTemplate.exchange(uri, HttpMethod.GET, entity, CarResponse.class);
         if (response.getBody() == null) {
-            return new ArrayList<>();
+            return CarRentalResponseDto.builder().build();
         }
         return createCarRentalResponseDto(response.getBody(), daysDuration);
     }
@@ -95,7 +92,6 @@ public class CarRentalService {
         Integer days = (int) TimeUnit.DAYS.convert(dropoffEndDate.getTime() - pickupStartDate.getTime(), TimeUnit.MILLISECONDS);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
 
-        // Parse the time strings into LocalTime objects
         LocalTime pickTime = LocalTime.parse(pickupTime, formatter);
         LocalTime dropTime = LocalTime.parse(dropoffTime, formatter);
         if (!pickupTime.equals(dropoffTime) && dropTime.isAfter(pickTime)) {
@@ -105,13 +101,16 @@ public class CarRentalService {
     }
 
 
-    private List<CarRentalResponseDto> createCarRentalResponseDto(CarResponse responseBody, Integer daysDuration) {
-        List<CarRentalResponseDto> result = new ArrayList<>();
+    private CarRentalResponseDto createCarRentalResponseDto(CarResponse responseBody, Integer daysDuration) {
+        List<CarRentalData> cars = new ArrayList<>();
+        double minPrice = Double.MAX_VALUE;
         for (int i = 0; i < responseBody.getData().getSearchResults().size(); i++) {
             SearchResult data = responseBody.getData().getSearchResults().get(i);
+            Double basePrice = data.getPricingInfo().getBasePrice();
+            minPrice = Math.min(minPrice, basePrice);
             VehicleInfo vehicleInfo = data.getVehicleInfo();
             RouteInfo routeInfo = data.getRouteInfo();
-            result.add(CarRentalResponseDto.builder()
+            cars.add(CarRentalData.builder()
                     .model(vehicleInfo.getVName())
                     .pricePerDay(calcPricePerDay(data, daysDuration))
                     .pickUpAddress(routeInfo.getPickup().getAddress())
@@ -120,7 +119,7 @@ public class CarRentalService {
                     .dropOffPlaceName(routeInfo.getDropoff().getName())
                     .image(vehicleInfo.getImageUrl())
                     .carLink(data.getForwardUrl())
-                    .totalPrice(data.getPricingInfo().getBasePrice())
+                    .totalPrice(basePrice)
                     .rentalPeriod(daysDuration)
                     .rating(data.getRatingInfo().getAverage())
                     .ratingDescription(data.getRatingInfo().getAverageText())
@@ -131,7 +130,13 @@ public class CarRentalService {
                     .transmission(vehicleInfo.getTransmission())
                     .build());
         }
-        return result;
+        if (cars.isEmpty()) {
+            minPrice = 0.0;
+        }
+        return CarRentalResponseDto.builder()
+                .carRentalData(cars)
+                .minPrice(minPrice)
+                .build();
     }
 
 

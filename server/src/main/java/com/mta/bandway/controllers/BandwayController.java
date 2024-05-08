@@ -68,7 +68,7 @@ public class BandwayController {
     }
 
     @PostMapping(value = "/searchCarRental", produces = "application/json", headers = "Accept=application/json")
-    public ResponseEntity<List<CarRentalResponseDto>> searchCar(@RequestBody CarRentalRequestDto requestCarRentalDto) {
+    public ResponseEntity<CarRentalResponseDto> searchCar(@RequestBody CarRentalRequestDto requestCarRentalDto) {
         return ResponseEntity.ok(carRentalService.searchCarRental(requestCarRentalDto));
     }
 
