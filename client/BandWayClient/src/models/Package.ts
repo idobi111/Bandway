@@ -8,5 +8,5 @@ export interface Package {
   packageId: number;
   hotel: HotelResponse;
   flights?: FlightRoundWayResponse;
-  carRentals?: CarRentalResponse[];
+  carRentals?: CarRentalResponse;
 }

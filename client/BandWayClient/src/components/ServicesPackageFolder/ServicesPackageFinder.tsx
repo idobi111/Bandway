@@ -31,7 +31,7 @@ const ServicesPackageFinder: React.FC = () => {
   const [packages, setPackages] = useState<Package[]>([]);
   const [hotels, setHotels] = useState<HotelResponse[]>([]);
   const [flights, setFlights] = useState<FlightRoundWayResponse>();
-  const [cars, setCars] = useState<CarRentalResponse[]>([]);
+  const [cars, setCars] = useState<CarRentalResponse>();
 
 
   const eventData = useSelector((state: AppState) => state.eventData);

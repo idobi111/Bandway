@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
-import { Typography, Stack, Box, Tooltip, Modal, Accordion, AccordionDetails, AccordionSummary, Divider } from '@mui/material';
+import { Typography, Stack, Box, Tooltip, Modal, Accordion, AccordionDetails, AccordionSummary, Divider, IconButton } from '@mui/material';
 import { Package } from '../../../../models/Package';
 import StarIcon from '@mui/icons-material/Star';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import { PackageFilter } from '../../../../models/PackageFilter';
 import { ActionButton, SubActionButton } from '../../../../styles/ComponentsStyles';
 import { HotelApi } from '../../../../apis/HotelApi';
@@ -17,6 +19,7 @@ interface Props {
 const PackageDialogFlightSection: React.FC<Props> = ({ servicesPackage }) => {
 
     const [expandedAccordion, setExpandedAccordion] = useState<number | false>(false);
+    const [accordionOpen, setAccordionOpen] = useState<boolean>(false);
 
     const hotelApi = new HotelApi();
     const flightService = new FlightService();
@@ -34,6 +37,7 @@ const PackageDialogFlightSection: React.FC<Props> = ({ servicesPackage }) => {
     };
 
     const handleAccordionChange = (panel: number) => (event: React.ChangeEvent<{}>, isExpanded: boolean) => {
+        setAccordionOpen(isExpanded);
         setExpandedAccordion(isExpanded ? panel : false);
     };
 
@@ -42,9 +46,9 @@ const PackageDialogFlightSection: React.FC<Props> = ({ servicesPackage }) => {
             <Stack display={'flex'} sx={{ p: 4 }}>
                 <Typography variant='h4'>Choose Your Flight:</Typography>
                 {servicesPackage?.flights && servicesPackage?.flights.roundWayFlightDetails.map((roundWayDetail, roundWayIndex) => (
-                    <Accordion key={roundWayIndex} sx={{ width: '150%', marginBottom: '10px', border: '2px solid #ccc' }} expanded={expandedAccordion === roundWayIndex}
+                    <Accordion key={roundWayIndex} sx={{ width: '150%', marginBottom: '10px', border: '2px solid #ccc' }} expanded={accordionOpen && expandedAccordion === roundWayIndex}
                     onChange={handleAccordionChange(roundWayIndex)}>
-                        <AccordionSummary>
+                        <AccordionSummary expandIcon={<ExpandMoreIcon />}>
                             <Stack>
                                 <Stack direction={'row'}>
                                     <Typography variant='h6' sx={{ paddingRight: 1 }}>Outbound flights:</Typography>
