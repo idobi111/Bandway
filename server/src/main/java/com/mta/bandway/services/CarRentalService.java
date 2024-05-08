@@ -85,7 +85,8 @@ public class CarRentalService {
         if (response.getBody() == null) {
             return CarRentalResponseDto.builder().build();
         }
-        return createCarRentalResponseDto(response.getBody(), daysDuration);
+        return createCarRentalResponseDto(response.getBody(), daysDuration, requestCarRentalDto.getPickupStartDate(), requestCarRentalDto.getDropoffEndDate());
+
     }
 
     private Integer calcDaysDuration(Date pickupStartDate, Date dropoffEndDate, String pickupTime, String dropoffTime) {
@@ -101,7 +102,7 @@ public class CarRentalService {
     }
 
 
-    private CarRentalResponseDto createCarRentalResponseDto(CarResponse responseBody, Integer daysDuration) {
+    private CarRentalResponseDto createCarRentalResponseDto(CarResponse responseBody, Integer daysDuration, Date checkIn, Date checkOut) {
         List<CarRentalData> cars = new ArrayList<>();
         double minPrice = Double.MAX_VALUE;
         for (int i = 0; i < responseBody.getData().getSearchResults().size(); i++) {
@@ -136,6 +137,8 @@ public class CarRentalService {
         return CarRentalResponseDto.builder()
                 .carRentalData(cars)
                 .minPrice(minPrice)
+                .checkIn(getDateTime(checkIn))
+                .checkOut(getDateTime(checkOut))
                 .build();
     }
 
