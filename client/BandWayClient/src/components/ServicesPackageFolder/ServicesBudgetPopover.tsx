@@ -48,7 +48,7 @@ const ServicesBudgetPopover: React.FC<ServicesBudgetPopoverProps> = ({onSelect})
         onClick={handleClick}
         value={selectedBudget}
         style={{ width: '150px' }}
-        placeholder="100$-10000$"
+        placeholder="Select Budget"
         variant="standard"
         InputLabelProps={{
           style: { color: 'gray' },

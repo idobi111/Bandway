@@ -6,6 +6,7 @@ import { PackageFilter } from '../../../../models/PackageFilter';
 import { ActionButton } from '../../../../styles/ComponentsStyles';
 import { HotelApi } from '../../../../apis/HotelApi';
 import { Helpers } from '../../../../helpers/helpers';
+import { useNavigate } from 'react-router';
 
 
 interface Props {
@@ -16,6 +17,7 @@ const PackageDialogHotelSection: React.FC<Props> = ({ servicesPackage }) => {
 
     const hotelApi = new HotelApi();
     const helpers = new Helpers();
+    const navigate = useNavigate();
 
     const handleSeeHotelAvailability = async () => {
         try {
@@ -25,6 +27,7 @@ const PackageDialogHotelSection: React.FC<Props> = ({ servicesPackage }) => {
             window.open(hotelUrl, '_blank');
         } catch (error) {
             console.error('Error fetching hotel URL:', error);
+            navigate(`/error`);
         }
     };
 

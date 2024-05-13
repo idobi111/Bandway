@@ -16,6 +16,7 @@ import PackageDialogFlightSection from './PackageDialogFlightSection';
 import { useSelector } from 'react-redux';
 import { AppState } from '../../../../redux/types';
 import PackageDialogCarSection from './PackageDialogCarSection';
+import { useNavigate } from 'react-router';
 
 
 interface Props {
@@ -28,6 +29,8 @@ const PackageDialog: React.FC<Props> = ({ servicesPackage, packageFilters }) => 
     const packageBuilderService = new PackageBuilderService();
     const helpers = new Helpers();
     const hotelApi = new HotelApi();
+    const navigate = useNavigate();
+
 
     const eventData = useSelector((state: AppState) => state.eventData);
 
@@ -40,6 +43,7 @@ const PackageDialog: React.FC<Props> = ({ servicesPackage, packageFilters }) => 
             window.open("https://www.booking.com/hotel/ie/the-devlin.html?checkin=2024-05-25&checkout=2024-05-28", '_blank');
         } catch (error) {
             console.error('Error fetching hotel URL:', error);
+            navigate(`/error`);
         }
     };
 

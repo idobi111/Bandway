@@ -11,13 +11,21 @@ import { EventResponse } from '../../models/EventResponse';
 import { Provider } from 'react-redux';
 import store from '../../redux/store';
 import { HeaderBox } from '../../styles/ComponentsStyles';
+import { useNavigate } from 'react-router';
+import Loader from '../MessageFolder/Loader';
 
-interface HomeProps {}
+interface HomeProps { }
 
 const Home: React.FC<HomeProps> = () => {
   const [events, setEvents] = useState<EventResponse[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  const navigate = useNavigate();
 
+
+  useEffect(() => {
+    localStorage.clear();
+  }, []);
+  
   useEffect(() => {
     const eventApi = new EventApi();
     eventApi.getUpcomingEvents()
@@ -27,7 +35,7 @@ const Home: React.FC<HomeProps> = () => {
       })
       .catch((error) => {
         console.error('Error fetching event data:', error);
-        setIsLoading(false); // Set loading to false even on error
+        navigate(`/error`);
       });
   }, []);
 
@@ -41,27 +49,36 @@ const Home: React.FC<HomeProps> = () => {
     <>
       <CssBaseline />
       <HeaderBox>
-      <Header />
-      <HomeTopContent scrollToUpcomingEvents={scrollToUpcomingEvents} />
+        <Header />
+        <HomeTopContent scrollToUpcomingEvents={scrollToUpcomingEvents} />
       </HeaderBox>
       <Container maxWidth="xl">
         <Box display="flex" justifyContent="center" sx={{ m: -8 }}>
-          <Stack  justifyContent="center" alignItems="center">
-          <Typography variant='h6' sx={{color:'white'}}>The package of your dreams awaits…</Typography>
-          <Provider store={store}>
-          <HomeSearch />
-          </Provider>
+          <Stack justifyContent="center" alignItems="center">
+            <Typography variant='h6' sx={{ color: 'white' }}>The package of your dreams awaits…</Typography>
+            <Provider store={store}>
+              <HomeSearch />
+            </Provider>
           </Stack>
-       
+
         </Box>
         <Box display="flex" justifyContent="center" sx={{ m: 8 }}>
           <Steps />
         </Box>
-        <Box  id="upcoming-events" display="flex" justifyContent="center">
+        <Box id="upcoming-events" display="flex" justifyContent="center">
           {isLoading ? (
-            <CircularProgress />
+            <Loader loadingMessage="Loading upcoming events..."></Loader>
+          ) : events.length > 0 ? (
+            <UpcomingEvents title="Upcoming Events" events={events} />
           ) : (
-            <UpcomingEvents title="Upcoming Events" events={events}/>
+            <Stack justifyContent={'cenetr'} alignItems={'center'} sx={{ marginBottom: 8 }}>
+              <Typography variant="h2" color="textSecondary">
+                Looks like there are no upcoming events at the moment.
+              </Typography>
+              <Typography variant="h4" color="textSecondary">
+                Why not try searching for your favorite performer?
+              </Typography>
+            </Stack>
           )}
         </Box>
       </Container>
