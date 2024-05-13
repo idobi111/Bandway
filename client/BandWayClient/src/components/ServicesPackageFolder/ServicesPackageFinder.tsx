@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { CssBaseline, AppBar, Toolbar, Typography, Button, Container, Box } from '@mui/material';
+import { CssBaseline, AppBar, Toolbar, Typography, Button, Container, Box, Stack } from '@mui/material';
 import Header from '../GenericFolder/Header';
 import UpcomingEvents from '../EventFolder/UpcomingEvents';
 import Footer from '../GenericFolder/Footer';
@@ -88,7 +88,11 @@ const ServicesPackageFinder: React.FC = () => {
 
         const hotelRequest = packageBuilderService.createHotelRequestByEventData(eventData.checkIn, eventData.venue, eventData.fromCity, eventData.toCity);
         const hotelsData = await hotelApi.getHotels(hotelRequest);
+
+        // const hotelsData = [];
         setHotels(hotelsData);
+
+        
 
         console.log("hotelsData", hotelsData);
 
@@ -134,7 +138,16 @@ const ServicesPackageFinder: React.FC = () => {
         <Box display="flex" justifyContent="center">
           {isLoading ? (
             <Loader loadingMessage='Loading packages...'></Loader>
-          ) : (< UpcomingPackages servicePackages={packages} />)}
+          ) : packages.length > 0 ? (< UpcomingPackages servicePackages={packages} />
+        ): (<Stack justifyContent={'cenetr'} alignItems={'center'} sx={{ m: 8 }}>
+              <Typography variant="h3" color="textSecondary" textAlign={'center'}>
+                Looks like there are no available packages at the moment.
+              </Typography>
+              <Typography variant="h4" color="textSecondary"  textAlign={'center'}>
+                 Consider altering searching criterias for better results.
+              </Typography>
+            </Stack>
+        )}
         </Box>
       </Container>
       <Footer />

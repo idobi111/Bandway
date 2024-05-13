@@ -139,7 +139,7 @@ const EventCard: React.FC<Props> = ({ events, step}) => {
         aria-describedby="modal-description"
       >
         <Box style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', backgroundColor: 'white', padding: '20px', borderRadius: '8px' }}>
-          <Typography variant='h3' id="modal-title">Did you order the ticket?</Typography>
+          <Typography variant='h3' id="modal-title" textAlign={'center'}>Did you order the ticket?</Typography>
           <Stack direction={'row'} justifyContent={"center"} alignItems={"center"} spacing={10} sx={{ paddingTop: 5 }}>
             <ActionButton variant="contained" style={{ width: '100px' }} onClick={() => handleBuyTicket('yes')}>Yes</ActionButton>
             <SubActionButton variant="contained" style={{ width: '100px' }} onClick={() => handleBuyTicket('no')}>No</SubActionButton>

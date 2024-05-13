@@ -13,9 +13,10 @@ import { HotelResponse } from '../../models/HotelResponse';
 import { FlightRoundWayResponse } from '../../models/FlightRoundWayResponse';
 import { HotelRequest } from '../../models/HotelRequest';
 import { FlightRequest } from '../../models/FlightRequest';
-import { Box, CssBaseline } from '@mui/material';
+import { Box, CssBaseline, Stack, Typography } from '@mui/material';
 import { useNavigate } from 'react-router';
 import Loader from '../MessageFolder/Loader';
+import { ActionButton } from '../../styles/ComponentsStyles';
 
 const PackageSearchResults: React.FC = () => {
     const [packages, setPackages] = useState<Package[]>([]);
@@ -84,14 +85,28 @@ const PackageSearchResults: React.FC = () => {
         fetchPackages();
     }, [packageData]);
 
+    const handleClickOnSearchAgain = () => {
+        navigate("/services-package-finder");
+      }
+
     return (
         <>
             <CssBaseline />
-            <TopContent mainText="We found the best results for you..." subText="We're here to craft a vacation that perfectly suits you." />
+            <TopContent mainText={packages.length >0 ?"We found the best results for you..." : "Looking for your packages..." }subText="We're here to craft a vacation that perfectly suits you." />
             <Box display="flex" justifyContent="center">
                 {isLoading ? (
                     <Loader loadingMessage='Loading packages...'></Loader>
-                ) : (< UpcomingPackages servicePackages={packages} />)}
+                ) : packages.length > 0 ? (< UpcomingPackages servicePackages={packages} />
+                ) : (<Stack justifyContent={'cenetr'} alignItems={'center'} sx={{ m: 8 }}>
+                    <Typography variant="h3" color="textSecondary" textAlign={'center'}>
+                        Looks like there are no available packages at the moment.
+                    </Typography>
+                    <Typography variant="h4" color="textSecondary" textAlign={'center'}>
+                        Consider altering searching criterias for better results.
+                    </Typography>   
+                    <ActionButton variant='contained' onClick={handleClickOnSearchAgain} style={{ width: '350px', height: '80px' }}>Let's search again</ActionButton>
+                </Stack>
+                )}
             </Box>
             <Footer />
         </>

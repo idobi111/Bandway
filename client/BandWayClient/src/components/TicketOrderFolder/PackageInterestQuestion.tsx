@@ -17,19 +17,15 @@ const PackageInterestQuestion: React.FC<QuestionProps> = ({ titleText, descripti
   const navigate = useNavigate();
 
 
-  const handleUserNotifyInterestedServicesPackage = () => {
-  
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-    navigate(`/services-package-finder`);
+  const handleIsUserInterestedServicesPackseg = (response: string) => {
+    if (response === 'yes') {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      navigate(`/services-package-finder`);
+    } else {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      navigate(`/thank-you`);
+    }
   };
-  
-    const handleIsUserInterestedServicesPackseg = (response: string) => {
-      if (response === 'yes') {
-        handleUserNotifyInterestedServicesPackage();
-      } else {
-        console.log('User is not interested in services package');
-      }
-    };
 
 
   return (
@@ -56,8 +52,8 @@ const PackageInterestQuestion: React.FC<QuestionProps> = ({ titleText, descripti
 
       <Box display="flex" justifyContent="center">
         <Stack direction="row" spacing={30} sx={{ m: -5, paddingBottom: 10 }}>
-          <ActionButton variant='contained' onClick={()=>handleIsUserInterestedServicesPackseg("yes")} style={{ width: '350px', height: '80px' }}>{acceptButtonText}</ActionButton>
-          <SubActionButton variant='contained' onClick={()=>handleIsUserInterestedServicesPackseg("no")} style={{ width: '350px', height: '80px' }}>{rejectButtonText}</SubActionButton>
+          <ActionButton variant='contained' onClick={() => handleIsUserInterestedServicesPackseg("yes")} style={{ width: '350px', height: '80px' }}>{acceptButtonText}</ActionButton>
+          <SubActionButton variant='contained' onClick={() => handleIsUserInterestedServicesPackseg("no")} style={{ width: '350px', height: '80px' }}>{rejectButtonText}</SubActionButton>
         </Stack>
       </Box>
 

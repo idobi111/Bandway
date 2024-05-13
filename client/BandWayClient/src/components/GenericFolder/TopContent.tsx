@@ -15,10 +15,10 @@ const TopContent: React.FC<TopContentProps> = ({ mainText, subText }) => {
         <Header />
         <GenericTopBox>
         <SeparateRowsContainer>
-          <GenricTopBoxText variant='h2'>
+          <GenricTopBoxText variant='h2' textAlign="center">
             {mainText}
           </GenricTopBoxText>
-          <GenricTopBoxText variant='h5'>
+          <GenricTopBoxText variant='h5' textAlign="center">
             {subText}
           </GenricTopBoxText>
         </SeparateRowsContainer>

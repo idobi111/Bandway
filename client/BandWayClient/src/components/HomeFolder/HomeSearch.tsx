@@ -39,7 +39,7 @@ const HomeSearch: React.FC = () => {
 
         dispatch(setEventData(searchEventData));
 
-
+        window.scrollTo({ top: 0, behavior: 'smooth' });
         navigate(`/event-search-results`);
     };
 
