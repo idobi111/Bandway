@@ -11,6 +11,7 @@ import { FlightLinkResponse } from '../../../../models/FlightLinkResponse';
 import { FlightApi } from '../../../../apis/FlightApi';
 import { ActionButton } from '../../../../styles/ComponentsStyles';
 import { Box, Divider, Stack } from '@mui/material';
+import { useNavigate } from 'react-router';
 
 interface Props {
   flightDetails: RoundWayFlightDetails | undefined;
@@ -24,6 +25,7 @@ const FlightDetailsGrid: React.FC<Props> = ({ flightDetails, marketing, token })
   const flightService = new FlightService();
   const flightApi = new FlightApi();
   const [flightLinks, setFlightLinks] = useState<FlightLinkResponse[]>([]);
+  const navigate = useNavigate();
 
   const handleSeeFlightPrices = async () => {
     try {
@@ -31,6 +33,7 @@ const FlightDetailsGrid: React.FC<Props> = ({ flightDetails, marketing, token })
       setFlightLinks(response);
     } catch (error) {
       console.error('Error fetching flight links:', error);
+      navigate(`/error`);
     }
   };
 
@@ -91,7 +94,7 @@ const FlightDetailsGrid: React.FC<Props> = ({ flightDetails, marketing, token })
                   {link.agencyName} &middot; ${link.price}
                 </Typography>
                 <ActionButton variant="contained" color="primary"  sx={{ height: '30px', width: '250px', fontSize: '15px' }} onClick={() => handleSeeFlightAvailability(link.url)}>
-                  Check flight availability
+                  See flight availability
                 </ActionButton>
                 </Stack>
               </Grid>

@@ -10,6 +10,7 @@ import { HotelApi } from '../../../../apis/HotelApi';
 import FlightDetailsGrid from './FlightDetailsGrid';
 import { FlightService } from '../../../../services/FlightService';
 import { Helpers } from '../../../../helpers/helpers';
+import { useNavigate } from 'react-router';
 
 
 interface Props {
@@ -22,6 +23,7 @@ const PackageDialogCarSection: React.FC<Props> = ({ servicesPackage }) => {
 
     const flightService = new FlightService();
     const helpers = new Helpers();
+    const navigate = useNavigate();
 
     const handleAccordionChange = (panel: number) => (event: React.ChangeEvent<{}>, isExpanded: boolean) => {
         setExpandedAccordion(isExpanded ? panel : false);
@@ -32,6 +34,8 @@ const PackageDialogCarSection: React.FC<Props> = ({ servicesPackage }) => {
             window.open(carLink, '_blank');
         } catch (error) {
             console.error('Error opening car link:', error);
+            navigate(`/error`);
+
         }
     };
 

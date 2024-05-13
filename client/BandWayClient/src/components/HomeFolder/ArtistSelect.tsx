@@ -5,6 +5,7 @@ import { CityOption } from '../../models/CityOption';
 import { SearchAutoComplete } from '../../styles/ComponentsStyles';
 import { ArtistOption } from '../../models/ArtistOption';
 import { EventApi } from '../../apis/EventApi';
+import { useNavigate } from 'react-router';
 
 interface ArtistSelectProps {
   onSelect: (artist: ArtistOption ) => void;
@@ -16,6 +17,8 @@ const ArtistSelect: React.FC<ArtistSelectProps> = ({ onSelect }) => {
   const [searchTerm, setSearchTerm] = useState<string>('');
   const [searchResults, setSearchResults] = useState<ArtistOption[]>([]);
   const [selectedArtist, setSelectedArtist] = useState<ArtistOption | null>(null);
+
+  const navigate = useNavigate();
 
   const handleArtistSearch = async (newInputValue: string) => {
     setSearchTerm(newInputValue);
@@ -31,6 +34,7 @@ const ArtistSelect: React.FC<ArtistSelectProps> = ({ onSelect }) => {
       } catch (error) {
         console.error('Error fetching artists:', error);
         setSearchResults([]);
+        navigate(`/error`);
       }
     } else {
       setSearchResults([]);

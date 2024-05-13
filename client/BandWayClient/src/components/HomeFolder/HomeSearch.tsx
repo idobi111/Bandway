@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Typography, Grid, TextField } from '@mui/material';
+import { Typography, Grid, TextField, Box, Stack } from '@mui/material';
 import { HomeSearchGrid, SearchTextField, WindowDiv, ActionButton } from '../../styles/ComponentsStyles';
 import { useNavigate } from "react-router-dom";
 import ArtistSelect from './ArtistSelect';
@@ -24,10 +24,10 @@ const HomeSearch: React.FC = () => {
 
     const handlPerformerSearch = () => {
 
-        const searchEventData : SearchEventData= {
+        const searchEventData: SearchEventData = {
 
             performer: selectedPerformer ? selectedPerformer.value : '',
-            fromCity:  selectedFromCity ? selectedFromCity.value : '',
+            fromCity: selectedFromCity ? selectedFromCity.value : '',
             fromCountry: selectedFromCity ? selectedFromCity.country : '',
             toCity: selectedToCity ? selectedToCity.value : '',
             toCountry: selectedToCity ? selectedToCity.country : '',
@@ -36,24 +36,27 @@ const HomeSearch: React.FC = () => {
             checkIn: '',
             venue: ''
         }
-      
+
         dispatch(setEventData(searchEventData));
 
 
         navigate(`/event-search-results`);
-      };
+    };
 
     const handleSelectArtist = (artist: ArtistOption) => {
         setSelectedPerformer(artist);
-      };
-      
-      const handleSelectFromCity = (city: CityOption) => {
+    };
+
+    const handleSelectFromCity = (city: CityOption) => {
         setSelectedFromCity(city);
-      };
-      
-      const handleSelectToCity = (city: CityOption) => {
+    };
+
+    const handleSelectToCity = (city: CityOption) => {
         setSelectedToCity(city);
-      };
+    };
+
+    const isButtonDisabled = !selectedPerformer || !selectedFromCity;
+
 
     return (
         <WindowDiv>
@@ -62,13 +65,13 @@ const HomeSearch: React.FC = () => {
                     <ArtistSelect onSelect={handleSelectArtist}></ArtistSelect>
                 </Grid>
                 <Grid item xs={3}>
-                    <CitySelect onSelect={handleSelectFromCity} placeholder='All cities' title='From'></CitySelect>
+                    <CitySelect onSelect={handleSelectFromCity} placeholder='City' title='From'></CitySelect>
                 </Grid>
                 <Grid item xs={2}>
                     <CitySelect onSelect={handleSelectToCity} placeholder='All cities' title='To'></CitySelect>
                 </Grid>
                 <Grid item xs={2} sx={{ marginLeft: '40px' }}>
-                    <ActionButton variant='contained' onClick={handlPerformerSearch}>Search</ActionButton>
+                    <ActionButton variant='contained' onClick={handlPerformerSearch} disabled={isButtonDisabled}>Search</ActionButton>
                 </Grid>
             </HomeSearchGrid>
         </WindowDiv>

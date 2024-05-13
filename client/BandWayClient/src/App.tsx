@@ -11,6 +11,7 @@ import SignUp from './components/SignUserFolder/SignUp';
 import SignIn from './components/SignUserFolder/SignIn';
 import store from './redux/store';
 import { Provider } from 'react-redux';
+import ErrorPage from './components/MessageFolder/ErrorPage';
 
 const App = () => {
   return (
@@ -36,7 +37,7 @@ const App = () => {
             <PackageSearchResults />
           </Provider>
         }></Route>
-
+        <Route path="/error" element={<ErrorPage />} />
       </Routes>
     </BrowserRouter >
   );

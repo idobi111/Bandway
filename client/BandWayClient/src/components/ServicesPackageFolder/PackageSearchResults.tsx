@@ -13,13 +13,18 @@ import { HotelResponse } from '../../models/HotelResponse';
 import { FlightRoundWayResponse } from '../../models/FlightRoundWayResponse';
 import { HotelRequest } from '../../models/HotelRequest';
 import { FlightRequest } from '../../models/FlightRequest';
-import { CssBaseline } from '@mui/material';
+import { Box, CssBaseline } from '@mui/material';
+import { useNavigate } from 'react-router';
+import Loader from '../MessageFolder/Loader';
 
 const PackageSearchResults: React.FC = () => {
     const [packages, setPackages] = useState<Package[]>([]);
     const [hotels, setHotels] = useState<HotelResponse[]>([]); // Added state for hotels
     const [flights, setFlights] = useState<FlightRoundWayResponse>(); // Added state for flights
+    const [isLoading, setIsLoading] = useState(true);
     const packageData = useSelector((state: AppState) => state.packageData);
+    const navigate = useNavigate();
+
 
     useEffect(() => {
         const hotelApi = new HotelApi();
@@ -68,8 +73,11 @@ const PackageSearchResults: React.FC = () => {
 
                 // Set the packages state with the combined packages
                 setPackages(combinedPackages);
+                setIsLoading(false);
+
             } catch (error) {
                 console.error('Error fetching hotel or flight data:', error);
+                navigate(`/error`);
             }
         };
 
@@ -80,7 +88,11 @@ const PackageSearchResults: React.FC = () => {
         <>
             <CssBaseline />
             <TopContent mainText="We found the best results for you..." subText="We're here to craft a vacation that perfectly suits you." />
-            <UpcomingPackages servicePackages={packages} />
+            <Box display="flex" justifyContent="center">
+                {isLoading ? (
+                    <Loader loadingMessage='Loading packages...'></Loader>
+                ) : (< UpcomingPackages servicePackages={packages} />)}
+            </Box>
             <Footer />
         </>
     );

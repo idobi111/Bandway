@@ -19,8 +19,7 @@ export class EventApi {
 
             return response.data;
         } catch (error) {
-            console.error('Error fetching events by performer:', error);
-            return [];
+            throw new Error('Error fetching events by performer');
         }
     }
 
@@ -31,8 +30,7 @@ export class EventApi {
 
             return response.data;
         } catch (error) {
-            console.error('Error fetching upcoming events:', error);
-            return [];
+            throw new Error('Error fetching upcoming events');
         }
     }
 
@@ -43,8 +41,7 @@ export class EventApi {
 
             return response.data;
         } catch (error) {
-            console.error('Error fetching artists:', error);
-            return [];
+            throw new Error('Error fetching artists');
         }
     }
 }
