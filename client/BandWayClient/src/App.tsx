@@ -13,6 +13,7 @@ import store from './redux/store';
 import { Provider } from 'react-redux';
 import ErrorPage from './components/MessageFolder/ErrorPage';
 import ThankYouPage from './components/MessageFolder/ThankYouPage';
+import UnsubscribePage from './components/MessageFolder/UnsubscribePage';
 
 const App = () => {
   return (
@@ -40,7 +41,7 @@ const App = () => {
         }></Route>
         <Route path="/error" element={<ErrorPage />} />
         <Route path="/thank-you" element={<ThankYouPage />} />
-
+        <Route path="/unsubscribe" element={<UnsubscribePage />} />
       </Routes>
     </BrowserRouter >
   );

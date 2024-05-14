@@ -6,11 +6,11 @@ import Footer from '../GenericFolder/Footer';
 import TopContent from '../GenericFolder/TopContent';
 import { SubscribeApi } from '../../apis/SubscribeApi';
 
-const ThankYouPage: React.FC = () => {
+const UnsubscribePage: React.FC = () => {
   const [email, setEmail] = useState('');
   const [isValidEmail, setIsValidEmail] = useState(true);
   const subscribeApi = new SubscribeApi();
-  const [subscribeStatus, setSubscribeStatus] = useState('');
+  const [unsubscribeStatus, setUnsubscribeStatus] = useState('');
   const [loading, setLoading] = useState(false);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -21,14 +21,14 @@ const ThankYouPage: React.FC = () => {
     setIsValidEmail(isValid);
   };
 
-  const handleSubscribe = async (userMail: string) => {
+  const handleUnsubscribe = async (userMail: string) => {
     setLoading(true);
     try {
-      await subscribeApi.subscribe(userMail);
-      setSubscribeStatus('Subscribed successfully');
+      await subscribeApi.unsubscribe(userMail);
+      setUnsubscribeStatus('Unsubscribed successfully');
     } catch (error) {
-      console.error('Error subscribe mail:', error);
-      setSubscribeStatus('The Subscription has failed. Please try again or contact us via mail: support@bandway.com');
+      console.error('Error unsubscribe mail:', error);
+      setUnsubscribeStatus('The Unsubscription has failed. Please try again or contact us via mail: support@bandway.com');
     } finally {
       setLoading(false);
     }
@@ -37,14 +37,14 @@ const ThankYouPage: React.FC = () => {
   return (
     <>
       <CssBaseline />
-      <TopContent mainText='Thank you for using BandWay' subText='' />
+      <TopContent mainText='You will be missed.' subText='' />
       <Box sx={{ textAlign: 'center', margin: 'auto', padding: 8 }}>
         <Stack>
           <Typography variant="h3" gutterBottom>
-            Let's stay connected.
+            Are you sure you want to go ? 
           </Typography>
           <Typography variant="h5" gutterBottom>
-            We recommend subscribing to stay updated with more events and vacation packages.
+            We recommend to stay subsctribed to get updates with more events and vacation packages.
           </Typography>
           <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', marginTop: 3 }}>
             <Stack direction={'row'} alignItems={'center'} justifyContent={'center'}>
@@ -61,20 +61,20 @@ const ThankYouPage: React.FC = () => {
               {!loading ? (
                 <ActionButton
                   variant="contained"
-                  onClick={() => handleSubscribe(email)}
+                  onClick={() => handleUnsubscribe(email)}
                   disabled={!isValidEmail || !email.trim()}
                   sx={{ mb: 3 }}
                 >
-                  Subscribe
+                  Unsubscribe
                 </ActionButton>
               ) : (
                 <CircularProgress />
               )}
             </Stack>
           </Box>
-          {subscribeStatus && (
-            <Typography variant="body1" color={subscribeStatus.startsWith('Subscribed') ? 'success' : 'error'}>
-              {subscribeStatus}
+          {unsubscribeStatus && (
+            <Typography variant="body1" color={unsubscribeStatus.startsWith('Unsubscribed') ? 'success' : 'error'}>
+              {unsubscribeStatus}
             </Typography>
           )}
         </Stack>
@@ -84,4 +84,4 @@ const ThankYouPage: React.FC = () => {
   );
 };
 
-export default ThankYouPage;
+export default UnsubscribePage;
