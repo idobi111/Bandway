@@ -1,4 +1,4 @@
-export interface CarRentalResponse {
+interface CarRentalData {
   model: string;
   pricePerDay: number;
   dropOffAddress: string;
@@ -16,4 +16,11 @@ export interface CarRentalResponse {
   seats: number;
   carGroup: string;
   transmission: string;
+}
+
+export interface CarRentalResponse {
+  carRentalData: CarRentalData[];
+  minPrice: number;
+  checkIn: string;
+  checkOut: string;
 }

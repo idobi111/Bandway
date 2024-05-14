@@ -22,7 +22,7 @@ const PackageCardFlightSection: React.FC<Props> = ({ servicesPackage }) => {
             <Box display={'flex'} justifyContent={'left'}  >
                   <FlightIcon />
                   <Typography variant="h6" sx={{ marginLeft: 1 }}>
-                    Flight is Included
+                    Flight is included
                   </Typography>
                 </Box>
         </>

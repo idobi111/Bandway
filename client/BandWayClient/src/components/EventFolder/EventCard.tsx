@@ -69,10 +69,36 @@ const EventCard: React.FC<Props> = ({ events, step}) => {
 
   return (
     <>
+      {events.length < 3 ? (
+      <Stack direction={'row'}>
+         {events.slice(0, visibleEvents).map(event => ( 
+          <EventCardStyled onClick={() => handleOpenModal(event)} sx={{ height: '350px', width:'350px' }}>
+          <EventCardMediaStyled
+            style={{ height: 140 }}
+            image={event.images[0]}
+            title={event.performer}
+          />
+          <CardContent>
+            <Typography gutterBottom variant="h5" component="div">
+              {event.performer}
+            </Typography>
+            <Typography variant="body2" color="text.secondary">
+              {helpers.formatDateAndYear(event.date)}
+            </Typography>
+            <Typography variant="body2" color="text.secondary">
+              {event.venue}
+            </Typography>
+            <Typography variant="body2" color="text.secondary">
+              {event.city}, {event.country}
+            </Typography>
+          </CardContent>
+        </EventCardStyled>
+         ))}
+      </Stack>):(
       <Grid container justifyContent="center" spacing={3}>
         {events.slice(0, visibleEvents).map(event => ( // Slice events based on the visibleEvents state
           <Grid item xs={12} sm={6} md={4} key={event.ticketUrl}> {/* Each card occupies 12 columns on extra small screens, 6 columns on small screens, and 4 columns on medium screens */}
-            <EventCardStyled onClick={() => handleOpenModal(event)} sx={{ height: '350px' }}>
+            <EventCardStyled onClick={() => handleOpenModal(event)} sx={{ height: '350px'}}>
               <EventCardMediaStyled
                 style={{ height: 140 }}
                 image={event.images[0]}
@@ -96,6 +122,7 @@ const EventCard: React.FC<Props> = ({ events, step}) => {
           </Grid>
         ))}
       </Grid>
+      )}
       {visibleEvents < events.length && ( // Render the "Load More" button if there are more events to load
         <div style={{ textAlign: 'center', marginTop: '20px', paddingBottom: '20px' }}>
           <LoadMoreButton variant="outlined" onClick={loadMore}>
@@ -112,7 +139,7 @@ const EventCard: React.FC<Props> = ({ events, step}) => {
         aria-describedby="modal-description"
       >
         <Box style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', backgroundColor: 'white', padding: '20px', borderRadius: '8px' }}>
-          <Typography variant='h3' id="modal-title">Did you order the ticket?</Typography>
+          <Typography variant='h3' id="modal-title" textAlign={'center'}>Did you order the ticket?</Typography>
           <Stack direction={'row'} justifyContent={"center"} alignItems={"center"} spacing={10} sx={{ paddingTop: 5 }}>
             <ActionButton variant="contained" style={{ width: '100px' }} onClick={() => handleBuyTicket('yes')}>Yes</ActionButton>
             <SubActionButton variant="contained" style={{ width: '100px' }} onClick={() => handleBuyTicket('no')}>No</SubActionButton>

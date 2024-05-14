@@ -18,7 +18,7 @@ const PackageCardCarSection: React.FC<Props> = ({ servicesPackage }) => {
             <Box display={'flex'} justifyContent={'left'}  >
                   <DirectionsCarIcon />
                   <Typography variant="h6" sx={{ marginLeft: 1 }}>
-                    Car Rental is Included
+                    Car rental is included
                   </Typography>
                 </Box>
         </>

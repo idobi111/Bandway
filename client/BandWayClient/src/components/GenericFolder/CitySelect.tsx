@@ -4,6 +4,7 @@ import { LocationApi } from '../../apis/LocationApi';
 import { CityOption } from '../../models/CityOption';
 import { SearchAutoComplete } from '../../styles/ComponentsStyles';
 import { Helpers } from '../../helpers/helpers';
+import { useNavigate } from 'react-router';
 
 interface CitySelectProps {
   onSelect: (city: CityOption) => void;
@@ -17,7 +18,7 @@ const CitySelect: React.FC<CitySelectProps> = ({ onSelect, placeholder, title })
   const [searchTerm, setSearchTerm] = useState<string>('');
   const [searchResults, setSearchResults] = useState<CityOption[]>([]);
   const [selectedCity, setSelectedCity] = useState<CityOption | null>(null);
-
+  const navigate = useNavigate();
 
   const helpers = new Helpers();
   const handleCitySearch = async (newInputValue: string) => {
@@ -36,6 +37,7 @@ const CitySelect: React.FC<CitySelectProps> = ({ onSelect, placeholder, title })
       } catch (error) {
         console.error('Error fetching cities:', error);
         setSearchResults([]);
+        navigate(`/error`);
       }
     } else {
       setSearchResults([]);

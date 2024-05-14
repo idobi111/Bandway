@@ -57,7 +57,7 @@ const OccupancyPopover: React.FC<OccupancyPopoverProps> = ({onSelect}) => {
                 Occupancy
             </Typography>
             <SearchTextField onClick={handleClick}
-                value={selectedOccupancy} style={{ width: '150px' }} placeholder="2 adults, 0 children, 1 rooms" variant="standard" InputLabelProps={{
+                value={selectedOccupancy} style={{ width: '150px' }} placeholder="Select Occupancy" variant="standard" InputLabelProps={{
                     style: { color: 'gray' },
                     shrink: false
                 }} />

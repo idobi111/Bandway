@@ -16,9 +16,8 @@ export class LocationApi {
              const response = await axios.get<CityRespsone[]>(`https://mocki.io/v1/191e92ef-6dec-416d-a3e4-577137c668e8`);
 
             return response.data;
-        } catch (error) {
-            console.error('Error fetching cities:', error);
-            return [];
+        }catch (error) {
+            throw new Error('Error fetching cities');
         }
     }
 }

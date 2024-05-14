@@ -26,6 +26,10 @@ const UpcomingPackages: React.FC<UpcomingPackagesProps> = ({ servicePackages }) 
     }));
   };
 
+  // const checkPackageHotelsExist = () => {
+  //   return !servicePackages.every((servPack) => servPack.hotel == null || servPack.hotel == undefined);
+  // };
+
   return (
     <div style={{ marginTop: '50px', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
       <div style={{ maxWidth: '1200px' }}>
@@ -33,6 +37,7 @@ const UpcomingPackages: React.FC<UpcomingPackagesProps> = ({ servicePackages }) 
         <Stack direction="row" spacing={2} mb={2}>
           <Typography variant='h5'> Filters: </Typography>
           <Button
+            // disabled={checkPackageHotelsExist()}
             variant="contained"
             onClick={() => handleFilterClick('hotel')}
             sx={{ borderRadius: '20px', backgroundColor: packageFilters.hotel ? '#FF1493' : '#A9A9A9' }}

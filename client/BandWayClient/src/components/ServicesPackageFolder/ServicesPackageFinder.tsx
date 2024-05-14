@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { CssBaseline, AppBar, Toolbar, Typography, Button, Container, Box } from '@mui/material';
+import { CssBaseline, AppBar, Toolbar, Typography, Button, Container, Box, Stack } from '@mui/material';
 import Header from '../GenericFolder/Header';
 import UpcomingEvents from '../EventFolder/UpcomingEvents';
 import Footer from '../GenericFolder/Footer';
@@ -24,6 +24,8 @@ import { FlightService } from '../../services/FlightService';
 import { HeaderBox } from '../../styles/ComponentsStyles';
 import { CarApi } from '../../apis/CarApi';
 import { CarRentalResponse } from '../../models/CarRentalResponse';
+import { useNavigate } from 'react-router';
+import Loader from '../MessageFolder/Loader';
 
 
 const ServicesPackageFinder: React.FC = () => {
@@ -31,7 +33,9 @@ const ServicesPackageFinder: React.FC = () => {
   const [packages, setPackages] = useState<Package[]>([]);
   const [hotels, setHotels] = useState<HotelResponse[]>([]);
   const [flights, setFlights] = useState<FlightRoundWayResponse>();
-  const [cars, setCars] = useState<CarRentalResponse[]>([]);
+  const [cars, setCars] = useState<CarRentalResponse>();
+  const [isLoading, setIsLoading] = useState(true);
+
 
 
   const eventData = useSelector((state: AppState) => state.eventData);
@@ -47,6 +51,7 @@ const ServicesPackageFinder: React.FC = () => {
   const packageBuilderService = new PackageBuilderService();
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   // Load eventData from localStorage on component mount
   useEffect(() => {
@@ -60,6 +65,7 @@ const ServicesPackageFinder: React.FC = () => {
         dispatch(setEventData(storedEventData));
       } catch (error) {
         console.error("Error parsing JSON:", error);
+        navigate(`/error`);
       }
     }
   }, [dispatch]);
@@ -82,7 +88,11 @@ const ServicesPackageFinder: React.FC = () => {
 
         const hotelRequest = packageBuilderService.createHotelRequestByEventData(eventData.checkIn, eventData.venue, eventData.fromCity, eventData.toCity);
         const hotelsData = await hotelApi.getHotels(hotelRequest);
+
+        // const hotelsData = [];
         setHotels(hotelsData);
+
+        
 
         console.log("hotelsData", hotelsData);
 
@@ -103,55 +113,17 @@ const ServicesPackageFinder: React.FC = () => {
 
         console.log("combinedPackages", combinedPackages);
         console.log("packages", packages);
+        setIsLoading(false);
 
 
       } catch (error) {
         console.error('Error fetching hotel or flight data:', error);
+        navigate(`/error`);
       }
     };
     fetchPackages();
 
   }, []);
-
-  // useEffect(() => {
-  //   // This useEffect will run whenever 'packages' state changes
-  //   // You can perform any action here that depends on 'packages'
-  //   console.log("Packages updated:", packages);
-  // }, [packages]);
-
-
-
-  // useEffect(() => {
-
-  //   const hotelRequest = packageBuilderService.createHotelRequestByEventData(checkIn, venue, fromCity, toCity);
-  //   console.log(hotelRequest);
-  //   hotelApi.getHotels(hotelRequest)
-  //     .then((data) => {
-  //       setHotels(data);
-  //       console.log("first useEffect data", data);
-  //       console.log("first useEffect", hotels);
-
-  //     })
-  //     .catch((error) => {
-  //       console.error('Error fetching hotels data:', error);
-  //     });
-
-  //     // const flightRequest = packageBuilderService.createFlightRequestByEventData(checkIn, fromCityId, toCityId);
-  //     // console.log(flightRequest);
-
-  //     // flightApi.getOneWayFlights(flightRequest)
-  //     // .then((data) => {
-  //     //   setFlights(data)
-  //     //   console.log(data);
-  //     // })
-  //     // .catch((error) => {
-  //     //   console.error('Error fetching flights data:', error);
-  //     // });
-
-
-  // }, []);
-
-
 
   return (
     <>
@@ -163,13 +135,19 @@ const ServicesPackageFinder: React.FC = () => {
             <PackageSearch />
           </Provider>
         </Box>
-        <Box display="flex" justifyContent="center" sx={{ m: 2 }}>
-          {/* <Steps /> */}
-        </Box>
         <Box display="flex" justifyContent="center">
-          {packages.length > 0 ? (
-            < UpcomingPackages servicePackages={packages} />
-          ) : (<p>Loading packages...</p>)}
+          {isLoading ? (
+            <Loader loadingMessage='Loading packages...'></Loader>
+          ) : packages.length > 0 ? (< UpcomingPackages servicePackages={packages} />
+        ): (<Stack justifyContent={'cenetr'} alignItems={'center'} sx={{ m: 8 }}>
+              <Typography variant="h3" color="textSecondary" textAlign={'center'}>
+                Looks like there are no available packages at the moment.
+              </Typography>
+              <Typography variant="h4" color="textSecondary"  textAlign={'center'}>
+                 Consider altering searching criterias for better results.
+              </Typography>
+            </Stack>
+        )}
         </Box>
       </Container>
       <Footer />

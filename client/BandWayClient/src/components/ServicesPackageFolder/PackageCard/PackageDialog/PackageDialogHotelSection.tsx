@@ -6,6 +6,7 @@ import { PackageFilter } from '../../../../models/PackageFilter';
 import { ActionButton } from '../../../../styles/ComponentsStyles';
 import { HotelApi } from '../../../../apis/HotelApi';
 import { Helpers } from '../../../../helpers/helpers';
+import { useNavigate } from 'react-router';
 
 
 interface Props {
@@ -16,15 +17,17 @@ const PackageDialogHotelSection: React.FC<Props> = ({ servicesPackage }) => {
 
     const hotelApi = new HotelApi();
     const helpers = new Helpers();
+    const navigate = useNavigate();
 
     const handleSeeHotelAvailability = async () => {
         try {
             const response = await hotelApi.getHotelLink(servicesPackage?.hotel?.hotelId);
             const hotelUrl = response.body;
 
-            window.open("https://www.booking.com/hotel/ie/the-devlin.html?checkin=2024-05-25&checkout=2024-05-28", '_blank');
+            window.open(hotelUrl, '_blank');
         } catch (error) {
             console.error('Error fetching hotel URL:', error);
+            navigate(`/error`);
         }
     };
 

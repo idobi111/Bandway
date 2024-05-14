@@ -14,7 +14,7 @@ const helpers = new Helpers();
 export class PackageBuilderService {
 
 
-  public combineResults(hotels: HotelResponse[], flights?: FlightRoundWayResponse, carRentals?: CarRentalResponse[]): Package[] {
+  public combineResults(hotels: HotelResponse[], flights?: FlightRoundWayResponse, carRentals?: CarRentalResponse): Package[] {
     const packages: Package[] = [];
 
     hotels.forEach((hotel, index) => {
@@ -49,10 +49,10 @@ export class PackageBuilderService {
 
     }
 
-    // Add car rental price
-    // if (packageFilters.carRental && servicePackage.carRental) {
-    //   totalPrice += servicePackage.carRental.price;
-    // }
+    //Add car rental price
+    if (packageFilters.carRental && servicePackage.carRentals) {
+      totalPrice += servicePackage.carRentals.minPrice;
+    }
 
     return totalPrice;
   }

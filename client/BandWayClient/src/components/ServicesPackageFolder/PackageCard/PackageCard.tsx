@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Divider, CardContent, Typography, Grid, Modal, Box, Stack } from '@mui/material';
 import { EventCardStyled, EventCardMediaStyled, LoadMoreButton } from '../../../styles/ComponentsStyles';
 import { Package } from '../../../models/Package';
@@ -31,7 +31,11 @@ const PackageCard: React.FC<Props> = ({ packages, step, packageFilters }) => {
   const [selectedPackage, setSelectedPackage] = useState<Package | null>(null); // State to track the selected package
   const [openDialog, setOpenDialog] = useState(false); // State to track whether the dialog is open
 
-
+  useEffect(() => {
+    packages.forEach((packageServ)=> {
+      packageServ.flights = undefined;
+    })
+  }, []);
 
   const loadMore = () => {
     setVisiblePackages(prevVisiblePackages => prevVisiblePackages + step); // Increase the number of visible events
@@ -61,9 +65,9 @@ const PackageCard: React.FC<Props> = ({ packages, step, packageFilters }) => {
                 <Divider></Divider>
                 {packageFilters.hotel && (<PackageCardHotelSection servicesPackage={servicesPackage}></PackageCardHotelSection>)}
                 <Divider></Divider>
-                {packageFilters.flight && (<PackageCardFlightSection servicesPackage={servicesPackage}></PackageCardFlightSection>)}
+                {packageFilters.flight && servicesPackage.flights && (<PackageCardFlightSection servicesPackage={servicesPackage}></PackageCardFlightSection>)}
                 <Divider></Divider>
-                {packageFilters.carRental && (<PackageCardCarSection servicesPackage={servicesPackage}></PackageCardCarSection>)}
+                {packageFilters.carRental && servicesPackage.carRentals && (<PackageCardCarSection servicesPackage={servicesPackage}></PackageCardCarSection>)}
                 <Divider></Divider>
                 <PackageCardPriceSection servicesPackage={servicesPackage} packageFilters={packageFilters}></PackageCardPriceSection>
               </CardContent>
