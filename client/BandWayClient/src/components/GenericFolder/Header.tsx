@@ -10,13 +10,14 @@ const Header: React.FC = () => {
   const navigate = useNavigate(); // Call useNavigate hook within the component
 
   const goToHomePage = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
     navigate('/home');
   };
 
   return (
     <HeaderAppBar position="static">
       <Toolbar sx={{ display: 'flex', justifyContent: 'space-between' }}>
-        <img src={bandWayLogo} alt="Logo" style={{ height: '100px', marginRight: '16px' }} />
+        <img onClick={goToHomePage} src={bandWayLogo} alt="Logo" style={{ height: '100px', marginRight: '16px', cursor: 'pointer'}} />
         <div>
           <Grid container spacing={2} alignItems="center">
             {buttons.map((button) =>
