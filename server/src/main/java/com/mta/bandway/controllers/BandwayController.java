@@ -4,10 +4,7 @@ import com.mta.bandway.api.domain.request.CarRentalRequestDto;
 import com.mta.bandway.api.domain.request.FlightRequestDto;
 import com.mta.bandway.api.domain.request.HotelRequestDto;
 import com.mta.bandway.api.domain.response.*;
-import com.mta.bandway.services.CarRentalService;
-import com.mta.bandway.services.ConcertService;
-import com.mta.bandway.services.FlightService;
-import com.mta.bandway.services.HotelService;
+import com.mta.bandway.services.*;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.EnableScheduling;
@@ -25,6 +22,7 @@ public class BandwayController {
     private final ConcertService concertService;
     private final FlightService flightService;
     private final CarRentalService carRentalService;
+    private final MailService mailService;
 
     @GetMapping(value = "/health", produces = "application/json", headers = "Accept=application/json")
     public ResponseEntity<String> health() {
@@ -90,5 +88,20 @@ public class BandwayController {
     @GetMapping(value = "/artistSpotifyLink", headers = "Accept=application/json")
     public ResponseEntity<SpotifyLinkResponseDto> getArtistSpotifyLink(String artistId) {
         return ResponseEntity.ok(concertService.getArtistUrl(artistId));
+    }
+
+    @PostMapping(value = "/subscribeMail", produces = "application/json", headers = "Accept=application/json")
+    public void subscribeUserMail(@RequestParam String userMail) {
+        mailService.enableSubscriptionEmail(userMail);
+    }
+
+    @PostMapping(value = "/unsubscribeMail", produces = "application/json", headers = "Accept=application/json")
+    public void unsubscribeUserMail(@RequestParam String userMail) {
+        mailService.disableSubscriptionEmail(userMail);
+    }
+
+    @PostMapping(value = "/sendMessageAllSubscribedUsers", produces = "application/json", headers = "Accept=application/json")
+    public ResponseEntity<Long> sendMessageAllSubscribedUsers(@RequestParam String subject, @RequestParam String text) {
+        return ResponseEntity.ok(mailService.sendMessageAllSubscribedUsers(subject, text));
     }
 }
