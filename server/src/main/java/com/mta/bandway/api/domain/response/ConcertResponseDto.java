@@ -1,6 +1,7 @@
 package com.mta.bandway.api.domain.response;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.mta.bandway.core.domain.concert.ExternalLinks;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -46,5 +47,18 @@ public class ConcertResponseDto {
     @Schema(description = "List of image URLs related to the concert")
     @JsonProperty("images")
     private List<String> images;
+
+    @Schema(description = "External links related to the concert")
+    @JsonProperty("externalLinks")
+    private ExternalLinks externalLinks;
+
+    @Schema(description = "Min price of the concert")
+    @JsonProperty("minPrice")
+    private Double minPrice;
+
+    @Schema(description = "Max price of the concert")
+    @JsonProperty("maxPrice")
+    private Double maxPrice;
+
 
 }

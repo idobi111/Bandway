@@ -3,15 +3,14 @@ package com.mta.bandway.services;
 import com.mta.bandway.api.domain.response.ArtistAutoCompleteResponseDto;
 import com.mta.bandway.api.domain.response.ConcertResponseDto;
 import com.mta.bandway.api.domain.response.SpotifyLinkResponseDto;
-import com.mta.bandway.core.domain.concert.Embedded;
-import com.mta.bandway.core.domain.concert.Event;
-import com.mta.bandway.core.domain.concert.Image;
+import com.mta.bandway.core.domain.concert.*;
 import com.mta.bandway.core.domain.concert.artist.AutoCompleteArtistResponse;
 import com.mta.bandway.core.domain.concert.artist.Item;
 import com.mta.bandway.core.domain.concert.artist.SpotifyToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
+import org.springframework.lang.Nullable;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
@@ -64,8 +63,7 @@ public class ConcertService {
                     .queryParam("classificationName", "music")
                     .queryParam("keyword", performer)
                     .build().toUri();
-        }
-        else {
+        } else {
             urlWithQuery = UriComponentsBuilder.fromHttpUrl(ticketmasterApiUrl)
                     .queryParam("apikey", ticketmasterApiKey)
                     .queryParam("classificationName", "music")
@@ -73,9 +71,7 @@ public class ConcertService {
                     .queryParam("city", String.join(",", cities))
                     .build().toUri();
         }
-
         HttpEntity<?> entity = new HttpEntity<>(createHeaders());
-
         ResponseEntity<Event> eventResponseEntity = restTemplate.exchange(urlWithQuery, HttpMethod.GET, entity, Event.class);
         Embedded concerts = Objects.requireNonNull(eventResponseEntity.getBody()).getEmbedded();
         if (concerts == null) {
@@ -88,8 +84,17 @@ public class ConcertService {
     private List<ConcertResponseDto> createConcertDtoResponse(Embedded concert) {
         List<ConcertResponseDto> result = new ArrayList<>();
         for (int i = 0; i < concert.getEvents().size(); i++) {
+            String concertId = concert.getEvents().get(i).getId();
+            EventDetails data = getEventDetails(concertId);
+            if (data == null || data.getEmbedded() == null) {
+                return result;
+            }
+            List<PriceRange> prices = data.getEmbedded().getEvents().get(0).getPriceRanges();
+            Double minPrice = prices.stream().mapToDouble(PriceRange::getMin).min().orElse(0);
+            Double maxPrice = prices.stream().mapToDouble(PriceRange::getMax).max().orElse(10000);
+            ExternalLinks externalLinks = data.getEmbedded().getEvents().get(0).getEmbedded().getAttractions().get(0).getExternalLinks();
             result.add(ConcertResponseDto.builder()
-                    .id(concert.getEvents().get(i).getId())
+                    .id(concertId)
                     .performer(concert.getEvents().get(i).getName())
                     .date(concert.getEvents().get(i).getDates().getStart().getLocalDate())
                     .venue(concert.getEvents().get(i).getEmbedded().getVenues().get(0).getName())
@@ -97,9 +102,23 @@ public class ConcertService {
                     .country(concert.getEvents().get(i).getEmbedded().getVenues().get(0).getCountry().getCountryCode())
                     .ticketUrl(concert.getEvents().get(i).getUrl())
                     .images(getImagesFromConcert(concert.getEvents().get(i).getImages()))
+                    .externalLinks(externalLinks)
+                    .minPrice(minPrice)
+                    .maxPrice(maxPrice)
                     .build());
         }
         return result;
+    }
+
+    @Nullable
+    private EventDetails getEventDetails(String concertId) {
+        URI urlWithQuery = UriComponentsBuilder.fromHttpUrl(ticketmasterApiUrl)
+                .queryParam("apikey", ticketmasterApiKey)
+                .queryParam("id", concertId)
+                .build().toUri();
+        HttpEntity<?> entity = new HttpEntity<>(createHeaders());
+        ResponseEntity<EventDetails> eventDetailsResponseEntity = restTemplate.exchange(urlWithQuery, HttpMethod.GET, entity, EventDetails.class);
+        return eventDetailsResponseEntity.getBody();
     }
 
     private List<String> getImagesFromConcert(List<Image> images) {
