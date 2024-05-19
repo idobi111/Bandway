@@ -15,9 +15,10 @@ import { useNavigate } from 'react-router';
 
 interface Props {
     servicesPackage: Package | null;
+    accordionWidth: number;
 }
 
-const PackageDialogCarSection: React.FC<Props> = ({ servicesPackage }) => {
+const PackageDialogCarSection: React.FC<Props> = ({ servicesPackage, accordionWidth }) => {
 
     const [expandedAccordion, setExpandedAccordion] = useState<number | false>(false);
 
@@ -46,7 +47,7 @@ const PackageDialogCarSection: React.FC<Props> = ({ servicesPackage }) => {
                     <Stack display={'flex'} sx={{ p: 4 }}>
                         <Typography variant='h4'>Choose Your Car:</Typography>
                         {servicesPackage?.carRentals && servicesPackage?.carRentals.carRentalData.map((carData, cardDataIndex) => (
-                            <Accordion key={cardDataIndex} sx={{ width: '150%', marginBottom: '10px', border: '2px solid #ccc' }} expanded={expandedAccordion === cardDataIndex}
+                            <Accordion key={cardDataIndex} sx={{ width: `${accordionWidth}%`, marginBottom: '10px', border: '2px solid #ccc' }} expanded={expandedAccordion === cardDataIndex}
                                 onChange={handleAccordionChange(cardDataIndex)}>
                                 <AccordionSummary expandIcon={<ExpandMoreIcon />}>
                                     <Stack sx={{ paddingRight: 4 }}>

@@ -14,9 +14,10 @@ import { Helpers } from '../../../../helpers/helpers';
 
 interface Props {
     servicesPackage: Package | null;
+    accordionWidth: number;
 }
 
-const PackageDialogFlightSection: React.FC<Props> = ({ servicesPackage }) => {
+const PackageDialogFlightSection: React.FC<Props> = ({ servicesPackage, accordionWidth }) => {
 
     const [expandedAccordion, setExpandedAccordion] = useState<number | false>(false);
     const [accordionOpen, setAccordionOpen] = useState<boolean>(false);
@@ -46,7 +47,7 @@ const PackageDialogFlightSection: React.FC<Props> = ({ servicesPackage }) => {
             <Stack display={'flex'} sx={{ p: 4 }}>
                 <Typography variant='h4'>Choose Your Flight:</Typography>
                 {servicesPackage?.flights && servicesPackage?.flights.roundWayFlightDetails.map((roundWayDetail, roundWayIndex) => (
-                    <Accordion key={roundWayIndex} sx={{ width: '150%', marginBottom: '10px', border: '2px solid #ccc' }} expanded={accordionOpen && expandedAccordion === roundWayIndex}
+                    <Accordion key={roundWayIndex} sx={{ width: `${accordionWidth}%`, marginBottom: '10px', border: '2px solid #ccc' }} expanded={accordionOpen && expandedAccordion === roundWayIndex}
                     onChange={handleAccordionChange(roundWayIndex)}>
                         <AccordionSummary expandIcon={<ExpandMoreIcon />}>
                             <Stack>

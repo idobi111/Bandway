@@ -53,9 +53,9 @@ const PackageDialog: React.FC<Props> = ({ servicesPackage, packageFilters }) => 
                 <Box sx={{ flex: 1 }}>
                     <Typography variant='h2' gutterBottom>Your vacation details</Typography>
                     <Stack display={'flex'}>
-                        <Typography sx={{ paddingLeft: 1 }} variant='h4'>Vacation to  {servicesPackage?.hotel.city || servicesPackage?.flights?.roundWayFlightDetails[0].arriveFlightDetails[0].sourceCity}</Typography>
+                        <Typography sx={{ paddingLeft: 1 }} variant='h4'>Vacation to  {servicesPackage?.hotel?.city || servicesPackage?.flights?.roundWayFlightDetails[0].arriveFlightDetails[0].sourceCity}</Typography>
                         <Typography sx={{ paddingLeft: 1 }} variant='h4'>{servicesPackage && helpers.formatDatesRange(servicesPackage)}</Typography>
-                        <Typography sx={{ paddingLeft: 1 }} variant='h4'>{servicesPackage && helpers.calculateNumberOfNights(servicesPackage?.hotel?.checkIn, servicesPackage?.hotel.checkOut)} nights</Typography>
+                        <Typography sx={{ paddingLeft: 1 }} variant='h4'>{servicesPackage && helpers.calculateNumberOfNights(servicesPackage?.hotel?.checkIn, servicesPackage?.hotel?.checkOut)} nights</Typography>
                     </Stack>
                     <Divider></Divider>
                     {packageFilters.hotel && (
@@ -66,19 +66,19 @@ const PackageDialog: React.FC<Props> = ({ servicesPackage, packageFilters }) => 
                     )}
                     {packageFilters.flight && (
                         <div>
-                            <PackageDialogFlightSection servicesPackage={servicesPackage}></PackageDialogFlightSection>
+                            <PackageDialogFlightSection servicesPackage={servicesPackage} accordionWidth={150}></PackageDialogFlightSection>
                             <Divider></Divider>
                         </div>
                     )}
                     {packageFilters.carRental && (
                         <div>
-                            <PackageDialogCarSection servicesPackage={servicesPackage}></PackageDialogCarSection>
+                            <PackageDialogCarSection servicesPackage={servicesPackage}  accordionWidth={150}></PackageDialogCarSection>
                             <Divider></Divider>
                         </div>
                     )}
                 </Box>
                 <Box sx={{ flex: 1, display: 'flex', justifyContent: 'flex-end' }}>
-                    <img src={servicesPackage?.hotel.photoUrl[0]} style={{ width: '400px', height: '300px' }}></img>
+                    <img src={servicesPackage?.hotel?.photoUrl[0]} style={{ width: '400px', height: '300px' }}></img>
                 </Box>
             </Box>
         </>

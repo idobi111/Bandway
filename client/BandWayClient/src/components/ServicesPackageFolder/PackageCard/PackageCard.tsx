@@ -61,7 +61,7 @@ const PackageCard: React.FC<Props> = ({ packages, step, packageFilters }) => {
               <PackageCardImageSection servicesPackage={servicesPackage}></PackageCardImageSection>
               <CardContent>
                 <Typography variant="h6">
-                  {helpers.formatDate(servicesPackage.hotel.checkIn)} &middot; {helpers.calculateNumberOfNights(servicesPackage.hotel.checkIn, servicesPackage.hotel.checkOut)} nights
+                  {helpers.formatDate(servicesPackage.hotel?.checkIn)} &middot; {helpers.calculateNumberOfNights(servicesPackage.hotel?.checkIn, servicesPackage.hotel?.checkOut)} nights
                 </Typography>
                 <Divider></Divider>
                 {packageFilters.hotel && (<PackageCardHotelSection servicesPackage={servicesPackage}></PackageCardHotelSection>)}
