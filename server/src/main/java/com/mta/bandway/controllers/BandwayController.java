@@ -4,8 +4,11 @@ import com.mta.bandway.api.domain.request.CarRentalRequestDto;
 import com.mta.bandway.api.domain.request.FlightRequestDto;
 import com.mta.bandway.api.domain.request.HotelRequestDto;
 import com.mta.bandway.api.domain.response.*;
+import com.mta.bandway.exceptions.UserAlreadyExistException;
 import com.mta.bandway.services.*;
+import jakarta.validation.constraints.Email;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.web.bind.annotation.*;
@@ -23,6 +26,7 @@ public class BandwayController {
     private final FlightService flightService;
     private final CarRentalService carRentalService;
     private final MailService mailService;
+    private final RegisterService registerService;
 
     @GetMapping(value = "/health", produces = "application/json", headers = "Accept=application/json")
     public ResponseEntity<String> health() {
@@ -103,5 +107,17 @@ public class BandwayController {
     @PostMapping(value = "/sendMessageAllSubscribedUsers", produces = "application/json", headers = "Accept=application/json")
     public ResponseEntity<Long> sendMessageAllSubscribedUsers(@RequestParam String subject, @RequestParam String text) {
         return ResponseEntity.ok(mailService.sendMessageAllSubscribedUsers(subject, text));
+    }
+
+    @PostMapping(value = "/registerUser")
+    public ResponseEntity<String> registerUser(@RequestParam String firstName, @RequestParam String lastName, @RequestParam String email, @RequestParam String password, @RequestParam String phone, @RequestParam String username, @RequestParam(value = "isSubscribe", required = false) Boolean isSubscribe) {
+        if (isSubscribe == null) isSubscribe = false;
+        try {
+            return new ResponseEntity<>(registerService.registerUser(firstName, lastName, username, password, email, phone, isSubscribe), HttpStatus.CREATED);
+        } catch (UserAlreadyExistException e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.CONFLICT);
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 }

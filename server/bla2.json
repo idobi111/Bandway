@@ -1,0 +1,500 @@
+{
+  "status": true,
+  "message": "success",
+  "data": {
+    "itinerary": {
+      "id": "13416-2404231750--32593-0-13870-2404241355",
+      "legs": [
+        {
+          "id": "13416-2404231750--32593-0-13870-2404241355",
+          "origin": {
+            "id": "13416",
+            "name": "Los Angeles International",
+            "displayCode": "LAX",
+            "city": "Los Angeles"
+          },
+          "destination": {
+            "id": "13870",
+            "name": "Madrid",
+            "displayCode": "MAD",
+            "city": "Madrid"
+          },
+          "segments": [
+            {
+              "id": "13416-13870-2404231750-2404241355--32593",
+              "origin": {
+                "id": "13416",
+                "name": "Los Angeles International",
+                "displayCode": "LAX",
+                "city": "Los Angeles"
+              },
+              "destination": {
+                "id": "13870",
+                "name": "Madrid",
+                "displayCode": "MAD",
+                "city": "Madrid"
+              },
+              "duration": 665,
+              "dayChange": 1,
+              "flightNumber": "AS7710",
+              "departure": "2024-04-23T17:50:00",
+              "arrival": "2024-04-24T13:55:00",
+              "marketingCarrier": {
+                "id": "-32593",
+                "name": "Alaska Airlines",
+                "displayCode": "AS",
+                "displayCodeType": "IATA",
+                "brandColor": "#08426A",
+                "logo": "https://content.skyscnr.com/dda86581adee635a85c4a70e1524167d/ai-template-alaska-airlines-thumb-1-xxxhdpi.png",
+                "altId": "AS"
+              },
+              "operatingCarrier": {
+                "id": "-32222",
+                "name": "Iberia",
+                "displayCode": "IB",
+                "displayCodeType": "IATA",
+                "brandColor": "#d91c2d",
+                "logo": "https://content.skyscnr.com/11698f181407160ffa0e9dea6010b432/ai-template-iberia-thumb-1-xxxhdpi.png",
+                "altId": "IB"
+              },
+              "goodToKnowItems": [
+                {
+                  "icon": "normal",
+                  "body": {
+                    "value": "You'll arrive the next day",
+                    "isHighlighted": true,
+                    "position": 0
+                  },
+                  "date": {
+                    "value": "2024-04-24T13:55:00",
+                    "isHighlighted": true,
+                    "position": 1
+                  }
+                }
+              ]
+            }
+          ],
+          "duration": 665,
+          "stopCount": 0,
+          "departure": "2024-04-23T17:50:00",
+          "arrival": "2024-04-24T13:55:00",
+          "dayChange": 1
+        }
+      ],
+      "pricingOptions": [
+        {
+          "agents": [
+            {
+              "id": "oojo",
+              "name": "Oojo",
+              "isCarrier": false,
+              "bookingProposition": "PBOOK",
+              "url": "https://www.skyscanner.net/transport_deeplink/4.0/US/en-US/USD/oojo/1/13416.13870.2024-04-23/air/trava/flights?itinerary=flight|-32593|7710|13416|2024-04-23T17:50|13870|2024-04-24T13:55|665|-|-|-&carriers=-32593&operators=-32222&passengers=1&channel=iphone&cabin_class=economy&fps_session_id=f9a8debd-6a36-4c93-b6f0-db69b929e6ea&ticket_price=586.30&is_npt=false&is_multipart=false&client_id=skyscanner_app&q_ids=H4sIAAAAAAAA_-OS4mLJz8_KF2Lm-KAkxcyxLkeh4cvsjWxGTAqMAJ1d8YAcAAAA|3714430406953343536|2&q_sources=JACQUARD&commercial_filters=false&q_datetime_utc=2024-04-20T20:45:58&pqid=true",
+              "price": 586.3,
+              "rating": {
+                "value": 4.74,
+                "count": 4746
+              },
+              "updateStatus": "PENDING",
+              "segments": [
+                {
+                  "id": "13416-13870-2404231750-2404241355--32593",
+                  "origin": {
+                    "id": "13416",
+                    "name": "Los Angeles International",
+                    "displayCode": "LAX",
+                    "city": "Los Angeles"
+                  },
+                  "destination": {
+                    "id": "13870",
+                    "name": "Madrid",
+                    "displayCode": "MAD",
+                    "city": "Madrid"
+                  },
+                  "duration": 665,
+                  "dayChange": 1,
+                  "flightNumber": "AS7710",
+                  "departure": "2024-04-23T17:50:00",
+                  "arrival": "2024-04-24T13:55:00",
+                  "marketingCarrier": {
+                    "id": "-32593",
+                    "name": "Alaska Airlines",
+                    "displayCode": "AS",
+                    "displayCodeType": "IATA",
+                    "brandColor": "#08426A",
+                    "logo": "https://content.skyscnr.com/dda86581adee635a85c4a70e1524167d/ai-template-alaska-airlines-thumb-1-xxxhdpi.png",
+                    "altId": "AS"
+                  },
+                  "operatingCarrier": {
+                    "id": "-32222",
+                    "name": "Iberia",
+                    "displayCode": "IB",
+                    "displayCodeType": "IATA",
+                    "brandColor": "#d91c2d",
+                    "logo": "https://content.skyscnr.com/11698f181407160ffa0e9dea6010b432/ai-template-iberia-thumb-1-xxxhdpi.png",
+                    "altId": "IB"
+                  },
+                  "goodToKnowItems": [
+                    {
+                      "icon": "normal",
+                      "body": {
+                        "value": "You'll arrive the next day",
+                        "isHighlighted": true,
+                        "position": 0
+                      },
+                      "date": {
+                        "value": "2024-04-24T13:55:00",
+                        "isHighlighted": true,
+                        "position": 1
+                      }
+                    }
+                  ]
+                }
+              ],
+              "isDirectDBookUrl": false,
+              "quoteAge": 13
+            }
+          ],
+          "totalPrice": 586.3,
+          "fare": {
+            "leg_details": []
+          },
+          "id": "ZDeAmnwVC2DT"
+        },
+        {
+          "agents": [
+            {
+              "id": "xpus",
+              "name": "Expedia",
+              "isCarrier": false,
+              "bookingProposition": "PBOOK",
+              "url": "https://www.skyscanner.net/transport_deeplink/4.0/US/en-US/USD/xpus/1/13416.13870.2024-04-23/air/trava/flights?itinerary=flight|-32593|7710|13416|2024-04-23T17:50|13870|2024-04-24T13:55|665|OKX0T4M5|O|-&carriers=-32593&operators=-32222&passengers=1&channel=iphone&cabin_class=economy&fps_session_id=f9a8debd-6a36-4c93-b6f0-db69b929e6ea&ticket_price=592.30&is_npt=false&is_multipart=false&client_id=skyscanner_app&q_ids=H4sIAAAAAAAA_-OS4mKpKCgtFmLm-KAkxcyxLkeh4cvsjWxGTAqMADMFcrAcAAAA|6118358878087941782|2&q_sources=JACQUARD&commercial_filters=false&q_datetime_utc=2024-04-20T20:46:00&pqid=true",
+              "price": 592.3,
+              "rating": {
+                "value": 4.76,
+                "count": 10644
+              },
+              "updateStatus": "PENDING",
+              "segments": [
+                {
+                  "id": "13416-13870-2404231750-2404241355--32593",
+                  "origin": {
+                    "id": "13416",
+                    "name": "Los Angeles International",
+                    "displayCode": "LAX",
+                    "city": "Los Angeles"
+                  },
+                  "destination": {
+                    "id": "13870",
+                    "name": "Madrid",
+                    "displayCode": "MAD",
+                    "city": "Madrid"
+                  },
+                  "duration": 665,
+                  "dayChange": 1,
+                  "flightNumber": "AS7710",
+                  "departure": "2024-04-23T17:50:00",
+                  "arrival": "2024-04-24T13:55:00",
+                  "marketingCarrier": {
+                    "id": "-32593",
+                    "name": "Alaska Airlines",
+                    "displayCode": "AS",
+                    "displayCodeType": "IATA",
+                    "brandColor": "#08426A",
+                    "logo": "https://content.skyscnr.com/dda86581adee635a85c4a70e1524167d/ai-template-alaska-airlines-thumb-1-xxxhdpi.png",
+                    "altId": "AS"
+                  },
+                  "operatingCarrier": {
+                    "id": "-32222",
+                    "name": "Iberia",
+                    "displayCode": "IB",
+                    "displayCodeType": "IATA",
+                    "brandColor": "#d91c2d",
+                    "logo": "https://content.skyscnr.com/11698f181407160ffa0e9dea6010b432/ai-template-iberia-thumb-1-xxxhdpi.png",
+                    "altId": "IB"
+                  },
+                  "goodToKnowItems": [
+                    {
+                      "icon": "normal",
+                      "body": {
+                        "value": "You'll arrive the next day",
+                        "isHighlighted": true,
+                        "position": 0
+                      },
+                      "date": {
+                        "value": "2024-04-24T13:55:00",
+                        "isHighlighted": true,
+                        "position": 1
+                      }
+                    }
+                  ]
+                }
+              ],
+              "isDirectDBookUrl": false,
+              "quoteAge": 13
+            }
+          ],
+          "totalPrice": 592.3,
+          "fare": {
+            "leg_details": []
+          },
+          "id": "0BG44cZ4-a4n"
+        },
+        {
+          "agents": [
+            {
+              "id": "tlcy",
+              "name": "Travelocity",
+              "isCarrier": false,
+              "bookingProposition": "PBOOK",
+              "url": "https://www.skyscanner.net/transport_deeplink/4.0/US/en-US/USD/tlcy/1/13416.13870.2024-04-23/air/trava/flights?itinerary=flight|-32593|7710|13416|2024-04-23T17:50|13870|2024-04-24T13:55|665|OKX0T4M5|O|-&carriers=-32593&operators=-32222&passengers=1&channel=iphone&cabin_class=economy&fps_session_id=f9a8debd-6a36-4c93-b6f0-db69b929e6ea&ticket_price=592.30&is_npt=false&is_multipart=false&client_id=skyscanner_app&q_ids=H4sIAAAAAAAA_-OS4mIpyUmuFGLm-KAkxcyxLkeh4cvsjWxGTAqMAOHb3hAcAAAA|6118358878087941782|2&q_sources=JACQUARD&commercial_filters=false&q_datetime_utc=2024-04-20T20:45:54&pqid=true",
+              "price": 592.3,
+              "rating": {
+                "value": 2.11,
+                "count": 823
+              },
+              "updateStatus": "PENDING",
+              "segments": [
+                {
+                  "id": "13416-13870-2404231750-2404241355--32593",
+                  "origin": {
+                    "id": "13416",
+                    "name": "Los Angeles International",
+                    "displayCode": "LAX",
+                    "city": "Los Angeles"
+                  },
+                  "destination": {
+                    "id": "13870",
+                    "name": "Madrid",
+                    "displayCode": "MAD",
+                    "city": "Madrid"
+                  },
+                  "duration": 665,
+                  "dayChange": 1,
+                  "flightNumber": "AS7710",
+                  "departure": "2024-04-23T17:50:00",
+                  "arrival": "2024-04-24T13:55:00",
+                  "marketingCarrier": {
+                    "id": "-32593",
+                    "name": "Alaska Airlines",
+                    "displayCode": "AS",
+                    "displayCodeType": "IATA",
+                    "brandColor": "#08426A",
+                    "logo": "https://content.skyscnr.com/dda86581adee635a85c4a70e1524167d/ai-template-alaska-airlines-thumb-1-xxxhdpi.png",
+                    "altId": "AS"
+                  },
+                  "operatingCarrier": {
+                    "id": "-32222",
+                    "name": "Iberia",
+                    "displayCode": "IB",
+                    "displayCodeType": "IATA",
+                    "brandColor": "#d91c2d",
+                    "logo": "https://content.skyscnr.com/11698f181407160ffa0e9dea6010b432/ai-template-iberia-thumb-1-xxxhdpi.png",
+                    "altId": "IB"
+                  },
+                  "goodToKnowItems": [
+                    {
+                      "icon": "normal",
+                      "body": {
+                        "value": "You'll arrive the next day",
+                        "isHighlighted": true,
+                        "position": 0
+                      },
+                      "date": {
+                        "value": "2024-04-24T13:55:00",
+                        "isHighlighted": true,
+                        "position": 1
+                      }
+                    }
+                  ]
+                }
+              ],
+              "isDirectDBookUrl": false,
+              "quoteAge": 13
+            }
+          ],
+          "totalPrice": 592.3,
+          "fare": {
+            "leg_details": []
+          },
+          "id": "ATBFdwd6Qpev"
+        },
+        {
+          "agents": [
+            {
+              "id": "orbz",
+              "name": "Orbitz",
+              "isCarrier": false,
+              "bookingProposition": "PBOOK",
+              "url": "https://www.skyscanner.net/transport_deeplink/4.0/US/en-US/USD/orbz/1/13416.13870.2024-04-23/air/trava/flights?itinerary=flight|-32593|7710|13416|2024-04-23T17:50|13870|2024-04-24T13:55|665|OKX0T4M5|O|-&carriers=-32593&operators=-32222&passengers=1&channel=iphone&cabin_class=economy&fps_session_id=f9a8debd-6a36-4c93-b6f0-db69b929e6ea&ticket_price=592.30&is_npt=false&is_multipart=false&client_id=skyscanner_app&q_ids=H4sIAAAAAAAA_-OS4mLJL0qqEmLm-KAkxcyxLkeh4cvsjWxGTAqMAHlgkWUcAAAA|6118358878087941782|2&q_sources=JACQUARD&commercial_filters=false&q_datetime_utc=2024-04-20T20:45:53&pqid=true",
+              "price": 592.3,
+              "rating": {
+                "value": 1.54,
+                "count": 1015
+              },
+              "updateStatus": "PENDING",
+              "segments": [
+                {
+                  "id": "13416-13870-2404231750-2404241355--32593",
+                  "origin": {
+                    "id": "13416",
+                    "name": "Los Angeles International",
+                    "displayCode": "LAX",
+                    "city": "Los Angeles"
+                  },
+                  "destination": {
+                    "id": "13870",
+                    "name": "Madrid",
+                    "displayCode": "MAD",
+                    "city": "Madrid"
+                  },
+                  "duration": 665,
+                  "dayChange": 1,
+                  "flightNumber": "AS7710",
+                  "departure": "2024-04-23T17:50:00",
+                  "arrival": "2024-04-24T13:55:00",
+                  "marketingCarrier": {
+                    "id": "-32593",
+                    "name": "Alaska Airlines",
+                    "displayCode": "AS",
+                    "displayCodeType": "IATA",
+                    "brandColor": "#08426A",
+                    "logo": "https://content.skyscnr.com/dda86581adee635a85c4a70e1524167d/ai-template-alaska-airlines-thumb-1-xxxhdpi.png",
+                    "altId": "AS"
+                  },
+                  "operatingCarrier": {
+                    "id": "-32222",
+                    "name": "Iberia",
+                    "displayCode": "IB",
+                    "displayCodeType": "IATA",
+                    "brandColor": "#d91c2d",
+                    "logo": "https://content.skyscnr.com/11698f181407160ffa0e9dea6010b432/ai-template-iberia-thumb-1-xxxhdpi.png",
+                    "altId": "IB"
+                  },
+                  "goodToKnowItems": [
+                    {
+                      "icon": "normal",
+                      "body": {
+                        "value": "You'll arrive the next day",
+                        "isHighlighted": true,
+                        "position": 0
+                      },
+                      "date": {
+                        "value": "2024-04-24T13:55:00",
+                        "isHighlighted": true,
+                        "position": 1
+                      }
+                    }
+                  ]
+                }
+              ],
+              "isDirectDBookUrl": false,
+              "quoteAge": 13
+            }
+          ],
+          "totalPrice": 592.3,
+          "fare": {
+            "leg_details": []
+          },
+          "id": "Ug1HYXSrpGNr"
+        },
+        {
+          "agents": [
+            {
+              "id": "jtus",
+              "name": "Jetabroad",
+              "isCarrier": false,
+              "bookingProposition": "PBOOK",
+              "url": "https://www.skyscanner.net/transport_deeplink/4.0/US/en-US/USD/jtus/1/13416.13870.2024-04-23/air/trava/flights?itinerary=flight|-32593|7710|13416|2024-04-23T17:50|13870|2024-04-24T13:55|665|-|-|-&carriers=-32593&operators=-32222&passengers=1&channel=iphone&cabin_class=economy&fps_session_id=f9a8debd-6a36-4c93-b6f0-db69b929e6ea&ticket_price=621.70&is_npt=false&is_multipart=false&client_id=skyscanner_app&q_ids=H4sIAAAAAAAA_-OS4mLJKiktFmLm-KAkxcyxLkeh4cvsjWxGTAqMAJIXfhYcAAAA|-7185602968415178197|2&q_sources=JACQUARD&commercial_filters=false&q_datetime_utc=2024-04-20T20:45:53&pqid=true",
+              "price": 621.7,
+              "rating": {
+                "value": 4.57,
+                "count": 458
+              },
+              "updateStatus": "PENDING",
+              "segments": [
+                {
+                  "id": "13416-13870-2404231750-2404241355--32593",
+                  "origin": {
+                    "id": "13416",
+                    "name": "Los Angeles International",
+                    "displayCode": "LAX",
+                    "city": "Los Angeles"
+                  },
+                  "destination": {
+                    "id": "13870",
+                    "name": "Madrid",
+                    "displayCode": "MAD",
+                    "city": "Madrid"
+                  },
+                  "duration": 665,
+                  "dayChange": 1,
+                  "flightNumber": "AS7710",
+                  "departure": "2024-04-23T17:50:00",
+                  "arrival": "2024-04-24T13:55:00",
+                  "marketingCarrier": {
+                    "id": "-32593",
+                    "name": "Alaska Airlines",
+                    "displayCode": "AS",
+                    "displayCodeType": "IATA",
+                    "brandColor": "#08426A",
+                    "logo": "https://content.skyscnr.com/dda86581adee635a85c4a70e1524167d/ai-template-alaska-airlines-thumb-1-xxxhdpi.png",
+                    "altId": "AS"
+                  },
+                  "operatingCarrier": {
+                    "id": "-32222",
+                    "name": "Iberia",
+                    "displayCode": "IB",
+                    "displayCodeType": "IATA",
+                    "brandColor": "#d91c2d",
+                    "logo": "https://content.skyscnr.com/11698f181407160ffa0e9dea6010b432/ai-template-iberia-thumb-1-xxxhdpi.png",
+                    "altId": "IB"
+                  },
+                  "goodToKnowItems": [
+                    {
+                      "icon": "normal",
+                      "body": {
+                        "value": "You'll arrive the next day",
+                        "isHighlighted": true,
+                        "position": 0
+                      },
+                      "date": {
+                        "value": "2024-04-24T13:55:00",
+                        "isHighlighted": true,
+                        "position": 1
+                      }
+                    }
+                  ]
+                }
+              ],
+              "isDirectDBookUrl": false,
+              "quoteAge": 13
+            }
+          ],
+          "totalPrice": 621.7,
+          "fare": {
+            "leg_details": []
+          },
+          "id": "8adHfZzlecsI"
+        }
+      ],
+      "isTransferRequired": false,
+      "destinationImage": "https://content.skyscnr.com/13ce98b674f110e5466fea801ffb05bd/madrid.jpg",
+      "operatingCarrierSafetyAttributes": [
+        {
+          "carrierID": "-32222",
+          "carrierName": "Iberia",
+          "faceMasksCompulsory": null,
+          "aircraftDeepCleanedDaily": null,
+          "attendantsWearPPE": null,
+          "cleaningPacksProvided": null,
+          "foodServiceChanges": null,
+          "safetyUrl": null
+        }
+      ],
+      "flexibleTicketPolicies": []
+    },
+    "pollingCompleted": true,
+    "bookingSessionId": "f9a8debd-6a36-4c93-b6f0-db69b929e6ea"
+  }
+}
