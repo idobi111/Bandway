@@ -6,7 +6,6 @@ import com.mta.bandway.api.domain.request.HotelRequestDto;
 import com.mta.bandway.api.domain.response.*;
 import com.mta.bandway.exceptions.UserAlreadyExistException;
 import com.mta.bandway.services.*;
-import jakarta.validation.constraints.Email;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -120,4 +119,5 @@ public class BandwayController {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
 }
