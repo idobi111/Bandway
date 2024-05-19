@@ -6,9 +6,9 @@ export class Helpers {
         return inputString.replace(/\s+/g, '_');
     }
 
-    public calculateNumberOfNights(checkIn: string, checkOut: string): number {
-        const checkInDate = new Date(checkIn);
-        const checkOutDate = new Date(checkOut);
+    public calculateNumberOfNights(checkIn: string | undefined, checkOut: string | undefined): number {
+        const checkInDate = new Date(checkIn || '');
+        const checkOutDate = new Date(checkOut|| '');
 
         // Calculate the difference in milliseconds between the two dates
         const timeDifference = checkOutDate.getTime() - checkInDate.getTime();
@@ -47,8 +47,8 @@ export class Helpers {
     }
 
     public formatDatesRange(servicesPackage: Package): string {
-        const checkInDate = new Date(servicesPackage.hotel.checkIn);
-        const checkOutDate = new Date(servicesPackage.hotel.checkOut);
+        const checkInDate = new Date(servicesPackage.hotel?.checkIn || '');
+        const checkOutDate = new Date(servicesPackage.hotel?.checkOut|| '');
 
         const checkInDay = checkInDate.getDate();
         const checkInMonth = checkInDate.getMonth() + 1; // Adding 1 because getMonth returns zero-based index
@@ -95,5 +95,15 @@ export class Helpers {
         return input.replace(regex, '').trim();
     }
 
+    public formatPrice(price: number): string {
+        const formattedPrice = price.toFixed(2);
+      
+        if (formattedPrice.endsWith('.00')) {
+          return parseInt(price.toString()).toString();
+        } else {
+          return formattedPrice;
+        }
+      }
+      
 }
 

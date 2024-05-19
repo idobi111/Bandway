@@ -6,7 +6,7 @@ import { HotelResponse } from "./HotelResponse";
 
 export interface Package {
   packageId: number;
-  hotel: HotelResponse;
+  hotel?: HotelResponse;
   flights?: FlightRoundWayResponse;
   carRentals?: CarRentalResponse;
 }

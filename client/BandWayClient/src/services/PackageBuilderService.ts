@@ -17,17 +17,17 @@ export class PackageBuilderService {
   public combineResults(hotels: HotelResponse[], flights?: FlightRoundWayResponse, carRentals?: CarRentalResponse): Package[] {
     const packages: Package[] = [];
 
-    hotels.forEach((hotel, index) => {
-      const packageId = index + 1; // Generate unique package ID
-      const packageObj: Package = { packageId, hotel, flights, carRentals};
-
-      // // Add car rental if available
-      // if (carRentals && carRentals[index]) {
-      //   packageObj.carRental = carRentals[index];
-      // }
-
+    if (hotels.length > 0) {
+      hotels.forEach((hotel, index) => {
+        const packageId = index + 1; // Generate unique package ID
+        const packageObj: Package = { packageId, hotel, flights, carRentals };
+        packages.push(packageObj);
+      });
+    }
+    else {
+      const packageObj: Package = {packageId: 1, hotel: undefined, flights, carRentals};
       packages.push(packageObj);
-    });
+    }
 
     console.log("BuilderService", packages);
 
@@ -45,7 +45,7 @@ export class PackageBuilderService {
 
     // Add flight price
     if (packageFilters.flight && servicePackage.flights) {
-      totalPrice += servicePackage.flights.minPrice*2;
+      totalPrice += servicePackage.flights.minPrice * 2;
 
     }
 
@@ -117,11 +117,11 @@ export class PackageBuilderService {
 
 
     return {
-      pickupStartDate: carRentalDate? helpers.formatDateForPackageBuilder(new Date(carRentalDate)) : helpers.formatDateForPackageBuilder(defaultCheckInDate),
-      dropoffEndDate: carRentalDate  ? helpers.formatDateForPackageBuilder(new Date(new Date(carRentalDate).setDate(new Date(carRentalDate).getDate() + 3))) // Chain setDate and new Date
-      : helpers.formatDateForPackageBuilder(threeDaysFromCheckIn),
-      pickupCity: fromCity ? fromCity : '' ,
-      dropoffCity: toCity ? toCity: '',
+      pickupStartDate: carRentalDate ? helpers.formatDateForPackageBuilder(new Date(carRentalDate)) : helpers.formatDateForPackageBuilder(defaultCheckInDate),
+      dropoffEndDate: carRentalDate ? helpers.formatDateForPackageBuilder(new Date(new Date(carRentalDate).setDate(new Date(carRentalDate).getDate() + 3))) // Chain setDate and new Date
+        : helpers.formatDateForPackageBuilder(threeDaysFromCheckIn),
+      pickupCity: fromCity ? fromCity : '',
+      dropoffCity: toCity ? toCity : '',
       pickupTime: '',
       dropoffTime: '',
       driverAge: 25,
