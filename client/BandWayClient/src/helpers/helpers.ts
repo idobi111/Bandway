@@ -95,5 +95,15 @@ export class Helpers {
         return input.replace(regex, '').trim();
     }
 
+    public formatPrice(price: number): string {
+        const formattedPrice = price.toFixed(2);
+      
+        if (formattedPrice.endsWith('.00')) {
+          return parseInt(price.toString()).toString();
+        } else {
+          return formattedPrice;
+        }
+      }
+      
 }
 
