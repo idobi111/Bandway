@@ -89,9 +89,13 @@ public class ConcertService {
             if (data == null || data.getEmbedded() == null) {
                 return result;
             }
+            Double minPrice = null;
+            Double maxPrice = null;
             List<PriceRange> prices = data.getEmbedded().getEvents().get(0).getPriceRanges();
-            Double minPrice = prices.stream().mapToDouble(PriceRange::getMin).min().orElse(0);
-            Double maxPrice = prices.stream().mapToDouble(PriceRange::getMax).max().orElse(10000);
+            if (prices != null) {
+                minPrice = prices.stream().mapToDouble(PriceRange::getMin).min().orElse(0);
+                maxPrice = prices.stream().mapToDouble(PriceRange::getMax).max().orElse(10000);
+            }
             ExternalLinks externalLinks = data.getEmbedded().getEvents().get(0).getEmbedded().getAttractions().get(0).getExternalLinks();
             result.add(ConcertResponseDto.builder()
                     .id(concertId)
