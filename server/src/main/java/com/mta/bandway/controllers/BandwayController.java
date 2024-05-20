@@ -94,13 +94,25 @@ public class BandwayController {
     }
 
     @PostMapping(value = "/subscribeMail", produces = "application/json", headers = "Accept=application/json")
-    public void subscribeUserMail(@RequestParam String userMail) {
-        mailService.enableSubscriptionEmail(userMail);
+    public ResponseEntity<String> subscribeUserMail(@RequestParam String userMail) {
+        try {
+            return new ResponseEntity<>(mailService.enableSubscriptionEmail(userMail), HttpStatus.OK);
+        } catch (UserAlreadyExistException e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.CONFLICT);
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @PostMapping(value = "/unsubscribeMail", produces = "application/json", headers = "Accept=application/json")
-    public void unsubscribeUserMail(@RequestParam String userMail) {
-        mailService.disableSubscriptionEmail(userMail);
+    public ResponseEntity<String> unsubscribeUserMail(@RequestParam String userMail) {
+        try {
+            return new ResponseEntity<>(mailService.disableSubscriptionEmail(userMail), HttpStatus.OK);
+        } catch (UserAlreadyExistException e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.CONFLICT);
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @PostMapping(value = "/sendMessageAllSubscribedUsers", produces = "application/json", headers = "Accept=application/json")

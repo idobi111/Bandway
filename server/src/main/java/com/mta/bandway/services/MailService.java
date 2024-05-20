@@ -2,6 +2,8 @@ package com.mta.bandway.services;
 
 import com.mta.bandway.api.domain.request.MailRequestDto;
 import com.mta.bandway.entities.User;
+import com.mta.bandway.exceptions.UserAlreadyExistException;
+import com.mta.bandway.exceptions.UserUnsubscribedException;
 import com.mta.bandway.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -10,6 +12,7 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class MailService {
@@ -27,31 +30,43 @@ public class MailService {
     }
 
 
-    public void enableSubscriptionEmail(String email) {
-        User user = userRepository.findByEmail(email).orElse(
-                userRepository.save(User.builder().email(email).build())
-        );
-        user.setIsSubscribed(true);
-        userRepository.save(user);
-        sendEmail(MailRequestDto.builder()
-                .to(email)
-                .subject("Subscription added successfully")
-                .text("You have successfully subscribed to our newsletter")
-                .build());
+    public String enableSubscriptionEmail(String email) {
+        email = email.toLowerCase();
+        Optional<User> findUser = userRepository.findByEmail(email);
+        if (findUser.isEmpty()) {
+            User user = User.builder()
+                    .email(email)
+                    .isSubscribed(true)
+                    .build();
+            userRepository.save(user);
+            sendEmail(MailRequestDto.builder()
+                    .to(email)
+                    .subject("Subscription added successfully")
+                    .text("You have successfully subscribed to our newsletter")
+                    .build());
+        } else {
+            throw new UserAlreadyExistException("The user already subscribed");
+        }
+        return "Subscription added successfully";
     }
 
 
-    public void disableSubscriptionEmail(String email) {
-        User user = userRepository.findByEmail(email).orElse(
-                userRepository.save(User.builder().email(email).build())
-        );
-        user.setIsSubscribed(false);
-        userRepository.save(user);
-        sendEmail(MailRequestDto.builder()
-                .to(email)
-                .subject("Subscription is disable for now")
-                .text("You will not get any more emails from us.")
-                .build());
+    public String disableSubscriptionEmail(String email) {
+        email = email.toLowerCase();
+        Optional<User> findUser = userRepository.findByEmail(email);
+        if (findUser.isPresent() && findUser.get().getIsSubscribed().equals(true)) {
+            User user = findUser.get();
+            user.setIsSubscribed(false);
+            userRepository.save(user);
+            sendEmail(MailRequestDto.builder()
+                    .to(email)
+                    .subject("Subscription is disable for now")
+                    .text("You will not get any more emails from us.")
+                    .build());
+        } else {
+            throw new UserUnsubscribedException("The user does not register as subscribe email in our services");
+        }
+        return "Unsubscription preformed successfully";
     }
 
     public Long sendMessageAllSubscribedUsers(String subject, String text) {
