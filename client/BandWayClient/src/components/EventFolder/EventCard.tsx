@@ -32,7 +32,8 @@ const EventCard: React.FC<Props> = ({ events, step }) => {
     };
 
     dispatch(setEventData(updatedEventData));
-
+    localStorage.setItem('eventData', JSON.stringify(updatedEventData));
+    
     window.scrollTo({ top: 0, behavior: 'smooth' });
     navigate(`/post-ticket-order`);
   };
@@ -120,9 +121,15 @@ const EventCard: React.FC<Props> = ({ events, step }) => {
                       {event.city}, {event.country}
                     </Typography>
                   </Box>
-                  <Typography variant='h6' color="text.secondary" sx={{ marginTop: 'auto' }}>
-                  Start from ${helpers.formatPrice(event.minPrice)} to ${helpers.formatPrice(event.maxPrice)}
-                  </Typography>
+                  {event.minPrice && event.maxPrice ? (
+                    <Typography variant='h6' color="text.secondary" sx={{ marginTop: 'auto' }}>
+                      Start from ${helpers.formatPrice(event.minPrice)} to ${helpers.formatPrice(event.maxPrice)}
+                    </Typography>
+                  ) : (
+                    <Typography variant='h6' color="text.secondary" sx={{ marginTop: 'auto' }}>
+                      Pricing is not available
+                    </Typography>
+                  )}
                 </CardContent>
               </EventCardStyled>
             </Grid>

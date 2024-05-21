@@ -38,7 +38,7 @@ const HomeSearch: React.FC = () => {
         }
 
         dispatch(setEventData(searchEventData));
-
+        localStorage.setItem('eventData', JSON.stringify(searchEventData));
         window.scrollTo({ top: 0, behavior: 'smooth' });
         navigate(`/event-search-results`);
     };
