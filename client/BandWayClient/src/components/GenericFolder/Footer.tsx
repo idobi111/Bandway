@@ -49,6 +49,7 @@ const Footer: React.FC = () => {
                 color: 'inherit',
                 fontWeight: isHovered ? 'bold' : 'normal',
                 transition: 'font-weight 0.3s',
+                cursor: 'pointer'
               }}
               onMouseEnter={() => setIsHovered(true)}
               onMouseLeave={() => setIsHovered(false)}>
