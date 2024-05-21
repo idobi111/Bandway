@@ -69,7 +69,7 @@ const ServicesBudgetPopover: React.FC<ServicesBudgetPopoverProps> = ({onSelect})
           horizontal: 'left',
         }}
       >
-        <Box p={2}>
+        <Box p={4}>
           <Typography id="budget-slider" gutterBottom>
             Budget Range
           </Typography>

@@ -4,7 +4,7 @@ import { HeaderAppBar, HeaderButton } from '../../styles/ComponentsStyles';
 import bandWayLogo from '../../pics/BandWayLogo.png';
 import { useNavigate } from 'react-router';
 
-const buttons: string[] = ["Search", "Latest Deals", "Contact", "Login"];
+const buttons: string[] = ["Search", "Latest Deals", "Contact", "Sign in"];
 
 const Header: React.FC = () => {
   const navigate = useNavigate(); // Call useNavigate hook within the component
@@ -12,6 +12,11 @@ const Header: React.FC = () => {
   const goToHomePage = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
     navigate('/home');
+  };
+
+  const goToSingIn = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    navigate('/sign-in');
   };
 
   return (
@@ -25,7 +30,11 @@ const Header: React.FC = () => {
                 {/* Add onClick event handler to the Search button */}
                 {button === "Search" ? (
                   <HeaderButton variant='text' onClick={goToHomePage}>{button}</HeaderButton>
-                ) : (
+                ) :
+                button === "Sign in" ? (
+                  <HeaderButton variant='text' onClick={goToSingIn}>{button}</HeaderButton>
+                ) :
+                (
                   <HeaderButton variant='text'>{button}</HeaderButton>
                 )}
               </Grid>
