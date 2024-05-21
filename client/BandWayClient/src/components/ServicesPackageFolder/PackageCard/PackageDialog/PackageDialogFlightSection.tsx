@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Typography, Stack, Box, Tooltip, Modal, Accordion, AccordionDetails, AccordionSummary, Divider, IconButton } from '@mui/material';
+import { Typography, Stack, Box, Tooltip, Modal, Accordion, AccordionDetails, AccordionSummary, Divider, IconButton, Grid } from '@mui/material';
 import { Package } from '../../../../models/Package';
 import StarIcon from '@mui/icons-material/Star';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
@@ -10,6 +10,9 @@ import { HotelApi } from '../../../../apis/HotelApi';
 import FlightDetailsGrid from './FlightDetailsGrid';
 import { FlightService } from '../../../../services/FlightService';
 import { Helpers } from '../../../../helpers/helpers';
+import { FlightLinkResponse } from '../../../../models/FlightLinkResponse';
+import { FlightApi } from '../../../../apis/FlightApi';
+import { useNavigate } from 'react-router';
 
 
 interface Props {
@@ -21,25 +24,36 @@ const PackageDialogFlightSection: React.FC<Props> = ({ servicesPackage, accordio
 
     const [expandedAccordion, setExpandedAccordion] = useState<number | false>(false);
     const [accordionOpen, setAccordionOpen] = useState<boolean>(false);
+    const [flightLinks, setFlightLinks] = useState<FlightLinkResponse[]>([]);
+
+    const navigate = useNavigate();
+
 
     const hotelApi = new HotelApi();
     const flightService = new FlightService();
     const helpers = new Helpers();
+    const flightApi = new FlightApi();
 
-    const handleSeeFlightAvailability = async () => {
-        // try {
-        //     const response = await hotelApi.getHotelLink(servicesPackage?.hotel?.hotelId);
-        //     const hotelUrl = response.body;
-
-        //     window.open("https://www.booking.com/hotel/ie/the-devlin.html?checkin=2024-05-25&checkout=2024-05-28", '_blank');
-        // } catch (error) {
-        //     console.error('Error fetching hotel URL:', error);
-        // }
-    };
 
     const handleAccordionChange = (panel: number) => (event: React.ChangeEvent<{}>, isExpanded: boolean) => {
         setAccordionOpen(isExpanded);
         setExpandedAccordion(isExpanded ? panel : false);
+        setFlightLinks([]); 
+    };
+
+
+    const handleSeeFlightPrices = async (flighId: string) => {
+        try {
+            const response = await flightApi.getFlightLink(servicesPackage && servicesPackage.flights?.token || 0, flighId || ' ');
+            setFlightLinks(response);
+        } catch (error) {
+            console.error('Error fetching flight links:', error);
+            navigate(`/error`);
+        }
+    };
+
+    const handleSeeFlightAvailability = async (url: string) => {
+        window.open(url, '_blank');
     };
 
     return (
@@ -48,7 +62,7 @@ const PackageDialogFlightSection: React.FC<Props> = ({ servicesPackage, accordio
                 <Typography variant='h4'>Choose Your Flight:</Typography>
                 {servicesPackage?.flights && servicesPackage?.flights.roundWayFlightDetails.map((roundWayDetail, roundWayIndex) => (
                     <Accordion key={roundWayIndex} sx={{ width: `${accordionWidth}%`, marginBottom: '10px', border: '2px solid #ccc' }} expanded={accordionOpen && expandedAccordion === roundWayIndex}
-                    onChange={handleAccordionChange(roundWayIndex)}>
+                        onChange={handleAccordionChange(roundWayIndex)}>
                         <AccordionSummary expandIcon={<ExpandMoreIcon />}>
                             <Stack>
                                 <Stack direction={'row'}>
@@ -73,7 +87,6 @@ const PackageDialogFlightSection: React.FC<Props> = ({ servicesPackage, accordio
                                             <FlightDetailsGrid
                                                 flightDetails={flightDetail}
                                                 marketing={departDetail.marketing[flightIndex]}
-                                                token={servicesPackage.flights?.token}
                                             />
                                         </Box>
                                     ))
@@ -86,13 +99,43 @@ const PackageDialogFlightSection: React.FC<Props> = ({ servicesPackage, accordio
                                             <FlightDetailsGrid
                                                 flightDetails={flightDetail}
                                                 marketing={arriveDetail.marketing[flightIndex]}
-                                                token={servicesPackage.flights?.token}
                                             />
                                         </Box>
                                     ))
                                 ))}
                             </React.Fragment>
-                            <SubActionButton onClick={() => setExpandedAccordion(false)} variant="contained" color="secondary">Close</SubActionButton>
+                            <Stack>
+                                {flightLinks.length > 0 ? ( 
+                                    <Box sx={{ marginTop: '20px' }}>
+                                        <Divider></Divider>
+                                        <Grid container direction="column" spacing={1} sx={{ marginTop: '20px' }}>
+                                            {flightLinks.map((link, index) => (
+                                                <Grid item key={index}>
+                                                    <Stack direction="row" alignItems={'center'} spacing={2}>
+                                                        <Typography variant="h6">
+                                                            {link.agencyName} &middot; ${link.price}
+                                                        </Typography>
+                                                        <ActionButton variant="contained" color="primary" sx={{ height: '30px', width: '250px', fontSize: '15px' }} onClick={() => handleSeeFlightAvailability(link.url)}>
+                                                            See flight availability
+                                                        </ActionButton>
+                                                    </Stack>
+                                                </Grid>
+                                            ))}
+                                        </Grid>
+
+                                    </Box>
+                                ) : (
+                                    <ActionButton
+                                        variant="contained"
+                                        color="primary"
+                                        onClick={() => handleSeeFlightPrices(roundWayDetail.departFlightDetails[0].flightDetails[0].id)}
+                                        sx={{ height: '30px', width: '300px', fontSize: '20px' }}
+                                    >
+                                        See flight price options
+                                    </ActionButton>
+                                )}
+                                <SubActionButton onClick={() => setExpandedAccordion(false)} variant="contained" color="secondary" sx={{ height: '30px', width: '80px', fontSize: '20px' }}>Close</SubActionButton>
+                            </Stack>
                         </AccordionDetails>
                     </Accordion>
                 ))}

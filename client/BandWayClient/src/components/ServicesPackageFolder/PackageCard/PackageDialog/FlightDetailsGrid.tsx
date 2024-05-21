@@ -16,30 +16,14 @@ import { useNavigate } from 'react-router';
 interface Props {
   flightDetails: RoundWayFlightDetails | undefined;
   marketing: RoundWayMarketing | undefined;
-  token: number | undefined;
 }
 
-const FlightDetailsGrid: React.FC<Props> = ({ flightDetails, marketing, token }) => {
+const FlightDetailsGrid: React.FC<Props> = ({ flightDetails, marketing }) => {
 
   const helpers = new Helpers();
   const flightService = new FlightService();
-  const flightApi = new FlightApi();
-  const [flightLinks, setFlightLinks] = useState<FlightLinkResponse[]>([]);
-  const navigate = useNavigate();
 
-  const handleSeeFlightPrices = async () => {
-    try {
-      const response = await flightApi.getFlightLink(token || 0, flightDetails?.id || ' ');
-      setFlightLinks(response);
-    } catch (error) {
-      console.error('Error fetching flight links:', error);
-      navigate(`/error`);
-    }
-  };
-
-  const handleSeeFlightAvailability = async (url: string) => {
-    window.open(url, '_blank');
-  };
+  
 
   return (
     <Card variant="outlined" sx={{ backgroundColor: '#f0f0f0' }}>
@@ -83,35 +67,7 @@ const FlightDetailsGrid: React.FC<Props> = ({ flightDetails, marketing, token })
             </Typography>
           </Grid>
         </Grid>
-        {flightLinks.length > 0 ? (
-          <Box sx={{marginTop: '20px'}}>
-            <Divider></Divider>
-          <Grid container direction="column" spacing={1} sx={{marginTop: '20px'}}>
-            {flightLinks.map((link, index) => (
-              <Grid item key={index}>
-                <Stack direction="row" alignItems={'center'} spacing={2}>
-                <Typography variant="h6">
-                  {link.agencyName} &middot; ${link.price}
-                </Typography>
-                <ActionButton variant="contained" color="primary"  sx={{ height: '30px', width: '250px', fontSize: '15px' }} onClick={() => handleSeeFlightAvailability(link.url)}>
-                  See flight availability
-                </ActionButton>
-                </Stack>
-              </Grid>
-            ))}
-          </Grid>
-
-          </Box>
-        ) : (
-          <ActionButton
-            variant="contained"
-            color="primary"
-            onClick={handleSeeFlightPrices}
-            sx={{ height: '30px', width: '300px', fontSize: '20px' }}
-          >
-            See flight price options
-          </ActionButton>
-        )}
+       
       </CardContent>
     </Card>
   );
