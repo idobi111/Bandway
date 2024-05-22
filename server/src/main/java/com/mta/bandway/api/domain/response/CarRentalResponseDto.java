@@ -19,6 +19,10 @@ public class CarRentalResponseDto {
     @Schema(description = "Minimum price of the car rental")
     private Double minPrice;
 
+    @JsonProperty("maxPrice")
+    @Schema(description = "maximum price of the car rental")
+    private Double maxPrice;
+
     @JsonProperty("checkIn")
     @Schema(description = "Check-in date")
     private String checkIn;

@@ -25,4 +25,7 @@ public class OneWayFlightResponseDto {
     @Schema(description = "Minimum price of the round way flight")
     @JsonProperty("minPrice")
     private Double minPrice;
+    @Schema(description = "Minimum price of the round way flight")
+    @JsonProperty("maxPrice")
+    private Double maxPrice;
 }

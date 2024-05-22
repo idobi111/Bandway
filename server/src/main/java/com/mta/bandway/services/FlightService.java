@@ -85,12 +85,14 @@ public class FlightService {
         List<SessionFlightDetails> sessionFlightDetails = new ArrayList<>();
         FlightOneWayData data = oneWayFlightResponseEntity.getBody().getData();
         double minRaw = Double.MAX_VALUE;
+        double maxRaw = Double.MIN_VALUE;
         List<OneWaySessionFlight> oneWaySessionFlights = new ArrayList<>();
         for (Itinerary itinerary : oneWayFlightResponseEntity.getBody().getData().getItineraries()) {
             Price price = itinerary.getPrice();
             if (price != null) {
                 Double raw = price.getRaw();
                 minRaw = Math.min(minRaw, raw);
+                maxRaw = Math.max(maxRaw, raw);
             }
             for (Leg leg : itinerary.getLegs()) {
                 List<FlightDetails> flightDetailsList = new ArrayList<>();
@@ -107,6 +109,7 @@ public class FlightService {
                 .departFlightDetails(oneWaySessionFlights)
                 .token(data.getToken())
                 .minPrice(minRaw)
+                .maxPrice(maxRaw)
                 .build();
     }
 
@@ -129,6 +132,7 @@ public class FlightService {
 
         RoundWayDataResponse data = roundWayFlightsResponseEntity.getBody().getData();
         double minRaw = Double.MAX_VALUE;
+        double maxRaw = Double.MIN_VALUE;
         List<RoundWaySessionFlight> roundWaySessionFlights = new ArrayList<>();
         for (Itinerary itinerary : roundWayFlightsResponseEntity.getBody().getData().getItineraries()) {
             List<SessionFlightDetails> departFlights = new ArrayList<>();
@@ -137,6 +141,7 @@ public class FlightService {
             if (price != null) {
                 Double raw = price.getRaw();
                 minRaw = Math.min(minRaw, raw);
+                maxRaw = Math.max(maxRaw, raw);
             }
             for (int i = 0; i < itinerary.getLegs().size(); i++) {
                 List<FlightDetails> flightDetailsList = new ArrayList<>();
@@ -159,6 +164,7 @@ public class FlightService {
                 .roundWayFlightDetails(roundWaySessionFlights)
                 .token(data.getToken())
                 .minPrice(minRaw)
+                .maxPrice(maxRaw)
                 .build();
     }
 

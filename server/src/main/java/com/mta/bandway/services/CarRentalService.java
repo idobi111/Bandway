@@ -105,10 +105,12 @@ public class CarRentalService {
     private CarRentalResponseDto createCarRentalResponseDto(CarResponse responseBody, Integer daysDuration, Date checkIn, Date checkOut) {
         List<CarRentalData> cars = new ArrayList<>();
         double minPrice = Double.MAX_VALUE;
+        double maxPrice = Double.MIN_VALUE;
         for (int i = 0; i < responseBody.getData().getSearchResults().size(); i++) {
             SearchResult data = responseBody.getData().getSearchResults().get(i);
             Double basePrice = data.getPricingInfo().getBasePrice();
             minPrice = Math.min(minPrice, basePrice);
+            maxPrice = Math.max(maxPrice, basePrice);
             VehicleInfo vehicleInfo = data.getVehicleInfo();
             RouteInfo routeInfo = data.getRouteInfo();
             cars.add(CarRentalData.builder()
@@ -137,6 +139,7 @@ public class CarRentalService {
         return CarRentalResponseDto.builder()
                 .carRentalData(cars)
                 .minPrice(minPrice)
+                .maxPrice(maxPrice)
                 .checkIn(getDateTime(checkIn))
                 .checkOut(getDateTime(checkOut))
                 .build();
