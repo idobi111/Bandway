@@ -106,6 +106,9 @@ public class CarRentalService {
         List<CarRentalData> cars = new ArrayList<>();
         double minPrice = Double.MAX_VALUE;
         double maxPrice = Double.MIN_VALUE;
+        if (responseBody.getData() == null) {
+            return CarRentalResponseDto.builder().build();
+        }
         for (int i = 0; i < responseBody.getData().getSearchResults().size(); i++) {
             SearchResult data = responseBody.getData().getSearchResults().get(i);
             Double basePrice = data.getPricingInfo().getBasePrice();

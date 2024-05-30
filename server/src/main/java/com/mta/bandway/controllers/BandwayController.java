@@ -5,6 +5,7 @@ import com.mta.bandway.api.domain.request.FlightRequestDto;
 import com.mta.bandway.api.domain.request.HotelRequestDto;
 import com.mta.bandway.api.domain.response.*;
 import com.mta.bandway.entities.User;
+import com.mta.bandway.exceptions.InvalidCityException;
 import com.mta.bandway.exceptions.UserAlreadyExistException;
 import com.mta.bandway.exceptions.UserNotFoundException;
 import com.mta.bandway.services.*;
@@ -36,7 +37,13 @@ public class BandwayController {
 
     @PostMapping(value = "/searchHotel", produces = "application/json", headers = "Accept=application/json")
     public ResponseEntity<List<HotelResponseDto>> searchHotel(@RequestBody HotelRequestDto requestHotelDto) {
-        return ResponseEntity.ok(hotelService.getHotels(requestHotelDto));
+        try {
+            return ResponseEntity.ok(hotelService.getHotels(requestHotelDto));
+        } catch (InvalidCityException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+        }
     }
 
     @GetMapping(value = "/searchConcert", produces = "application/json", headers = "Accept=application/json")
