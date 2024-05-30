@@ -77,8 +77,8 @@ const ServicesPackageFinder: React.FC = () => {
     const fetchPackages = async () => {
       try {
         const checkInDate = eventData.checkIn || null;
-        const fromCityId = eventData.fromCity || null;
-        const toCityId = eventData.toCity || null;
+        const fromCityId = eventData.fromCityId || null;
+        const toCityId = eventData.toCityId || null;
 
         const hotelRequest = packageBuilderService.createHotelRequestByEventData(eventData.checkIn, eventData.venue, eventData.fromCity, eventData.toCity);
         const hotelsData = await hotelApi.getHotels(hotelRequest);
@@ -87,11 +87,11 @@ const ServicesPackageFinder: React.FC = () => {
 
         const flightRequest = packageBuilderService.createFlightRequestByEventData(checkInDate, fromCityId, toCityId);
         const flightsData = await flightApi.getRoundWayFlights(flightRequest);
-        flightService.sortFlightsFromLowestToHighestPrice(flightsData.roundWayFlightDetails);
+        //flightService.sortFlightsFromLowestToHighestPrice(flightsData.roundWayFlightDetails); ///to fix
         //const flightsData = undefined;
         setFlights(flightsData);
 
-        const carRequest = packageBuilderService.createCarRequestByEventData(checkInDate, eventData.fromCity, eventData.toCity);
+        const carRequest = await packageBuilderService.createCarRequestByEventData(checkInDate, eventData.toCity);
         const carData = await carApi.getCarRentals(carRequest);
         //const carData = undefined;
         setCars(carData);
