@@ -2,6 +2,7 @@ package com.mta.bandway.services;
 
 import com.mta.bandway.entities.User;
 import com.mta.bandway.exceptions.UserAlreadyExistException;
+import com.mta.bandway.exceptions.UserNotFoundException;
 import com.mta.bandway.repositories.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -10,7 +11,7 @@ import java.util.Optional;
 
 @Service
 @AllArgsConstructor
-public class RegisterService {
+public class UserService {
 
     private final UserRepository userRepository;
 
@@ -37,4 +38,13 @@ public class RegisterService {
         userRepository.save(user);
         return "User signed up successfully";
     }
+
+    public User loginUser(String username, String password) {
+        Optional<User> findUser = userRepository.findByUsernameAndPassword(username, password);
+        if (findUser.isPresent()) {
+            return findUser.get();
+        }
+        throw new UserNotFoundException("User not found");
+    }
+
 }
