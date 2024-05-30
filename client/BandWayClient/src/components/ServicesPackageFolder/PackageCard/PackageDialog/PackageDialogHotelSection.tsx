@@ -21,7 +21,7 @@ const PackageDialogHotelSection: React.FC<Props> = ({ servicesPackage }) => {
 
     const handleSeeHotelAvailability = async () => {
         try {
-            const response = await hotelApi.getHotelLink(servicesPackage?.hotel?.hotelId);
+            const response = await hotelApi.getHotelLink(servicesPackage?.hotel?.hotelId, servicesPackage?.hotel?.checkIn, servicesPackage?.hotel?.checkOut);
             const hotelUrl = response.body;
 
             window.open(hotelUrl, '_blank');
@@ -35,18 +35,18 @@ const PackageDialogHotelSection: React.FC<Props> = ({ servicesPackage }) => {
         <>
             <Stack display={'flex'} sx={{ p: 4 }}>
                 <Typography variant='h4'>Your Hotel:</Typography>
-                <Typography variant='h5'>{servicesPackage?.hotel.hotelName}</Typography>
+                <Typography variant='h5'>{servicesPackage?.hotel && servicesPackage?.hotel.hotelName}</Typography>
                 <Typography variant='h6'>
-                    {servicesPackage && [...Array(Math.round(servicesPackage.hotel.rating / 2))].map((_, index) => (
+                    {servicesPackage && [...Array(Math.round((servicesPackage?.hotel ? servicesPackage.hotel.rating : 2) / 2))].map((_, index) => (
                         <StarIcon key={index} />
                     ))}
                 </Typography>
                 <Typography variant='h6' color='text.secondary'>
-                    Rating: {servicesPackage?.hotel.rating}
+                    Rating: {servicesPackage?.hotel && servicesPackage?.hotel.rating}
                 </Typography>
-                <Typography variant='h6' color='text.secondary'>adults: {servicesPackage?.hotel.adults}, children: {servicesPackage?.hotel.children} </Typography>
-                <Typography variant='h6' color='text.secondary'>rooms: {servicesPackage?.hotel.rooms} </Typography>
-                <Typography variant='h6'> Start from ${ servicesPackage && helpers.getRoundedPrice(servicesPackage?.hotel.price)} per person</Typography>
+                <Typography variant='h6' color='text.secondary'>adults: {servicesPackage?.hotel && servicesPackage?.hotel.adults}, children: {servicesPackage?.hotel && servicesPackage?.hotel.children} </Typography>
+                <Typography variant='h6' color='text.secondary'>rooms: {servicesPackage?.hotel && servicesPackage?.hotel.rooms} </Typography>
+                <Typography variant='h6'> Start from ${ servicesPackage && helpers.getRoundedPrice(servicesPackage?.hotel ? servicesPackage?.hotel.price : 1)} per person</Typography>
                 {/* Add onClick event to trigger API request */}
                 <ActionButton
                     variant="contained"

@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { AppState } from '../../redux/types';
 import { setEventData } from '../../redux/actions';
 import { SearchEventData } from '../../models/SearchEventData';
+import { LocationApi } from '../../apis/LocationApi';
 
 interface Props {
   events: EventResponse[];
@@ -19,16 +20,29 @@ const EventCard: React.FC<Props> = ({ events, step }) => {
   const [selectedEvent, setSelectedEvent] = useState<EventResponse | null>(null); // State to track the selected event
   const [isModalOpen, setIsModalOpen] = useState(false); // State to control the visibility of the modal
   const navigate = useNavigate();
+  const locationApi = new LocationApi();
 
   const helpers = new Helpers();
   const eventData = useSelector((state: AppState) => state.eventData);
   const dispatch = useDispatch();
 
-  const handleUserNotifyTicketIsOrdered = () => {
+  const handleUserNotifyTicketIsOrdered = async () => {
+    let toCityId;
+
+  if (selectedEvent && eventData.toCityId === "") {
+    toCityId = await locationApi.getCities(selectedEvent.city);
+    toCityId = toCityId[0].id;
+  } else {
+    toCityId = `${eventData.toCity}`;
+  }
+
     const updatedEventData: SearchEventData = {
       ...eventData,
       checkIn: selectedEvent ? `${selectedEvent.date}` : '',
-      venue: selectedEvent ? `${selectedEvent.venue}` : ''
+      venue: selectedEvent ? `${selectedEvent.venue}` : '',
+      toCity: selectedEvent && eventData.toCity == "" ? `${selectedEvent.city}` : `${eventData.toCity}`,
+      toCityId: toCityId,
+      toCountry: selectedEvent && eventData.toCountry == "" ? `${selectedEvent.country}` : `${eventData.toCountry}`,
     };
 
     dispatch(setEventData(updatedEventData));
