@@ -23,8 +23,8 @@ export class FlightApi {
 
     public async getRoundWayFlights(flight: FlightRequest): Promise<FlightRoundWayResponse> {
         try {
-            //           const response = await axios.post<FlightRoundWayResponse[]>(`${this.BASE_URL}/searchRoundWayFlight`, flight);
-            const response = await axios.get<FlightRoundWayResponse>(`https://mocki.io/v1/d068852f-b2d4-436d-bae2-30eabfd400e2`);
+                       const response = await axios.post<FlightRoundWayResponse>(`${this.BASE_URL}/searchRoundWayFlight`, flight);
+            //const response = await axios.get<FlightRoundWayResponse>(`https://mocki.io/v1/d068852f-b2d4-436d-bae2-30eabfd400e2`);
             return response.data;
         } catch (error) {
             throw new Error('Error fetching round way flights');
@@ -33,8 +33,8 @@ export class FlightApi {
 
     public async getFlightLink(token: number, itineraryId : string): Promise<FlightLinkResponse[]> {
         try {
-            //           const response = await axios.get<FlightLinkResponse>(`${this.BASE_URL}/flightPrice?token=${token}&itineraryId=${itineraryId}`);
-            const response = await axios.get<FlightLinkResponse[]>(`https://mocki.io/v1/a9a8ca5d-c635-43b8-945e-6326a24bac88`);
+                       const response = await axios.get<FlightLinkResponse[]>(`${this.BASE_URL}/flightPrice?token=${token}&itineraryId=${itineraryId}`);
+            //const response = await axios.get<FlightLinkResponse[]>(`https://mocki.io/v1/a9a8ca5d-c635-43b8-945e-6326a24bac88`);
             return response.data;
         } catch (error) {
             throw new Error('Error fetching round way flights');

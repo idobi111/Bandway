@@ -37,10 +37,10 @@ const PackageDialog: React.FC<Props> = ({ servicesPackage, packageFilters }) => 
 
     const handleSeeHotelAvailability = async () => {
         try {
-            const response = await hotelApi.getHotelLink(servicesPackage?.hotel?.hotelId);
+            const response = await hotelApi.getHotelLink(servicesPackage?.hotel?.hotelId, servicesPackage?.hotel?.checkIn, servicesPackage?.hotel?.checkOut);
             const hotelUrl = response.body;
 
-            window.open("https://www.booking.com/hotel/ie/the-devlin.html?checkin=2024-05-25&checkout=2024-05-28", '_blank');
+            window.open(hotelUrl, '_blank');
         } catch (error) {
             console.error('Error fetching hotel URL:', error);
             navigate(`/error`);

@@ -8,6 +8,7 @@ import com.mta.bandway.core.domain.hotel.Hotel;
 import com.mta.bandway.core.domain.hotel.HotelDetails;
 import com.mta.bandway.core.domain.hotel.HotelResponse;
 import com.mta.bandway.core.domain.hotel.Property;
+import com.mta.bandway.exceptions.InvalidCityException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
@@ -116,9 +117,10 @@ public class HotelService {
 
     public List<HotelResponseDto> getHotels(HotelRequestDto hotelDto) {
         ResponseEntity<CityResponse> cityData = getCityId(hotelDto.getVenueName());
-        if (isValidCityResponse(cityData)) return null; //TODO: handle error
+        if (isValidCityResponse(cityData))
+            throw new InvalidCityException(String.format("The venue:%s is invalid", hotelDto.getVenueName()));
         Datum datum = getDatum(cityData);
-        if (datum == null) return null;//TODO: handle error
+        if (datum == null) return List.of(HotelResponseDto.builder().build());
         URI uri = buildSearchHotelUri(datum.getDestId(), getDateTime(hotelDto.getCheckIn()), getDateTime(hotelDto.getCheckOut()), hotelDto.getAdults(), hotelDto.getRooms(), datum.getDestType());
         HttpEntity<?> entity = new HttpEntity<>(createHeaders());
         ResponseEntity<HotelResponse> hotels = restTemplate.exchange(uri, HttpMethod.GET, entity, HotelResponse.class);

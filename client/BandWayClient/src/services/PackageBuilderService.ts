@@ -1,3 +1,4 @@
+import { CarApi } from "../apis/CarApi";
 import { Helpers } from "../helpers/helpers";
 import { CarRentalRequest } from "../models/CarRentalRequest";
 import { CarRentalResponse } from "../models/CarRentalResponse";
@@ -10,6 +11,7 @@ import { Package } from "../models/Package";
 import { PackageFilter } from "../models/PackageFilter";
 
 const helpers = new Helpers();
+const carApi = new CarApi();
 
 export class PackageBuilderService {
 
@@ -25,7 +27,7 @@ export class PackageBuilderService {
       });
     }
     else {
-      const packageObj: Package = {packageId: 1, hotel: undefined, flights, carRentals};
+      const packageObj: Package = { packageId: 1, hotel: undefined, flights, carRentals };
       packages.push(packageObj);
     }
 
@@ -90,10 +92,20 @@ export class PackageBuilderService {
   ): FlightRequest {
     // Use the checkIn date for a one-way flight
     const flightDate = checkIn ? new Date(checkIn) : null;
+    let threeDaysFromCheckIn;
+
+    if (flightDate) {
+      threeDaysFromCheckIn = new Date(flightDate); // Create a copy of flightDate
+      threeDaysFromCheckIn.setDate(threeDaysFromCheckIn.getDate() + 3);
+      console.log(threeDaysFromCheckIn);
+    } else {
+      console.log('Check-in date is not provided');
+    }
+    
 
     return {
       departureDate: flightDate ? helpers.formatDateForPackageBuilder(flightDate) : "", // Use checkIn if available, otherwise empty string
-      returnDate: flightDate ? helpers.formatDateForPackageBuilder(flightDate) : "", // No checkOut for one-way flights
+      returnDate: threeDaysFromCheckIn ? helpers.formatDateForPackageBuilder(threeDaysFromCheckIn) : "", // No checkOut for one-way flights
       src: fromCityId || "", // Use fromCityId if provided, otherwise empty string
       dest: toCityId || "", // Use toCityId if provided, otherwise empty string
       adults: 2, // Set adults to 2 by default
@@ -105,27 +117,36 @@ export class PackageBuilderService {
   }
 
 
-  public createCarRequestByEventData(
+  public async createCarRequestByEventData(
     checkIn: string | null,
-    fromCity: string | null,
     toCity: string | null
-  ): CarRentalRequest {
-    // Use the checkIn date for a one-way flight
+  ): Promise<CarRentalRequest> {
+
     const carRentalDate = checkIn ? new Date(checkIn) : null;
-    const defaultCheckInDate = new Date(); // Use the current date as default
-    const threeDaysFromCheckIn = new Date(defaultCheckInDate.setDate(defaultCheckInDate.getDate() + 3));
+    let threeDaysFromCheckIn;
+
+    if (carRentalDate) {
+      threeDaysFromCheckIn = new Date(carRentalDate); // Create a copy of carRentalDate
+      threeDaysFromCheckIn.setDate(threeDaysFromCheckIn.getDate() + 3);
+      console.log(threeDaysFromCheckIn);
+    } else {
+      console.log('Check-in date is not provided');
+    }
+
+
+    let toCityData = await carApi.getCarRentalCity(toCity);
 
 
     return {
-      pickupStartDate: carRentalDate ? helpers.formatDateForPackageBuilder(new Date(carRentalDate)) : helpers.formatDateForPackageBuilder(defaultCheckInDate),
+      pickupStartDate: carRentalDate ? helpers.formatDateForPackageBuilder(new Date(carRentalDate)) : helpers.formatDateForPackageBuilder(new Date()),
       dropoffEndDate: carRentalDate ? helpers.formatDateForPackageBuilder(new Date(new Date(carRentalDate).setDate(new Date(carRentalDate).getDate() + 3))) // Chain setDate and new Date
         : helpers.formatDateForPackageBuilder(threeDaysFromCheckIn),
-      pickupCity: fromCity ? fromCity : '',
-      dropoffCity: toCity ? toCity : '',
-      pickupTime: '',
-      dropoffTime: '',
+      pickupCity: toCityData ? toCityData[0].id : 'abc',
+      dropoffCity: toCityData ? toCityData[0].id : 'abc',
+      pickupTime: "10:00",
+      dropoffTime: "10:00",
       driverAge: 25,
-      carType: [],
+      carType: ["small"],
       hasHairConditioner: true
     };
   }
