@@ -1,7 +1,7 @@
 # Bandway
 Find your vacation for your favorite concerts
 
-# Prodcut Doc
+# Product Doc
 https://mailmtaac-my.sharepoint.com/:b:/g/personal/talym_mta_ac_il/ESBXhinDvE1DpudQ36Ei9koBHYXHTKmPFWpIzXCHu_toag?e=OTkQXH
 
 # Presentation
