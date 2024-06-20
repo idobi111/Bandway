@@ -31,12 +31,6 @@ const PackageCard: React.FC<Props> = ({ packages, step, packageFilters }) => {
   const [selectedPackage, setSelectedPackage] = useState<Package | null>(null); // State to track the selected package
   const [openDialog, setOpenDialog] = useState(false); // State to track whether the dialog is open
 
-  //for testing
-  // useEffect(() => {
-  //   packages.forEach((packageServ)=> {
-  //     packageServ.flights = undefined;
-  //   })
-  // }, []);
 
   const loadMore = () => {
     setVisiblePackages(prevVisiblePackages => prevVisiblePackages + step); // Increase the number of visible events
