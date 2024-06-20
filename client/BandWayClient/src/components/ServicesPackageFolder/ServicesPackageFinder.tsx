@@ -87,7 +87,7 @@ const ServicesPackageFinder: React.FC = () => {
 
         const flightRequest = packageBuilderService.createFlightRequestByEventData(checkInDate, fromCityId, toCityId);
         const flightsData = await flightApi.getRoundWayFlights(flightRequest);
-        //flightService.sortFlightsFromLowestToHighestPrice(flightsData.roundWayFlightDetails); ///to fix
+        flightService.sortFlightsFromLowestToHighestPrice(flightsData.roundWayFlightDetails); ///to fix
         //const flightsData = undefined;
         setFlights(flightsData);
 
