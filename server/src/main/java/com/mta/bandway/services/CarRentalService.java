@@ -57,29 +57,14 @@ public class CarRentalService {
         ResponseEntity<AutoCompleteCarCity> s = restTemplate.exchange(urlWithQuery, HttpMethod.GET, entity, AutoCompleteCarCity.class);
         for (int i = 0; i < Objects.requireNonNull(s.getBody()).getData().size(); i++) {
             CarDatum data = s.getBody().getData().get(i);
-            result.add(AutoCompleteCityResponseDto.builder()
-                    .id(data.getId())
-                    .name(data.getCity())
-                    .country(data.getCountry())
-                    .build());
+            result.add(AutoCompleteCityResponseDto.builder().id(data.getId()).name(data.getCity()).country(data.getCountry()).build());
         }
         return result;
     }
 
     public CarRentalResponseDto searchCarRental(CarRentalRequestDto requestCarRentalDto) {
         HttpEntity<String> entity = new HttpEntity<>(createHeaders());
-        URI uri = UriComponentsBuilder.fromHttpUrl(carRentalApi)
-                .queryParam("pickUpId", requestCarRentalDto.getPickupCity())
-                .queryParam("dropOffId", requestCarRentalDto.getDropoffCity())
-                .queryParam("pickUpDate", getDateTime(requestCarRentalDto.getPickupStartDate()))
-                .queryParam("pickUpTime", requestCarRentalDto.getPickupTime())
-                .queryParam("dropOffDate", getDateTime(requestCarRentalDto.getDropoffEndDate()))
-                .queryParam("dropOffTime", requestCarRentalDto.getDropoffTime())
-                .queryParam("driverAge", requestCarRentalDto.getDriverAge())
-                .queryParam("carType", getCarTypeAsString(requestCarRentalDto.getCarType()))
-                .queryParam("hasAirConditioning", requestCarRentalDto.getHasHairConditioner())
-                .queryParam("currencyCode", "USD")
-                .build().toUri();
+        URI uri = UriComponentsBuilder.fromHttpUrl(carRentalApi).queryParam("pickUpId", requestCarRentalDto.getPickupCity()).queryParam("dropOffId", requestCarRentalDto.getDropoffCity()).queryParam("pickUpDate", getDateTime(requestCarRentalDto.getPickupStartDate())).queryParam("pickUpTime", requestCarRentalDto.getPickupTime()).queryParam("dropOffDate", getDateTime(requestCarRentalDto.getDropoffEndDate())).queryParam("dropOffTime", requestCarRentalDto.getDropoffTime()).queryParam("driverAge", requestCarRentalDto.getDriverAge()).queryParam("carType", getCarTypeAsString(requestCarRentalDto.getCarType())).queryParam("hasAirConditioning", requestCarRentalDto.getHasHairConditioner()).queryParam("currencyCode", "USD").build().toUri();
         Integer daysDuration = calcDaysDuration(requestCarRentalDto.getPickupStartDate(), requestCarRentalDto.getDropoffEndDate(), requestCarRentalDto.getPickupTime(), requestCarRentalDto.getDropoffTime());
         ResponseEntity<CarResponse> response = restTemplate.exchange(uri, HttpMethod.GET, entity, CarResponse.class);
         if (response.getBody() == null) {
@@ -112,32 +97,35 @@ public class CarRentalService {
         for (int i = 0; i < responseBody.getData().getSearchResults().size(); i++) {
             SearchResult data = responseBody.getData().getSearchResults().get(i);
             Double basePrice = data.getPricingInfo().getBasePrice();
-            minPrice = Math.min(minPrice, basePrice);
-            maxPrice = Math.max(maxPrice, basePrice);
-            VehicleInfo vehicleInfo = data.getVehicleInfo();
-            RouteInfo routeInfo = data.getRouteInfo();
-            cars.add(CarRentalData.builder()
-                    .model(vehicleInfo.getVName())
-                    .pricePerDay(calcPricePerDay(data, daysDuration))
-                    .pickUpAddress(routeInfo.getPickup().getAddress())
-                    .pickUpPlaceName(routeInfo.getPickup().getName())
-                    .dropOffAddress(routeInfo.getDropoff().getAddress())
-                    .dropOffPlaceName(routeInfo.getDropoff().getName())
-                    .image(vehicleInfo.getImageUrl())
-                    .carLink(data.getForwardUrl())
-                    .totalPrice(basePrice)
-                    .rentalPeriod(daysDuration)
-                    .rating(data.getRatingInfo().getAverage())
-                    .ratingDescription(data.getRatingInfo().getAverageText())
-                    .supplierName(data.getSupplierInfo().getName())
-                    .supplierLogo(data.getSupplierInfo().getLogoUrl())
-                    .seats(Integer.valueOf(vehicleInfo.getSeats()))
-                    .carGroup(vehicleInfo.getGroup())
-                    .transmission(vehicleInfo.getTransmission())
-                    .build());
+            if (basePrice != null) {
+                minPrice = Math.min(minPrice, basePrice);
+                maxPrice = Math.max(maxPrice, basePrice);
+                VehicleInfo vehicleInfo = data.getVehicleInfo();
+                RouteInfo routeInfo = data.getRouteInfo();
+                cars.add(CarRentalData.builder()
+                        .model(vehicleInfo.getVName())
+                        .pricePerDay(calcPricePerDay(data, daysDuration))
+                        .pickUpAddress(routeInfo.getPickup().getAddress())
+                        .pickUpPlaceName(routeInfo.getPickup().getName())
+                        .dropOffAddress(routeInfo.getDropoff().getAddress())
+                        .dropOffPlaceName(routeInfo.getDropoff().getName())
+                        .image(vehicleInfo.getImageUrl())
+                        .carLink(data.getForwardUrl())
+                        .totalPrice(basePrice)
+                        .rentalPeriod(daysDuration)
+                        .rating(data.getRatingInfo().getAverage())
+                        .ratingDescription(data.getRatingInfo().getAverageText())
+                        .supplierName(data.getSupplierInfo().getName())
+                        .supplierLogo(data.getSupplierInfo().getLogoUrl())
+                        .seats(Integer.valueOf(vehicleInfo.getSeats()))
+                        .carGroup(vehicleInfo.getGroup())
+                        .transmission(vehicleInfo.getTransmission())
+                        .build());
+            }
         }
         if (cars.isEmpty()) {
             minPrice = 0.0;
+            maxPrice = 0.0;
         }
         return CarRentalResponseDto.builder()
                 .carRentalData(cars)
@@ -154,9 +142,7 @@ public class CarRentalService {
     }
 
     private String getCarTypeAsString(List<CarCategory> carTypes) {
-        return carTypes.stream()
-                .map(CarCategory::getDisplayName)
-                .collect(Collectors.joining(","));
+        return carTypes.stream().map(CarCategory::getDisplayName).collect(Collectors.joining(","));
     }
 
     private HttpHeaders createHeaders() {

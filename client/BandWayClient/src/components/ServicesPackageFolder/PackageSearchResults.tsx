@@ -22,6 +22,7 @@ import { CarApi } from '../../apis/CarApi';
 import { CarRentalResponse } from '../../models/CarRentalResponse';
 import PackageDialogFlightSection from './PackageCard/PackageDialog/PackageDialogFlightSection';
 import PackageDialogCarSection from './PackageCard/PackageDialog/PackageDialogCarSection';
+import{ Helpers } from '../../helpers/helpers';
 
 const PackageSearchResults: React.FC = () => {
     const [packages, setPackages] = useState<Package[]>([]);
@@ -44,10 +45,11 @@ const PackageSearchResults: React.FC = () => {
 
         const fetchPackages = async () => {
             try {
+            const helpers = new Helpers();
                 // Create hotel request object
                 const hotelRequest: HotelRequest = {
-                    checkIn: packageData.checkIn || '',
-                    checkOut: packageData.checkOut || '',
+                    checkIn: helpers.formatDateString(packageData.checkIn) || '',
+                    checkOut: helpers.formatDateString(packageData.checkOut) || '',
                     venueName: packageData.toCity || '',
                     rooms: packageData.rooms || 0,
                     adults: packageData.adults || 0,
@@ -84,24 +86,28 @@ const PackageSearchResults: React.FC = () => {
 
                 // Fetch hotel data
                 console.log(hotelRequest);
-               // const hotelsData = await hotelApi.getHotels(hotelRequest);
-                const hotelsData = [];
+               const hotelsData = await hotelApi.getHotels(hotelRequest);
+//                 const hotelsData = [];
                 setHotels(hotelsData);
 
                 // Fetch flight data
                 console.log(flightRequest);
-               // const flightsData = await flightApi.getRoundWayFlights(flightRequest);
-                const flightsData = undefined;
+               const flightsData = await flightApi.getRoundWayFlights(flightRequest);
+//                 const flightsData = undefined;
                 setFlights(flightsData);
 
                 // Fetch car data
                 console.log(carRequest);
-                //const carData = await carApi.getCarRentals(carRequest);
-                const carData = undefined;
+                const carData = await carApi.getCarRentals(carRequest);
+//                 const carData = undefined;
                 setCars(carData);
                 // Combine hotel and flight data to generate packages
+                console.log("hotelsData: " + hotelsData);
+                console.log("flightsData: " + flightsData);
+                console.log("carData: " + carData);
                 const combinedPackages = packageBuilderService.combineResults(hotelsData, flightsData, carData);
 
+                console.log("combinedPackages: " + combinedPackages);
                 // Set the packages state with the combined packages
                 setPackages(combinedPackages);
                 setIsLoading(false);

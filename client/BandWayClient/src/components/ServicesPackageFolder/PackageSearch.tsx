@@ -42,6 +42,8 @@ const PackageSearch: React.FC = () => {
     fromCountry: eventData?.fromCountry ?? null,
     toCity: eventData?.toCity ?? null,
     toCountry: eventData?.toCountry ?? null,
+    fromCityId: eventData?.fromCityId ?? null,
+    toCityId: eventData?.toCityId ?? null,
   });
 
   // Function to check if all fields in searchData are filled
@@ -72,18 +74,18 @@ const PackageSearch: React.FC = () => {
 
   const handleSelectFromCity = (city: CityOption) => {
     setSelectedFromCity(city);
-    setPackage({ ...packageData, fromCity: city.value, fromCountry: city.country });
+    setPackage({ ...packageData, fromCity: city.value, fromCountry: city.country, fromCityId: city.id});
   };
 
   const handleSelectToCity = (city: CityOption) => {
     setSelectedToCity(city);
-    setPackage({ ...packageData, toCity: city.value, toCountry: city.country });
+    setPackage({ ...packageData, toCity: city.value, toCountry: city.country, toCityId: city.id });
   };
 
-  const handlPerformerSearch = () => {
+  const handlePackageSearch = () => {
 
     dispatch(setPackageData(packageData));
-
+    console.log("Package Data:" + JSON.stringify(packageData));
 
     navigate(`/package-search-results`);
   };
@@ -108,7 +110,7 @@ const PackageSearch: React.FC = () => {
           <CitySelect onSelect={handleSelectToCity} placeholder="Select City" title='To' />
         </Grid>
         <Grid item xs={2}>
-          {(<ActionButton variant='contained' onClick={handlPerformerSearch} disabled={!isSearchDataFilled()}>Search</ActionButton>)}
+          {(<ActionButton variant='contained' onClick={handlePackageSearch} disabled={!isSearchDataFilled()}>Search</ActionButton>)}
         </Grid>
       </HomeSearchGrid>
     </WindowDiv>

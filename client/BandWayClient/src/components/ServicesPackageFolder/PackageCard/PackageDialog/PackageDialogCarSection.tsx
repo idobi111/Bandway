@@ -52,7 +52,7 @@ const PackageDialogCarSection: React.FC<Props> = ({ servicesPackage, accordionWi
                                 <AccordionSummary expandIcon={<ExpandMoreIcon />}>
                                     <Stack sx={{ paddingRight: 4 }}>
                                         <Stack direction={'row'} sx={{ paddingTop: 2 }}>
-                                            <Typography variant='h6' color="text.secondary">{carData.model} &middot; {carData.transmission} &middot; {carData.rentalPeriod} days  &middot; ${carData.pricePerDay} per day </Typography>
+                                            <Typography variant='h6' color="text.secondary">{carData.model} &middot; {carData.transmission} &middot; {carData.rentalPeriod} days  &middot; ${helpers.getRoundedPrice(carData.pricePerDay)} per day </Typography>
                                         </Stack>
                                         <Typography variant='h6' sx={{ paddingRight: 1 }}>Start from ${carData.totalPrice}</Typography>
                                     </Stack>

@@ -21,9 +21,7 @@ const PackageDialogHotelSection: React.FC<Props> = ({ servicesPackage }) => {
 
     const handleSeeHotelAvailability = async () => {
         try {
-            const response = await hotelApi.getHotelLink(servicesPackage?.hotel?.hotelId, servicesPackage?.hotel?.checkIn, servicesPackage?.hotel?.checkOut);
-            const hotelUrl = response.body;
-
+            const hotelUrl = await hotelApi.getHotelLink(servicesPackage?.hotel?.hotelId, servicesPackage?.hotel?.checkIn, servicesPackage?.hotel?.checkOut);
             window.open(hotelUrl, '_blank');
         } catch (error) {
             console.error('Error fetching hotel URL:', error);

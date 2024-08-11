@@ -220,11 +220,12 @@ public class FlightService {
                 .queryParam("itineraryId", itineraryId)
                 .queryParam("token", token).build().toUri();
         ResponseEntity<FlightPrice> flightPriceResponseEntity = restTemplate.exchange(urlWithQuery, HttpMethod.GET, entity, FlightPrice.class);
-        if (flightPriceResponseEntity.getBody() == null || flightPriceResponseEntity.getBody().getData() == null) {
+        FlightPrice data = flightPriceResponseEntity.getBody();
+        if (data == null || data.getData() == null || data.getData().getItinerary() == null) {
             return null;
         }
         List<FlightPriceResponseDto> flightPriceResponseDtos = new ArrayList<>();
-        FlightPrice data = flightPriceResponseEntity.getBody();
+
         for (PricingOption price : data.getData().getItinerary().getPricingOptions()) {
             flightPriceResponseDtos.add(FlightPriceResponseDto.builder()
                     .agencyName(price.getAgents().get(0).getName())

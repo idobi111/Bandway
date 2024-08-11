@@ -74,6 +74,17 @@ export class Helpers {
         }
     }
 
+    public formatDateString(dateStr: string): string {
+        try {
+            console.log(dateStr)
+            const date = parse(dateStr, 'M/d/yyyy', new Date());
+            console.log(date)
+            return format(date, 'yyyy-MM-dd');
+        } catch (error) {
+            throw new Error('Invalid date format. Expected format: M/d/yyyy');
+        }
+    }
+
 
     public formatDateForPackageBuilder(date: Date) {
         const year = date.getFullYear();
@@ -103,6 +114,10 @@ export class Helpers {
         } else {
           return formattedPrice;
         }
+      }
+
+      public deleteSpaces(input: string): string{
+        return input.replace(" ", "");
       }
       
 }
