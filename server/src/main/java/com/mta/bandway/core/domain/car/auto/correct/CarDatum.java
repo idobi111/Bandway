@@ -1,20 +1,23 @@
 package com.mta.bandway.core.domain.car.auto.correct;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
-
-import java.io.Serializable;
 
 @Data
-@NoArgsConstructor
-public class CarDatum implements Serializable {
+@Builder
+public class CarDatum {
 
-    @JsonProperty("city")
-    private String city;
-    @JsonProperty("country")
-    private String country;
-    @JsonProperty("id")
-    private String id;
+    @JsonProperty("hierarchy")
+    private String hierarchy;
+    @JsonProperty("location")
+    private String location;
+    @JsonProperty("entity_name")
+    private String entityName;
+    @JsonProperty("entity_id")
+    private String entityId;
+    @JsonProperty("class")
+    private String type;
+
 
 }

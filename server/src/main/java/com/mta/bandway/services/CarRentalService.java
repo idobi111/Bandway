@@ -5,7 +5,6 @@ import com.mta.bandway.api.domain.response.AutoCompleteCityResponseDto;
 import com.mta.bandway.api.domain.response.CarRentalResponseDto;
 import com.mta.bandway.core.domain.car.*;
 import com.mta.bandway.core.domain.car.auto.correct.AutoCompleteCarCity;
-import com.mta.bandway.core.domain.car.auto.correct.CarCategory;
 import com.mta.bandway.core.domain.car.auto.correct.CarDatum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -23,7 +22,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
-import java.util.stream.Collectors;
 
 @Service
 public class CarRentalService {
@@ -37,8 +35,8 @@ public class CarRentalService {
     @Autowired
     public CarRentalService(@Value("${carrental.api.url}") String apiUrl, @Value("${rapid.api.key}") String apiKey, RestTemplate restTemplate) {
         this.apiUrl = apiUrl;
-        this.carRentalApi = "https://" + apiUrl + "/car/search";
-        this.carAutoComplete = "https://" + apiUrl + "/car/auto-complete";
+        this.carRentalApi = "https://" + apiUrl + "/api/v1/cars/search-cars";
+        this.carAutoComplete = "https://" + apiUrl + "/api/v1/cars/search-location";
         this.apiKey = apiKey;
         this.restTemplate = restTemplate;
 //        this.carRentalOrderRepository = carRentalOrderRepository;
@@ -50,6 +48,23 @@ public class CarRentalService {
         return sdf.format(date);
     }
 
+    private static String getCountry(CarDatum data) {
+        String[] hierarchy = data.getHierarchy().split("\\|");
+        return hierarchy[hierarchy.length - 1];
+    }
+
+    private static CarMetadata selectGroup(CarResourceData data, Groups groups) {
+        return groups.getGroups().get(data.getGroup());
+    }
+
+    private static String buildCarLink(CarResourceData data) {
+        return "https://www.skyscanner.com" + data.getDplnk();
+    }
+
+    private static String getSupplierLogoUrl(CarResourceData data) {
+        return "https://logos.skyscnr.com/images/websites/" + data.getPrvId() + ".png";
+    }
+
     public List<AutoCompleteCityResponseDto> getCityAutoComplete(String text) {
         HttpEntity<String> entity = new HttpEntity<>(createHeaders());
         String urlWithQuery = UriComponentsBuilder.fromHttpUrl(carAutoComplete).queryParam("query", text).toUriString();
@@ -57,14 +72,14 @@ public class CarRentalService {
         ResponseEntity<AutoCompleteCarCity> s = restTemplate.exchange(urlWithQuery, HttpMethod.GET, entity, AutoCompleteCarCity.class);
         for (int i = 0; i < Objects.requireNonNull(s.getBody()).getData().size(); i++) {
             CarDatum data = s.getBody().getData().get(i);
-            result.add(AutoCompleteCityResponseDto.builder().id(data.getId()).name(data.getCity()).country(data.getCountry()).build());
+            result.add(AutoCompleteCityResponseDto.builder().id(data.getEntityId()).name(data.getEntityName()).country(getCountry(data)).build());
         }
         return result;
     }
 
     public CarRentalResponseDto searchCarRental(CarRentalRequestDto requestCarRentalDto) {
         HttpEntity<String> entity = new HttpEntity<>(createHeaders());
-        URI uri = UriComponentsBuilder.fromHttpUrl(carRentalApi).queryParam("pickUpId", requestCarRentalDto.getPickupCity()).queryParam("dropOffId", requestCarRentalDto.getDropoffCity()).queryParam("pickUpDate", getDateTime(requestCarRentalDto.getPickupStartDate())).queryParam("pickUpTime", requestCarRentalDto.getPickupTime()).queryParam("dropOffDate", getDateTime(requestCarRentalDto.getDropoffEndDate())).queryParam("dropOffTime", requestCarRentalDto.getDropoffTime()).queryParam("driverAge", requestCarRentalDto.getDriverAge()).queryParam("carType", getCarTypeAsString(requestCarRentalDto.getCarType())).queryParam("hasAirConditioning", requestCarRentalDto.getHasHairConditioner()).queryParam("currencyCode", "USD").build().toUri();
+        URI uri = UriComponentsBuilder.fromHttpUrl(carRentalApi).queryParam("pickUpEntityId", requestCarRentalDto.getPickupCity()).queryParam("dropOffEntityId", requestCarRentalDto.getDropoffCity()).queryParam("pickUpDate", getDateTime(requestCarRentalDto.getPickupStartDate())).queryParam("pickUpTime", requestCarRentalDto.getPickupTime()).queryParam("dropOffDate", getDateTime(requestCarRentalDto.getDropoffEndDate())).queryParam("dropOffTime", requestCarRentalDto.getDropoffTime()).queryParam("driverAge", requestCarRentalDto.getDriverAge()).queryParam("currency", "USD").build().toUri();
         Integer daysDuration = calcDaysDuration(requestCarRentalDto.getPickupStartDate(), requestCarRentalDto.getDropoffEndDate(), requestCarRentalDto.getPickupTime(), requestCarRentalDto.getDropoffTime());
         ResponseEntity<CarResponse> response = restTemplate.exchange(uri, HttpMethod.GET, entity, CarResponse.class);
         if (response.getBody() == null) {
@@ -86,7 +101,6 @@ public class CarRentalService {
         return days;
     }
 
-
     private CarRentalResponseDto createCarRentalResponseDto(CarResponse responseBody, Integer daysDuration, Date checkIn, Date checkOut) {
         List<CarRentalData> cars = new ArrayList<>();
         double minPrice = Double.MAX_VALUE;
@@ -94,32 +108,32 @@ public class CarRentalService {
         if (responseBody.getData() == null) {
             return CarRentalResponseDto.builder().build();
         }
-        for (int i = 0; i < responseBody.getData().getSearchResults().size(); i++) {
-            SearchResult data = responseBody.getData().getSearchResults().get(i);
-            Double basePrice = data.getPricingInfo().getBasePrice();
-            if (basePrice != null) {
+        for (int i = 0; i < responseBody.getData().getQuotesCount(); i++) {
+            CarResourceData data = responseBody.getData().getCarRentalData().get(i);
+            Double basePrice = data.getPrice();
+            CarMetadata carMetadata = selectGroup(data, responseBody.getData().getGroups());
+            if (basePrice != null && carMetadata != null) {
                 minPrice = Math.min(minPrice, basePrice);
                 maxPrice = Math.max(maxPrice, basePrice);
-                VehicleInfo vehicleInfo = data.getVehicleInfo();
-                RouteInfo routeInfo = data.getRouteInfo();
                 cars.add(CarRentalData.builder()
-                        .model(vehicleInfo.getVName())
+                        .model(data.getOriginalCarName())
                         .pricePerDay(calcPricePerDay(data, daysDuration))
-                        .pickUpAddress(routeInfo.getPickup().getAddress())
-                        .pickUpPlaceName(routeInfo.getPickup().getName())
-                        .dropOffAddress(routeInfo.getDropoff().getAddress())
-                        .dropOffPlaceName(routeInfo.getDropoff().getName())
-                        .image(vehicleInfo.getImageUrl())
-                        .carLink(data.getForwardUrl())
+//                        .pickUpAddress(data.getAdds().getAddress())
+//                        .pickUpPlaceName(routeInfo.getPickup().getName())
+//                        .dropOffAddress(routeInfo.getDropoff().getAddress())
+//                        .dropOffPlaceName(routeInfo.getDropoff().getName())
+                        .image("https://logos.skyscnr.com/images/carhire/sippmaps/" + carMetadata.getImg())
+                        .carLink(buildCarLink(data))
                         .totalPrice(basePrice)
                         .rentalPeriod(daysDuration)
-                        .rating(data.getRatingInfo().getAverage())
-                        .ratingDescription(data.getRatingInfo().getAverageText())
-                        .supplierName(data.getSupplierInfo().getName())
-                        .supplierLogo(data.getSupplierInfo().getLogoUrl())
-                        .seats(Integer.valueOf(vehicleInfo.getSeats()))
-                        .carGroup(vehicleInfo.getGroup())
-                        .transmission(vehicleInfo.getTransmission())
+                        .rating(data.getVndrRating().getOverallRating())
+//                        .ratingDescription(carMetadata.getAverageText())
+                        .supplierName(data.getVndr())
+                        .supplierLogo(getSupplierLogoUrl(data))
+                        .seats(data.getSeat())
+                        .carGroup(carMetadata.getCls())
+                        .transmission(carMetadata.getTrans())
+                        .fuelType(Objects.equals(data.getFuelType(), "other") ? "gasoline" : data.getFuelType())
                         .build());
             }
         }
@@ -136,13 +150,8 @@ public class CarRentalService {
                 .build();
     }
 
-
-    private Double calcPricePerDay(SearchResult data, Integer daysDuration) {
-        return data.getPricingInfo().getBasePrice() / daysDuration;
-    }
-
-    private String getCarTypeAsString(List<CarCategory> carTypes) {
-        return carTypes.stream().map(CarCategory::getDisplayName).collect(Collectors.joining(","));
+    private Double calcPricePerDay(CarResourceData data, Integer daysDuration) {
+        return data.getPrice() / daysDuration;
     }
 
     private HttpHeaders createHeaders() {

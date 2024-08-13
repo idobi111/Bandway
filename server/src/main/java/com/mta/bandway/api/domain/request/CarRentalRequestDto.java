@@ -2,12 +2,10 @@ package com.mta.bandway.api.domain.request;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.mta.bandway.core.domain.car.auto.correct.CarCategory;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 import java.util.Date;
-import java.util.List;
 
 @Data
 public class CarRentalRequestDto {
@@ -39,13 +37,5 @@ public class CarRentalRequestDto {
     @Schema(description = "Driver age", defaultValue = "25", example = "25")
     @JsonProperty("driverAge")
     private Integer driverAge;
-
-    @Schema(description = "Car type")
-    @JsonProperty("carType")
-    private List<CarCategory> carType;
-
-    @Schema(description = "Whether the car has a hair conditioner", example = "false", defaultValue = "false")
-    @JsonProperty(value = "hasHairConditioner", defaultValue = "false")
-    private Boolean hasHairConditioner;
 
 }

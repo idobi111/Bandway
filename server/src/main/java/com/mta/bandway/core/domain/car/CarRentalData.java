@@ -80,4 +80,8 @@ public class CarRentalData {
     @Schema(description = "Transmission type")
     @JsonProperty("transmission")
     private String transmission;
+
+    @Schema(description = "Fuel type")
+    @JsonProperty("fuelType")
+    private String fuelType;
 }
