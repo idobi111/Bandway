@@ -127,7 +127,6 @@ public class CarRentalService {
                         .totalPrice(basePrice)
                         .rentalPeriod(daysDuration)
                         .rating(data.getVndrRating().getOverallRating())
-//                        .ratingDescription(carMetadata.getAverageText())
                         .supplierName(data.getVndr())
                         .supplierLogo(getSupplierLogoUrl(data))
                         .seats(data.getSeat())
