@@ -102,7 +102,7 @@ const ServicesPackageFinder: React.FC = () => {
         setIsLoading(false);
 
       } catch (error) {
-        console.error('Error fetching hotel or flight data:', error);
+        console.error('Error fetching hotel,  flight data or car rental data:', error);
         navigate(`/error`);
       }
     };

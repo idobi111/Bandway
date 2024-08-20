@@ -152,7 +152,95 @@ export class PackageBuilderService {
   }
 
 
+  public createHotelRequestByPackageData(
+    checkIn: string | null,
+    checkOut: string | null,
+    venue: string | null,
+    rooms: number | null,
+    adults: number | null,
+    children: number | null,
+    maxPrice: number | null,
+    minPrice: number | null
+  ): HotelRequest {
+    const defaultCheckInDate = new Date(); // Use the current date as default
+    const threeDaysFromCheckIn = new Date(defaultCheckInDate.setDate(defaultCheckInDate.getDate() + 3));
 
+
+    return {
+      checkIn: checkIn ? helpers.formatDateForPackageBuilder(new Date(checkIn)) : helpers.formatDateForPackageBuilder(defaultCheckInDate),
+      checkOut: checkOut
+        ? helpers.formatDateForPackageBuilder(new Date(new Date(checkOut))) // Chain setDate and new Date
+        : helpers.formatDateForPackageBuilder(threeDaysFromCheckIn),
+      venueName: venue || "",
+      rooms: rooms || 1, 
+      adults: adults || 2,
+      children: children || 0, 
+      maxPrice: maxPrice || 10000, 
+      minPrice: maxPrice || 100
+    };
+  }
+
+
+  public createFlightRequestByPackageData(
+    checkIn: string | null,
+    checkOut: string | null, 
+    fromCityId: string | null,
+    toCityId: string | null,
+    adults: number | null, 
+    children: number | null, 
+  ): FlightRequest {
+    // Use the checkIn date for a one-way flight
+    const checkInDate = checkIn ? new Date(checkIn) : null;
+    const checkOutDate = checkOut ? new Date(checkOut) : null;
+
+    return {
+      departureDate: checkInDate ? helpers.formatDateForPackageBuilder(checkInDate) : "", // Use checkIn if available, otherwise empty string
+      returnDate: checkOutDate ? helpers.formatDateForPackageBuilder(checkOutDate) : "", // No checkOut for one-way flights
+      src: fromCityId || "", 
+      dest: toCityId || "", 
+      adults: adults || 2, 
+      children: children || 0, 
+      infants: 0, 
+      isDirectFlight: false, 
+      cabinClass: "economy",
+    };
+  }
+
+
+  public async createCarRequestByPackageData(
+    checkIn: string | null,
+    checkOut: string | null,
+    toCity: string | null,
+  ): Promise<CarRentalRequest> {
+
+    const carRentalDate = checkIn ? new Date(checkIn) : null;
+    let threeDaysFromCheckIn;
+
+    if (carRentalDate) {
+      threeDaysFromCheckIn = new Date(carRentalDate); // Create a copy of carRentalDate
+      threeDaysFromCheckIn.setDate(threeDaysFromCheckIn.getDate() + 3);
+      console.log(threeDaysFromCheckIn);
+    } else {
+      console.log('Check-in date is not provided');
+    }
+
+
+    let toCityData = await carApi.getCarRentalCity(toCity);
+
+
+    return {
+      pickupStartDate: carRentalDate ? helpers.formatDateForPackageBuilder(new Date(carRentalDate)) : helpers.formatDateForPackageBuilder(new Date()),
+      dropoffEndDate: carRentalDate ? helpers.formatDateForPackageBuilder(new Date(new Date(carRentalDate).setDate(new Date(carRentalDate).getDate() + 3))) // Chain setDate and new Date
+        : helpers.formatDateForPackageBuilder(threeDaysFromCheckIn),
+      pickupCity: toCityData ? toCityData[0].id : 'abc',
+      dropoffCity: toCityData ? toCityData[0].id : 'abc',
+      pickupTime: "10:00",
+      dropoffTime: "10:00",
+      driverAge: 25,
+      carType: ["small"],
+      hasHairConditioner: true
+    };
+  }
 
 }
 

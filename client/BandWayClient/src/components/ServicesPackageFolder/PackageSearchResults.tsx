@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { AppState } from '../../redux/types';
 import { HotelApi } from '../../apis/HotelApi';
 import { FlightApi } from '../../apis/FlightApi';
@@ -23,6 +23,9 @@ import { CarRentalResponse } from '../../models/CarRentalResponse';
 import PackageDialogFlightSection from './PackageCard/PackageDialog/PackageDialogFlightSection';
 import PackageDialogCarSection from './PackageCard/PackageDialog/PackageDialogCarSection';
 import{ Helpers } from '../../helpers/helpers';
+import { FlightService } from '../../services/FlightService';
+import { SearchPackageData } from '../../models/SearchPackageData';
+import { setPackageData } from '../../redux/actions';
 
 const PackageSearchResults: React.FC = () => {
     const [packages, setPackages] = useState<Package[]>([]);
@@ -34,86 +37,72 @@ const PackageSearchResults: React.FC = () => {
 
     const [isLoading, setIsLoading] = useState(true);
     const packageData = useSelector((state: AppState) => state.packageData);
+    const dispatch = useDispatch();
     const navigate = useNavigate();
+
+    const hotelApi = new HotelApi();
+    const flightApi = new FlightApi();
+    const carApi = new CarApi();
+    const packageBuilderService = new PackageBuilderService();
+    const flightService = new FlightService();
+
+  useEffect(() => {
+    const storedPackageDataString = localStorage.getItem('packageData');
+    console.log("Stored packageDataString:", storedPackageDataString);
+    if (storedPackageDataString) {
+      try {
+        const storedPackageData: SearchPackageData = JSON.parse(storedPackageDataString);
+        console.log("Parsed packageData:", storedPackageData);
+        // Dispatch action to update eventData in Redux state
+        dispatch(setPackageData(storedPackageData));
+      } catch (error) {
+        console.error("Error parsing JSON:", error);
+        navigate(`/error`);
+      }
+    }
+  }, [dispatch]);
+
+  // Save eventData to localStorage whenever it changes
+  useEffect(() => {
+    if (packageData) {
+      localStorage.setItem('packageData', JSON.stringify(packageData));
+    }
+  }, [packageData]);
 
 
     useEffect(() => {
-        const hotelApi = new HotelApi();
-        const flightApi = new FlightApi();
-        const carApi = new CarApi();
-        const packageBuilderService = new PackageBuilderService();
-
+       
         const fetchPackages = async () => {
             try {
-            const helpers = new Helpers();
-                // Create hotel request object
-                const hotelRequest: HotelRequest = {
-                    checkIn: helpers.formatDateString(packageData.checkIn) || '',
-                    checkOut: helpers.formatDateString(packageData.checkOut) || '',
-                    venueName: packageData.toCity || '',
-                    rooms: packageData.rooms || 0,
-                    adults: packageData.adults || 0,
-                    children: packageData.children || 0,
-                    maxPrice: packageData.maxPrice || 0,
-                    minPrice: packageData.minPrice || 0,
-                };
 
-                // Create flight request object
-                const flightRequest: FlightRequest = {
-                    departureDate: packageData.checkIn || '',
-                    returnDate: packageData.checkOut || '',
-                    src: packageData.fromCity || '',
-                    dest: packageData.toCity || '',
-                    adults: packageData.adults || 0,
-                    children: packageData.children || 0,
-                    infants: 0,
-                    isDirectFlight: false, // Set this based on your requirements
-                    cabinClass: 'economy', // Set this based on your requirements
-                };
+                const checkInDate = packageData.checkIn || null;
+                const fromCityId = packageData.fromCityId || null;
+                const toCityId = packageData.toCityId || null;
 
-                // Create car request object
-                const carRequest: CarRentalRequest = {
-                    pickupStartDate: packageData.checkIn || '',
-                    dropoffEndDate: packageData.checkOut || '',
-                    pickupCity: packageData.toCity || '',
-                    dropoffCity: packageData.toCity || '',
-                    pickupTime: '',
-                    dropoffTime: '',
-                    driverAge: 18,
-                    carType: [],
-                    hasHairConditioner: true
-                };
 
-                // Fetch hotel data
-                console.log(hotelRequest);
-               const hotelsData = await hotelApi.getHotels(hotelRequest);
-//                 const hotelsData = [];
+                const hotelRequest = packageBuilderService.createHotelRequestByPackageData(packageData.checkIn, packageData.checkOut, packageData.toCity, packageData.rooms, packageData.adults, packageData.children, packageData.maxPrice, packageData.minPrice);
+                const hotelsData = await hotelApi.getHotels(hotelRequest);
                 setHotels(hotelsData);
 
-                // Fetch flight data
-                console.log(flightRequest);
-               const flightsData = await flightApi.getRoundWayFlights(flightRequest);
-//                 const flightsData = undefined;
+                const flightRequest = packageBuilderService.createFlightRequestByPackageData(packageData.checkIn, packageData.checkOut, packageData.fromCityId, packageData.toCityId, packageData.adults, packageData.children);
+                const flightsData = await flightApi.getRoundWayFlights(flightRequest);
+                flightService.sortFlightsFromLowestToHighestPrice(flightsData.roundWayFlightDetails); ///to fix
                 setFlights(flightsData);
+            
 
-                // Fetch car data
-                console.log(carRequest);
+                const carRequest = await packageBuilderService.createCarRequestByPackageData(packageData.checkIn, packageData.checkOut, packageData.toCity);
                 const carData = await carApi.getCarRentals(carRequest);
-//                 const carData = undefined;
+                //const carData = undefined;
                 setCars(carData);
-                // Combine hotel and flight data to generate packages
-                console.log("hotelsData: " + hotelsData);
-                console.log("flightsData: " + flightsData);
-                console.log("carData: " + carData);
+
                 const combinedPackages = packageBuilderService.combineResults(hotelsData, flightsData, carData);
-
-                console.log("combinedPackages: " + combinedPackages);
-                // Set the packages state with the combined packages
                 setPackages(combinedPackages);
+                console.log("combinedPackages: " + combinedPackages);
+        
                 setIsLoading(false);
-
+         
             } catch (error) {
-                console.error('Error fetching hotel or flight data:', error);
+                console.error('Error fetching hotel,  flight data or car rental data:', error);
                 navigate(`/error`);
             }
         };

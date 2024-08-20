@@ -8,7 +8,7 @@ export class Helpers {
 
     public calculateNumberOfNights(checkIn: string | undefined, checkOut: string | undefined): number {
         const checkInDate = new Date(checkIn || '');
-        const checkOutDate = new Date(checkOut|| '');
+        const checkOutDate = new Date(checkOut || '');
 
         // Calculate the difference in milliseconds between the two dates
         const timeDifference = checkOutDate.getTime() - checkInDate.getTime();
@@ -48,7 +48,7 @@ export class Helpers {
 
     public formatDatesRange(servicesPackage: Package): string {
         const checkInDate = new Date(servicesPackage.hotel?.checkIn || '');
-        const checkOutDate = new Date(servicesPackage.hotel?.checkOut|| '');
+        const checkOutDate = new Date(servicesPackage.hotel?.checkOut || '');
 
         const checkInDay = checkInDate.getDate();
         const checkInMonth = checkInDate.getMonth() + 1; // Adding 1 because getMonth returns zero-based index
@@ -74,16 +74,31 @@ export class Helpers {
         }
     }
 
-    public formatDateString(dateStr: string): string {
-        try {
-            console.log(dateStr)
-            const date = parse(dateStr, 'M/d/yyyy', new Date());
-            console.log(date)
-            return format(date, 'yyyy-MM-dd');
-        } catch (error) {
-            throw new Error('Invalid date format. Expected format: M/d/yyyy');
+    public formatDateString(dateStr: string | null): string {
+        if (dateStr != null) {
+            try {
+                console.log(dateStr);
+
+                const [month, day, year] = dateStr.split('/').map(Number);
+
+                const date = new Date(year, month - 1, day);
+
+                if (isNaN(date.getTime())) {
+                    throw new Error('Invalid date');
+                }
+
+                console.log(date);
+
+                const formattedDate = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+
+                return formattedDate;
+            } catch (error) {
+                throw new Error('Invalid date format. Expected format: M/d/yyyy');
+            }
         }
+        return '';
     }
+
 
 
     public formatDateForPackageBuilder(date: Date) {
@@ -108,17 +123,17 @@ export class Helpers {
 
     public formatPrice(price: number): string {
         const formattedPrice = price.toFixed(2);
-      
-        if (formattedPrice.endsWith('.00')) {
-          return parseInt(price.toString()).toString();
-        } else {
-          return formattedPrice;
-        }
-      }
 
-      public deleteSpaces(input: string): string{
+        if (formattedPrice.endsWith('.00')) {
+            return parseInt(price.toString()).toString();
+        } else {
+            return formattedPrice;
+        }
+    }
+
+    public deleteSpaces(input: string): string {
         return input.replace(" ", "");
-      }
-      
+    }
+
 }
 

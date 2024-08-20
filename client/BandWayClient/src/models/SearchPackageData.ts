@@ -10,4 +10,6 @@ export interface SearchPackageData {
   fromCountry: string | null;
   toCity: string | null;
   toCountry: string | null;
+  toCityId: string | null;
+  fromCityId: string | null;
 }
