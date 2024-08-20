@@ -75,28 +75,14 @@ export class FlightService {
         return '';
     }
 
-    public getRoundWayFlightPrice(outboundRoundWayFlightSegment: RoundWayFlightSegment, returnRoundWayFlightSegment: RoundWayFlightSegment) {
-
-        const outboundPrice = outboundRoundWayFlightSegment.price;
-        const returnPrice = returnRoundWayFlightSegment.price;
-        return outboundPrice + returnPrice;
-
-    }
-
-    public getTotalPriceOfRoundWay(roundWay: RoundWayFlightData): number {
-        let totalPrice = 0;
-        roundWay.departFlightDetails.forEach(departFlight => {
-            roundWay.arriveFlightDetails.forEach(arriveFlight => {
-                totalPrice += this.getRoundWayFlightPrice(departFlight, arriveFlight);
-            });
-        });
-        return totalPrice;
+    public getRoundWayFlightPrice(outboundRoundWayFlightSegment: RoundWayFlightSegment) {
+        return outboundRoundWayFlightSegment.price;
     }
 
     public sortFlightsFromLowestToHighestPrice(roundWayFlightDetails: RoundWayFlightData[]): RoundWayFlightData[] {
         return roundWayFlightDetails.sort((a, b) => {
-            const totalPriceA = this.getTotalPriceOfRoundWay(a);
-            const totalPriceB = this.getTotalPriceOfRoundWay(b);
+            const totalPriceA = this.getRoundWayFlightPrice(a.departFlightDetails[0]);
+            const totalPriceB = this.getRoundWayFlightPrice(b.departFlightDetails[0]);
             return totalPriceA - totalPriceB;
         });
     }

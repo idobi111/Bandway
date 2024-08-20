@@ -73,7 +73,7 @@ const PackageDialogFlightSection: React.FC<Props> = ({ servicesPackage, accordio
                                     <Typography variant='h6' sx={{ paddingRight: 1 }}>Return flights:</Typography>
                                     <Typography variant='h6' color="text.secondary">{flightService.getFlightType(roundWayDetail.arriveFlightDetails[0])} &middot; {flightService.getFlightData(roundWayDetail.arriveFlightDetails[0])} &middot; {flightService.getFlightDuration(roundWayDetail.arriveFlightDetails[0].duration)}</Typography>
                                 </Stack>
-                                <Typography variant='h6' sx={{ paddingRight: 1 }}>Start from ${flightService.getRoundWayFlightPrice(roundWayDetail.departFlightDetails[0], roundWayDetail.arriveFlightDetails[0])} per person</Typography>
+                                <Typography variant='h6' sx={{ paddingRight: 1 }}>Start from ${flightService.getRoundWayFlightPrice(roundWayDetail.departFlightDetails[0])} per person</Typography>
                             </Stack>
                         </AccordionSummary>
                         <AccordionDetails>

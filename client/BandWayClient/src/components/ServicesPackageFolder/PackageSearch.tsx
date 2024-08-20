@@ -11,6 +11,7 @@ import { AppState } from '../../redux/types';
 import { SearchPackageData } from '../../models/SearchPackageData';
 import { setPackageData } from '../../redux/actions';
 import { useNavigate } from 'react-router';
+import { LocationApi } from '../../apis/LocationApi';
 
 const PackageSearch: React.FC = () => {
 
@@ -28,6 +29,8 @@ const PackageSearch: React.FC = () => {
   const eventData = useSelector((state: AppState) => state.eventData);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const locationApi = new LocationApi();
 
 
   const [packageData, setPackage] = useState<SearchPackageData>({
@@ -72,18 +75,17 @@ const PackageSearch: React.FC = () => {
     setPackage({ ...packageData, minPrice, maxPrice });
   };
 
-  const handleSelectFromCity = (city: CityOption) => {
+  const handleSelectFromCity = async (city: CityOption) => {
     setSelectedFromCity(city);
     setPackage({ ...packageData, fromCity: city.value, fromCountry: city.country, fromCityId: city.id});
   };
 
-  const handleSelectToCity = (city: CityOption) => {
+  const handleSelectToCity = async (city: CityOption) => {
     setSelectedToCity(city);
-    setPackage({ ...packageData, toCity: city.value, toCountry: city.country, toCityId: city.id });
+    setPackage({ ...packageData, toCity: city.value, toCountry: city.country, toCityId: city.id});
   };
 
   const handlePackageSearch = () => {
-
     dispatch(setPackageData(packageData));
     console.log("Package Data:" + JSON.stringify(packageData));
 

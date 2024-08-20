@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { RegisterInfo } from '../models/RegisterInfo';
+import { LoginInfo } from '../models/LoginInfo';
 
 
 export class RegisterApi {
@@ -16,5 +17,15 @@ export class RegisterApi {
             throw new Error(responseData);
         }
     }
+
+    // public async login(loginInfo: LoginInfo) {
+    //     try {
+    //         await axios.post(`${this.BASE_URL}/registerUser?firstName=${registerInfo.firstName}&lastName=${registerInfo.lastName}&email=${registerInfo.email}&password=${registerInfo.password}&phone=${registerInfo.phone}&username=${registerInfo.userName}`);
+
+    //     } catch (error) {
+    //         const responseData = error.response?.data;
+    //         throw new Error(responseData);
+    //     }
+    // }
 
 }
