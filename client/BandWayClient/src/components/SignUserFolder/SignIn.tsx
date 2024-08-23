@@ -44,7 +44,7 @@ const SignIn: React.FC = () => {
         return (
             <Typography variant="body2" color="text.secondary" align="center" {...props}>
                 {'Copyright © '}
-                <Link color="inherit" href="https://bandwayrepo-z732mhjgfq-uc.a.run.app/home">
+                <Link color="inherit" href="https://bandway-client-z732mhjgfq-uc.a.run.app/home">
                     BandWay
                 </Link>{' '}
                 {new Date().getFullYear()}
