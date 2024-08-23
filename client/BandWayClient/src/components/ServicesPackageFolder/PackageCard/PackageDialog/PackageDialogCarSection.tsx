@@ -26,6 +26,8 @@ const PackageDialogCarSection: React.FC<Props> = ({ servicesPackage, accordionWi
     const helpers = new Helpers();
     const navigate = useNavigate();
 
+    const hasCarRental = servicesPackage?.carRentals?.carRentalData && Object.keys(servicesPackage.carRentals.carRentalData).length > 0;
+
     const handleAccordionChange = (panel: number) => (event: React.ChangeEvent<{}>, isExpanded: boolean) => {
         setExpandedAccordion(isExpanded ? panel : false);
     };
@@ -42,6 +44,7 @@ const PackageDialogCarSection: React.FC<Props> = ({ servicesPackage, accordionWi
 
     return (
         <>
+         {hasCarRental && (
             <Box display="flex">
                 <Box sx={{ flex: 1 }}>
                     <Stack display={'flex'} sx={{ p: 4 }}>
@@ -102,6 +105,7 @@ const PackageDialogCarSection: React.FC<Props> = ({ servicesPackage, accordionWi
                     </Stack>
                 </Box>
             </Box>
+         )}
         </>
     );
 };
