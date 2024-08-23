@@ -11,7 +11,7 @@ import { CityRespsone } from '../models/City';
 
 export class CarApi {
 
-    BASE_URL: string = "http://localhost:8080/bandway";
+    BASE_URL: string = "https://server-z732mhjgfq-uc.a.run.app/bandway";
 
 
 

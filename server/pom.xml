@@ -74,6 +74,11 @@
             <artifactId>spring-boot-starter-mail</artifactId>
             <version>3.1.5</version>
         </dependency>
+        <dependency>
+            <groupId>com.google.cloud.sql</groupId>
+            <artifactId>postgres-socket-factory</artifactId>
+            <version>1.4.1</version>
+        </dependency>
     </dependencies>
 
     <build>
@@ -82,12 +87,7 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
-                    <excludes>
-                        <exclude>
-                            <groupId>org.projectlombok</groupId>
-                            <artifactId>lombok</artifactId>
-                        </exclude>
-                    </excludes>
+                    <mainClass>com.mta.bandway.BandwayApplication</mainClass>
                 </configuration>
             </plugin>
         </plugins>
