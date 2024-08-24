@@ -43,11 +43,7 @@ public class CarAggregatedData {
 
     @Schema(description = "All of the relevant details for the deal")
     @JsonProperty("dealInfo")
-    List<DealInfo> dealInfo;
-
-    @Schema(description = "the total price for the rental period")
-    @JsonProperty("totalPrice")
-    private Double totalPrice;
+    private List<DealInfo> dealInfo;
 
     @Schema(description = "the rental period")
     @JsonProperty("rentalPeriod")

@@ -81,6 +81,7 @@ public class CarRentalService {
                                                     .carLinks(carInfo.getCarLink())
                                                     .supplierNames(carInfo.getSupplierName())
                                                     .supplierLogos(carInfo.getSupplierLogo())
+                                                    .price(carInfo.getTotalPrice())
                                                     .build())
                                             .collect(Collectors.toList());
 
@@ -93,7 +94,6 @@ public class CarRentalService {
                                             .pickUpPlaceName(minPriceCarInfo.getPickUpPlaceName())
                                             .image(minPriceCarInfo.getImage())
                                             .dealInfo(dealInfoList)
-                                            .totalPrice(minPriceCarInfo.getTotalPrice())
                                             .rentalPeriod(minPriceCarInfo.getRentalPeriod())
                                             .rating(minPriceCarInfo.getRating())
                                             .build();
@@ -154,12 +154,22 @@ public class CarRentalService {
             if (basePrice != null && carMetadata != null) {
                 minPrice = Math.min(minPrice, basePrice);
                 maxPrice = Math.max(maxPrice, basePrice);
-                cars.add(CarRentalData.builder().model(data.getOriginalCarName()).pricePerDay(calcPricePerDay(data, daysDuration))
+                cars.add(CarRentalData.builder()
+                        .model(data.getOriginalCarName())
+                        .pricePerDay(calcPricePerDay(data, daysDuration))
 //                        .pickUpAddress(data.getAdds().getAddress())
 //                        .pickUpPlaceName(routeInfo.getPickup().getName())
 //                        .dropOffAddress(routeInfo.getDropoff().getAddress())
 //                        .dropOffPlaceName(routeInfo.getDropoff().getName())
-                        .image("https://logos.skyscnr.com/images/carhire/sippmaps/" + carMetadata.getImg()).carLink(buildCarLink(data)).totalPrice(basePrice).rentalPeriod(daysDuration).rating(data.getVndrRating().getOverallRating()).supplierName(data.getVndr()).supplierLogo(getSupplierLogoUrl(data)).seats(data.getSeat()).carGroup(carMetadata.getCls()).transmission(carMetadata.getTrans()).fuelType(Objects.equals(data.getFuelType(), "other") ? "gasoline" : data.getFuelType()).groupName(data.getGroup()).build());
+                        .image("https://logos.skyscnr.com/images/carhire/sippmaps/" + carMetadata.getImg()).carLink(buildCarLink(data)).totalPrice(basePrice).rentalPeriod(daysDuration)
+                        .rating(data.getVndrRating().getOverallRating())
+                        .supplierName(data.getVndr())
+                        .supplierLogo(getSupplierLogoUrl(data))
+                        .seats(data.getSeat())
+                        .carGroup(carMetadata.getCls())
+                        .transmission(carMetadata.getTrans())
+                        .fuelType(Objects.equals(data.getFuelType(), "other") ? "gasoline" : data.getFuelType())
+                        .groupName(data.getGroup()).build());
             }
         }
         if (cars.isEmpty()) {

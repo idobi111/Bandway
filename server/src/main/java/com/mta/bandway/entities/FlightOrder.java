@@ -15,7 +15,7 @@ import java.io.Serializable;
 public class FlightOrder implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String id;
+    private Integer id;
     private String userId;
     private String originCity;
     private String destinationCity;

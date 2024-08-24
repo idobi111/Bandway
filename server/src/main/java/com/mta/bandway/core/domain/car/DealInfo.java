@@ -9,4 +9,5 @@ public class DealInfo {
     private String carLinks;
     private String supplierLogos;
     private String supplierNames;
+    private Double price;
 }
