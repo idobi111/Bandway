@@ -1,5 +1,6 @@
 package com.mta.bandway.services;
 
+import com.mta.bandway.api.domain.request.ConcertDetailsDto;
 import com.mta.bandway.api.domain.response.ArtistAutoCompleteResponseDto;
 import com.mta.bandway.api.domain.response.ConcertResponseDto;
 import com.mta.bandway.api.domain.response.SpotifyLinkResponseDto;
@@ -7,6 +8,8 @@ import com.mta.bandway.core.domain.concert.*;
 import com.mta.bandway.core.domain.concert.artist.AutoCompleteArtistResponse;
 import com.mta.bandway.core.domain.concert.artist.Item;
 import com.mta.bandway.core.domain.concert.artist.SpotifyToken;
+import com.mta.bandway.entities.ConcertOrder;
+import com.mta.bandway.repositories.ConcertOrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
@@ -19,7 +22,9 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
@@ -33,6 +38,7 @@ public class ConcertService {
     private final String spotifyArtistData;
     private final String spotifyAutoCompleteArtist;
     private final RestTemplate restTemplate;
+    private final ConcertOrderRepository concertOrderRepository;
     private String spotifyToken;
 
     @Autowired
@@ -42,7 +48,8 @@ public class ConcertService {
                           @Value("${spotify.api.token.url}") String spotifyTokenUrl,
                           @Value("${spotify.client.id}") String spotifyClientId,
                           @Value("${spotify.client.secret}") String spotifyClientSecret,
-                          RestTemplate restTemplate) {
+                          RestTemplate restTemplate,
+                          ConcertOrderRepository concertOrderRepository) {
         this.ticketmasterApiUrl = ticketmasterApiUrl;
         this.ticketmasterApiKey = ticketmasterApiKey;
         this.spotifyAutoCompleteArtist = spotifyApiUrl + "/search";
@@ -51,7 +58,13 @@ public class ConcertService {
         this.spotifyClientSecret = spotifyClientSecret;
         this.restTemplate = restTemplate;
         this.spotifyTokenUrl = spotifyTokenUrl;
+        this.concertOrderRepository = concertOrderRepository;
 
+    }
+
+    private static String getDateTime(Date date) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        return sdf.format(date);
     }
 
     public List<ConcertResponseDto> getConcertsByPerformer(String performer, List<String> cities) {
@@ -218,5 +231,17 @@ public class ConcertService {
             return new ArrayList<>();
         }
         return createConcertDtoResponse(concerts);
+    }
+
+    public void saveConcertOrder(ConcertDetailsDto concertDetailsDto) {
+
+        concertOrderRepository.save(ConcertOrder.builder()
+                .userId(concertDetailsDto.getUserId())
+                .concertDate(concertDetailsDto.getConcertDate())
+                .concertAddress(concertDetailsDto.getConcertAddress())
+                .concertName(concertDetailsDto.getConcertName())
+                .concertArtist(concertDetailsDto.getConcertArtist())
+                .orderDate(getDateTime(new Date()))
+                .build());
     }
 }

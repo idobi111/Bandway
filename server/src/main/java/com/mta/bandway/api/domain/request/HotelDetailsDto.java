@@ -1,21 +1,18 @@
-package com.mta.bandway.entities;
+package com.mta.bandway.api.domain.request;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import jakarta.persistence.*;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import lombok.Builder;
 import lombok.Data;
 
 @Data
-@Entity
-@Table(name = "hotel_order")
-@JsonIgnoreProperties({"hibernateLazyInitializer"})
 @Builder
-public class HotelOrder implements java.io.Serializable {
+public class HotelDetailsDto implements java.io.Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private Integer userId;
-    private String orderDate;
     private String checkInDate;
     private String checkOutDate;
     private String hotelName;

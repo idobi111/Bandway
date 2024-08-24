@@ -1,11 +1,14 @@
 package com.mta.bandway.services;
 
+import com.mta.bandway.api.domain.request.CarRentalDetailsDto;
 import com.mta.bandway.api.domain.request.CarRentalRequestDto;
 import com.mta.bandway.api.domain.response.AutoCompleteCityResponseDto;
 import com.mta.bandway.api.domain.response.CarRentalResponseDto;
 import com.mta.bandway.core.domain.car.*;
 import com.mta.bandway.core.domain.car.auto.correct.AutoCompleteCarCity;
 import com.mta.bandway.core.domain.car.auto.correct.CarDatum;
+import com.mta.bandway.entities.CarRentalOrder;
+import com.mta.bandway.repositories.CarRentalOrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
@@ -28,16 +31,16 @@ public class CarRentalService {
     private final String carAutoComplete;
     private final String apiKey;
     private final RestTemplate restTemplate;
-//    private final CarRentalOrderRepository carRentalOrderRepository;
+    private final CarRentalOrderRepository carRentalOrderRepository;
 
     @Autowired
-    public CarRentalService(@Value("${carrental.api.url}") String apiUrl, @Value("${rapid.api.key}") String apiKey, RestTemplate restTemplate) {
+    public CarRentalService(@Value("${carrental.api.url}") String apiUrl, @Value("${rapid.api.key}") String apiKey, RestTemplate restTemplate, CarRentalOrderRepository carRentalOrderRepository) {
         this.apiUrl = apiUrl;
         this.carRentalApi = "https://" + apiUrl + "/api/v1/cars/search-cars";
         this.carAutoComplete = "https://" + apiUrl + "/api/v1/cars/search-location";
         this.apiKey = apiKey;
         this.restTemplate = restTemplate;
-//        this.carRentalOrderRepository = carRentalOrderRepository;
+        this.carRentalOrderRepository = carRentalOrderRepository;
     }
 
     //TODO: export to common
@@ -180,6 +183,18 @@ public class CarRentalService {
         headers.set("X-RapidAPI-Host", apiUrl);
 
         return headers;
+    }
+
+    public void saveCarRentalOrder(CarRentalDetailsDto carRentalDetailsDto) {
+
+        carRentalOrderRepository.save(CarRentalOrder.builder()
+                .userId(carRentalDetailsDto.getUserId())
+                .rentalStartLocation(carRentalDetailsDto.getRentalStartLocation())
+                .rentalEndLocation(carRentalDetailsDto.getRentalEndLocation())
+                .rentalStartDate(carRentalDetailsDto.getRentalStartDate())
+                .rentalEndDate(carRentalDetailsDto.getRentalEndDate())
+                .orderDate(getDateTime(new Date()))
+                .build());
     }
 
 }

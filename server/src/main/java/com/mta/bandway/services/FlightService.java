@@ -1,11 +1,14 @@
 package com.mta.bandway.services;
 
+import com.mta.bandway.api.domain.request.FlightOrderDetailsDto;
 import com.mta.bandway.api.domain.request.FlightRequestDto;
 import com.mta.bandway.api.domain.response.AutoCompleteCityResponseDto;
 import com.mta.bandway.api.domain.response.FlightPriceResponseDto;
 import com.mta.bandway.api.domain.response.OneWayFlightResponseDto;
 import com.mta.bandway.api.domain.response.RoundWayFlightResponseDto;
 import com.mta.bandway.core.domain.flight.*;
+import com.mta.bandway.entities.FlightOrder;
+import com.mta.bandway.repositories.FlightOrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
@@ -32,10 +35,10 @@ public class FlightService {
     private final String flightPrice;
     private final String apiKey;
     private final RestTemplate restTemplate;
-//    private final FlightOrderRepository;
+    private final FlightOrderRepository flightOrderRepository;
 
     @Autowired
-    public FlightService(@Value("${flight.api.url}") String apiUrl, @Value("${rapid.api.key}") String apiKey, RestTemplate restTemplate) {
+    public FlightService(@Value("${flight.api.url}") String apiUrl, @Value("${rapid.api.key}") String apiKey, RestTemplate restTemplate, FlightOrderRepository flightOrderRepository) {
         this.apiUrl = apiUrl;
         this.flightAutoCompleteApi = "https://" + apiUrl + "/api/v1/flights/auto-complete";
         this.flightOneWayApi = "https://" + apiUrl + "/api/v1/flights/search-one-way";
@@ -43,7 +46,7 @@ public class FlightService {
         this.flightPrice = "https://" + apiUrl + "/api/v1/flights/detail";
         this.apiKey = apiKey;
         this.restTemplate = restTemplate;
-//        this.flightOrderRepository = flightOrderRepository;
+        this.flightOrderRepository = flightOrderRepository;
     }
 
     private static String getDateTime(Date date) {
@@ -234,5 +237,20 @@ public class FlightService {
                     .build());
         }
         return flightPriceResponseDtos;
+    }
+
+    public void saveFlightOrder(FlightOrderDetailsDto flightOrderDetailsDto) {
+
+        flightOrderRepository.save(FlightOrder.builder()
+                .userId(flightOrderDetailsDto.getUserId())
+                .originCity(flightOrderDetailsDto.getOriginCity())
+                .destinationCity(flightOrderDetailsDto.getDestinationCity())
+                .departureDate(flightOrderDetailsDto.getDepartureDate())
+                .returnDate(flightOrderDetailsDto.getReturnDate())
+                .passengerCount(flightOrderDetailsDto.getPassengerCount())
+                .price(flightOrderDetailsDto.getPrice())
+                .airline(flightOrderDetailsDto.getAirline())
+                .orderDate(getDateTime(new Date()))
+                .build());
     }
 }

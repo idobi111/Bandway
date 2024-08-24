@@ -1,5 +1,6 @@
 package com.mta.bandway.services;
 
+import com.mta.bandway.api.domain.request.HotelDetailsDto;
 import com.mta.bandway.api.domain.request.HotelRequestDto;
 import com.mta.bandway.api.domain.response.HotelResponseDto;
 import com.mta.bandway.core.domain.city.CityResponse;
@@ -8,7 +9,9 @@ import com.mta.bandway.core.domain.hotel.Hotel;
 import com.mta.bandway.core.domain.hotel.HotelDetails;
 import com.mta.bandway.core.domain.hotel.HotelResponse;
 import com.mta.bandway.core.domain.hotel.Property;
+import com.mta.bandway.entities.HotelOrder;
 import com.mta.bandway.exceptions.InvalidCityException;
+import com.mta.bandway.repositories.HotelOrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
@@ -31,18 +34,21 @@ public class HotelService {
     private final String bookingUrl;
     private final String bookingCityIdUrl;
     private final String bookingHotelDetailsUrl;
+    private final HotelOrderRepository hotelOrderRepository;
 
     @Autowired
     public HotelService(
             @Value("${booking.api.url}") String apiUrl,
             @Value("${rapid.api.key}") String apiKey,
-            RestTemplate restTemplate) {
+            RestTemplate restTemplate,
+            HotelOrderRepository hotelOrderRepository) {
         this.apiUrl = apiUrl;
         this.bookingUrl = "https://" + apiUrl + "/hotels/searchHotels";
         this.bookingCityIdUrl = "https://" + apiUrl + "/hotels/searchDestination";
         this.bookingHotelDetailsUrl = "https://" + apiUrl + "/hotels/getHotelDetails";
         this.apiKey = apiKey;
         this.restTemplate = restTemplate;
+        this.hotelOrderRepository = hotelOrderRepository;
     }
 
 
@@ -139,5 +145,19 @@ public class HotelService {
         return UriComponentsBuilder.fromHttpUrl(Objects.requireNonNull(hotelDetails.getBody()).getData().getUrl())
                 .queryParam("checkin", checkIn)
                 .queryParam("checkout", checkOut).toUriString();
+    }
+
+    public void saveHotelOrder(HotelDetailsDto hotelDetailsDto) {
+        hotelOrderRepository.save(HotelOrder.builder()
+                .userId(hotelDetailsDto.getUserId())
+                .checkInDate(hotelDetailsDto.getCheckInDate())
+                .checkOutDate(hotelDetailsDto.getCheckOutDate())
+                .numberOfGuests(hotelDetailsDto.getNumberOfGuests())
+                .hotelName(hotelDetailsDto.getHotelName())
+                .hotelAddress(hotelDetailsDto.getHotelAddress())
+                .orderDate(getDateTime(new Date()))
+                .price(hotelDetailsDto.getPrice())
+                .roomCount(hotelDetailsDto.getRoomCount())
+                .build());
     }
 }

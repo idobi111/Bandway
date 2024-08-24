@@ -1,8 +1,6 @@
 package com.mta.bandway.controllers;
 
-import com.mta.bandway.api.domain.request.CarRentalRequestDto;
-import com.mta.bandway.api.domain.request.FlightRequestDto;
-import com.mta.bandway.api.domain.request.HotelRequestDto;
+import com.mta.bandway.api.domain.request.*;
 import com.mta.bandway.api.domain.response.*;
 import com.mta.bandway.entities.User;
 import com.mta.bandway.exceptions.InvalidCityException;
@@ -10,6 +8,7 @@ import com.mta.bandway.exceptions.UserAlreadyExistException;
 import com.mta.bandway.exceptions.UserNotFoundException;
 import com.mta.bandway.services.*;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.EnableScheduling;
@@ -22,6 +21,7 @@ import java.util.List;
 @AllArgsConstructor
 @CrossOrigin
 @EnableScheduling
+@Slf4j
 public class BandwayController {
     private final HotelService hotelService;
     private final ConcertService concertService;
@@ -149,6 +149,42 @@ public class BandwayController {
             return new ResponseEntity<>(User.builder().build(), HttpStatus.CONFLICT);
         } catch (Exception e) {
             return new ResponseEntity<>(User.builder().build(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @PostMapping(value = "/saveFlightOrder")
+    public void userSearchFlight(@RequestBody FlightOrderDetailsDto flightOrderDetails) {
+        try {
+            flightService.saveFlightOrder(flightOrderDetails);
+        }
+        catch (Exception e) {
+            log.error("Error saving flight order", e);
+        }
+    }
+    @PostMapping(value = "/saveHotelOrder")
+    public void saveHotelOrder(@RequestBody HotelDetailsDto hotelDetailsDto) {
+        try {
+            hotelService.saveHotelOrder(hotelDetailsDto);
+        }
+        catch (Exception e) {
+            log.error("Error saving hotel order", e);
+        }
+    }
+    @PostMapping(value = "/saveCarOrder")
+    public void saveCarOrder(@RequestBody CarRentalDetailsDto carRentalDetailsDto) {
+        try {
+            carRentalService.saveCarRentalOrder(carRentalDetailsDto);
+        }
+        catch (Exception e) {
+            log.error("Error saving car order", e);
+        }
+    }    @PostMapping(value = "/saveConcertOrder")
+    public void saveConcertOrder(@RequestBody ConcertDetailsDto concertDetailsDto) {
+        try {
+            concertService.saveConcertOrder(concertDetailsDto);
+        }
+        catch (Exception e) {
+            log.error("Error saving concert order", e);
         }
     }
 
