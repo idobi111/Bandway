@@ -17,11 +17,9 @@ import java.net.URI;
 import java.text.SimpleDateFormat;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
 
 @Service
 public class CarRentalService {
@@ -63,6 +61,43 @@ public class CarRentalService {
 
     private static String getSupplierLogoUrl(CarResourceData data) {
         return "https://logos.skyscnr.com/images/websites/" + data.getPrvId() + ".png";
+    }
+
+    private Map<String, CarAggregatedData> groupAndAggregate(List<CarRentalData> carInfoList) {
+        return carInfoList.stream()
+                .collect(Collectors.groupingBy(
+                        CarRentalData::getGroupName,
+                        Collectors.collectingAndThen(
+                                Collectors.toList(),
+                                (List<CarRentalData> list) -> {
+                                    CarRentalData minPriceCarInfo = list.stream()
+                                            .min(Comparator.comparingDouble(CarRentalData::getTotalPrice))
+                                            .orElseThrow(NoSuchElementException::new);
+                                    List<DealInfo> dealInfoList = list.stream()
+                                            .map(carInfo -> DealInfo.builder()
+                                                    .carLinks(carInfo.getCarLink())
+                                                    .supplierNames(carInfo.getSupplierName())
+                                                    .supplierLogos(carInfo.getSupplierLogo())
+                                                    .build())
+                                            .collect(Collectors.toList());
+
+                                    return CarAggregatedData.builder()
+                                            .model(minPriceCarInfo.getModel())
+                                            .pricePerDay(minPriceCarInfo.getPricePerDay())
+                                            .dropOffAddress(minPriceCarInfo.getDropOffAddress())
+                                            .dropOffPlaceName(minPriceCarInfo.getDropOffPlaceName())
+                                            .pickUpAddress(minPriceCarInfo.getPickUpAddress())
+                                            .pickUpPlaceName(minPriceCarInfo.getPickUpPlaceName())
+                                            .image(minPriceCarInfo.getImage())
+                                            .dealInfo(dealInfoList)
+                                            .totalPrice(minPriceCarInfo.getTotalPrice())
+                                            .rentalPeriod(minPriceCarInfo.getRentalPeriod())
+                                            .rating(minPriceCarInfo.getRating())
+                                            .build();
+                                }
+                        )
+                ));
+
     }
 
     public List<AutoCompleteCityResponseDto> getCityAutoComplete(String text) {
@@ -111,42 +146,27 @@ public class CarRentalService {
         for (int i = 0; i < responseBody.getData().getQuotesCount(); i++) {
             CarResourceData data = responseBody.getData().getCarRentalData().get(i);
             Double basePrice = data.getPrice();
-            CarMetadata carMetadata = selectGroup(data, responseBody.getData().getGroups());
+            Groups allCarsMetadata = responseBody.getData().getGroups();
+            CarMetadata carMetadata = selectGroup(data, allCarsMetadata);
             if (basePrice != null && carMetadata != null) {
                 minPrice = Math.min(minPrice, basePrice);
                 maxPrice = Math.max(maxPrice, basePrice);
-                cars.add(CarRentalData.builder()
-                        .model(data.getOriginalCarName())
-                        .pricePerDay(calcPricePerDay(data, daysDuration))
+                cars.add(CarRentalData.builder().model(data.getOriginalCarName()).pricePerDay(calcPricePerDay(data, daysDuration))
 //                        .pickUpAddress(data.getAdds().getAddress())
 //                        .pickUpPlaceName(routeInfo.getPickup().getName())
 //                        .dropOffAddress(routeInfo.getDropoff().getAddress())
 //                        .dropOffPlaceName(routeInfo.getDropoff().getName())
-                        .image("https://logos.skyscnr.com/images/carhire/sippmaps/" + carMetadata.getImg())
-                        .carLink(buildCarLink(data))
-                        .totalPrice(basePrice)
-                        .rentalPeriod(daysDuration)
-                        .rating(data.getVndrRating().getOverallRating())
-                        .supplierName(data.getVndr())
-                        .supplierLogo(getSupplierLogoUrl(data))
-                        .seats(data.getSeat())
-                        .carGroup(carMetadata.getCls())
-                        .transmission(carMetadata.getTrans())
-                        .fuelType(Objects.equals(data.getFuelType(), "other") ? "gasoline" : data.getFuelType())
-                        .build());
+                        .image("https://logos.skyscnr.com/images/carhire/sippmaps/" + carMetadata.getImg()).carLink(buildCarLink(data)).totalPrice(basePrice).rentalPeriod(daysDuration).rating(data.getVndrRating().getOverallRating()).supplierName(data.getVndr()).supplierLogo(getSupplierLogoUrl(data)).seats(data.getSeat()).carGroup(carMetadata.getCls()).transmission(carMetadata.getTrans()).fuelType(Objects.equals(data.getFuelType(), "other") ? "gasoline" : data.getFuelType()).groupName(data.getGroup()).build());
             }
         }
         if (cars.isEmpty()) {
             minPrice = 0.0;
             maxPrice = 0.0;
         }
-        return CarRentalResponseDto.builder()
-                .carRentalData(cars)
-                .minPrice(minPrice)
-                .maxPrice(maxPrice)
-                .checkIn(getDateTime(checkIn))
-                .checkOut(getDateTime(checkOut))
-                .build();
+
+//        TODO: TAL SHOULD CHANGE THE UI FOR THIS FEATURE!
+        List<CarAggregatedData> aggregateData = groupAndAggregate(cars).values().stream().toList();
+        return CarRentalResponseDto.builder().carRentalData(cars).minPrice(minPrice).maxPrice(maxPrice).checkIn(getDateTime(checkIn)).checkOut(getDateTime(checkOut)).build();
     }
 
     private Double calcPricePerDay(CarResourceData data, Integer daysDuration) {

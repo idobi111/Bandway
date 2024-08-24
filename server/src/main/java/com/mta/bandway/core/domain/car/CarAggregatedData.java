@@ -1,18 +1,17 @@
 package com.mta.bandway.core.domain.car;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 @Data
 @AllArgsConstructor
-@NoArgsConstructor
 @Builder
-public class CarRentalData {
+public class CarAggregatedData {
 
     @Schema(description = "Car model")
     @JsonProperty("model")
@@ -42,9 +41,9 @@ public class CarRentalData {
     @JsonProperty("image")
     private String image;
 
-    @Schema(description = "forwards to the car details page")
-    @JsonProperty("carLink")
-    private String carLink;
+    @Schema(description = "All of the relevant details for the deal")
+    @JsonProperty("dealInfo")
+    List<DealInfo> dealInfo;
 
     @Schema(description = "the total price for the rental period")
     @JsonProperty("totalPrice")
@@ -62,14 +61,6 @@ public class CarRentalData {
     @JsonProperty("ratingDescription")
     private String ratingDescription;
 
-    @Schema(description = "supplier name of the car")
-    @JsonProperty("supplierName")
-    private String supplierName;
-
-    @Schema(description = "supplier logo")
-    @JsonProperty("supplierLogo")
-    private String supplierLogo;
-
     @Schema(description = "seats number")
     @JsonProperty("seats")
     private Integer seats;
@@ -85,9 +76,4 @@ public class CarRentalData {
     @Schema(description = "Fuel type")
     @JsonProperty("fuelType")
     private String fuelType;
-
-    @JsonIgnore
-    @Schema(description = "Group name")
-    @JsonProperty("groupName")
-    private String groupName;
 }

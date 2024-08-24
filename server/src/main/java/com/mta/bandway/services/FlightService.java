@@ -127,7 +127,7 @@ public class FlightService {
                 .queryParam("currency", "USD").build().toUri();
         ResponseEntity<RoundWayFlights> roundWayFlightsResponseEntity = restTemplate.exchange(urlWithQuery, HttpMethod.GET, entity, RoundWayFlights.class);
         if (roundWayFlightsResponseEntity.getBody() == null || roundWayFlightsResponseEntity.getBody().getData() == null) {
-            return null;
+            RoundWayFlightResponseDto.builder().build();
         }
 
         RoundWayDataResponse data = roundWayFlightsResponseEntity.getBody().getData();
@@ -222,7 +222,7 @@ public class FlightService {
         ResponseEntity<FlightPrice> flightPriceResponseEntity = restTemplate.exchange(urlWithQuery, HttpMethod.GET, entity, FlightPrice.class);
         FlightPrice data = flightPriceResponseEntity.getBody();
         if (data == null || data.getData() == null || data.getData().getItinerary() == null) {
-            return null;
+            return List.of(FlightPriceResponseDto.builder().build());
         }
         List<FlightPriceResponseDto> flightPriceResponseDtos = new ArrayList<>();
 
