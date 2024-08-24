@@ -89,31 +89,32 @@ public class ConcertService {
             if (data == null || data.getEmbedded() == null) {
                 return result;
             }
-            Double minPrice = null;
-            Double maxPrice = null;
-            List<EventDetailsExtendData> events= data.getEmbedded().getEvents();
-            if(events.isEmpty()){
+            double minPrice;
+            double maxPrice;
+            List<EventDetailsExtendData> events = data.getEmbedded().getEvents();
+            if (events.isEmpty()) {
                 return result;
             }
             List<PriceRange> prices = events.get(0).getPriceRanges();
-            if (prices != null) {
+            List<EventAttractions> attractions = events.get(0).getEmbedded().getAttractions();
+            if (prices != null && attractions != null) {
                 minPrice = prices.stream().mapToDouble(PriceRange::getMin).min().orElse(0);
                 maxPrice = prices.stream().mapToDouble(PriceRange::getMax).max().orElse(10000);
+                ExternalLinks externalLinks = events.get(0).getEmbedded().getAttractions().get(0).getExternalLinks();
+                result.add(ConcertResponseDto.builder()
+                        .id(concertId)
+                        .performer(concert.getEvents().get(i).getName())
+                        .date(concert.getEvents().get(i).getDates().getStart().getLocalDate())
+                        .venue(concert.getEvents().get(i).getEmbedded().getVenues().get(0).getName())
+                        .city(concert.getEvents().get(i).getEmbedded().getVenues().get(0).getCity().getName())
+                        .country(concert.getEvents().get(i).getEmbedded().getVenues().get(0).getCountry().getCountryCode())
+                        .ticketUrl(concert.getEvents().get(i).getUrl())
+                        .images(getImagesFromConcert(concert.getEvents().get(i).getImages()))
+                        .externalLinks(externalLinks)
+                        .minPrice(minPrice)
+                        .maxPrice(maxPrice)
+                        .build());
             }
-            ExternalLinks externalLinks = events.get(0).getEmbedded().getAttractions().get(0).getExternalLinks();
-            result.add(ConcertResponseDto.builder()
-                    .id(concertId)
-                    .performer(concert.getEvents().get(i).getName())
-                    .date(concert.getEvents().get(i).getDates().getStart().getLocalDate())
-                    .venue(concert.getEvents().get(i).getEmbedded().getVenues().get(0).getName())
-                    .city(concert.getEvents().get(i).getEmbedded().getVenues().get(0).getCity().getName())
-                    .country(concert.getEvents().get(i).getEmbedded().getVenues().get(0).getCountry().getCountryCode())
-                    .ticketUrl(concert.getEvents().get(i).getUrl())
-                    .images(getImagesFromConcert(concert.getEvents().get(i).getImages()))
-                    .externalLinks(externalLinks)
-                    .minPrice(minPrice)
-                    .maxPrice(maxPrice)
-                    .build());
         }
         return result;
     }
