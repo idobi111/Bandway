@@ -130,7 +130,7 @@ public class FlightService {
                 .queryParam("currency", "USD").build().toUri();
         ResponseEntity<RoundWayFlights> roundWayFlightsResponseEntity = restTemplate.exchange(urlWithQuery, HttpMethod.GET, entity, RoundWayFlights.class);
         if (roundWayFlightsResponseEntity.getBody() == null || roundWayFlightsResponseEntity.getBody().getData() == null) {
-            RoundWayFlightResponseDto.builder().build();
+            return RoundWayFlightResponseDto.builder().build();
         }
 
         RoundWayDataResponse data = roundWayFlightsResponseEntity.getBody().getData();

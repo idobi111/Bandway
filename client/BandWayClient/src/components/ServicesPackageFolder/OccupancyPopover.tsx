@@ -1,12 +1,12 @@
-import React, { useState } from 'react';
-import { Button, Popover, Typography, Badge, IconButton, TextField, Box } from '@mui/material';
+import React, {useState} from 'react';
+import {Button, Popover, Typography, Badge, IconButton, TextField, Box} from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
-import { SearchTextField } from '../../styles/ComponentsStyles';
+import {SearchTextField} from '../../styles/ComponentsStyles';
 
 interface OccupancyPopoverProps {
     onSelect: (adults: number, children: number, rooms: number) => void;
-  }
+}
 
 const OccupancyPopover: React.FC<OccupancyPopoverProps> = ({onSelect}) => {
     const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
@@ -57,10 +57,11 @@ const OccupancyPopover: React.FC<OccupancyPopoverProps> = ({onSelect}) => {
                 Occupancy
             </Typography>
             <SearchTextField onClick={handleClick}
-                value={selectedOccupancy} style={{ width: '150px' }} placeholder="Select Occupancy" variant="standard" InputLabelProps={{
-                    style: { color: 'gray' },
-                    shrink: false
-                }} />
+                             value={selectedOccupancy} style={{width: '150px'}} placeholder="Select Occupancy"
+                             variant="standard" InputLabelProps={{
+                style: {color: 'gray'},
+                shrink: false
+            }}/>
             <Popover
                 id={id}
                 open={open}
@@ -77,20 +78,20 @@ const OccupancyPopover: React.FC<OccupancyPopoverProps> = ({onSelect}) => {
             >
                 <Box p={2}>
                     <Typography>Adults:</Typography>
-                    <IconButton onClick={() => handleAdultsChange(-1)}><RemoveIcon /></IconButton>
+                    <IconButton onClick={() => handleAdultsChange(-1)}><RemoveIcon/></IconButton>
                     <Badge badgeContent={adults} color="primary"></Badge>
-                    <IconButton onClick={() => handleAdultsChange(1)}><AddIcon /></IconButton>
-                    <br />
+                    <IconButton onClick={() => handleAdultsChange(1)}><AddIcon/></IconButton>
+                    <br/>
                     <Typography>Children:</Typography>
-                    <IconButton onClick={() => handleChildrenChange(-1)}><RemoveIcon /></IconButton>
+                    <IconButton onClick={() => handleChildrenChange(-1)}><RemoveIcon/></IconButton>
                     <Badge badgeContent={children} color="primary"></Badge>
-                    <IconButton onClick={() => handleChildrenChange(1)}><AddIcon /></IconButton>
-                    <br />
+                    <IconButton onClick={() => handleChildrenChange(1)}><AddIcon/></IconButton>
+                    <br/>
                     <Typography>Rooms:</Typography>
-                    <IconButton onClick={() => handleRoomsChange(-1)}><RemoveIcon /></IconButton>
+                    <IconButton onClick={() => handleRoomsChange(-1)}><RemoveIcon/></IconButton>
                     <Badge badgeContent={rooms} color="primary"></Badge>
-                    <IconButton onClick={() => handleRoomsChange(1)}><AddIcon /></IconButton>
-                    <br />
+                    <IconButton onClick={() => handleRoomsChange(1)}><AddIcon/></IconButton>
+                    <br/>
                     <Button onClick={handleReset}>Reset</Button>
                     <Button onClick={handleSave}>Save</Button>
                 </Box>

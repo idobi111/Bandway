@@ -5,7 +5,7 @@ import { LoginInfo } from '../models/LoginInfo';
 
 export class RegisterApi {
 
-    BASE_URL: string = "https://server-z732mhjgfq-uc.a.run.app/bandway";
+    BASE_URL: string = "http://localhost:8080/bandway";
 
 
     public async register(registerInfo: RegisterInfo) {

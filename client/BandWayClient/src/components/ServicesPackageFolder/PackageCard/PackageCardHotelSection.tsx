@@ -1,20 +1,20 @@
 import React from 'react';
-import { Typography, Stack } from '@mui/material';
-import { Package } from '../../../models/Package';
+import {Typography, Stack} from '@mui/material';
+import {Package} from '../../../models/Package';
 import StarIcon from '@mui/icons-material/Star';
 
 interface Props {
     servicesPackage: Package;
 }
 
-const PackageCardHotelSection: React.FC<Props> = ({ servicesPackage }) => {
+const PackageCardHotelSection: React.FC<Props> = ({servicesPackage}) => {
     const generateStars = (rating: number): JSX.Element[] => {
         const starCount = Math.round(rating / 2);
-        return Array.from({ length: starCount }, (_, index) => <StarIcon key={index} />);
+        return Array.from({length: starCount}, (_, index) => <StarIcon key={index}/>);
     };
 
     return (
-        <Stack justifyContent="left" alignItems="left" sx={{ display: 'flex' }}>
+        <Stack justifyContent="left" alignItems="left" sx={{display: 'flex'}}>
             <Typography variant="h6">
                 {servicesPackage.hotel?.hotelName || 'Hotel Name Unavailable'}
             </Typography>

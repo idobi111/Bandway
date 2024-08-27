@@ -1,4 +1,4 @@
-import { Package } from "../models/Package";
+import {Package} from "../models/Package";
 
 export class Helpers {
 
@@ -70,7 +70,7 @@ export class Helpers {
 
     public formatHour(hour: string | undefined) {
         if (hour) {
-            return new Date(hour).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: false });
+            return new Date(hour).toLocaleTimeString('en-US', {hour: '2-digit', minute: '2-digit', hour12: false});
         }
     }
 
@@ -98,7 +98,6 @@ export class Helpers {
         }
         return '';
     }
-
 
 
     public formatDateForPackageBuilder(date: Date) {

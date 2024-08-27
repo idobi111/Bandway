@@ -1,12 +1,12 @@
-import React, { useState } from 'react';
-import { Stack, Typography, Box, Popover, Button, TextField } from '@mui/material';
+import React, {useState} from 'react';
+import {Stack, Typography, Box, Popover, Button, TextField} from '@mui/material';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { SearchTextField } from '../../styles/ComponentsStyles';
+import {SearchTextField} from '../../styles/ComponentsStyles';
 
 interface DatePickerPopoverProps {
     onSelect: (checkIn: string, checkOut: string) => void;
-  }
+}
 
 
 const DatePickerPopover: React.FC<DatePickerPopoverProps> = ({onSelect}) => {
@@ -33,8 +33,7 @@ const DatePickerPopover: React.FC<DatePickerPopoverProps> = ({onSelect}) => {
             const formattedEndDate = endDate.toLocaleDateString();
             setSelectedText(`${formattedStartDate} - ${formattedEndDate}`);
             onSelect(formattedStartDate, formattedEndDate);
-        }
-        else {
+        } else {
             setSelectedText(``);
             onSelect('', '');
 
@@ -58,16 +57,16 @@ const DatePickerPopover: React.FC<DatePickerPopoverProps> = ({onSelect}) => {
     return (
         <div>
             <Typography>
-            Services Date Range
+                Services Date Range
             </Typography>
-            <SearchTextField 
+            <SearchTextField
                 onClick={handleClick}
                 value={selectedText}
-                style={{ width: '150px' }}
+                style={{width: '150px'}}
                 placeholder="Select Date Range"
                 variant="standard"
                 InputLabelProps={{
-                    style: { color: 'gray' },
+                    style: {color: 'gray'},
                     shrink: false
                 }}
             />
@@ -85,7 +84,7 @@ const DatePickerPopover: React.FC<DatePickerPopoverProps> = ({onSelect}) => {
                     horizontal: 'left',
                 }}
             >
-                <Box p={5} sx={{ minHeight: '300px', maxHeight: '1000px' }}>
+                <Box p={5} sx={{minHeight: '300px', maxHeight: '1000px'}}>
                     <Stack justifyContent={'center'} alignItems={'center'}>
                         <Stack direction={'row'} justifyContent={'center'} alignItems={'center'}>
                             <Typography p={1}>

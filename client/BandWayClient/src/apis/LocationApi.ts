@@ -7,7 +7,7 @@ const helpers = new Helpers();
 
 export class LocationApi {
 
-    BASE_URL: string = "https://server-z732mhjgfq-uc.a.run.app/bandway";
+    BASE_URL: string = "http://localhost:8080/bandway";
 
 
     public async getCities(city: string | undefined): Promise<CityRespsone[]> {
