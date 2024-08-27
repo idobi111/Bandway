@@ -94,6 +94,10 @@ public class CarRentalService {
                                             .pickUpPlaceName(minPriceCarInfo.getPickUpPlaceName())
                                             .image(minPriceCarInfo.getImage())
                                             .dealInfo(dealInfoList)
+                                            .seats(minPriceCarInfo.getSeats())
+                                            .transmission(minPriceCarInfo.getTransmission())
+                                            .fuelType(minPriceCarInfo.getFuelType())
+                                            .carGroup(minPriceCarInfo.getCarGroup())
                                             .rentalPeriod(minPriceCarInfo.getRentalPeriod())
                                             .rating(minPriceCarInfo.getRating())
                                             .build();
@@ -179,7 +183,7 @@ public class CarRentalService {
 
 //        TODO: TAL SHOULD CHANGE THE UI FOR THIS FEATURE!
         List<CarAggregatedData> aggregateData = groupAndAggregate(cars).values().stream().toList();
-        return CarRentalResponseDto.builder().carRentalData(cars).minPrice(minPrice).maxPrice(maxPrice).checkIn(getDateTime(checkIn)).checkOut(getDateTime(checkOut)).build();
+        return CarRentalResponseDto.builder().carRentalData(aggregateData).minPrice(minPrice).maxPrice(maxPrice).checkIn(getDateTime(checkIn)).checkOut(getDateTime(checkOut)).build();
     }
 
     private Double calcPricePerDay(CarResourceData data, Integer daysDuration) {

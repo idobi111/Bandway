@@ -111,8 +111,14 @@ public class ConcertService {
             List<PriceRange> prices = events.get(0).getPriceRanges();
             List<EventAttractions> attractions = events.get(0).getEmbedded().getAttractions();
             if (prices != null && attractions != null) {
-                minPrice = prices.stream().mapToDouble(PriceRange::getMin).min().orElse(0);
-                maxPrice = prices.stream().mapToDouble(PriceRange::getMax).max().orElse(10000);
+                minPrice =  prices.stream()
+                        .mapToDouble(price -> price.getMin() != null ? price.getMin() : 0)
+                        .min()
+                        .orElse(0);;
+                maxPrice =  prices.stream()
+                        .mapToDouble(price -> price.getMax() != null ? price.getMax() : 100000)
+                        .max()
+                        .orElse(100000);
                 ExternalLinks externalLinks = events.get(0).getEmbedded().getAttractions().get(0).getExternalLinks();
                 result.add(ConcertResponseDto.builder()
                         .id(concertId)
@@ -224,6 +230,7 @@ public class ConcertService {
                 .queryParam("apikey", ticketmasterApiKey)
                 .queryParam("classificationName", "music")
                 .queryParam("marketId", "3")
+                .queryParam("source", "ticketmaster")
                 .toUriString();
         ResponseEntity<Event> eventResponseEntity = restTemplate.exchange(urlWithQuery, HttpMethod.GET, entity, Event.class);
         Embedded concerts = Objects.requireNonNull(eventResponseEntity.getBody()).getEmbedded();

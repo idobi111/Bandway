@@ -7,6 +7,9 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+import java.util.Date;
 
 @Data
 @Entity
@@ -34,5 +37,10 @@ public class User implements java.io.Serializable {
     private String phone;
     @JsonProperty("isSubscribed")
     private Boolean isSubscribed;
-
+    @CreationTimestamp
+    @Column(updatable = false, name = "createdAt")
+    private Date createdAt;
+    @UpdateTimestamp
+    @Column(name = "updatedAt")
+    private Date updatedAt;
 }

@@ -156,34 +156,34 @@ public class BandwayController {
     public void userSearchFlight(@RequestBody FlightOrderDetailsDto flightOrderDetails) {
         try {
             flightService.saveFlightOrder(flightOrderDetails);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             log.error("Error saving flight order", e);
         }
     }
+
     @PostMapping(value = "/saveHotelOrder")
     public void saveHotelOrder(@RequestBody HotelDetailsDto hotelDetailsDto) {
         try {
             hotelService.saveHotelOrder(hotelDetailsDto);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             log.error("Error saving hotel order", e);
         }
     }
+
     @PostMapping(value = "/saveCarOrder")
     public void saveCarOrder(@RequestBody CarRentalDetailsDto carRentalDetailsDto) {
         try {
             carRentalService.saveCarRentalOrder(carRentalDetailsDto);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             log.error("Error saving car order", e);
         }
-    }    @PostMapping(value = "/saveConcertOrder")
+    }
+
+    @PostMapping(value = "/saveConcertOrder")
     public void saveConcertOrder(@RequestBody ConcertDetailsDto concertDetailsDto) {
         try {
             concertService.saveConcertOrder(concertDetailsDto);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             log.error("Error saving concert order", e);
         }
     }

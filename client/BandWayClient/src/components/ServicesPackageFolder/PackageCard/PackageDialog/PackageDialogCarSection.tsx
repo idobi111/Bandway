@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Typography, Stack, Box, Tooltip, Modal, Accordion, AccordionDetails, AccordionSummary, Divider, IconButton } from '@mui/material';
+import { Typography, Stack, Box, Tooltip, Modal, Accordion, AccordionDetails, AccordionSummary, Divider, IconButton, Grid } from '@mui/material';
 import { Package } from '../../../../models/Package';
 import StarIcon from '@mui/icons-material/Star';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
@@ -64,7 +64,7 @@ const PackageDialogCarSection: React.FC<Props> = ({ servicesPackage, accordionWi
                                         <Stack direction={'row'} spacing={2}>
                                             <Typography variant='h5'>{carData.model}</Typography>
                                             <Typography variant='h6'>
-                                                {[...Array(Math.round(carData.rating / 2))].map((_, index) => (
+                                                {[...Array(Math.round(carData.rating))].map((_, index) => (
                                                     <Tooltip key={index} title={`Rating ${carData.rating}, ${carData.ratingDescription}`} placement="top">
                                                         <StarIcon />
                                                     </Tooltip>
@@ -72,10 +72,10 @@ const PackageDialogCarSection: React.FC<Props> = ({ servicesPackage, accordionWi
                                             </Typography>
                                         </Stack>
                                         <Typography variant='h6' color='text.secondary'>{carData.transmission} &middot; {carData.carGroup} &middot; {carData.seats} seats </Typography>
-                                        <Stack direction={'row'} spacing={2}>
-                                            <img src={carData?.supplierLogo} style={{ width: 30, height: 30 }} />
-                                            <Typography variant='h6' color='text.secondary' sx={{ paddingBottom: 2 }}>{carData.supplierName} </Typography>
-                                        </Stack>
+{/*                                         <Stack direction={'row'} spacing={2}> */}
+{/*                                             <img src={carData?.supplierLogo} style={{ width: 30, height: 30 }} /> */}
+{/*                                             <Typography variant='h6' color='text.secondary' sx={{ paddingBottom: 2 }}>{carData.supplierName} </Typography> */}
+{/*                                         </Stack> */}
                                         <Typography variant='h6' >Pick Up:</Typography>
                                         <Typography variant='h6' color='text.secondary'> {helpers.formatDateAndYear(servicesPackage.carRentals?.checkIn)} </Typography>
                                         <Typography variant='h6' color='text.secondary'>{carData.pickUpPlaceName} </Typography>
@@ -84,16 +84,27 @@ const PackageDialogCarSection: React.FC<Props> = ({ servicesPackage, accordionWi
                                         <Typography variant='h6' color='text.secondary'> {helpers.formatDateAndYear(servicesPackage.carRentals?.checkOut)} </Typography>
                                         <Typography variant='h6' color='text.secondary'> {carData.dropOffPlaceName} </Typography>
                                         <Typography variant='body1' color='text.secondary' sx={{ paddingBottom: 2 }}> {carData.dropOffAddress} </Typography>
-                                        <Typography variant='h6'> Start from ${carData.totalPrice}</Typography>
-                                        {/* Add onClick event to trigger API request */}
-                                        <ActionButton
-                                            variant="contained"
-                                            color="primary"
-                                            sx={{ width: '300px', fontSize: '20px' }}
-                                            onClick={() => handleSeeCarAvailability(carData.carLink)}
-                                        >
-                                            See car availability
-                                        </ActionButton>
+                                        <Box sx={{ marginTop: '20px' }}>
+                                                        <Divider></Divider>
+                                                        <Grid container direction="column" spacing={1} sx={{ marginTop: '20px' }}>
+                                                            {carData.dealInfo.map((dealInfo, index) => (
+                                                                <Grid item key={index}>
+                                                                    <Stack direction="row" alignItems={'center'} spacing={2}>
+                                                                    <Grid item>
+                                                                        <img src={dealInfo?.supplierLogos} alt={dealInfo?.supplierNames} style={{ width: 30, height: 30 }} />
+                                                                        </Grid>
+                                                                        <Typography variant="h6">
+                                                                            {dealInfo.supplierNames} &middot; ${helpers.getRoundedPrice(dealInfo.price)}
+                                                                        </Typography>
+                                                                        <ActionButton variant="contained" color="primary" sx={{ height: '30px', width: '250px', fontSize: '15px' }} onClick={() => handleSeeCarAvailability(dealInfo.carLinks)}>
+                                                                            See car availability
+                                                                        </ActionButton>
+                                                                    </Stack>
+                                                                </Grid>
+                                                            ))}
+                                                        </Grid>
+
+                                                    </Box>
                                     </Stack>
                                     <SubActionButton onClick={() => setExpandedAccordion(false)} variant="contained" color="secondary">Close</SubActionButton>
                                 </AccordionDetails>
