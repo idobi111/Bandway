@@ -134,5 +134,17 @@ export class Helpers {
         return input.replace(" ", "");
     }
 
+    public getPreviousDay(dateString: string): string {
+        // Parse the date string into a Date object
+        const date = new Date(dateString);
+
+        // Subtract one day
+        date.setDate(date.getDate() - 1);
+
+        // Format the date back to YYYY-MM-DD
+        return date.toISOString().split('T')[0];
+    }
+
+
 }
 

@@ -2,7 +2,6 @@ package com.mta.bandway.controllers;
 
 import com.mta.bandway.api.domain.request.*;
 import com.mta.bandway.api.domain.response.*;
-import com.mta.bandway.entities.User;
 import com.mta.bandway.exceptions.InvalidCityException;
 import com.mta.bandway.exceptions.UserAlreadyExistException;
 import com.mta.bandway.exceptions.UserNotFoundException;
@@ -141,14 +140,14 @@ public class BandwayController {
         }
     }
 
-    @GetMapping(value = "/login")
-    public ResponseEntity<User> login(@RequestParam String username, @RequestParam String password) {
+    @PostMapping(value = "/login")
+    public ResponseEntity<String> login(@RequestParam String username, @RequestParam String password) {
         try {
             return new ResponseEntity<>(userService.loginUser(username, password), HttpStatus.OK);
         } catch (UserNotFoundException e) {
-            return new ResponseEntity<>(User.builder().build(), HttpStatus.CONFLICT);
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.CONFLICT);
         } catch (Exception e) {
-            return new ResponseEntity<>(User.builder().build(), HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>("something went wrong", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 

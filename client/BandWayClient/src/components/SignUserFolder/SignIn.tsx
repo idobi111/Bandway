@@ -1,24 +1,72 @@
-import React, { useState } from 'react';
-import { TextField, Button, Typography, Box, Avatar, Container, Grid, IconButton, InputAdornment, Stack } from '@mui/material';
+import React, {useState} from 'react';
+import {
+    TextField,
+    Button,
+    Typography,
+    Box,
+    Avatar,
+    Container,
+    Grid,
+    IconButton,
+    InputAdornment,
+    Stack, CircularProgress
+} from '@mui/material';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Link from '@mui/material/Link';
-import { Visibility, VisibilityOff } from '@mui/icons-material';
-import { BrowserRouter as Router, Routes, Route, Link as RouterLink } from 'react-router-dom';
+import {Visibility, VisibilityOff} from '@mui/icons-material';
+import {BrowserRouter as Router, Routes, Route, Link as RouterLink, useNavigate} from 'react-router-dom';
+import {RegisterApi} from "../../apis/RegisterApi";
+import {LoginInfo} from "../../models/LoginInfo";
 
 const SignIn: React.FC = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [showPassword, setShowPassword] = useState(false);
     const [emailError, setEmailError] = useState('');
+    const [errors, setErrors] = useState<{ [key: string]: string }>({});
+    const [loading, setLoading] = useState(false);
+    const [signInStatus, setSignInStatus] = useState('');
+    const [signInError, setSignInError] = useState('');
+    const registerApi = new RegisterApi();
+    const navigate = useNavigate();
 
-    const handleSignIn = () => {
+    const signIn = async () => {
+        setLoading(true);
+        const loginInfo: LoginInfo = {
+            email: email,
+            password: password
+        }
+        try {
+            await registerApi.login(loginInfo);
+            setSignInStatus('Sign in successfully');
+            setSignInError('');
+            setTimeout(() =>  {
+                navigate('/home');
+            }, 2000);
+        } catch (error) {
+            console.error('Error sign in:', error);
+            setSignInError(error.message.startsWith("Query") ? '' : error.message);
+            setSignInStatus('The sign in has failed. Please try again or contact us via mail: support@bandway.com');
+        } finally {
+            setLoading(false);
+        }
+    };
+
+
+    const handleSignIn = async () => {
+        const validationErrors: { [key: string]: string } = {};
         if (!validateEmail(email)) {
             setEmailError('Invalid email address');
             return;
         }
         setEmailError('');
-        // Implement sign in logic here
-        console.log('Signing in with email:', email, 'and password:', password);
+        if (Object.keys(validationErrors).length > 0) {
+            setErrors(validationErrors);
+        } else {
+            setErrors({});
+            signIn();
+            console.log('Signing in with email:', email, 'and password:', password);
+        }
     };
 
     const validateEmail = (email: string) => {
@@ -38,7 +86,7 @@ const SignIn: React.FC = () => {
         event.preventDefault();
     };
 
-    const PasswordVisibilityIcon = showPassword ? <VisibilityOff /> : <Visibility />;
+    const PasswordVisibilityIcon = showPassword ? <VisibilityOff/> : <Visibility/>;
 
     const Copyright = (props: any) => {
         return (
@@ -62,14 +110,14 @@ const SignIn: React.FC = () => {
                     alignItems: 'center',
                 }}
             >
-                <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-                    <LockOutlinedIcon />
+                <Avatar sx={{m: 1, bgcolor: 'secondary.main'}}>
+                    <LockOutlinedIcon/>
                 </Avatar>
                 <Typography component="h1" variant="h5">
                     Sign in
                 </Typography>
 
-                <Box sx={{ maxWidth: 400, margin: 'auto' }}>
+                <Box sx={{maxWidth: 400, margin: 'auto'}}>
                     <TextField
                         label="Email"
                         required
@@ -102,19 +150,24 @@ const SignIn: React.FC = () => {
                             ),
                         }}
                     />
-                    <Button style={{ backgroundColor: '#191970' }} fullWidth sx={{ mt: 3, mb: 2 }} variant="contained" color="primary" onClick={handleSignIn}>
-                        Sign In
-                    </Button>
+                    <Stack direction={'row'}>
+                        <Button style={{ backgroundColor: '#191970' }} fullWidth sx={{ mt: 3, mb: 2 }} variant="contained" color="primary" onClick={handleSignIn}>
+                            Sign In
+                        </Button>
+                        {loading && <CircularProgress sx={{ mt: 3, mb: 2, marginLeft:1}} />}
+                    </Stack>
                     <Grid container>
                         <Grid item xs>
-                            <Link component={RouterLink} to="/forgot-password" sx={{ textDecoration: 'none', color: 'primary.main' }}>
+                            <Link component={RouterLink} to="/forgot-password"
+                                  sx={{textDecoration: 'none', color: 'primary.main'}}>
                                 <Typography variant="body2" color="primary">
                                     Forgot password?
                                 </Typography>
                             </Link>
                         </Grid>
                         <Grid item>
-                            <Link component={RouterLink} to="/sign-up" sx={{ textDecoration: 'none', color: 'primary.main' }}>
+                            <Link component={RouterLink} to="/sign-up"
+                                  sx={{textDecoration: 'none', color: 'primary.main'}}>
                                 <Stack>
                                     <Typography variant="body2" color="primary">
                                         {"Don't have an account?"}
@@ -127,8 +180,20 @@ const SignIn: React.FC = () => {
                         </Grid>
                     </Grid>
                 </Box>
+                <Stack>
+                    {signInError && (
+                        <Typography variant="body1" color={'error'} textAlign={'center'}>
+                            {signInError}
+                        </Typography>
+                    )}
+                    {signInStatus && (
+                        <Typography variant="body1" color={signInStatus.startsWith('Sign in') ? 'success' : 'error'}>
+                            {signInStatus}
+                        </Typography>
+                    )}
+                </Stack>
             </Box>
-            <Copyright sx={{ mt: 8, mb: 4 }} />
+            <Copyright sx={{mt: 8, mb: 4}}/>
         </Container>
     );
 };

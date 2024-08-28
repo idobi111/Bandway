@@ -39,10 +39,10 @@ public class UserService {
         return "User signed up successfully";
     }
 
-    public User loginUser(String username, String password) {
-        Optional<User> findUser = userRepository.findByUsernameAndPassword(username, password);
+    public String loginUser(String username, String password) {
+        Optional<User> findUser = userRepository.findByEmailAndPassword(username, password);
         if (findUser.isPresent()) {
-            return findUser.get();
+            return "User login successfully";
         }
         throw new UserNotFoundException("User not found");
     }

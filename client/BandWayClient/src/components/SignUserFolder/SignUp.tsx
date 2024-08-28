@@ -5,6 +5,7 @@ import LockOpenIcon from '@mui/icons-material/LockOpen';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { RegisterApi } from '../../apis/RegisterApi';
 import { RegisterInfo } from '../../models/RegisterInfo';
+import {useNavigate} from "react-router-dom";
 
 const SignUp: React.FC = () => {
     const [firstName, setFirstName] = useState('');
@@ -20,6 +21,7 @@ const SignUp: React.FC = () => {
     const [loading, setLoading] = useState(false);
     const [registerStatus, setRegisterStatus] = useState('');
     const [registerError, setRegisterError] = useState('');
+    const navigate = useNavigate();
 
 
 
@@ -85,6 +87,9 @@ const SignUp: React.FC = () => {
             await registerApi.register(buildRegisterInfo());
             setRegisterStatus('Sign up successfully');
             setRegisterError('');
+            setTimeout(() =>  {
+                navigate('/sign-in');
+            }, 2000);
         } catch (error) {
             console.error('Error sign up:', error);
             setRegisterError(error.message.startsWith("Query") ? '' : error.message);

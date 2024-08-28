@@ -17,11 +17,15 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
+import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 @Service
@@ -94,6 +98,7 @@ public class CarRentalService {
                                             .pickUpPlaceName(minPriceCarInfo.getPickUpPlaceName())
                                             .image(minPriceCarInfo.getImage())
                                             .dealInfo(dealInfoList)
+                                            .totalPrice(minPriceCarInfo.getTotalPrice())
                                             .seats(minPriceCarInfo.getSeats())
                                             .transmission(minPriceCarInfo.getTransmission())
                                             .fuelType(minPriceCarInfo.getFuelType())
@@ -155,6 +160,7 @@ public class CarRentalService {
             Double basePrice = data.getPrice();
             Groups allCarsMetadata = responseBody.getData().getGroups();
             CarMetadata carMetadata = selectGroup(data, allCarsMetadata);
+            String apiUrl = buildCarLink(data);
             if (basePrice != null && carMetadata != null) {
                 minPrice = Math.min(minPrice, basePrice);
                 maxPrice = Math.max(maxPrice, basePrice);
@@ -165,13 +171,19 @@ public class CarRentalService {
 //                        .pickUpPlaceName(routeInfo.getPickup().getName())
 //                        .dropOffAddress(routeInfo.getDropoff().getAddress())
 //                        .dropOffPlaceName(routeInfo.getDropoff().getName())
-                        .image("https://logos.skyscnr.com/images/carhire/sippmaps/" + carMetadata.getImg()).carLink(buildCarLink(data)).totalPrice(basePrice).rentalPeriod(daysDuration)
+                        .image("https://logos.skyscnr.com/images/carhire/sippmaps/" + carMetadata.getImg())
+                        .carLink(apiUrl)
+                        .totalPrice(basePrice)
+                        .pickUpPlaceName(extractPickUpDropNameFromUrl(apiUrl))
+                        .dropOffPlaceName(extractPickUpDropNameFromUrl(apiUrl))
+                        .rentalPeriod(daysDuration)
                         .rating(data.getVndrRating().getOverallRating())
                         .supplierName(data.getVndr())
                         .supplierLogo(getSupplierLogoUrl(data))
                         .seats(data.getSeat())
                         .carGroup(carMetadata.getCls())
                         .transmission(carMetadata.getTrans())
+                        .totalPrice(data.getPrice())
                         .fuelType(Objects.equals(data.getFuelType(), "other") ? "gasoline" : data.getFuelType())
                         .groupName(data.getGroup()).build());
             }
@@ -211,4 +223,14 @@ public class CarRentalService {
                 .build());
     }
 
+    private String extractPickUpDropNameFromUrl(String apiUrl) {
+        Pattern pattern = Pattern.compile("pickup_name=([^&]*)");
+        Matcher matcher = pattern.matcher(apiUrl);
+        String pickupName = "";
+        if (matcher.find()) {
+            pickupName = matcher.group(1);
+            pickupName = URLDecoder.decode(pickupName, StandardCharsets.UTF_8);
+        }
+        return pickupName;
+    }
 }

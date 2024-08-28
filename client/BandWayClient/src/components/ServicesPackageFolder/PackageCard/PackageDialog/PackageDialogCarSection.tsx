@@ -23,6 +23,8 @@ import FlightDetailsGrid from './FlightDetailsGrid';
 import {FlightService} from '../../../../services/FlightService';
 import {Helpers} from '../../../../helpers/helpers';
 import {useNavigate} from 'react-router';
+import {useSelector} from "react-redux";
+import {AppState} from "../../../../redux/types";
 
 
 interface Props {
@@ -37,6 +39,8 @@ const PackageDialogCarSection: React.FC<Props> = ({servicesPackage, accordionWid
     const flightService = new FlightService();
     const helpers = new Helpers();
     const navigate = useNavigate();
+    const eventData = useSelector((state: AppState) => state.eventData);
+
 
     const handleAccordionChange = (panel: number) => (event: React.ChangeEvent<{}>, isExpanded: boolean) => {
         setExpandedAccordion(isExpanded ? panel : false);
@@ -73,7 +77,7 @@ const PackageDialogCarSection: React.FC<Props> = ({servicesPackage, accordionWid
                                                 day </Typography>
                                         </Stack>
                                         <Typography variant='h6' sx={{paddingRight: 1}}>Start from
-                                            ${carData.totalPrice}</Typography>
+                                            ${helpers.formatPrice(carData.totalPrice)}</Typography>
                                     </Stack>
                                     <img src={carData.image} style={{width: '150px', height: '100px'}}
                                          alt={`Image of ${carData.model}`}/>
@@ -94,25 +98,21 @@ const PackageDialogCarSection: React.FC<Props> = ({servicesPackage, accordionWid
                                             </Typography>
                                         </Stack>
                                         <Typography variant='h6'
-                                                    color='text.secondary'>{carData.transmission} &middot; {carData.carGroup} &middot; {carData.seats} seats </Typography>
+                                                    color='text.secondary'>{carData.transmission} &middot; {carData.carGroup} &middot; {carData.seats} seats  &middot; {carData.fuelType} </Typography>
                                         {/*                                         <Stack direction={'row'} spacing={2}> */}
                                         {/*                                             <img src={carData?.supplierLogo} style={{ width: 30, height: 30 }} /> */}
                                         {/*                                             <Typography variant='h6' color='text.secondary' sx={{ paddingBottom: 2 }}>{carData.supplierName} </Typography> */}
                                         {/*                                         </Stack> */}
+                                        <Typography variant='h6'>Dates:</Typography>
+                                        <Typography variant='h6'
+                                                    color='text.secondary' sx={{paddingBottom: 2}}> {helpers.formatDateAndYear(servicesPackage.carRentals?.checkIn)} - {helpers.formatDateAndYear(servicesPackage.carRentals?.checkOut)} </Typography>
                                         <Typography variant='h6'>Pick Up:</Typography>
+                                        <Typography variant='body1' color='text.secondary'>{carData.pickUpPlaceName} </Typography>
                                         <Typography variant='h6'
-                                                    color='text.secondary'> {helpers.formatDateAndYear(servicesPackage.carRentals?.checkIn)} </Typography>
-                                        <Typography variant='h6'
-                                                    color='text.secondary'>{carData.pickUpPlaceName} </Typography>
-                                        <Typography variant='body1' color='text.secondary'
-                                                    sx={{paddingBottom: 2}}>{carData.pickUpAddress} </Typography>
+                                                    color='text.secondary' sx={{paddingBottom: 2}}>{eventData.toCity}</Typography>
                                         <Typography variant='h6'> Drop Off: </Typography>
-                                        <Typography variant='h6'
-                                                    color='text.secondary'> {helpers.formatDateAndYear(servicesPackage.carRentals?.checkOut)} </Typography>
-                                        <Typography variant='h6'
-                                                    color='text.secondary'> {carData.dropOffPlaceName} </Typography>
-                                        <Typography variant='body1' color='text.secondary'
-                                                    sx={{paddingBottom: 2}}> {carData.dropOffAddress} </Typography>
+                                        <Typography variant='body1' color='text.secondary'> {carData.dropOffPlaceName} </Typography>
+                                        <Typography variant='h6' color='text.secondary' sx={{paddingBottom: 2}}> {eventData.toCity} </Typography>
                                         <Box sx={{marginTop: '20px'}}>
                                             <Divider></Divider>
                                             <Grid container direction="column" spacing={1} sx={{marginTop: '20px'}}>

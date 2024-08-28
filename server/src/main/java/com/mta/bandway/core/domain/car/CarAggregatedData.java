@@ -72,4 +72,8 @@ public class CarAggregatedData {
     @Schema(description = "Fuel type")
     @JsonProperty("fuelType")
     private String fuelType;
+
+    @Schema(description = "Total Price")
+    @JsonProperty("totalPrice")
+    private Double totalPrice;
 }

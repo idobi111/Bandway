@@ -38,7 +38,7 @@ const EventCard: React.FC<Props> = ({ events, step }) => {
 
     const updatedEventData: SearchEventData = {
       ...eventData,
-      checkIn: selectedEvent ? `${selectedEvent.date}` : '',
+      checkIn: selectedEvent ? `${helpers.getPreviousDay(selectedEvent.date)}` : '',
       venue: selectedEvent ? `${selectedEvent.venue}` : '',
       toCity: selectedEvent && eventData.toCity == "" ? `${selectedEvent.city}` : `${eventData.toCity}`,
       toCityId: toCityId,

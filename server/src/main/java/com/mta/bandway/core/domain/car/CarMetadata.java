@@ -15,6 +15,8 @@ public class CarMetadata {
     private String trans;
     @JsonProperty("cls")
     private String cls;
+    @JsonProperty("min_price")
+    private Double minPrice;
 
     private Map<String, Object> additionalProperties = new HashMap<>();
 
