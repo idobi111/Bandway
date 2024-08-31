@@ -2,8 +2,10 @@ package com.mta.bandway.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 
@@ -12,6 +14,8 @@ import java.io.Serializable;
 @Table(name = "flight_order")
 @JsonIgnoreProperties({"hibernateLazyInitializer"})
 @Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class FlightOrder implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

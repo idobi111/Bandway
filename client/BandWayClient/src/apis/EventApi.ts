@@ -1,20 +1,21 @@
 import axios from 'axios';
-import { EventResponse } from '../models/EventResponse';
-import { Helpers } from '../helpers/helpers';
-import { ArtistResponse } from '../models/ArtistResponse';
+import {EventResponse} from '../models/EventResponse';
+import {Helpers} from '../helpers/helpers';
+import {ArtistResponse} from '../models/ArtistResponse';
+import {CarRentalOrderRequest} from "../models/CarRentalOrderRequest";
 
 const helpers = new Helpers();
 
 
 export class EventApi {
 
-    BASE_URL: string = "https://server-z732mhjgfq-uc.a.run.app/bandway";
+    BASE_URL: string = "http://localhost:8080/bandway";
 
 
     public async getEventsByPerformer(performer: string): Promise<EventResponse[]> {
         try {
             const queryPerformer: string = helpers.replaceSpacesWithUnderscores(performer);
-             const response = await axios.get<EventResponse[]>(`${this.BASE_URL}/searchConcert?performer=${queryPerformer}`);
+            const response = await axios.get<EventResponse[]>(`${this.BASE_URL}/searchConcert?performer=${queryPerformer}`);
 
             return response.data;
         } catch (error) {
@@ -24,7 +25,7 @@ export class EventApi {
 
     public async getUpcomingEvents(): Promise<EventResponse[]> {
         try {
-             const response = await axios.get<EventResponse[]>(`${this.BASE_URL}/upcomingConcert`);
+            const response = await axios.get<EventResponse[]>(`${this.BASE_URL}/upcomingConcert`);
 
             return response.data;
         } catch (error) {
@@ -32,13 +33,21 @@ export class EventApi {
         }
     }
 
-    public async getArtistAutoComplete(artistName:string): Promise<ArtistResponse[]> {
+    public async getArtistAutoComplete(artistName: string): Promise<ArtistResponse[]> {
         try {
-             const response = await axios.get<ArtistResponse[]>(`${this.BASE_URL}/artistAutoComplete?artistName=${artistName}`);
+            const response = await axios.get<ArtistResponse[]>(`${this.BASE_URL}/artistAutoComplete?artistName=${artistName}`);
 
             return response.data;
         } catch (error) {
             throw new Error('Error fetching artists');
+        }
+    }
+
+    public async saveEventToDb(carRentalOrderRequest: CarRentalOrderRequest): Promise<void> {
+        try {
+            await axios.post<void>(`${this.BASE_URL}/saveConcertOrder`, carRentalOrderRequest);
+        } catch (error) {
+            throw new Error('Error store to db');
         }
     }
 }

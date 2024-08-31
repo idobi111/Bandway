@@ -7,11 +7,12 @@ import { FlightLinkResponse } from '../models/FlightLinkResponse';
 import { CarRentalRequest } from '../models/CarRentalRequest';
 import { CarRentalResponse } from '../models/CarRentalResponse';
 import { CityRespsone } from '../models/City';
+import {CarRentalOrderRequest} from "../models/CarRentalOrderRequest";
 
 
 export class CarApi {
 
-    BASE_URL: string = "https://server-z732mhjgfq-uc.a.run.app/bandway";
+    BASE_URL: string = "http://localhost:8080/bandway";
 
 
 
@@ -32,6 +33,15 @@ export class CarApi {
             return response.data;
         } catch (error) {
             throw new Error('Error fetching car rental city id');
+        }
+    }
+
+
+    public async saveCarRentalToDb(carRentalOrderRequest: CarRentalOrderRequest): Promise<void> {
+        try {
+            await axios.post<void>(`${this.BASE_URL}/saveCarOrder`, carRentalOrderRequest);
+        } catch (error) {
+            throw new Error('Error store to db');
         }
     }
 

@@ -9,6 +9,10 @@ import { AppState } from '../../redux/types';
 import { setEventData } from '../../redux/actions';
 import { SearchEventData } from '../../models/SearchEventData';
 import { LocationApi } from '../../apis/LocationApi';
+import axios from "axios";
+import {CarRentalResponse} from "../../models/CarRentalResponse";
+import {ConcertOrderRequest} from "../../models/ConcertOrderRequest";
+import {EventApi} from "../../apis/EventApi";
 
 interface Props {
   events: EventResponse[];
@@ -25,6 +29,7 @@ const EventCard: React.FC<Props> = ({ events, step }) => {
   const helpers = new Helpers();
   const eventData = useSelector((state: AppState) => state.eventData);
   const dispatch = useDispatch();
+  const eventApi = new EventApi();
 
   const handleUserNotifyTicketIsOrdered = async () => {
     let toCityId;
@@ -57,6 +62,14 @@ const EventCard: React.FC<Props> = ({ events, step }) => {
   };
 
   const handleOpenModal = (event: EventResponse) => {
+    //build ConcertOrderRequest and call storeEventToDb
+    const concertOrderRequest: ConcertOrderRequest = {
+      userId: 123,
+      concertAddress: event.venue,
+      concertDate: event.date,
+      concertArtist: event.performer,
+    };
+    eventApi.saveEventToDb(concertOrderRequest);
     window.open(event.ticketUrl, '_blank');
     setSelectedEvent(event);
     setIsModalOpen(true);

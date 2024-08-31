@@ -16,6 +16,5 @@ public class ConcertDetailsDto implements java.io.Serializable {
     private Integer userId;
     private String concertDate;
     private String concertAddress;
-    private String concertName;
     private String concertArtist;
 }

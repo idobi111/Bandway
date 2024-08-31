@@ -21,6 +21,17 @@ const PackageDialogHotelSection: React.FC<Props> = ({servicesPackage}) => {
 
     const handleSeeHotelAvailability = async () => {
         try {
+            const hotelOrderRequest ={
+                userId: 123,
+                orderDate: new Date(),
+                checkInDate: servicesPackage.hotel.checkIn,
+                checkOutDate: servicesPackage.hotel.checkOut,
+                hotelName: servicesPackage.hotel.hotelName,
+                roomCount: servicesPackage.hotel.rooms,
+                price: servicesPackage.hotel.price,
+                numberOfGuests: servicesPackage.hotel.adults + servicesPackage.hotel.children,
+            }
+            hotelApi.saveHotelToDb(hotelOrderRequest);
             const hotelUrl = await hotelApi.getHotelLink(servicesPackage?.hotel?.hotelId, servicesPackage?.hotel?.checkIn, servicesPackage?.hotel?.checkOut);
             window.open(hotelUrl, '_blank');
         } catch (error) {

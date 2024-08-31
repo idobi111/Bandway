@@ -246,7 +246,6 @@ public class ConcertService {
                 .userId(concertDetailsDto.getUserId())
                 .concertDate(concertDetailsDto.getConcertDate())
                 .concertAddress(concertDetailsDto.getConcertAddress())
-                .concertName(concertDetailsDto.getConcertName())
                 .concertArtist(concertDetailsDto.getConcertArtist())
                 .orderDate(getDateTime(new Date()))
                 .build());

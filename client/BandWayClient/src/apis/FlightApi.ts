@@ -9,7 +9,7 @@ import { FlightLinkResponse } from '../models/FlightLinkResponse';
 
 export class FlightApi {
 
-    BASE_URL: string = "https://server-z732mhjgfq-uc.a.run.app/bandway";
+    BASE_URL: string = "http://localhost:8080/bandway";
 
 
     public async getOneWayFlights(flight: FlightRequest): Promise<FlightOneWayResponse[]> {

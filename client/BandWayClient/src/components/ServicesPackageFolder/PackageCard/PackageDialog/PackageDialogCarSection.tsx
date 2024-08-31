@@ -25,6 +25,7 @@ import {Helpers} from '../../../../helpers/helpers';
 import {useNavigate} from 'react-router';
 import {useSelector} from "react-redux";
 import {AppState} from "../../../../redux/types";
+import {CarApi} from "../../../../apis/CarApi";
 
 
 interface Props {
@@ -40,14 +41,24 @@ const PackageDialogCarSection: React.FC<Props> = ({servicesPackage, accordionWid
     const helpers = new Helpers();
     const navigate = useNavigate();
     const eventData = useSelector((state: AppState) => state.eventData);
-
+    const carApi = new CarApi();
 
     const handleAccordionChange = (panel: number) => (event: React.ChangeEvent<{}>, isExpanded: boolean) => {
         setExpandedAccordion(isExpanded ? panel : false);
     };
 
-    const handleSeeCarAvailability = async (carLink) => {
+    const handleSeeCarAvailability = async (carLink, carData) => {
         try {
+            const carRentalOrderRequest = {
+                userId: 123,
+                orderDate: new Date(),
+                rentalStartDate: carData.checkIn,
+                rentalEndDate: carData.checkOut,
+                rentalStartLocation: carData.pickUpAddress,
+                rentalEndLocation: carData.dropOffPlaceName,
+            };
+            console.log(carData)
+            carApi.saveCarRentalToDb(carRentalOrderRequest);
             window.open(carLink, '_blank');
         } catch (error) {
             console.error('Error opening car link:', error);
@@ -132,7 +143,7 @@ const PackageDialogCarSection: React.FC<Props> = ({servicesPackage, accordionWid
                                                                 width: '250px',
                                                                 fontSize: '15px'
                                                             }}
-                                                                          onClick={() => handleSeeCarAvailability(dealInfo.carLinks)}>
+                                                                          onClick={() => handleSeeCarAvailability(dealInfo.carLinks, carData)}>
                                                                 See car availability
                                                             </ActionButton>
                                                         </Stack>

@@ -2,14 +2,18 @@ package com.mta.bandway.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @Entity
 @Table(name = "hotel_order")
 @JsonIgnoreProperties({"hibernateLazyInitializer"})
 @Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class HotelOrder implements java.io.Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
