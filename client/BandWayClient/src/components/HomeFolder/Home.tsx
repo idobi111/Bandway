@@ -23,7 +23,8 @@ const Home: React.FC<HomeProps> = () => {
 
 
   useEffect(() => {
-    localStorage.clear();
+    localStorage.removeItem('eventData');
+    localStorage.removeItem('packageData');
   }, []);
   
   useEffect(() => {

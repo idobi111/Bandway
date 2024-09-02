@@ -40,6 +40,7 @@ const PackageDialogCarSection: React.FC<Props> = ({servicesPackage, accordionWid
     const flightService = new FlightService();
     const helpers = new Helpers();
     const navigate = useNavigate();
+    const userData = useSelector((state: AppState) => state.userData);
     const eventData = useSelector((state: AppState) => state.eventData);
     const carApi = new CarApi();
 
@@ -50,7 +51,7 @@ const PackageDialogCarSection: React.FC<Props> = ({servicesPackage, accordionWid
     const handleSeeCarAvailability = async (carLink, carData) => {
         try {
             const carRentalOrderRequest = {
-                userId: 123,
+                userId: localStorage.getItem("userId"),
                 orderDate: new Date(),
                 rentalStartDate: carData.checkIn,
                 rentalEndDate: carData.checkOut,

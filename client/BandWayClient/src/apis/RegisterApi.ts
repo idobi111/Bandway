@@ -1,6 +1,8 @@
 import axios from 'axios';
 import { RegisterInfo } from '../models/RegisterInfo';
 import { LoginInfo } from '../models/LoginInfo';
+import {HotelLinkResponse} from "../models/HotelLinkResponse";
+import {LoginResponse} from "../models/LoginResponse";
 
 
 export class RegisterApi {
@@ -18,7 +20,7 @@ export class RegisterApi {
         }
     }
 
-    public async login(loginInfo: LoginInfo) {
+    public async login(loginInfo: LoginInfo) :  Promise<LoginResponse> {
         try {
             const response = await axios.post(`${this.BASE_URL}/login?username=${loginInfo.email}&password=${loginInfo.password}`);
             return response.data;

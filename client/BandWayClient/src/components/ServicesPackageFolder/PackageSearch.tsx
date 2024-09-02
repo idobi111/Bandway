@@ -12,6 +12,8 @@ import {SearchPackageData} from '../../models/SearchPackageData';
 import {setPackageData} from '../../redux/actions';
 import {useNavigate} from 'react-router';
 import {LocationApi} from '../../apis/LocationApi';
+import {PackageSearchOrderRequest} from "../../models/PackageSearchOrderRequest";
+import {PackageSearchApi} from "../../apis/PackageSearchApi";
 
 const PackageSearch: React.FC = () => {
 
@@ -30,7 +32,7 @@ const PackageSearch: React.FC = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    const locationApi = new LocationApi();
+    const packageSearchApi = new PackageSearchApi();
 
 
     const [packageData, setPackage] = useState<SearchPackageData>({
@@ -73,6 +75,7 @@ const PackageSearch: React.FC = () => {
         setSelectedMinPrice(minPrice);
         setSelectedMaxPrice(maxPrice);
         setPackage({...packageData, minPrice, maxPrice});
+        console.log("Min Price: " + minPrice + " Max Price: " + maxPrice + " Package Data: " + JSON.stringify(packageData));
     };
 
     const handleSelectFromCity = async (city: CityOption) => {
@@ -86,9 +89,25 @@ const PackageSearch: React.FC = () => {
     };
 
     const handlePackageSearch = () => {
+        localStorage.removeItem('packageData');
         dispatch(setPackageData(packageData));
         console.log("Package Data:" + JSON.stringify(packageData));
-
+        const packageSearchOrder: PackageSearchOrderRequest = {
+            userId: userData,
+            orderDate: new Date(),
+            checkInDate: packageData.checkIn || '',
+            checkOutDate: packageData.checkOut || '',
+            roomCount: packageData.rooms || 0,
+            adults: packageData.adults || 0,
+            children: packageData.children || 0,
+            minPrice: packageData.minPrice || 0,
+            maxPrice: packageData.maxPrice || 0,
+            fromCity: packageData.fromCity || '',
+            toCity: packageData.toCity || '',
+            fromCountry: packageData.fromCountry || '',
+            toCountry: packageData.toCountry || '',
+        }
+        packageSearchApi.savePackageSearch(packageSearchOrder);
         navigate(`/package-search-results`);
     };
 

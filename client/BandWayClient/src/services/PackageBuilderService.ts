@@ -176,7 +176,7 @@ export class PackageBuilderService {
       adults: adults || 2,
       children: children || 0, 
       maxPrice: maxPrice || 10000, 
-      minPrice: maxPrice || 100
+      minPrice: minPrice || 100
     };
   }
 

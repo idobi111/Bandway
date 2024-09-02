@@ -24,9 +24,10 @@ const EventCard: React.FC<Props> = ({ events, step }) => {
   const [selectedEvent, setSelectedEvent] = useState<EventResponse | null>(null); // State to track the selected event
   const [isModalOpen, setIsModalOpen] = useState(false); // State to control the visibility of the modal
   const navigate = useNavigate();
-  const locationApi = new LocationApi();
 
+  const locationApi = new LocationApi();
   const helpers = new Helpers();
+  const userData = useSelector((state: AppState) => state.userData);
   const eventData = useSelector((state: AppState) => state.eventData);
   const dispatch = useDispatch();
   const eventApi = new EventApi();
@@ -62,9 +63,8 @@ const EventCard: React.FC<Props> = ({ events, step }) => {
   };
 
   const handleOpenModal = (event: EventResponse) => {
-    //build ConcertOrderRequest and call storeEventToDb
     const concertOrderRequest: ConcertOrderRequest = {
-      userId: 123,
+      userId: localStorage.getItem("userId"),
       concertAddress: event.venue,
       concertDate: event.date,
       concertArtist: event.performer,

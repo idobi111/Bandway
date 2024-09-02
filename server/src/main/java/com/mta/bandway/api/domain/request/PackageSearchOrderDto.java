@@ -1,20 +1,15 @@
-package com.mta.bandway.entities;
+package com.mta.bandway.api.domain.request;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
+
 
 @Data
-@Entity
-@Table(name = "package_order")
-@JsonIgnoreProperties({"hibernateLazyInitializer"})
 @Builder
-@AllArgsConstructor
-@NoArgsConstructor
-public class PackageOrder implements java.io.Serializable {
+public class PackageSearchOrderDto implements java.io.Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;

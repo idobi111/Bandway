@@ -17,6 +17,8 @@ import {Visibility, VisibilityOff} from '@mui/icons-material';
 import {BrowserRouter as Router, Routes, Route, Link as RouterLink, useNavigate} from 'react-router-dom';
 import {RegisterApi} from "../../apis/RegisterApi";
 import {LoginInfo} from "../../models/LoginInfo";
+import {setUserData} from "../../redux/actions";
+import {useDispatch} from "react-redux";
 
 const SignIn: React.FC = () => {
     const [email, setEmail] = useState('');
@@ -29,6 +31,7 @@ const SignIn: React.FC = () => {
     const [signInError, setSignInError] = useState('');
     const registerApi = new RegisterApi();
     const navigate = useNavigate();
+    const dispatch = useDispatch();
 
     const signIn = async () => {
         setLoading(true);
@@ -37,10 +40,14 @@ const SignIn: React.FC = () => {
             password: password
         }
         try {
-            await registerApi.login(loginInfo);
+            const response = await registerApi.login(loginInfo);
             setSignInStatus('Sign in successfully');
             setSignInError('');
             setTimeout(() =>  {
+                dispatch(setUserData(response));
+                localStorage.setItem('userId', response.userId.toString());
+                localStorage.setItem('userFirstName', response.firstName);
+                localStorage.setItem('userLastName', response.lastName);
                 navigate('/home');
             }, 2000);
         } catch (error) {

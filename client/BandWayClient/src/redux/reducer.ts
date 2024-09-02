@@ -1,6 +1,7 @@
 import { AppState, AppAction, ActionTypes } from './types';
 import { SearchEventData } from '../models/SearchEventData';
 import { SearchPackageData } from '../models/SearchPackageData';
+import {LoginResponse} from "../models/LoginResponse";
 
 const defaultEventData: SearchEventData = {
   performer: null,
@@ -29,9 +30,14 @@ const defaultPackageData: SearchPackageData = {
   toCountry: null
 };
 
+const defaultUserData: LoginResponse = {
+  userId:  null,
+};
+
 const initialState: AppState = {
   eventData: defaultEventData,
-  packageData: defaultPackageData
+  packageData: defaultPackageData,
+  userData: defaultUserData
 };
 
 const reducer = (state: AppState = initialState, action: AppAction): AppState => {
@@ -45,6 +51,11 @@ const reducer = (state: AppState = initialState, action: AppAction): AppState =>
       return {
         ...state,
         packageData: action.payload
+      };
+      case ActionTypes.SET_USER_DATA:
+      return {
+        ...state,
+        userData: action.payload
       };
     default:
       return state;

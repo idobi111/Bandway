@@ -28,6 +28,7 @@ public class BandwayController {
     private final CarRentalService carRentalService;
     private final MailService mailService;
     private final UserService userService;
+    private final PackageSearchService packageSearchService;
 
     @GetMapping(value = "/health", produces = "application/json", headers = "Accept=application/json")
     public ResponseEntity<String> health() {
@@ -141,13 +142,13 @@ public class BandwayController {
     }
 
     @PostMapping(value = "/login")
-    public ResponseEntity<String> login(@RequestParam String username, @RequestParam String password) {
+    public ResponseEntity<LoginResponseDto> login(@RequestParam String username, @RequestParam String password) {
         try {
             return new ResponseEntity<>(userService.loginUser(username, password), HttpStatus.OK);
         } catch (UserNotFoundException e) {
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.CONFLICT);
+            return new ResponseEntity<>(LoginResponseDto.builder().build(), HttpStatus.CONFLICT);
         } catch (Exception e) {
-            return new ResponseEntity<>("something went wrong", HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(LoginResponseDto.builder().build(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -184,6 +185,15 @@ public class BandwayController {
             concertService.saveConcertOrder(concertDetailsDto);
         } catch (Exception e) {
             log.error("Error saving concert order", e);
+        }
+    }
+
+    @PostMapping(value = "/savePackageSearchOrder")
+    public void savePackageSearchOrder(@RequestBody PackageSearchOrderDto packageSearchOrderDto) {
+        try {
+            this.packageSearchService.savePackageSearchOrder(packageSearchOrderDto);
+        } catch (Exception e) {
+            log.error("Error saving package search order", e);
         }
     }
 

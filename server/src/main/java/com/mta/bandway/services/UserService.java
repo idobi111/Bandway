@@ -1,5 +1,6 @@
 package com.mta.bandway.services;
 
+import com.mta.bandway.api.domain.response.LoginResponseDto;
 import com.mta.bandway.entities.User;
 import com.mta.bandway.exceptions.UserAlreadyExistException;
 import com.mta.bandway.exceptions.UserNotFoundException;
@@ -39,10 +40,15 @@ public class UserService {
         return "User signed up successfully";
     }
 
-    public String loginUser(String username, String password) {
+    public LoginResponseDto loginUser(String username, String password) {
         Optional<User> findUser = userRepository.findByEmailAndPassword(username, password);
         if (findUser.isPresent()) {
-            return "User login successfully";
+            User user = findUser.get();
+            return LoginResponseDto.builder()
+                    .userId(user.getId())
+                    .firstName(user.getFirstName())
+                    .lastName(user.getLastName())
+                    .build();
         }
         throw new UserNotFoundException("User not found");
     }

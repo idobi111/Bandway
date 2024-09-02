@@ -27,7 +27,11 @@ const App = () => {
           </Provider>
         } />
         <Route path="/sign-up" element={<SignUp />} />
-        <Route path="/sign-in" element={<SignIn />} />
+        <Route path="/sign-in" element={
+          <Provider store={store}>
+            <SignIn />
+          </Provider>
+        } />
         <Route path="/post-ticket-order" element={<PostTicketOrder />} />
         <Route path='/services-package-finder' element={
           <Provider store={store}>

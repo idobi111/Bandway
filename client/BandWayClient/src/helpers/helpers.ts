@@ -145,6 +145,12 @@ export class Helpers {
         return date.toISOString().split('T')[0];
     }
 
+    public scrollToUpcomingEvents() {
+        console.log("Scrolling to Upcoming Events");
+        const upcomingEventsElement = document.getElementById('upcoming-events');
+        upcomingEventsElement?.scrollIntoView({behavior: 'smooth'});
+    };
+
 
 }
 

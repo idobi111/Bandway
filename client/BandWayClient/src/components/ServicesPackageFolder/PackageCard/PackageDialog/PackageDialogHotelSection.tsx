@@ -7,6 +7,8 @@ import {ActionButton} from '../../../../styles/ComponentsStyles';
 import {HotelApi} from '../../../../apis/HotelApi';
 import {Helpers} from '../../../../helpers/helpers';
 import {useNavigate} from 'react-router';
+import {useSelector} from "react-redux";
+import {AppState} from "../../../../redux/types";
 
 
 interface Props {
@@ -18,11 +20,13 @@ const PackageDialogHotelSection: React.FC<Props> = ({servicesPackage}) => {
     const hotelApi = new HotelApi();
     const helpers = new Helpers();
     const navigate = useNavigate();
+    const userData = useSelector((state: AppState) => state.userData);
+
 
     const handleSeeHotelAvailability = async () => {
         try {
             const hotelOrderRequest ={
-                userId: 123,
+                userId: localStorage.getItem("userId"),
                 orderDate: new Date(),
                 checkInDate: servicesPackage.hotel.checkIn,
                 checkOutDate: servicesPackage.hotel.checkOut,
