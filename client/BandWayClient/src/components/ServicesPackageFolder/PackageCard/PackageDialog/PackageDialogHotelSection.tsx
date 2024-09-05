@@ -26,7 +26,7 @@ const PackageDialogHotelSection: React.FC<Props> = ({servicesPackage}) => {
     const handleSeeHotelAvailability = async () => {
         try {
             const hotelOrderRequest ={
-                userId: localStorage.getItem("userId"),
+                userId: localStorage.getItem("userId")? localStorage.getItem("userId"):-1,
                 orderDate: new Date(),
                 checkInDate: servicesPackage.hotel.checkIn,
                 checkOutDate: servicesPackage.hotel.checkOut,

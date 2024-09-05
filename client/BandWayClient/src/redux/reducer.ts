@@ -31,7 +31,7 @@ export const defaultPackageData: SearchPackageData = {
 };
 
 export const defaultUserData: LoginResponse = {
-  userId:  null,
+  userId:  -1,
 };
 
 const initialState: AppState = {

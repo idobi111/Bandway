@@ -99,7 +99,7 @@ const EventCard: React.FC<Props> = ({ events, step }) => {
   const handleEventSelected = () => {
     if (selectedEvent) {
       const concertOrderRequest: ConcertOrderRequest = {
-        userId: localStorage.getItem("userId"),
+        userId: localStorage.getItem("userId")? localStorage.getItem("userId"):-1,
         concertAddress: selectedEvent.venue,
         concertDate: selectedEvent.date,
         concertArtist: selectedEvent.performer,
