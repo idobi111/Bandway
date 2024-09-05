@@ -19,8 +19,15 @@ const App = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/home" element={<Home />} />
+        <Route path="/" element={
+          <Provider store={store}>
+            <Home />
+          </Provider>
+        } />        <Route path="/home" element={
+          <Provider store={store}>
+            <Home />
+          </Provider>
+        } />
         <Route path="/event-search-results" element={
           <Provider store={store}>
             <EventSearchResults />

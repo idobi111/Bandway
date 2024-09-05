@@ -93,7 +93,7 @@ const PackageSearch: React.FC = () => {
         dispatch(setPackageData(packageData));
         console.log("Package Data:" + JSON.stringify(packageData));
         const packageSearchOrder: PackageSearchOrderRequest = {
-            userId: userData,
+            userId: userId,
             orderDate: new Date(),
             checkInDate: packageData.checkIn || '',
             checkOutDate: packageData.checkOut || '',

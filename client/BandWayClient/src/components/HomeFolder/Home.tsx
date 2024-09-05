@@ -8,11 +8,13 @@ import Footer from '../GenericFolder/Footer';
 import Steps from './Steps';
 import { EventApi } from '../../apis/EventApi';
 import { EventResponse } from '../../models/EventResponse';
-import { Provider } from 'react-redux';
+import {Provider, useDispatch} from 'react-redux';
 import store from '../../redux/store';
 import { HeaderBox } from '../../styles/ComponentsStyles';
 import { useNavigate } from 'react-router';
 import Loader from '../MessageFolder/Loader';
+import {setEventData} from "../../redux/actions";
+import {defaultEventData} from "../../redux/reducer";
 
 interface HomeProps { }
 
@@ -20,11 +22,13 @@ const Home: React.FC<HomeProps> = () => {
   const [events, setEvents] = useState<EventResponse[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
 
   useEffect(() => {
     localStorage.removeItem('eventData');
     localStorage.removeItem('packageData');
+    dispatch(setEventData(defaultEventData));
   }, []);
   
   useEffect(() => {

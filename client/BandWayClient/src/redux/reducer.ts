@@ -3,7 +3,7 @@ import { SearchEventData } from '../models/SearchEventData';
 import { SearchPackageData } from '../models/SearchPackageData';
 import {LoginResponse} from "../models/LoginResponse";
 
-const defaultEventData: SearchEventData = {
+export const defaultEventData: SearchEventData = {
   performer: null,
   toCity: null,
   toCountry: null,
@@ -16,7 +16,7 @@ const defaultEventData: SearchEventData = {
 };
 
 
-const defaultPackageData: SearchPackageData = {
+export const defaultPackageData: SearchPackageData = {
   checkIn: null,
   checkOut: null,
   rooms: null,
@@ -30,7 +30,7 @@ const defaultPackageData: SearchPackageData = {
   toCountry: null
 };
 
-const defaultUserData: LoginResponse = {
+export const defaultUserData: LoginResponse = {
   userId:  null,
 };
 
