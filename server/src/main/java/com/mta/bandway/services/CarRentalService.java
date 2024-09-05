@@ -30,6 +30,7 @@ import java.util.stream.Collectors;
 
 @Service
 public class CarRentalService {
+    public static final int MAX_CAR_TO_SHOW = 10;
     private final String apiUrl;
     private final String carRentalApi;
     private final String carAutoComplete;
@@ -193,8 +194,7 @@ public class CarRentalService {
             maxPrice = 0.0;
         }
 
-//        TODO: TAL SHOULD CHANGE THE UI FOR THIS FEATURE!
-        List<CarAggregatedData> aggregateData = groupAndAggregate(cars).values().stream().toList();
+        List<CarAggregatedData> aggregateData = groupAndAggregate(cars).values().stream().limit(MAX_CAR_TO_SHOW).toList();
         return CarRentalResponseDto.builder().carRentalData(aggregateData).minPrice(minPrice).maxPrice(maxPrice).checkIn(getDateTime(checkIn)).checkOut(getDateTime(checkOut)).build();
     }
 
