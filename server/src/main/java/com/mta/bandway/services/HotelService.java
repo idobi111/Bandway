@@ -5,10 +5,7 @@ import com.mta.bandway.api.domain.request.HotelRequestDto;
 import com.mta.bandway.api.domain.response.HotelResponseDto;
 import com.mta.bandway.core.domain.city.CityResponse;
 import com.mta.bandway.core.domain.city.Datum;
-import com.mta.bandway.core.domain.hotel.Hotel;
-import com.mta.bandway.core.domain.hotel.HotelDetails;
-import com.mta.bandway.core.domain.hotel.HotelResponse;
-import com.mta.bandway.core.domain.hotel.Property;
+import com.mta.bandway.core.domain.hotel.*;
 import com.mta.bandway.entities.HotelOrder;
 import com.mta.bandway.exceptions.InvalidCityException;
 import com.mta.bandway.repositories.HotelOrderRepository;
@@ -34,6 +31,7 @@ public class HotelService {
     private final String bookingUrl;
     private final String bookingCityIdUrl;
     private final String bookingHotelDetailsUrl;
+    private final String bookingPlaceDetailsUrl;
     private final HotelOrderRepository hotelOrderRepository;
 
     @Autowired
@@ -46,6 +44,7 @@ public class HotelService {
         this.bookingUrl = "https://" + apiUrl + "/hotels/searchHotels";
         this.bookingCityIdUrl = "https://" + apiUrl + "/hotels/searchDestination";
         this.bookingHotelDetailsUrl = "https://" + apiUrl + "/hotels/getHotelDetails";
+        this.bookingPlaceDetailsUrl = "https://" + apiUrl + "/meta/locationToLatLong";
         this.apiKey = apiKey;
         this.restTemplate = restTemplate;
         this.hotelOrderRepository = hotelOrderRepository;
@@ -60,7 +59,7 @@ public class HotelService {
                 .orElse(null);
     }
 
-    private static boolean isValidCityResponse(ResponseEntity<CityResponse> cityData) {
+    private static boolean isInvalidCityResponse(ResponseEntity<CityResponse> cityData) {
         return cityData.getBody() == null || cityData.getBody().getData() == null || cityData.getBody().getData().isEmpty();
     }
 
@@ -122,15 +121,38 @@ public class HotelService {
     }
 
     public List<HotelResponseDto> getHotels(HotelRequestDto hotelDto) {
-        ResponseEntity<CityResponse> cityData = getCityId(hotelDto.getVenueName());
-        if (isValidCityResponse(cityData))
-            throw new InvalidCityException(String.format("The venue:%s is invalid", hotelDto.getVenueName()));
-        Datum datum = getDatum(cityData);
-        if (datum == null) return List.of(HotelResponseDto.builder().build());
+        String venueName = hotelDto.getVenueName();
+        ResponseEntity<CityResponse> cityData = getCityId(venueName);
+        Datum datum = getCityDatum(venueName, cityData);
+        if (datum == null) {
+            datum = tryToGetCityByPlace(venueName);
+            if (datum == null) {
+                return List.of(HotelResponseDto.builder().build());
+            }
+        }
         URI uri = buildSearchHotelUri(datum.getDestId(), getDateTime(hotelDto.getCheckIn()), getDateTime(hotelDto.getCheckOut()), hotelDto.getAdults(), hotelDto.getRooms(), datum.getDestType());
         HttpEntity<?> entity = new HttpEntity<>(createHeaders());
         ResponseEntity<HotelResponse> hotels = restTemplate.exchange(uri, HttpMethod.GET, entity, HotelResponse.class);
         return buildResponse(hotelDto, hotels);
+    }
+
+    private static Datum getCityDatum(String venue, ResponseEntity<CityResponse> cityData) {
+        if (isInvalidCityResponse(cityData))
+            throw new InvalidCityException(String.format("The venue:%s is invalid", venue));
+        return getDatum(cityData);
+    }
+
+    private Datum tryToGetCityByPlace(String venue) {
+        HttpEntity<?> entity = new HttpEntity<>(createHeaders());
+        String urlWithQuery = UriComponentsBuilder.fromHttpUrl(bookingPlaceDetailsUrl)
+                .queryParam("query", venue.replace(" ", "_"))
+                .toUriString();
+        ResponseEntity<SearchPlaceLocation> searchPlaceLocation = restTemplate.exchange(urlWithQuery, HttpMethod.GET, entity, SearchPlaceLocation.class);
+        if (searchPlaceLocation.getBody() == null || searchPlaceLocation.getBody().getData() == null || searchPlaceLocation.getBody().getData().isEmpty())
+            return null;
+        String newCitySuggest = Objects.requireNonNull(searchPlaceLocation.getBody()).getData().get(0).getFormattedAddress().split(",")[1];
+        ResponseEntity<CityResponse> cityData = getCityId(newCitySuggest);
+        return getCityDatum(newCitySuggest, cityData);
     }
 
     public String getLink(Integer hotelId, String checkIn, String checkOut) {
