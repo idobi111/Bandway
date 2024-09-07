@@ -73,6 +73,21 @@ Check out our marketing video here: **[Watch on YouTube](https://youtube.com/sho
 
 - Check the [Timeline](https://github.com/users/idobi111/projects/1) for project milestones, features in progress, and future goals.
 
+## Limitations
+### Low Resolution Hotel Image 
+- Reference:
+https://rapidapi.com/ntd119/api/booking-com18/discussions/137532
+- Limitation:
+The Booking.com API currently provides images that are small and of low resolution.
+- Impact:
+When these images are scaled up, they appear blurry and of poor quality, which 
+negatively affects the visual appeal and user experience in applications using these 
+images.
+- Developer's Response:
+The issue is recognized by the developer.
+A solution is being worked on, and users will be informed when the problem is resolved.
+
+
 ## Contributing
 We welcome contributions from the community. Please fork the repository, create a new branch, and submit a pull request with detailed information about your changes.
 
