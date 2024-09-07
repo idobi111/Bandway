@@ -62,7 +62,8 @@ Check out our marketing video here: **[Watch on YouTube](https://youtube.com/sho
 
 - **[Product Document](https://mailmtaac-my.sharepoint.com/:b:/g/personal/talym_mta_ac_il/ESBXhinDvE1DpudQ36Ei9koBHYXHTKmPFWpIzXCHu_toag?e=OTkQXH)**
 - **[Presentation](https://mailmtaac-my.sharepoint.com/:p:/g/personal/talym_mta_ac_il/EVEfyQUa71lDqQtN5_6iws4BJZoXyfVXtQfylwOXgVcxiQ?e=8yYcUu)**
-- **[Demo Video](https://mailmtaac-my.sharepoint.com/:v:/g/personal/talym_mta_ac_il/EchH5YnXUD9Ki36X3uk-KGkBDq5uKySchVt9d8O3io6D9g?e=6im3yd)**
+- **[Demo - Ticket and Vacation](https://mailmtaac-my.sharepoint.com/:v:/g/personal/talym_mta_ac_il/EUpkFJsbXtJPpzTXG--yKbIBijsA46bOfcfQVCyqfMh8eg?e=PFpugB)**
+- **[Demo - Login and Subscribe](https://mailmtaac-my.sharepoint.com/:v:/g/personal/talym_mta_ac_il/EQmharhwSLFClCU_jkgvE7IBxBjyUuxpsRR8ApEdZfepnA?e=54BqFr)**
 
 ## Design
 
