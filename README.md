@@ -25,7 +25,7 @@ Check out our marketing video here: **[Watch on YouTube](https://youtube.com/sho
 - **Backend**: Java Spring Boot
 - **Cloud**: GCP Cloud
 - **Database**: PostgreSQL
-- **APIs**: Integrating with third-party services like Ticketmaster, Spotify, RapidAPI, and Gmail SMTP for email notifications.
+- **APIs**: Integrating with third-party services like Ticketmaster, Spotify, RapidAPI, SkyScanner,and Gmail SMTP for email notifications.
 
 ## Getting Started
 
