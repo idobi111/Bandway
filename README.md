@@ -58,6 +58,11 @@ Check out our marketing video here: **[Watch on YouTube](https://youtube.com/sho
 
 5. Access the local application at `http://localhost:5173` or visit the live cloud-hosted version at **[BandWay Cloud Application](https://bandway-client-z732mhjgfq-uc.a.run.app)**.
 
+
+## Swagger API Documentation
+
+- **[Swagger API Doc](https://server-z732mhjgfq-uc.a.run.app/swagger-ui/index.html#)**
+
 ## Documentation
 
 - **[Product Document](https://mailmtaac-my.sharepoint.com/:b:/g/personal/talym_mta_ac_il/ESBXhinDvE1DpudQ36Ei9koBHYXHTKmPFWpIzXCHu_toag?e=OTkQXH)**
