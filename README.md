@@ -83,9 +83,11 @@ Check out our marketing video here: **[Watch on YouTube](https://youtube.com/sho
 ## Documentation
 
 - **[Product Document](https://mailmtaac-my.sharepoint.com/:b:/g/personal/talym_mta_ac_il/ESBXhinDvE1DpudQ36Ei9koBHYXHTKmPFWpIzXCHu_toag?e=OTkQXH)**
+- **[User Guide](https://mailmtaac-my.sharepoint.com/:b:/g/personal/talym_mta_ac_il/EZMVqxh21u9CqIJX8eGMjb0BTq0FlIGiMidk95Dlvumg4w?e=WmSXKP)**
 - **[Presentation](https://mailmtaac-my.sharepoint.com/:p:/g/personal/talym_mta_ac_il/EVEfyQUa71lDqQtN5_6iws4BJZoXyfVXtQfylwOXgVcxiQ?e=8yYcUu)**
 - **[Demo - Ticket and Vacation](https://mailmtaac-my.sharepoint.com/:v:/g/personal/talym_mta_ac_il/EUpkFJsbXtJPpzTXG--yKbIBijsA46bOfcfQVCyqfMh8eg?e=PFpugB)**
-- **[Demo - Login and Subscribe](https://mailmtaac-my.sharepoint.com/:v:/g/personal/talym_mta_ac_il/EQmharhwSLFClCU_jkgvE7IBxBjyUuxpsRR8ApEdZfepnA?e=54BqFr)**
+- **[Demo - Sign Up and Sign In](https://mailmtaac-my.sharepoint.com/:v:/g/personal/talym_mta_ac_il/EergGfwADPtPvyML77CulNUB0skEDoECKTt4B8bUBgm1-w?e=JmaRtX)**
+- **[Demo - Subscribe and Unsubscribe](https://mailmtaac-my.sharepoint.com/:v:/g/personal/talym_mta_ac_il/EUwoIMS5e7pFusU1nU-NM00BgSeBowWw0Ybfvu9t7Dkkgw?e=MV0hsf)**
 
 ## Design
 
