@@ -10,7 +10,7 @@
     </parent>
     <groupId>com.mta</groupId>
     <artifactId>bandway</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>1.0.0</version>
     <name>bandway</name>
     <description>Intelligence agent for your dreaming vacation</description>
     <properties>
