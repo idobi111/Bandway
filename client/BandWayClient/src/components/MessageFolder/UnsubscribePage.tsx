@@ -28,7 +28,7 @@ const UnsubscribePage: React.FC = () => {
       setUnsubscribeStatus('Unsubscribed successfully');
     } catch (error) {
       console.error('Error unsubscribe mail:', error);
-      setUnsubscribeStatus('The Unsubscription has failed. Please try again or contact us via mail: support@bandway.com');
+      setUnsubscribeStatus('The Unsubscription has failed. Please try again or contact us via mail: bandway4@gmail.com');
     } finally {
       setLoading(false);
     }

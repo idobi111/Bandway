@@ -53,7 +53,7 @@ const SignIn: React.FC = () => {
         } catch (error) {
             console.error('Error sign in:', error);
             setSignInError(error.message.startsWith("Query") ? '' : error.message);
-            setSignInStatus('The sign in has failed. Please try again or contact us via mail: support@bandway.com');
+            setSignInStatus('The sign in has failed. Please try again or contact us via mail: bandway4@gmail.com');
         } finally {
             setLoading(false);
         }
