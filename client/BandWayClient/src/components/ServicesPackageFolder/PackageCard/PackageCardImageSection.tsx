@@ -17,6 +17,8 @@ interface Props {
 const PackageCardImageSection: React.FC<Props> = ({servicesPackage}) => {
 
     const eventData = useSelector((state: AppState) => state.eventData);
+    const packageData = useSelector((state: AppState) => state.packageData);
+
 
     const flightService = new FlightService();
 
@@ -25,8 +27,8 @@ const PackageCardImageSection: React.FC<Props> = ({servicesPackage}) => {
             <Box position="relative">
                 <EventCardMediaStyled
                     style={{height: 140}}
-                    image={servicesPackage.hotel.photoUrl[0]}
-                    title={servicesPackage.hotel.city}
+                    image={servicesPackage?.hotel?.photoUrl[0]}
+                    title={servicesPackage?.hotel?.city}
                 />
                 <Typography
                     variant="h5"
@@ -41,7 +43,7 @@ const PackageCardImageSection: React.FC<Props> = ({servicesPackage}) => {
                         textShadow: '2px 2px 4px rgba(0,0,0,0.5)', // Corrected shadow opacity
                     }}
                 >
-                    {servicesPackage.hotel.city || servicesPackage.flights?.roundWayFlightDetails[0].arriveFlightDetails[0].sourceCity}
+                    {servicesPackage?.hotel?.city || servicesPackage.flights?.roundWayFlightDetails[0].arriveFlightDetails[0].sourceCity}
                 </Typography>
                 <Typography
                     variant="h6" // Changed variant to h6 for smaller font size
@@ -54,7 +56,7 @@ const PackageCardImageSection: React.FC<Props> = ({servicesPackage}) => {
                         zIndex: 1,
                     }}
                 >
-                    {servicesPackage.flights?.roundWayFlightDetails[0].arriveFlightDetails[0].sourceCountry}
+                    {packageData.toCountry || eventData.toCountry || servicesPackage.flights?.roundWayFlightDetails[0].arriveFlightDetails[0].sourceCountry}
                 </Typography>
             </Box>
         </>

@@ -28,7 +28,7 @@ const ThankYouPage: React.FC = () => {
       setSubscribeStatus('Subscribed successfully');
     } catch (error) {
       console.error('Error subscribe mail:', error);
-      setSubscribeStatus('The Subscription has failed. Please try again or contact us via mail: support@bandway.com');
+      setSubscribeStatus('The Subscription has failed. Please try again or contact us via mail: bandway4@gmail.com');
     } finally {
       setLoading(false);
     }

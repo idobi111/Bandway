@@ -1,5 +1,5 @@
-import React, {useState} from 'react';
-import {Stack, Typography, Box, Popover, Button, TextField} from '@mui/material';
+import React, {useState, forwardRef, useImperativeHandle} from 'react';
+import {Stack, Typography, Box, Popover, Button} from '@mui/material';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import {SearchTextField} from '../../styles/ComponentsStyles';
@@ -8,13 +8,20 @@ interface DatePickerPopoverProps {
     onSelect: (checkIn: string, checkOut: string) => void;
 }
 
-
-const DatePickerPopover: React.FC<DatePickerPopoverProps> = ({onSelect}) => {
+const DatePickerPopover = forwardRef(({onSelect}: DatePickerPopoverProps, ref) => {
     const [anchorEl, setAnchorEl] = useState<HTMLDivElement | null>(null);
     const [selectedText, setSelectedText] = useState<string>('');
     const [startDate, setStartDate] = useState<Date | null>();
     const [endDate, setEndDate] = useState<Date | null>();
 
+    // Expose a reset method through the ref
+    useImperativeHandle(ref, () => ({
+        resetSelectedText() {
+            setSelectedText('');
+            setStartDate(null);
+            setEndDate(null);
+        }
+    }));
 
     const handleClick = (event: React.MouseEvent<HTMLDivElement>) => {
         setAnchorEl(event.currentTarget);
@@ -34,24 +41,10 @@ const DatePickerPopover: React.FC<DatePickerPopoverProps> = ({onSelect}) => {
             setSelectedText(`${formattedStartDate} - ${formattedEndDate}`);
             onSelect(formattedStartDate, formattedEndDate);
         } else {
-            setSelectedText(``);
+            setSelectedText('');
             onSelect('', '');
-
         }
         handleClose();
-    };
-
-    const handleReset = () => {
-        setStartDate(null);
-        setEndDate(null);
-    };
-
-    const handleStartDateChange = (newValue: Date | null) => {
-        setStartDate(newValue);
-    };
-
-    const handleEndDateChange = (newValue: Date | null) => {
-        setEndDate(newValue);
     };
 
     return (
@@ -92,7 +85,7 @@ const DatePickerPopover: React.FC<DatePickerPopoverProps> = ({onSelect}) => {
                             </Typography>
                             <DatePicker
                                 selected={startDate}
-                                onChange={(date) => handleStartDateChange(date)}
+                                onChange={(date) => setStartDate(date)}
                                 selectsStart
                                 startDate={startDate}
                                 endDate={endDate}
@@ -106,7 +99,7 @@ const DatePickerPopover: React.FC<DatePickerPopoverProps> = ({onSelect}) => {
                             </Typography>
                             <DatePicker
                                 selected={endDate}
-                                onChange={(date) => handleEndDateChange(date)}
+                                onChange={(date) => setEndDate(date)}
                                 selectsEnd
                                 startDate={startDate}
                                 endDate={endDate}
@@ -115,7 +108,7 @@ const DatePickerPopover: React.FC<DatePickerPopoverProps> = ({onSelect}) => {
                             />
                         </Stack>
                         <Stack direction={'row'}>
-                            <Button onClick={handleReset}>Reset</Button>
+                            <Button onClick={() => setStartDate(null)}>Reset</Button>
                             <Button onClick={handleSave}>Save</Button>
                         </Stack>
                     </Stack>
@@ -123,6 +116,6 @@ const DatePickerPopover: React.FC<DatePickerPopoverProps> = ({onSelect}) => {
             </Popover>
         </div>
     );
-};
+});
 
 export default DatePickerPopover;
