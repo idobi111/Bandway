@@ -75,11 +75,17 @@ Check out our marketing video here: **[Watch on YouTube](https://youtube.com/sho
 
 5. Access the local application at `http://localhost:5173` or visit the live cloud-hosted version at **[BandWay Cloud Application](https://bandway-client-z732mhjgfq-uc.a.run.app)**.
 
+
+## Swagger API Documentation
+
+- **[Swagger API Doc](https://server-z732mhjgfq-uc.a.run.app/swagger-ui/index.html#)**
+
 ## Documentation
 
 - **[Product Document](https://mailmtaac-my.sharepoint.com/:b:/g/personal/talym_mta_ac_il/ESBXhinDvE1DpudQ36Ei9koBHYXHTKmPFWpIzXCHu_toag?e=OTkQXH)**
 - **[Presentation](https://mailmtaac-my.sharepoint.com/:p:/g/personal/talym_mta_ac_il/EVEfyQUa71lDqQtN5_6iws4BJZoXyfVXtQfylwOXgVcxiQ?e=8yYcUu)**
-- **[Demo Video](https://mailmtaac-my.sharepoint.com/:v:/g/personal/talym_mta_ac_il/EchH5YnXUD9Ki36X3uk-KGkBDq5uKySchVt9d8O3io6D9g?e=6im3yd)**
+- **[Demo - Ticket and Vacation](https://mailmtaac-my.sharepoint.com/:v:/g/personal/talym_mta_ac_il/EUpkFJsbXtJPpzTXG--yKbIBijsA46bOfcfQVCyqfMh8eg?e=PFpugB)**
+- **[Demo - Login and Subscribe](https://mailmtaac-my.sharepoint.com/:v:/g/personal/talym_mta_ac_il/EQmharhwSLFClCU_jkgvE7IBxBjyUuxpsRR8ApEdZfepnA?e=54BqFr)**
 
 ## Design
 
@@ -88,6 +94,21 @@ Check out our marketing video here: **[Watch on YouTube](https://youtube.com/sho
 ## Development Roadmap
 
 - Check the [Timeline](https://github.com/users/idobi111/projects/1) for project milestones, features in progress, and future goals.
+
+## Limitations
+### Low Resolution Hotel Image 
+- Reference:
+https://rapidapi.com/ntd119/api/booking-com18/discussions/137532
+- Limitation:
+The Booking.com API currently provides images that are small and of low resolution.
+- Impact:
+When these images are scaled up, they appear blurry and of poor quality, which 
+negatively affects the visual appeal and user experience in applications using these 
+images.
+- Developer's Response:
+The issue is recognized by the developer.
+A solution is being worked on, and users will be informed when the problem is resolved.
+
 
 ## Contributing
 
