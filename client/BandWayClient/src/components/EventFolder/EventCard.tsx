@@ -28,14 +28,14 @@ interface Props {
 }
 
 const EventCard: React.FC<Props> = ({events, step}) => {
-    const [visibleEvents, setVisibleEvents] = useState(step); // State to track the number of visible events
-    const [selectedEvent, setSelectedEvent] = useState<EventResponse | null>(null); // State to track the selected event
-    const [isModalOpen, setIsModalOpen] = useState(false); // State to control the visibility of the original modal
-    const [isCityModalOpen, setIsCityModalOpen] = useState(false); // State to control the visibility of the city selection modal
-    const [fromCity, setFromCity] = useState<CityOption | null>(null); // State to track the selected city
-    const [fromCityId, setFromCityId] = useState<string | null>(null); // State to track the selected city
-    const [isWebsiteTicketOpen, setIsWebsiteTicketOpen] = useState<boolean | null>(false); // State to track the selected city
-    const [isRedirectingModalOpen, setIsRedirectingModalOpen] = useState(false); // State for the redirect modal
+    const [visibleEvents, setVisibleEvents] = useState(step); 
+    const [selectedEvent, setSelectedEvent] = useState<EventResponse | null>(null); 
+    const [isModalOpen, setIsModalOpen] = useState(false); 
+    const [isCityModalOpen, setIsCityModalOpen] = useState(false); 
+    const [fromCity, setFromCity] = useState<CityOption | null>(null); 
+    const [fromCityId, setFromCityId] = useState<string | null>(null); 
+    const [isWebsiteTicketOpen, setIsWebsiteTicketOpen] = useState<boolean | null>(false); 
+    const [isRedirectingModalOpen, setIsRedirectingModalOpen] = useState(false); 
 
 
     const navigate = useNavigate();

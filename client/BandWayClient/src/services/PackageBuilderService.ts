@@ -128,7 +128,7 @@ export class PackageBuilderService {
     let threeDaysFromCheckIn;
 
     if (carRentalDate) {
-      threeDaysFromCheckIn = new Date(carRentalDate); // Create a copy of carRentalDate
+      threeDaysFromCheckIn = new Date(carRentalDate);
       threeDaysFromCheckIn.setDate(threeDaysFromCheckIn.getDate() + 3);
       console.log(threeDaysFromCheckIn);
     } else {
@@ -141,7 +141,7 @@ export class PackageBuilderService {
 
     return {
       pickupStartDate: carRentalDate ? helpers.formatDateForPackageBuilder(new Date(carRentalDate)) : helpers.formatDateForPackageBuilder(new Date()),
-      dropoffEndDate: carRentalDate ? helpers.formatDateForPackageBuilder(new Date(new Date(carRentalDate).setDate(new Date(carRentalDate).getDate() + 3))) // Chain setDate and new Date
+      dropoffEndDate: carRentalDate ? helpers.formatDateForPackageBuilder(new Date(new Date(carRentalDate).setDate(new Date(carRentalDate).getDate() + 3)))
         : helpers.formatDateForPackageBuilder(threeDaysFromCheckIn),
       pickupCity: toCityData ? toCityData[0].id : 'abc',
       dropoffCity: toCityData ? toCityData[0].id : 'abc',
@@ -166,14 +166,14 @@ export class PackageBuilderService {
     maxPrice: number | null,
     minPrice: number | null
   ): HotelRequest {
-    const defaultCheckInDate = new Date(); // Use the current date as default
+    const defaultCheckInDate = new Date(); 
     const threeDaysFromCheckIn = new Date(defaultCheckInDate.setDate(defaultCheckInDate.getDate() + 3));
 
 
     return {
       checkIn: checkIn ? helpers.formatDateForPackageBuilder(new Date(checkIn)) : helpers.formatDateForPackageBuilder(defaultCheckInDate),
       checkOut: checkOut
-        ? helpers.formatDateForPackageBuilder(new Date(new Date(checkOut))) // Chain setDate and new Date
+        ? helpers.formatDateForPackageBuilder(new Date(new Date(checkOut)))
         : helpers.formatDateForPackageBuilder(threeDaysFromCheckIn),
       venueName: venue || "",
       rooms: rooms || 1,
@@ -195,13 +195,12 @@ export class PackageBuilderService {
     maxPrice: number | null,
     minPrice: number | null,
   ): FlightRequest {
-    // Use the checkIn date for a one-way flight
     const checkInDate = checkIn ? new Date(checkIn) : null;
     const checkOutDate = checkOut ? new Date(checkOut) : null;
 
     return {
-      departureDate: checkInDate ? helpers.formatDateForPackageBuilder(checkInDate) : "", // Use checkIn if available, otherwise empty string
-      returnDate: checkOutDate ? helpers.formatDateForPackageBuilder(checkOutDate) : "", // No checkOut for one-way flights
+      departureDate: checkInDate ? helpers.formatDateForPackageBuilder(checkInDate) : "", 
+      returnDate: checkOutDate ? helpers.formatDateForPackageBuilder(checkOutDate) : "", 
       src: fromCityId || "",
       dest: toCityId || "",
       adults: adults || 2,
@@ -227,7 +226,7 @@ export class PackageBuilderService {
     let threeDaysFromCheckIn;
 
     if (carRentalDate) {
-      threeDaysFromCheckIn = new Date(carRentalDate); // Create a copy of carRentalDate
+      threeDaysFromCheckIn = new Date(carRentalDate); 
       threeDaysFromCheckIn.setDate(threeDaysFromCheckIn.getDate() + 3);
       console.log(threeDaysFromCheckIn);
     } else {
@@ -240,7 +239,7 @@ export class PackageBuilderService {
 
     return {
       pickupStartDate: carRentalDate ? helpers.formatDateForPackageBuilder(new Date(carRentalDate)) : helpers.formatDateForPackageBuilder(new Date()),
-      dropoffEndDate: carRentalDate ? helpers.formatDateForPackageBuilder(new Date(new Date(carRentalDate).setDate(new Date(carRentalDate).getDate() + 3))) // Chain setDate and new Date
+      dropoffEndDate: carRentalDate ? helpers.formatDateForPackageBuilder(new Date(new Date(carRentalDate).setDate(new Date(carRentalDate).getDate() + 3))) 
         : helpers.formatDateForPackageBuilder(threeDaysFromCheckIn),
       pickupCity: toCityData ? toCityData[0].id : 'abc',
       dropoffCity: toCityData ? toCityData[0].id : 'abc',

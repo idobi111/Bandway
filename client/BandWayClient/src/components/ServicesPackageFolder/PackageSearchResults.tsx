@@ -96,13 +96,12 @@ const PackageSearchResults: React.FC = () => {
 
                 const flightRequest = packageBuilderService.createFlightRequestByPackageData(packageData.checkIn, packageData.checkOut, packageData.fromCityId, packageData.toCityId, packageData.adults, packageData.children, packageData.maxFlightPrice,packageData.minFlightPrice);
                 const flightsData = await flightApi.getRoundWayFlights(flightRequest);
-                flightService.sortFlightsFromLowestToHighestPrice(flightsData.roundWayFlightDetails); ///to fix
+                flightService.sortFlightsFromLowestToHighestPrice(flightsData.roundWayFlightDetails); 
                 setFlights(flightsData);
 
 
                 const carRequest = await packageBuilderService.createCarRequestByPackageData(packageData.checkIn, packageData.checkOut, packageData.toCity, packageData.minCarPrice, packageData.maxCarPrice);
                 const carData = await carApi.getCarRentals(carRequest);
-                //const carData = undefined;
                 setCars(carData);
 
                 const combinedPackages = packageBuilderService.combineResults(hotelsData, flightsData, carData);
