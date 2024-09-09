@@ -10,7 +10,13 @@ import { Helpers } from '../../helpers/helpers';
 
 const Footer: React.FC = () => {
 
-    const [isHovered, setIsHovered] = useState(false);
+    const [isUnsubscribeHovered, setIsUnsubscribeHovered] = useState(false);
+    const [isFAQHovered, setIsFAQHovered] = useState(false);
+    const [isContactUsHovered, setIsContactUsHovered] = useState(false);
+    const [isHowItWorksHovered, setIsHowItWorksHovered] = useState(false);
+    const [isAboutUssHovered, setIsAboutUsHovered] = useState(false);
+
+
     const navigate = useNavigate();
     const helpers = new Helpers();
 
@@ -28,10 +34,25 @@ const Footer: React.FC = () => {
         navigate("/unsubscribe");
     }
 
+    const goToContact = () => {
+        window.scrollTo({top: 0, behavior: 'smooth'});
+        navigate("/contact");
+    }
+
+    const goToHowItWorks = () => {
+        window.scrollTo({top: 0, behavior: 'smooth'});
+        navigate("/how-it-works");
+    }
+
+    const goToAboutUs = () => {
+        window.scrollTo({top: 0, behavior: 'smooth'});
+        navigate("/about-us");
+    }
+
     const goToFAQ = () => {
         navigate('/how-it-works');
         setTimeout(() => {
-            helpers.scrollToUpcomingEvents();
+            helpers.scrollToFAQ();
         }, 100);
     };
 
@@ -51,31 +72,64 @@ const Footer: React.FC = () => {
 
                 <Grid item xs={10} sm={4} md={2}>
                     <FooterTitle>BandWay</FooterTitle>
-                    <FooterItem>About Us</FooterItem>
-                    <FooterItem>How it Works</FooterItem>
-                    <FooterItem>Contact Us</FooterItem>
+                    <FooterItem onClick={goToAboutUs}
+                                style={{
+                                    textDecoration: 'none',
+                                    color: 'inherit',
+                                    fontWeight: isAboutUssHovered ? 'bold' : 'normal',
+                                    transition: 'font-weight 0.3s',
+                                    cursor: 'pointer'
+                                }}
+                                onMouseEnter={() => setIsAboutUsHovered(true)}
+                                onMouseLeave={() => setIsAboutUsHovered(false)}>
+                        About Us
+                    </FooterItem>
+                    <FooterItem onClick={goToHowItWorks}
+                                style={{
+                                    textDecoration: 'none',
+                                    color: 'inherit',
+                                    fontWeight: isHowItWorksHovered ? 'bold' : 'normal',
+                                    transition: 'font-weight 0.3s',
+                                    cursor: 'pointer'
+                                }}
+                                onMouseEnter={() => setIsHowItWorksHovered(true)}
+                                onMouseLeave={() => setIsHowItWorksHovered(false)}>
+                        How it Works
+                    </FooterItem>
+                    <FooterItem onClick={goToContact}
+                                style={{
+                                    textDecoration: 'none',
+                                    color: 'inherit',
+                                    fontWeight: isContactUsHovered ? 'bold' : 'normal',
+                                    transition: 'font-weight 0.3s',
+                                    cursor: 'pointer'
+                                }}
+                                onMouseEnter={() => setIsContactUsHovered(true)}
+                                onMouseLeave={() => setIsContactUsHovered(false)}>
+                        Contact Us
+                    </FooterItem>
                     <FooterItem onClick={goToFAQ}
                                 style={{
                                     textDecoration: 'none',
                                     color: 'inherit',
-                                    fontWeight: isHovered ? 'bold' : 'normal',
+                                    fontWeight: isFAQHovered ? 'bold' : 'normal',
                                     transition: 'font-weight 0.3s',
                                     cursor: 'pointer'
                                 }}
-                                onMouseEnter={() => setIsHovered(true)}
-                                onMouseLeave={() => setIsHovered(false)}>
+                                onMouseEnter={() => setIsFAQHovered(true)}
+                                onMouseLeave={() => setIsFAQHovered(false)}>
                         FAQ
                     </FooterItem>
                     <FooterItem onClick={handleUnsubsribeLink}
                                 style={{
                                     textDecoration: 'none',
                                     color: 'inherit',
-                                    fontWeight: isHovered ? 'bold' : 'normal',
+                                    fontWeight: isUnsubscribeHovered ? 'bold' : 'normal',
                                     transition: 'font-weight 0.3s',
                                     cursor: 'pointer'
                                 }}
-                                onMouseEnter={() => setIsHovered(true)}
-                                onMouseLeave={() => setIsHovered(false)}>
+                                onMouseEnter={() => setIsUnsubscribeHovered(true)}
+                                onMouseLeave={() => setIsUnsubscribeHovered(false)}>
                         Unsubscribe
                     </FooterItem>
                 </Grid>
