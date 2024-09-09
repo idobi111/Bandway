@@ -8,4 +8,6 @@ export interface CarRentalRequest {
     driverAge: number;
     carType: string[];
     hasHairConditioner: boolean;
+    minPrice: number;
+    maxPrice: number;
   }

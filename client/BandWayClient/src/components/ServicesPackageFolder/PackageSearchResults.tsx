@@ -87,17 +87,17 @@ const PackageSearchResults: React.FC = () => {
                 const toCityId = packageData.toCityId || null;
 
 
-                const hotelRequest = packageBuilderService.createHotelRequestByPackageData(packageData.checkIn, packageData.checkOut, packageData.toCity, packageData.rooms, packageData.adults, packageData.children, packageData.maxPrice, packageData.minPrice);
+                const hotelRequest = packageBuilderService.createHotelRequestByPackageData(packageData.checkIn, packageData.checkOut, packageData.toCity, packageData.rooms, packageData.adults, packageData.children, packageData.maxHotelPrice, packageData.minHotelPrice);
                 const hotelsData = await hotelApi.getHotels(hotelRequest);
                 setHotels(hotelsData);
 
-                const flightRequest = packageBuilderService.createFlightRequestByPackageData(packageData.checkIn, packageData.checkOut, packageData.fromCityId, packageData.toCityId, packageData.adults, packageData.children);
+                const flightRequest = packageBuilderService.createFlightRequestByPackageData(packageData.checkIn, packageData.checkOut, packageData.fromCityId, packageData.toCityId, packageData.adults, packageData.children, packageData.maxFlightPrice,packageData.minFlightPrice);
                 const flightsData = await flightApi.getRoundWayFlights(flightRequest);
                 flightService.sortFlightsFromLowestToHighestPrice(flightsData.roundWayFlightDetails); ///to fix
                 setFlights(flightsData);
 
 
-                const carRequest = await packageBuilderService.createCarRequestByPackageData(packageData.checkIn, packageData.checkOut, packageData.toCity);
+                const carRequest = await packageBuilderService.createCarRequestByPackageData(packageData.checkIn, packageData.checkOut, packageData.toCity, packageData.minCarPrice, packageData.maxCarPrice);
                 const carData = await carApi.getCarRentals(carRequest);
                 //const carData = undefined;
                 setCars(carData);

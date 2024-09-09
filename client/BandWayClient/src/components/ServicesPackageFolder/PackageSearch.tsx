@@ -22,8 +22,12 @@ const PackageSearch: React.FC = () => {
     const [selectedAdults, setSelectedAdults] = useState<number | null>(null);
     const [selectedChildren, setSelectedChildren] = useState<number | null>(null);
     const [selectedRooms, setSelectedRooms] = useState<number | null>(null);
-    const [selectedMaxPrice, setSelectedMaxPrice] = useState<number | null>(null);
-    const [selectedMinPrice, setSelectedMinPrice] = useState<number | null>(null);
+    const [selectedHotelMaxPrice, setSelectedHotelMaxPrice] = useState<number | null>(null);
+    const [selectedHotelMinPrice, setSelectedHotelMinPrice] = useState<number | null>(null);
+    const [selectedCarMaxPrice, setSelectedCarMaxPrice] = useState<number | null>(null);
+    const [selectedCarMinPrice, setSelectedCarMinPrice] = useState<number | null>(null);
+    const [selectedFlightMaxPrice, setSelectedFlightMaxPrice] = useState<number | null>(null);
+    const [selectedFlightMinPrice, setSelectedFlightMinPrice] = useState<number | null>(null);
     const [selectedFromCity, setSelectedFromCity] = useState<CityOption | null>(null);
     const [selectedToCity, setSelectedToCity] = useState<CityOption | null>(null);
 
@@ -49,8 +53,12 @@ const PackageSearch: React.FC = () => {
         rooms: 1,
         adults: 2,
         children: 0,
-        maxPrice: 10000,
-        minPrice: 100,
+        maxHotelPrice: 10000,
+        minHotelPrice: 100,
+        maxFlightPrice: 10000,
+        minFlightPrice: 100,
+        maxCarPrice: 10000,
+        minCarPrice: 100,
         fromCity: eventData?.fromCity ?? null,
         fromCountry: eventData?.fromCountry ?? null,
         toCity: eventData?.toCity ?? null,
@@ -62,7 +70,7 @@ const PackageSearch: React.FC = () => {
     // Function to check if all fields in searchData are filled
     const isSearchDataFilled = () => {
         return selectedCheckIn && selectedCheckOut && selectedAdults !== null && selectedAdults >= 0 && selectedChildren !== null && selectedChildren >= 0
-            && selectedRooms !== null && selectedRooms >= 0 && selectedMaxPrice && selectedMinPrice && selectedFromCity && selectedToCity;
+            && selectedRooms !== null && selectedRooms >= 0 && selectedHotelMaxPrice && selectedHotelMinPrice && selectedCarMaxPrice && selectedCarMinPrice && selectedFlightMaxPrice && selectedFlightMinPrice && selectedFromCity && selectedToCity;
     };
 
 
@@ -79,11 +87,14 @@ const PackageSearch: React.FC = () => {
         setPackage({...packageData, adults, children, rooms});
     };
 
-    const handleSelectServicesBudget = (minPrice: number, maxPrice: number) => {
-        setSelectedMinPrice(minPrice);
-        setSelectedMaxPrice(maxPrice);
-        setPackage({...packageData, minPrice, maxPrice});
-        console.log("Min Price: " + minPrice + " Max Price: " + maxPrice + " Package Data: " + JSON.stringify(packageData));
+    const handleSelectServicesBudget = (minHotelPrice: number, maxHotelPrice: number,minFlightPrice: number, maxFlightPrice: number,minCarPrice: number, maxCarPrice: number) => {
+        setSelectedHotelMinPrice(minHotelPrice);
+        setSelectedHotelMaxPrice(maxHotelPrice);
+        setSelectedCarMinPrice(minCarPrice);
+        setSelectedCarMaxPrice(maxCarPrice);
+        setSelectedFlightMinPrice(minFlightPrice);
+        setSelectedFlightMaxPrice(maxFlightPrice);
+        setPackage({...packageData, minHotelPrice, maxHotelPrice,minFlightPrice,maxFlightPrice, minCarPrice,maxCarPrice});
     };
 
     const handleSelectFromCity = async (city: CityOption) => {
@@ -98,11 +109,11 @@ const PackageSearch: React.FC = () => {
 
     const handlePackageSearch = () => {
 
-        
+
         localStorage.removeItem('packageData');
         dispatch(setPackageData(packageData));
         console.log("Package Data:" + JSON.stringify(packageData));
-    
+
         const packageSearchOrder: PackageSearchOrderRequest = {
             userId: localStorage.getItem("userId") ? parseInt(localStorage.getItem("userId") as string, 10) : -1,
             orderDate: new Date(),
@@ -111,17 +122,21 @@ const PackageSearch: React.FC = () => {
             roomCount: packageData.rooms || 0,
             adults: packageData.adults || 0,
             children: packageData.children || 0,
-            minPrice: packageData.minPrice || 0,
-            maxPrice: packageData.maxPrice || 0,
+            minHotelPrice: packageData.minHotelPrice || 0,
+            maxHotelPrice: packageData.maxHotelPrice || 0,
+            minCarPrice: packageData.minCarPrice || 0,
+            maxCarPrice: packageData.maxCarPrice || 0,
+            minFlightPrice: packageData.minFlightPrice || 0,
+            maxFlightPrice: packageData.maxFlightPrice || 0,
             fromCity: packageData.fromCity || '',
             toCity: packageData.toCity || '',
             fromCountry: packageData.fromCountry || '',
             toCountry: packageData.toCountry || '',
         };
-    
+
         // Save the search data
         packageSearchApi.savePackageSearch(packageSearchOrder);
-    
+
         // Navigate to results page
         navigate(`/package-search-results`);
 
@@ -142,7 +157,7 @@ const PackageSearch: React.FC = () => {
             toCitySelectRef.current.resetSelectedCity();
         }
     };
-    
+
 
 
     return (

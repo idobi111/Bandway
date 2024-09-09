@@ -133,7 +133,7 @@ public class CarRentalService {
         if (response.getBody() == null) {
             return CarRentalResponseDto.builder().build();
         }
-        return createCarRentalResponseDto(response.getBody(), daysDuration, requestCarRentalDto.getPickupStartDate(), requestCarRentalDto.getDropoffEndDate());
+        return createCarRentalResponseDto(response.getBody(), daysDuration, requestCarRentalDto);
 
     }
 
@@ -149,7 +149,7 @@ public class CarRentalService {
         return days;
     }
 
-    private CarRentalResponseDto createCarRentalResponseDto(CarResponse responseBody, Integer daysDuration, Date checkIn, Date checkOut) {
+    private CarRentalResponseDto createCarRentalResponseDto(CarResponse responseBody, Integer daysDuration, CarRentalRequestDto requestCarRentalDto) {
         List<CarRentalData> cars = new ArrayList<>();
         double minPrice = Double.MAX_VALUE;
         double maxPrice = Double.MIN_VALUE;
@@ -162,7 +162,7 @@ public class CarRentalService {
             Groups allCarsMetadata = responseBody.getData().getGroups();
             CarMetadata carMetadata = selectGroup(data, allCarsMetadata);
             String apiUrl = buildCarLink(data);
-            if (basePrice != null && carMetadata != null) {
+            if (basePrice != null && carMetadata != null && basePrice > requestCarRentalDto.getMinPrice() && basePrice < requestCarRentalDto.getMaxPrice()) {
                 minPrice = Math.min(minPrice, basePrice);
                 maxPrice = Math.max(maxPrice, basePrice);
                 cars.add(CarRentalData.builder()
@@ -195,7 +195,7 @@ public class CarRentalService {
         }
 
         List<CarAggregatedData> aggregateData = groupAndAggregate(cars).values().stream().limit(MAX_CAR_TO_SHOW).toList();
-        return CarRentalResponseDto.builder().carRentalData(aggregateData).minPrice(minPrice).maxPrice(maxPrice).checkIn(getDateTime(checkIn)).checkOut(getDateTime(checkOut)).build();
+        return CarRentalResponseDto.builder().carRentalData(aggregateData).minPrice(minPrice).maxPrice(maxPrice).checkIn(getDateTime(requestCarRentalDto.getPickupStartDate())).checkOut(getDateTime(requestCarRentalDto.getDropoffEndDate())).build();
     }
 
     private Double calcPricePerDay(CarResourceData data, Integer daysDuration) {

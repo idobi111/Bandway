@@ -4,8 +4,12 @@ export interface SearchPackageData {
   rooms: number | null;
   adults: number | null;
   children: number | null;
-  maxPrice: number | null;
-  minPrice: number | null;
+  maxHotelPrice: number | null;
+  minHotelPrice: number | null;
+  maxFlightPrice: number | null;
+  minFlightPrice: number | null;
+  maxCarPrice: number | null;
+  minCarPrice: number | null;
   fromCity: string | null;
   fromCountry: string | null;
   toCity: string | null;

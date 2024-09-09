@@ -20,8 +20,12 @@ public class PackageSearchOrderDto implements java.io.Serializable {
     private int roomCount;
     private int adults;
     private int children;
-    private int minPrice;
-    private int maxPrice;
+    private int minHotelPrice;
+    private int maxHotelPrice;
+    private int minCarPrice;
+    private int maxCarPrice;
+    private int minFlightPrice;
+    private int maxFlightPrice;
     private String fromCity;
     private String toCity;
     private String fromCountry;
