@@ -114,7 +114,7 @@ public class ConcertService {
                 minPrice =  prices.stream()
                         .mapToDouble(price -> price.getMin() != null ? price.getMin() : 0)
                         .min()
-                        .orElse(0);;
+                        .orElse(0);
                 maxPrice =  prices.stream()
                         .mapToDouble(price -> price.getMax() != null ? price.getMax() : 100000)
                         .max()
@@ -246,7 +246,7 @@ public class ConcertService {
                 .userId(concertDetailsDto.getUserId())
                 .concertDate(concertDetailsDto.getConcertDate())
                 .concertAddress(concertDetailsDto.getConcertAddress())
-                .concertArtist(concertDetailsDto.getConcertArtist())
+                .concertName(concertDetailsDto.getConcertArtist())
                 .orderDate(getDateTime(new Date()))
                 .build());
     }

@@ -27,7 +27,6 @@ public class FlightOrder implements Serializable {
     private String returnDate;
     private Integer passengerCount;
     private Double price;
-    private String airline;
     private String orderDate;
 
 }

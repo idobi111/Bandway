@@ -6,6 +6,5 @@ export interface FlightOrderRequest {
     returnDate: string;
     passengerCount: number;
     price: number;
-    airline: string;
-    orderDate: string;
+    orderDate: Date;
 }

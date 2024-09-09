@@ -23,7 +23,6 @@ public class HotelOrder implements java.io.Serializable {
     private String checkInDate;
     private String checkOutDate;
     private String hotelName;
-    private String hotelAddress;
     private Integer roomCount;
     private Double price;
     private Integer numberOfGuests;

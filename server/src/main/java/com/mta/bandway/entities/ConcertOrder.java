@@ -23,5 +23,5 @@ public class ConcertOrder implements java.io.Serializable {
     private String orderDate;
     private String concertDate;
     private String concertAddress;
-    private String concertArtist;
+    private String concertName;
 }

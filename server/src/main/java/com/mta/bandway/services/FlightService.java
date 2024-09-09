@@ -251,7 +251,6 @@ public class FlightService {
                 .returnDate(flightOrderDetailsDto.getReturnDate())
                 .passengerCount(flightOrderDetailsDto.getPassengerCount())
                 .price(flightOrderDetailsDto.getPrice())
-                .airline(flightOrderDetailsDto.getAirline())
                 .orderDate(getDateTime(new Date()))
                 .build());
     }

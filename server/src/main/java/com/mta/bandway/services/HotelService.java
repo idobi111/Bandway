@@ -7,7 +7,6 @@ import com.mta.bandway.core.domain.city.CityResponse;
 import com.mta.bandway.core.domain.city.Datum;
 import com.mta.bandway.core.domain.hotel.*;
 import com.mta.bandway.entities.HotelOrder;
-import com.mta.bandway.exceptions.InvalidCityException;
 import com.mta.bandway.repositories.HotelOrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -140,7 +139,7 @@ public class HotelService {
 
     private static Datum getCityDatum(String venue, ResponseEntity<CityResponse> cityData) {
         if (isInvalidCityResponse(cityData))
-            throw new InvalidCityException(String.format("The venue:%s is invalid", venue));
+            return null;
         return getDatum(cityData);
     }
 
@@ -178,7 +177,6 @@ public class HotelService {
                 .checkOutDate(hotelDetailsDto.getCheckOutDate())
                 .numberOfGuests(hotelDetailsDto.getNumberOfGuests())
                 .hotelName(hotelDetailsDto.getHotelName())
-                .hotelAddress(hotelDetailsDto.getHotelAddress())
                 .orderDate(getDateTime(new Date()))
                 .price(hotelDetailsDto.getPrice())
                 .roomCount(hotelDetailsDto.getRoomCount())

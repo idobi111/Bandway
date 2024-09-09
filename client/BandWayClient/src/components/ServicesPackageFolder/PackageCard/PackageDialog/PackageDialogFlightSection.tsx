@@ -25,6 +25,10 @@ import {Helpers} from '../../../../helpers/helpers';
 import {FlightLinkResponse} from '../../../../models/FlightLinkResponse';
 import {FlightApi} from '../../../../apis/FlightApi';
 import {useNavigate} from 'react-router';
+import {useSelector} from 'react-redux';
+import {RoundWayFlightData} from "../../../../models/FlightRoundWayResponse";
+import {AppState} from "../../../../redux/types";
+import {FlightOrderRequest} from "../../../../models/FlightOrderRequest";
 
 
 interface Props {
@@ -37,6 +41,7 @@ const PackageDialogFlightSection: React.FC<Props> = ({servicesPackage, accordion
     const [expandedAccordion, setExpandedAccordion] = useState<number | false>(false);
     const [accordionOpen, setAccordionOpen] = useState<boolean>(false);
     const [flightLinks, setFlightLinks] = useState<FlightLinkResponse[]>([]);
+    const packageData = useSelector((state: AppState) => state.packageData);
 
     const navigate = useNavigate();
 
@@ -54,9 +59,20 @@ const PackageDialogFlightSection: React.FC<Props> = ({servicesPackage, accordion
     };
 
 
-    const handleSeeFlightPrices = async (flighId: string) => {
+    const handleSeeFlightPrices = async (flighId: string, roundWayDetail: RoundWayFlightData) => {
         try {
             const response = await flightApi.getFlightLink(servicesPackage && servicesPackage.flights?.token || 0, flighId || ' ');
+            const flightOrderRequest: FlightOrderRequest = {
+            userId: localStorage.getItem("userId") ? parseInt(localStorage.getItem("userId") as string, 10) || -1 : -1,
+            originCity: roundWayDetail.departFlightDetails[0].sourceCity,
+            destinationCity: roundWayDetail.arriveFlightDetails[0].sourceCity,
+            departureDate: roundWayDetail.departFlightDetails[0].flightDetails[0].departureTime,
+            returnDate: roundWayDetail.arriveFlightDetails[0].flightDetails[0].departureTime,
+            passengerCount: packageData.adults + packageData.children,
+            price:  flightService.getRoundWayFlightPrice(roundWayDetail.departFlightDetails[0]),
+            orderDate: new Date(),
+            }
+            flightApi.saveFlightSearchToDb(flightOrderRequest);
             setFlightLinks(response);
         } catch (error) {
             console.error('Error fetching flight links:', error);
@@ -150,7 +166,7 @@ const PackageDialogFlightSection: React.FC<Props> = ({servicesPackage, accordion
                                     <ActionButton
                                         variant="contained"
                                         color="primary"
-                                        onClick={() => handleSeeFlightPrices(roundWayDetail.departFlightDetails[0].flightDetails[0].id)}
+                                        onClick={() => handleSeeFlightPrices(roundWayDetail.departFlightDetails[0].flightDetails[0].id, roundWayDetail  )}
                                         sx={{height: '30px', width: '300px', fontSize: '20px'}}
                                     >
                                         See flight price options

@@ -220,6 +220,8 @@ public class CarRentalService {
                 .rentalStartDate(carRentalDetailsDto.getRentalStartDate())
                 .rentalEndDate(carRentalDetailsDto.getRentalEndDate())
                 .orderDate(getDateTime(new Date()))
+                .totalPrice(carRentalDetailsDto.getTotalPrice())
+                .carModel(carRentalDetailsDto.getCarModel())
                 .build());
     }
 
