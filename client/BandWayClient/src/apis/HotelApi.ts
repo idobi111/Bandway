@@ -8,7 +8,7 @@ import { HotelOrderRequest } from "../models/HotelOrderRequest";
 
 export class HotelApi {
 
-    BASE_URL: string = "http://localhost:8080/bandway";
+    BASE_URL: string = "https://bandway-client-822235880699.us-central1.run.app/bandway";
 
 
     public async getHotels(hotel: HotelRequest): Promise<HotelResponse[]> {
