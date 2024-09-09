@@ -11,6 +11,9 @@ const Loader: React.FC<LoaderProps> = ({loadingMessage}) => {
         <Typography variant="h4" color="textSecondary">
           {loadingMessage}
         </Typography>
+        <Typography variant="h6" color="textSecondary">
+          Best things in life are worth waiting for
+        </Typography>
           <CircularProgress size={80} sx={{ m: '25px' }} />
       </Stack>
     );

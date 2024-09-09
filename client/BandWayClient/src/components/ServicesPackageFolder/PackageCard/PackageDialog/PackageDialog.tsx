@@ -34,19 +34,6 @@ const PackageDialog: React.FC<Props> = ({servicesPackage, packageFilters}) => {
 
     const eventData = useSelector((state: AppState) => state.eventData);
 
-
-    const handleSeeHotelAvailability = async () => {
-        try {
-            const response = await hotelApi.getHotelLink(servicesPackage?.hotel?.hotelId, servicesPackage?.hotel?.checkIn, servicesPackage?.hotel?.checkOut);
-            const hotelUrl = response.body;
-
-            window.open(hotelUrl, '_blank');
-        } catch (error) {
-            console.error('Error fetching hotel URL:', error);
-            navigate(`/error`);
-        }
-    };
-
     return (
         <>
             <Box display="flex">

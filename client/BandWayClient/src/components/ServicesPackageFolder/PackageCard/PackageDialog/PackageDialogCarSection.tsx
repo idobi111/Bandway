@@ -36,6 +36,8 @@ interface Props {
 const PackageDialogCarSection: React.FC<Props> = ({servicesPackage, accordionWidth}) => {
 
     const [expandedAccordion, setExpandedAccordion] = useState<number | false>(false);
+    const [isRedirectingModalOpen, setIsRedirectingModalOpen] = useState(false); // State for the redirect modal
+
 
     const flightService = new FlightService();
     const helpers = new Helpers();
@@ -60,7 +62,13 @@ const PackageDialogCarSection: React.FC<Props> = ({servicesPackage, accordionWid
             };
             console.log(carData)
             carApi.saveCarRentalToDb(carRentalOrderRequest);
-            window.open(carLink, '_blank');
+
+            setIsRedirectingModalOpen(true); 
+
+            setTimeout(() => {
+                setIsRedirectingModalOpen(false); 
+                window.open(carLink, '_blank');
+            }, 3000); 
         } catch (error) {
             console.error('Error opening car link:', error);
             navigate(`/error`);
@@ -162,6 +170,33 @@ const PackageDialogCarSection: React.FC<Props> = ({servicesPackage, accordionWid
                     </Stack>
                 </Box>
             </Box>
+            {/* Modal for redirecting to 3rd party website */}
+            <Modal
+                open={isRedirectingModalOpen}
+                onClose={() => setIsRedirectingModalOpen(false)}
+                aria-labelledby="redirect-modal-title"
+                aria-describedby="redirect-modal-description"
+            >
+                <Box style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    position: 'absolute',
+                    top: '50%',
+                    left: '50%',
+                    transform: 'translate(-50%, -50%)',
+                    backgroundColor: '#fff',
+                    padding: '20px',
+                    borderRadius: '8px',
+                    textAlign: 'center'
+                }}>
+                    <Typography variant='h4' id="redirect-modal-title">Redirecting to external provider...</Typography>
+                    <Typography variant='body1' id="redirect-modal-description" sx={{ mt: 2 }}>
+                        Please wait while we take you to the purchase page.
+                    </Typography>
+                </Box>
+            </Modal>
         </>
     );
 };
