@@ -16,6 +16,7 @@ import ThankYouPage from './components/MessageFolder/ThankYouPage';
 import UnsubscribePage from './components/MessageFolder/UnsubscribePage';
 import ContactUs from './components/MessageFolder/ContactUs';
 import HowItWorks from './components/MessageFolder/HowItWorks';
+import AboutUs from './components/MessageFolder/AboutUs';
 
 const App = () => {
   return (
@@ -57,7 +58,7 @@ const App = () => {
         <Route path="/unsubscribe" element={<UnsubscribePage />} />
         <Route path="/contact" element={<ContactUs />} />
         <Route path="/how-it-works" element={<HowItWorks />} />
-
+        <Route path="/about-us" element={<AboutUs />} />
       </Routes>
     </BrowserRouter >
   );

@@ -52,7 +52,7 @@ const SignIn: React.FC = () => {
             }, 2000);
         } catch (error) {
             console.error('Error sign in:', error);
-            setSignInError(error.message.startsWith("Query") ? '' : error.message);
+            setSignInError(error.message.startsWith("Query") || error.message == "[object Object]" ? '' : error.message);
             setSignInStatus('The sign in has failed. Please try again or contact us via mail: bandway4@gmail.com');
         } finally {
             setLoading(false);
