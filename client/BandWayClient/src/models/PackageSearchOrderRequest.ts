@@ -6,8 +6,12 @@ export interface PackageSearchOrderRequest {
     roomCount: number;
     adults: number;
     children: number;
-    minPrice: number;
-    maxPrice: number;
+    minHotelPrice: number;
+    maxHotelPrice: number;
+    minCarPrice: number;
+    maxCarPrice: number;
+    minFlightPrice: number;
+    maxFlightPrice: number;
     fromCity: string;
     toCity: string;
     fromCountry: string;
