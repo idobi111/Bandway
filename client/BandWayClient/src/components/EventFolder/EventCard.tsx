@@ -1,10 +1,10 @@
 import React, {useEffect, useState} from 'react';
-import {Card, CardContent, CardMedia, Typography, Grid, Button, Modal, Box, Stack} from '@mui/material';
+import {Box, CardContent, Grid, Modal, Stack, Typography} from '@mui/material';
 import {
-    EventCardStyled,
-    EventCardMediaStyled,
-    LoadMoreButton,
     ActionButton,
+    EventCardMediaStyled,
+    EventCardStyled,
+    LoadMoreButton,
     SubActionButton
 } from '../../styles/ComponentsStyles';
 import {useNavigate} from "react-router-dom";
@@ -15,8 +15,6 @@ import {AppState} from '../../redux/types';
 import {setEventData} from '../../redux/actions';
 import {SearchEventData} from '../../models/SearchEventData';
 import {LocationApi} from '../../apis/LocationApi';
-import axios from "axios";
-import {CarRentalResponse} from "../../models/CarRentalResponse";
 import {ConcertOrderRequest} from "../../models/ConcertOrderRequest";
 import {EventApi} from "../../apis/EventApi";
 import CitySelect from "../GenericFolder/CitySelect";
@@ -28,14 +26,14 @@ interface Props {
 }
 
 const EventCard: React.FC<Props> = ({events, step}) => {
-    const [visibleEvents, setVisibleEvents] = useState(step); 
-    const [selectedEvent, setSelectedEvent] = useState<EventResponse | null>(null); 
-    const [isModalOpen, setIsModalOpen] = useState(false); 
-    const [isCityModalOpen, setIsCityModalOpen] = useState(false); 
-    const [fromCity, setFromCity] = useState<CityOption | null>(null); 
-    const [fromCityId, setFromCityId] = useState<string | null>(null); 
-    const [isWebsiteTicketOpen, setIsWebsiteTicketOpen] = useState<boolean | null>(false); 
-    const [isRedirectingModalOpen, setIsRedirectingModalOpen] = useState(false); 
+    const [visibleEvents, setVisibleEvents] = useState(step);
+    const [selectedEvent, setSelectedEvent] = useState<EventResponse | null>(null);
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [isCityModalOpen, setIsCityModalOpen] = useState(false);
+    const [fromCity, setFromCity] = useState<CityOption | null>(null);
+    const [fromCityId, setFromCityId] = useState<string | null>(null);
+    const [isWebsiteTicketOpen, setIsWebsiteTicketOpen] = useState<boolean | null>(false);
+    const [isRedirectingModalOpen, setIsRedirectingModalOpen] = useState(false);
 
 
     const navigate = useNavigate();
@@ -113,27 +111,27 @@ const EventCard: React.FC<Props> = ({events, step}) => {
         }
     };
 
-  const handleEventSelected = () => {
-    if (selectedEvent) {
-      const concertOrderRequest: ConcertOrderRequest = {
-        userId: localStorage.getItem("userId") ? parseInt(localStorage.getItem("userId") as string, 10) || -1 : -1,
-        concertAddress: selectedEvent.venue,
-        concertDate: selectedEvent.date,
-        concertArtist: selectedEvent.performer,
-      };
-      eventApi.saveEventToDb(concertOrderRequest);
+    const handleEventSelected = () => {
+        if (selectedEvent) {
+            const concertOrderRequest: ConcertOrderRequest = {
+                userId: sessionStorage.getItem("userId") ? parseInt(sessionStorage.getItem("userId") as string, 10) || -1 : -1,
+                concertAddress: selectedEvent.venue,
+                concertDate: selectedEvent.date,
+                concertArtist: selectedEvent.performer,
+            };
+            eventApi.saveEventToDb(concertOrderRequest);
 
-       setIsRedirectingModalOpen(true); 
+            setIsRedirectingModalOpen(true);
 
             setTimeout(() => {
-                setIsRedirectingModalOpen(false); 
-                window.open(selectedEvent.ticketUrl, '_blank'); 
+                setIsRedirectingModalOpen(false);
+                window.open(selectedEvent.ticketUrl, '_blank');
                 setIsModalOpen(true); // Open the original modal
-            }, 3000); 
-    }
+            }, 3000);
+        }
 
     }
-    
+
     const handleCloseModal = () => {
         setIsModalOpen(false);
     };

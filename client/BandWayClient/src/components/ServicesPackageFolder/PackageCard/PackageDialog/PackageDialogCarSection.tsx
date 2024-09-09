@@ -1,25 +1,20 @@
 import React, {useState} from 'react';
 import {
-    Typography,
-    Stack,
-    Box,
-    Tooltip,
-    Modal,
     Accordion,
     AccordionDetails,
     AccordionSummary,
+    Box,
     Divider,
-    IconButton,
-    Grid
+    Grid,
+    Modal,
+    Stack,
+    Tooltip,
+    Typography
 } from '@mui/material';
 import {Package} from '../../../../models/Package';
 import StarIcon from '@mui/icons-material/Star';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import ExpandLessIcon from '@mui/icons-material/ExpandLess';
-import {PackageFilter} from '../../../../models/PackageFilter';
 import {ActionButton, SubActionButton} from '../../../../styles/ComponentsStyles';
-import {HotelApi} from '../../../../apis/HotelApi';
-import FlightDetailsGrid from './FlightDetailsGrid';
 import {FlightService} from '../../../../services/FlightService';
 import {Helpers} from '../../../../helpers/helpers';
 import {useNavigate} from 'react-router';
@@ -54,10 +49,10 @@ const PackageDialogCarSection: React.FC<Props> = ({servicesPackage, accordionWid
     const handleSeeCarAvailability = async (carLink, carData) => {
         try {
             const carRentalOrderRequest: CarRentalOrderRequest = {
-                userId: localStorage.getItem("userId") ? parseInt(localStorage.getItem("userId") as string, 10) || -1 : -1,
+                userId: sessionStorage.getItem("userId") ? parseInt(sessionStorage.getItem("userId") as string, 10) || -1 : -1,
                 orderDate: new Date(),
                 rentalStartDate: servicesPackage.carRentals?.checkIn,
-                rentalEndDate:  servicesPackage.carRentals?.checkOut,
+                rentalEndDate: servicesPackage.carRentals?.checkOut,
                 rentalStartLocation: carData.pickUpPlaceName,
                 rentalEndLocation: carData.pickUpPlaceName,
                 totalPrice: carData.totalPrice,
@@ -66,12 +61,12 @@ const PackageDialogCarSection: React.FC<Props> = ({servicesPackage, accordionWid
             console.log(carData)
             carApi.saveCarRentalToDb(carRentalOrderRequest);
 
-            setIsRedirectingModalOpen(true); 
+            setIsRedirectingModalOpen(true);
 
             setTimeout(() => {
-                setIsRedirectingModalOpen(false); 
+                setIsRedirectingModalOpen(false);
                 window.open(carLink, '_blank');
-            }, 3000); 
+            }, 3000);
         } catch (error) {
             console.error('Error opening car link:', error);
             navigate(`/error`);
@@ -84,7 +79,8 @@ const PackageDialogCarSection: React.FC<Props> = ({servicesPackage, accordionWid
             <Box display="flex">
                 <Box sx={{flex: 1}}>
                     <Stack display={'flex'} sx={{p: 4}}>
-                        <Typography variant='h4'>{ servicesPackage?.carRentals && servicesPackage?.carRentals?.carRentalData?.length > 0 ? "Choose Your Car:" : "No Cars are available"}</Typography>
+                        <Typography
+                            variant='h4'>{servicesPackage?.carRentals && servicesPackage?.carRentals?.carRentalData?.length > 0 ? "Choose Your Car:" : "No Cars are available"}</Typography>
                         {servicesPackage?.carRentals && servicesPackage?.carRentals.carRentalData.map((carData, cardDataIndex) => (
                             <Accordion key={cardDataIndex} sx={{
                                 width: `${accordionWidth}%`,
@@ -128,14 +124,19 @@ const PackageDialogCarSection: React.FC<Props> = ({servicesPackage, accordionWid
                                         {/*                                         </Stack> */}
                                         <Typography variant='h6'>Dates:</Typography>
                                         <Typography variant='h6'
-                                                    color='text.secondary' sx={{paddingBottom: 2}}> {helpers.formatDateAndYear(servicesPackage.carRentals?.checkIn)} - {helpers.formatDateAndYear(servicesPackage.carRentals?.checkOut)} </Typography>
+                                                    color='text.secondary'
+                                                    sx={{paddingBottom: 2}}> {helpers.formatDateAndYear(servicesPackage.carRentals?.checkIn)} - {helpers.formatDateAndYear(servicesPackage.carRentals?.checkOut)} </Typography>
                                         <Typography variant='h6'>Pick Up:</Typography>
-                                        <Typography variant='body1' color='text.secondary'>{carData.pickUpPlaceName} </Typography>
+                                        <Typography variant='body1'
+                                                    color='text.secondary'>{carData.pickUpPlaceName} </Typography>
                                         <Typography variant='h6'
-                                                    color='text.secondary' sx={{paddingBottom: 2}}>{eventData.toCity}</Typography>
+                                                    color='text.secondary'
+                                                    sx={{paddingBottom: 2}}>{eventData.toCity}</Typography>
                                         <Typography variant='h6'> Drop Off: </Typography>
-                                        <Typography variant='body1' color='text.secondary'> {carData.dropOffPlaceName} </Typography>
-                                        <Typography variant='h6' color='text.secondary' sx={{paddingBottom: 2}}> {eventData.toCity} </Typography>
+                                        <Typography variant='body1'
+                                                    color='text.secondary'> {carData.dropOffPlaceName} </Typography>
+                                        <Typography variant='h6' color='text.secondary'
+                                                    sx={{paddingBottom: 2}}> {eventData.toCity} </Typography>
                                         <Box sx={{marginTop: '20px'}}>
                                             <Divider></Divider>
                                             <Grid container direction="column" spacing={1} sx={{marginTop: '20px'}}>
@@ -195,7 +196,7 @@ const PackageDialogCarSection: React.FC<Props> = ({servicesPackage, accordionWid
                     textAlign: 'center'
                 }}>
                     <Typography variant='h4' id="redirect-modal-title">Redirecting to external provider...</Typography>
-                    <Typography variant='body1' id="redirect-modal-description" sx={{ mt: 2 }}>
+                    <Typography variant='body1' id="redirect-modal-description" sx={{mt: 2}}>
                         Please wait while we take you to the purchase page.
                     </Typography>
                 </Box>

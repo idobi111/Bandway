@@ -1,9 +1,9 @@
 import React from 'react';
-import { AppBar, Toolbar, Typography, Button, Container, Grid, Stack } from '@mui/material';
-import { HeaderAppBar, HeaderButton } from '../../styles/ComponentsStyles';
+import {Grid, Stack, Toolbar, Typography} from '@mui/material';
+import {HeaderAppBar, HeaderButton} from '../../styles/ComponentsStyles';
 import bandWayLogo from '../../pics/BandWayLogo.png';
-import { useNavigate } from 'react-router';
-import { Helpers } from "../../helpers/helpers";
+import {useNavigate} from 'react-router';
+import {Helpers} from "../../helpers/helpers";
 
 const buttons: string[] = ["Search", "Upcoming Events", "How it works", "About Us", "Contact Us", "Sign in"];
 
@@ -12,12 +12,12 @@ const Header: React.FC = () => {
     const helpers = new Helpers();
 
     const goToHomePage = () => {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+        window.scrollTo({top: 0, behavior: 'smooth'});
         navigate('/home');
     };
 
     const goToSignIn = () => {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+        window.scrollTo({top: 0, behavior: 'smooth'});
         navigate('/sign-in');
     };
 
@@ -29,35 +29,35 @@ const Header: React.FC = () => {
     };
 
     const goToContact = () => {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+        window.scrollTo({top: 0, behavior: 'smooth'});
         navigate('/contact');
     };
 
     const goToHowItWorks = () => {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+        window.scrollTo({top: 0, behavior: 'smooth'});
         navigate('/how-it-works');
     };
 
     const goToAboutUs = () => {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+        window.scrollTo({top: 0, behavior: 'smooth'});
         navigate('/about-us');
     };
 
     const handleLogout = () => {
-        localStorage.removeItem('userFirstName');
-        localStorage.removeItem('userLastName');
-        localStorage.removeItem('userId');
+        sessionStorage.removeItem('userFirstName');
+        sessionStorage.removeItem('userLastName');
+        sessionStorage.removeItem('userId');
         goToHomePage();
     };
 
-    const userFirstName = localStorage.getItem('userFirstName');
-    const userLastName = localStorage.getItem('userLastName');
+    const userFirstName = sessionStorage.getItem('userFirstName');
+    const userLastName = sessionStorage.getItem('userLastName');
 
     return (
         <HeaderAppBar position="static">
-            <Toolbar sx={{ display: 'flex', justifyContent: 'space-between' }}>
+            <Toolbar sx={{display: 'flex', justifyContent: 'space-between'}}>
                 <img onClick={goToHomePage} src={bandWayLogo} alt="Logo"
-                    style={{ height: '100px', marginRight: '16px', cursor: 'pointer' }} />
+                     style={{height: '100px', marginRight: '16px', cursor: 'pointer'}}/>
                 <div>
                     <Grid container spacing={2} alignItems="center">
                         {buttons.map((button) =>
@@ -83,7 +83,7 @@ const Header: React.FC = () => {
                                                 disabled
                                                 sx={{
                                                     color: 'white',
-                                                    '&:disabled': { color: 'white', cursor: 'not-allowed' }
+                                                    '&:disabled': {color: 'white', cursor: 'not-allowed'}
                                                 }}
                                             >
                                                 <Stack direction="column" spacing={0.5}>

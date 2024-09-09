@@ -1,20 +1,21 @@
 import React, {useState} from 'react';
 import {
-    TextField,
-    Button,
-    Typography,
-    Box,
     Avatar,
+    Box,
+    Button,
+    CircularProgress,
     Container,
     Grid,
     IconButton,
     InputAdornment,
-    Stack, CircularProgress
+    Stack,
+    TextField,
+    Typography
 } from '@mui/material';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Link from '@mui/material/Link';
 import {Visibility, VisibilityOff} from '@mui/icons-material';
-import {BrowserRouter as Router, Routes, Route, Link as RouterLink, useNavigate} from 'react-router-dom';
+import {Link as RouterLink, useNavigate} from 'react-router-dom';
 import {RegisterApi} from "../../apis/RegisterApi";
 import {LoginInfo} from "../../models/LoginInfo";
 import {setUserData} from "../../redux/actions";
@@ -43,11 +44,11 @@ const SignIn: React.FC = () => {
             const response = await registerApi.login(loginInfo);
             setSignInStatus('Sign in successfully');
             setSignInError('');
-            setTimeout(() =>  {
+            setTimeout(() => {
                 dispatch(setUserData(response));
-                localStorage.setItem('userId', response.userId.toString());
-                localStorage.setItem('userFirstName', response.firstName);
-                localStorage.setItem('userLastName', response.lastName);
+                sessionStorage.setItem('userId', response.userId.toString());
+                sessionStorage.setItem('userFirstName', response.firstName);
+                sessionStorage.setItem('userLastName', response.lastName);
                 navigate('/home');
             }, 2000);
         } catch (error) {
@@ -97,13 +98,13 @@ const SignIn: React.FC = () => {
 
     const Copyright = (props: any) => {
         const navigate = useNavigate();
-    
+
         const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
             event.preventDefault();
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+            window.scrollTo({top: 0, behavior: 'smooth'});
             navigate('/home');
         };
-    
+
         return (
             <Typography variant="body2" color="text.secondary" align="center" {...props}>
                 {'Copyright © '}
@@ -118,7 +119,7 @@ const SignIn: React.FC = () => {
             </Typography>
         );
     };
-    
+
 
     return (
         <Container>
@@ -171,10 +172,11 @@ const SignIn: React.FC = () => {
                         }}
                     />
                     <Stack direction={'row'}>
-                        <Button style={{ backgroundColor: '#191970' }} fullWidth sx={{ mt: 3, mb: 2 }} variant="contained" color="primary" onClick={handleSignIn}>
+                        <Button style={{backgroundColor: '#191970'}} fullWidth sx={{mt: 3, mb: 2}} variant="contained"
+                                color="primary" onClick={handleSignIn}>
                             Sign In
                         </Button>
-                        {loading && <CircularProgress sx={{ mt: 3, mb: 2, marginLeft:1}} />}
+                        {loading && <CircularProgress sx={{mt: 3, mb: 2, marginLeft: 1}}/>}
                     </Stack>
                     <Grid container>
                         <Grid item xs>

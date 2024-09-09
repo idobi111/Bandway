@@ -1,6 +1,6 @@
-import React, {useEffect, useRef, useState} from 'react';
-import {Typography, Grid, Box} from '@mui/material';
-import {HomeSearchGrid, WindowDiv, ActionButton} from '../../styles/ComponentsStyles';
+import React, {useRef, useState} from 'react';
+import {Grid} from '@mui/material';
+import {ActionButton, HomeSearchGrid, WindowDiv} from '../../styles/ComponentsStyles';
 import DatePickerPopover from './DatePickerPopover';
 import OccupancyPopover from './OccupancyPopover';
 import ServicesBudgetPopover from './ServicesBudgetPopover';
@@ -11,7 +11,6 @@ import {AppState} from '../../redux/types';
 import {SearchPackageData} from '../../models/SearchPackageData';
 import {setPackageData} from '../../redux/actions';
 import {useNavigate} from 'react-router';
-import {LocationApi} from '../../apis/LocationApi';
 import {PackageSearchOrderRequest} from "../../models/PackageSearchOrderRequest";
 import {PackageSearchApi} from "../../apis/PackageSearchApi";
 
@@ -36,12 +35,12 @@ const PackageSearch: React.FC = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-      // Use ref for the DatePickerPopover
-      const datePickerRef = useRef<{ resetSelectedText: () => void } | null>(null);
-      const occupancyPopoverRef = useRef<{ resetSelectedOccupancy: () => void }>(null);
-      const servicesBudgetPopoverRef = useRef<{ resetSelectedBudget: () => void } | null>(null);
-      const fromCitySelectRef = useRef<{ resetSelectedCity: () => void } | null>(null);
-      const toCitySelectRef = useRef<{ resetSelectedCity: () => void } | null>(null);
+    // Use ref for the DatePickerPopover
+    const datePickerRef = useRef<{ resetSelectedText: () => void } | null>(null);
+    const occupancyPopoverRef = useRef<{ resetSelectedOccupancy: () => void }>(null);
+    const servicesBudgetPopoverRef = useRef<{ resetSelectedBudget: () => void } | null>(null);
+    const fromCitySelectRef = useRef<{ resetSelectedCity: () => void } | null>(null);
+    const toCitySelectRef = useRef<{ resetSelectedCity: () => void } | null>(null);
 
 
     const packageSearchApi = new PackageSearchApi();
@@ -87,14 +86,22 @@ const PackageSearch: React.FC = () => {
         setPackage({...packageData, adults, children, rooms});
     };
 
-    const handleSelectServicesBudget = (minHotelPrice: number, maxHotelPrice: number,minFlightPrice: number, maxFlightPrice: number,minCarPrice: number, maxCarPrice: number) => {
+    const handleSelectServicesBudget = (minHotelPrice: number, maxHotelPrice: number, minFlightPrice: number, maxFlightPrice: number, minCarPrice: number, maxCarPrice: number) => {
         setSelectedHotelMinPrice(minHotelPrice);
         setSelectedHotelMaxPrice(maxHotelPrice);
         setSelectedCarMinPrice(minCarPrice);
         setSelectedCarMaxPrice(maxCarPrice);
         setSelectedFlightMinPrice(minFlightPrice);
         setSelectedFlightMaxPrice(maxFlightPrice);
-        setPackage({...packageData, minHotelPrice, maxHotelPrice,minFlightPrice,maxFlightPrice, minCarPrice,maxCarPrice});
+        setPackage({
+            ...packageData,
+            minHotelPrice,
+            maxHotelPrice,
+            minFlightPrice,
+            maxFlightPrice,
+            minCarPrice,
+            maxCarPrice
+        });
     };
 
     const handleSelectFromCity = async (city: CityOption) => {
@@ -115,7 +122,7 @@ const PackageSearch: React.FC = () => {
         console.log("Package Data:" + JSON.stringify(packageData));
 
         const packageSearchOrder: PackageSearchOrderRequest = {
-            userId: localStorage.getItem("userId") ? parseInt(localStorage.getItem("userId") as string, 10) : -1,
+            userId: sessionStorage.getItem("userId") ? parseInt(sessionStorage.getItem("userId") as string, 10) : -1,
             orderDate: new Date(),
             checkInDate: packageData.checkIn || '',
             checkOutDate: packageData.checkOut || '',
@@ -140,8 +147,8 @@ const PackageSearch: React.FC = () => {
         // Navigate to results page
         navigate(`/package-search-results`);
 
-         // Call resetSelectedText
-         if (datePickerRef.current) {
+        // Call resetSelectedText
+        if (datePickerRef.current) {
             datePickerRef.current.resetSelectedText();
         }
         if (occupancyPopoverRef.current) {
@@ -159,7 +166,6 @@ const PackageSearch: React.FC = () => {
     };
 
 
-
     return (
         <WindowDiv>
             <HomeSearchGrid container spacing={2} sx={{marginLeft: '40px'}}>
@@ -173,10 +179,12 @@ const PackageSearch: React.FC = () => {
                     <ServicesBudgetPopover onSelect={handleSelectServicesBudget} ref={servicesBudgetPopoverRef}/>
                 </Grid>
                 <Grid item xs={2}>
-                    <CitySelect onSelect={handleSelectFromCity} placeholder="Select City" title='From' ref={fromCitySelectRef}/>
+                    <CitySelect onSelect={handleSelectFromCity} placeholder="Select City" title='From'
+                                ref={fromCitySelectRef}/>
                 </Grid>
                 <Grid item xs={2}>
-                    <CitySelect onSelect={handleSelectToCity} placeholder="Select City" title='To' ref={toCitySelectRef}/>
+                    <CitySelect onSelect={handleSelectToCity} placeholder="Select City" title='To'
+                                ref={toCitySelectRef}/>
                 </Grid>
                 <Grid item xs={2}>
                     {(<ActionButton variant='contained' onClick={handlePackageSearch}

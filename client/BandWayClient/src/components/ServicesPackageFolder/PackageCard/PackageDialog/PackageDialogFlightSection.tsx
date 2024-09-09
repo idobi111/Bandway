@@ -1,22 +1,17 @@
 import React, {useState} from 'react';
 import {
-    Typography,
-    Stack,
-    Box,
-    Tooltip,
-    Modal,
     Accordion,
     AccordionDetails,
     AccordionSummary,
+    Box,
     Divider,
-    IconButton,
-    Grid
+    Grid,
+    Modal,
+    Stack,
+    Typography
 } from '@mui/material';
 import {Package} from '../../../../models/Package';
-import StarIcon from '@mui/icons-material/Star';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import ExpandLessIcon from '@mui/icons-material/ExpandLess';
-import {PackageFilter} from '../../../../models/PackageFilter';
 import {ActionButton, SubActionButton} from '../../../../styles/ComponentsStyles';
 import {HotelApi} from '../../../../apis/HotelApi';
 import FlightDetailsGrid from './FlightDetailsGrid';
@@ -47,9 +42,7 @@ const PackageDialogFlightSection: React.FC<Props> = ({servicesPackage, accordion
     const navigate = useNavigate();
 
 
-    const hotelApi = new HotelApi();
     const flightService = new FlightService();
-    const helpers = new Helpers();
     const flightApi = new FlightApi();
 
 
@@ -64,14 +57,14 @@ const PackageDialogFlightSection: React.FC<Props> = ({servicesPackage, accordion
         try {
             const response = await flightApi.getFlightLink(servicesPackage && servicesPackage.flights?.token || 0, flighId || ' ');
             const flightOrderRequest: FlightOrderRequest = {
-            userId: localStorage.getItem("userId") ? parseInt(localStorage.getItem("userId") as string, 10) || -1 : -1,
-            originCity: roundWayDetail.departFlightDetails[0].sourceCity,
-            destinationCity: roundWayDetail.arriveFlightDetails[0].sourceCity,
-            departureDate: roundWayDetail.departFlightDetails[0].flightDetails[0].departureTime,
-            returnDate: roundWayDetail.arriveFlightDetails[0].flightDetails[0].departureTime,
-            passengerCount: packageData.adults + packageData.children,
-            price:  flightService.getRoundWayFlightPrice(roundWayDetail.departFlightDetails[0]),
-            orderDate: new Date(),
+                userId: sessionStorage.getItem("userId") ? parseInt(sessionStorage.getItem("userId") as string, 10) || -1 : -1,
+                originCity: roundWayDetail.departFlightDetails[0].sourceCity,
+                destinationCity: roundWayDetail.arriveFlightDetails[0].sourceCity,
+                departureDate: roundWayDetail.departFlightDetails[0].flightDetails[0].departureTime,
+                returnDate: roundWayDetail.arriveFlightDetails[0].flightDetails[0].departureTime,
+                passengerCount: packageData.adults + packageData.children,
+                price: flightService.getRoundWayFlightPrice(roundWayDetail.departFlightDetails[0]),
+                orderDate: new Date(),
             }
             flightApi.saveFlightSearchToDb(flightOrderRequest);
             setFlightLinks(response);
@@ -83,18 +76,19 @@ const PackageDialogFlightSection: React.FC<Props> = ({servicesPackage, accordion
 
     const handleSeeFlightAvailability = async (url: string) => {
 
-        setIsRedirectingModalOpen(true); 
+        setIsRedirectingModalOpen(true);
 
         setTimeout(() => {
-            setIsRedirectingModalOpen(false); 
+            setIsRedirectingModalOpen(false);
             window.open(url, '_blank');
-        }, 3000); 
+        }, 3000);
     };
 
     return (
         <>
             <Stack display={'flex'} sx={{p: 4}}>
-                <Typography variant='h4'>{ servicesPackage?.flights && servicesPackage?.flights?.roundWayFlightDetails.length > 0 ? "Choose Your Flight:" :"No Flights are available" }</Typography>
+                <Typography
+                    variant='h4'>{servicesPackage?.flights && servicesPackage?.flights?.roundWayFlightDetails.length > 0 ? "Choose Your Flight:" : "No Flights are available"}</Typography>
                 {servicesPackage?.flights && servicesPackage?.flights.roundWayFlightDetails.map((roundWayDetail, roundWayIndex) => (
                     <Accordion key={roundWayIndex}
                                sx={{width: `${accordionWidth}%`, marginBottom: '10px', border: '2px solid #ccc'}}
@@ -173,7 +167,7 @@ const PackageDialogFlightSection: React.FC<Props> = ({servicesPackage, accordion
                                     <ActionButton
                                         variant="contained"
                                         color="primary"
-                                        onClick={() => handleSeeFlightPrices(roundWayDetail.departFlightDetails[0].flightDetails[0].id, roundWayDetail  )}
+                                        onClick={() => handleSeeFlightPrices(roundWayDetail.departFlightDetails[0].flightDetails[0].id, roundWayDetail)}
                                         sx={{height: '30px', width: '300px', fontSize: '20px'}}
                                     >
                                         See flight price options
@@ -212,7 +206,7 @@ const PackageDialogFlightSection: React.FC<Props> = ({servicesPackage, accordion
                     textAlign: 'center'
                 }}>
                     <Typography variant='h4' id="redirect-modal-title">Redirecting to external provider...</Typography>
-                    <Typography variant='body1' id="redirect-modal-description" sx={{ mt: 2 }}>
+                    <Typography variant='body1' id="redirect-modal-description" sx={{mt: 2}}>
                         Please wait while we take you to the purchase page.
                     </Typography>
                 </Box>
