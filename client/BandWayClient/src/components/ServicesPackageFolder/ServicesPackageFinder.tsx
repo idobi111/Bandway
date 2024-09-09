@@ -75,6 +75,9 @@ const ServicesPackageFinder: React.FC = () => {
 
     useEffect(() => {
         const fetchPackages = async () => {
+            setShowCars(false);
+            setShowFlights(false);
+
             try {
                 const checkInDate = eventData.checkIn || null;
                 const fromCityId = eventData.fromCityId || null;

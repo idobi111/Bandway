@@ -76,6 +76,9 @@ const PackageSearchResults: React.FC = () => {
 
     useEffect(() => {
 
+        setShowCars(false);
+        setShowFlights(false);
+
         const fetchPackages = async () => {
             try {
 
