@@ -121,9 +121,7 @@ export class PackageBuilderService {
 
   public async createCarRequestByEventData(
     checkIn: string | null,
-    toCity: string | null,
-    minPrice: number | null,
-    maxPrice: number | null
+    toCity: string | null
   ): Promise<CarRentalRequest> {
 
     const carRentalDate = checkIn ? new Date(checkIn) : null;
@@ -152,8 +150,8 @@ export class PackageBuilderService {
       driverAge: 25,
       carType: ["small"],
       hasHairConditioner: true,
-      minPrice: minPrice || 100,
-      maxPrice: maxPrice || 10000
+      minPrice: 100,
+      maxPrice: 10000
     };
   }
 
