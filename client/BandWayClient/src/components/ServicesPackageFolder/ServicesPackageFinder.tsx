@@ -12,7 +12,7 @@ import {FlightApi} from '../../apis/FlightApi';
 import {SearchEventData} from '../../models/SearchEventData';
 import {Provider, useDispatch, useSelector} from 'react-redux';
 import {AppState} from '../../redux/types';
-import {setEventData} from '../../redux/actions';
+import {setEventData, setPackageData} from '../../redux/actions';
 import store from '../../redux/store';
 import {FlightRoundWayResponse} from '../../models/FlightRoundWayResponse';
 import {FlightService} from '../../services/FlightService';
@@ -23,6 +23,7 @@ import Loader from '../MessageFolder/Loader';
 import {ActionButton} from '../../styles/ComponentsStyles';
 import PackageDialogFlightSection from './PackageCard/PackageDialog/PackageDialogFlightSection';
 import PackageDialogCarSection from './PackageCard/PackageDialog/PackageDialogCarSection';
+import {defaultPackageData} from "../../redux/reducer";
 
 const ServicesPackageFinder: React.FC = () => {
 
@@ -75,6 +76,8 @@ const ServicesPackageFinder: React.FC = () => {
 
     useEffect(() => {
         const fetchPackages = async () => {
+            localStorage.removeItem('packageData');
+            dispatch(setPackageData(defaultPackageData));
             setShowCars(false);
             setShowFlights(false);
 

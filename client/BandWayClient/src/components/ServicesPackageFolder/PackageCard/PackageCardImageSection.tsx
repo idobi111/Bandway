@@ -56,7 +56,7 @@ const PackageCardImageSection: React.FC<Props> = ({servicesPackage}) => {
                         zIndex: 1,
                     }}
                 >
-                    {packageData.toCountry || eventData.toCountry || servicesPackage.flights?.roundWayFlightDetails[0].arriveFlightDetails[0].sourceCountry}
+                    {packageData.toCountry || servicesPackage.flights?.roundWayFlightDetails[0].arriveFlightDetails[0].sourceCountry || eventData.toCountry }
                 </Typography>
             </Box>
         </>
