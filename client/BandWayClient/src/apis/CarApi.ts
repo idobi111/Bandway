@@ -7,7 +7,7 @@ import { FlightLinkResponse } from '../models/FlightLinkResponse';
 import { CarRentalRequest } from '../models/CarRentalRequest';
 import { CarRentalResponse } from '../models/CarRentalResponse';
 import { CityRespsone } from '../models/City';
-import {CarRentalOrderRequest} from "../models/CarRentalOrderRequest";
+import { CarRentalOrderRequest } from "../models/CarRentalOrderRequest";
 
 
 export class CarApi {
@@ -18,8 +18,7 @@ export class CarApi {
 
     public async getCarRentals(car: CarRentalRequest): Promise<CarRentalResponse> {
         try {
-                      const response = await axios.post<CarRentalResponse>(`${this.BASE_URL}/searchCarRental`, car);
-//             const response = await axios.get<CarRentalResponse>(`https://mocki.io/v1/3ae113b2-c4c7-40f8-a005-9e2c95b12239`);
+            const response = await axios.post<CarRentalResponse>(`${this.BASE_URL}/searchCarRental`, car);
             return response.data;
         } catch (error) {
             throw new Error('Error fetching car rental');

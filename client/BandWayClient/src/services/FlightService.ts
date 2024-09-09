@@ -6,16 +6,6 @@ import FlightIcon from '@mui/icons-material/Flight';
 
 export class FlightService {
 
-    // public isConnectionFlight(servicePackage: Package): boolean {
-    //     let departFlightAmount: number | undefined = servicePackage.flight?.departFlightDetails[0].flightDetails.length;
-    //     if (departFlightAmount != undefined && departFlightAmount > 1) {
-    //         return true;
-    //     }
-    //     else {
-    //         return false;
-    //     }
-    // }
-
     public getFlightType(roundWayFlightSegment: RoundWayFlightSegment): string | null {
         let departFlightAmount: number | undefined = roundWayFlightSegment.stopCount;
         if (departFlightAmount != undefined && departFlightAmount > 0) {

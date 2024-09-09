@@ -56,7 +56,6 @@ const HowItWorks: React.FC = () => {
     );
 };
 
-// FAQ data for easy reuse
 const faqData = [
     {
         question: "1. What is BandWay?",

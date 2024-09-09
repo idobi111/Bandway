@@ -34,28 +34,9 @@ export const HomeTopContainer = styled(Container)({
   height: '500px'
 });
 
-// export const HomeTopBox = styled(Box)({
-//   backgroundColor: '#4B0082',
-//   position: 'relative',
-//   height: '500px',
-//   display: 'flex',
-//   alignItems: 'center',
-//   width: '100%',
-//   marginBottom:'50px'
-// });
-
-export const ShadowImage = styled('img')({
-  // height: '150px',
-  // width: '600px',
-  // position: 'absolute',
-  // top: '375px',
-  // left: '200px'
-});
-
 export const BandImage = styled('img')({
    height: '450px',
    width: '450px',
-  //  marginLeft: '300px'
 });
 
 export const TypographyTitle = styled(Typography)({
@@ -100,14 +81,13 @@ export const LearnMoreButton = styled(Button)({
 // Home Search
 
 export const HomeSearchGrid = styled(Grid)({
-  //  marginLeft: '50px',
 })
 
 export const SearchAutoComplete = styled(Autocomplete )({
   width:'200px',
   borderColor: 'white',
   '& input': {
-    color: 'white', // Change the font color to blue
+    color: 'white',
   },
 })
 
@@ -116,7 +96,7 @@ export const SearchTextField = styled(TextField )({
   width:'300px',
   borderColor: 'white',
   '& input': {
-    color: 'white', // Change the font color to blue
+    color: 'white',
   },
 })
 
