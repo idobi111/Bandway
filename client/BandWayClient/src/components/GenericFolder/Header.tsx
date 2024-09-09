@@ -5,7 +5,7 @@ import bandWayLogo from '../../pics/BandWayLogo.png';
 import { useNavigate } from 'react-router';
 import { Helpers } from "../../helpers/helpers";
 
-const buttons: string[] = ["Search", "Upcoming Events", "How it works", "Contact Us", "Sign in"];
+const buttons: string[] = ["Search", "Upcoming Events", "How it works", "About Us", "Contact Us", "Sign in"];
 
 const Header: React.FC = () => {
     const navigate = useNavigate();
@@ -38,6 +38,11 @@ const Header: React.FC = () => {
         navigate('/how-it-works');
     };
 
+    const goToAboutUs = () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        navigate('/about-us');
+    };
+
     const handleLogout = () => {
         localStorage.removeItem('userFirstName');
         localStorage.removeItem('userLastName');
@@ -63,6 +68,8 @@ const Header: React.FC = () => {
                                     <HeaderButton variant='text' onClick={goToUpcomingEvents}>{button}</HeaderButton>
                                 ) : button === "How it works" ? (
                                     <HeaderButton variant='text' onClick={goToHowItWorks}>{button}</HeaderButton>
+                                ) : button === "About Us" ? (
+                                    <HeaderButton variant='text' onClick={goToAboutUs}>{button}</HeaderButton>
                                 ) : button === "Contact Us" ? (
                                     <HeaderButton variant='text' onClick={goToContact}>{button}</HeaderButton>
                                 ) : button === "Sign in" ? (

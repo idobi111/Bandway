@@ -9,7 +9,7 @@ const HowItWorks: React.FC = () => {
     return (
         <>
             <CssBaseline />
-            <TopContent mainText="How it works" subText="" />
+            <TopContent mainText="How It Works" subText="" />
             <Box sx={{ margin: 'auto', padding: 15 }}>
                 <Stack>
                     <Typography variant="h3" gutterBottom>
