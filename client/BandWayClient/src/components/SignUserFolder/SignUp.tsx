@@ -93,7 +93,7 @@ const SignUp: React.FC = () => {
         } catch (error) {
             console.error('Error sign up:', error);
             setRegisterError(error.message.startsWith("Query") ? '' : error.message);
-            setRegisterStatus('The sign up has failed. Please try again or contact us via mail: support@bandway.com');
+            setRegisterStatus('The sign up has failed. Please try again or contact us via mail: way.com');
         } finally {
             setLoading(false);
         }

@@ -25,16 +25,20 @@ const PackageDialogHotelSection: React.FC<Props> = ({servicesPackage}) => {
 
     const handleSeeHotelAvailability = async () => {
         try {
-            const hotelOrderRequest ={
-                userId: localStorage.getItem("userId")? localStorage.getItem("userId"):-1,
+            const hotelOrderRequest = {
+                userId: localStorage.getItem("userId") 
+                  ? parseInt(localStorage.getItem("userId") as string, 10) || -1 
+                  : -1,
                 orderDate: new Date(),
-                checkInDate: servicesPackage.hotel.checkIn,
-                checkOutDate: servicesPackage.hotel.checkOut,
-                hotelName: servicesPackage.hotel.hotelName,
-                roomCount: servicesPackage.hotel.rooms,
-                price: servicesPackage.hotel.price,
-                numberOfGuests: servicesPackage.hotel.adults + servicesPackage.hotel.children,
-            }
+                checkInDate: servicesPackage?.hotel?.checkIn ?? "", 
+                checkOutDate: servicesPackage?.hotel?.checkOut ?? "", 
+                hotelName: servicesPackage?.hotel?.hotelName ?? "", 
+                roomCount: servicesPackage?.hotel?.rooms ?? 0, 
+                price: servicesPackage?.hotel?.price ?? 0, 
+                numberOfGuests: (servicesPackage?.hotel?.adults ?? 0) + (servicesPackage?.hotel?.children ?? 0),
+                hotelAddress: servicesPackage?.hotel?.city ?? "" 
+              };
+              
             hotelApi.saveHotelToDb(hotelOrderRequest);
             const hotelUrl = await hotelApi.getHotelLink(servicesPackage?.hotel?.hotelId, servicesPackage?.hotel?.checkIn, servicesPackage?.hotel?.checkOut);
             window.open(hotelUrl, '_blank');

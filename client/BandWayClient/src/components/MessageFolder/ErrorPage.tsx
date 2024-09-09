@@ -16,7 +16,7 @@ const ErrorPage: React.FC = () => {
                     Please try again later. If the issue persists, let us know via email:
                 </Typography>
                 <Typography variant="h5" sx={{ fontWeight: 'bold', marginTop: '10px' }}>
-                    support@bandway.com
+                    bandway4@gmail.com
                 </Typography>
             </Box>
             <Footer />

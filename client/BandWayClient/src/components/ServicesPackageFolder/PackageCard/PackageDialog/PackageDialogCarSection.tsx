@@ -51,7 +51,7 @@ const PackageDialogCarSection: React.FC<Props> = ({servicesPackage, accordionWid
     const handleSeeCarAvailability = async (carLink, carData) => {
         try {
             const carRentalOrderRequest = {
-                userId: localStorage.getItem("userId")? localStorage.getItem("userId"):-1,
+                userId: localStorage.getItem("userId") ? parseInt(localStorage.getItem("userId") as string, 10) || -1 : -1,
                 orderDate: new Date(),
                 rentalStartDate: carData.checkIn,
                 rentalEndDate: carData.checkOut,

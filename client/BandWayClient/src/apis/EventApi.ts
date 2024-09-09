@@ -3,6 +3,7 @@ import {EventResponse} from '../models/EventResponse';
 import {Helpers} from '../helpers/helpers';
 import {ArtistResponse} from '../models/ArtistResponse';
 import {CarRentalOrderRequest} from "../models/CarRentalOrderRequest";
+import { ConcertOrderRequest } from '../models/ConcertOrderRequest';
 
 const helpers = new Helpers();
 
@@ -43,9 +44,9 @@ export class EventApi {
         }
     }
 
-    public async saveEventToDb(carRentalOrderRequest: CarRentalOrderRequest): Promise<void> {
+    public async saveEventToDb(concertOrderRequest: ConcertOrderRequest): Promise<void> {
         try {
-            await axios.post<void>(`${this.BASE_URL}/saveConcertOrder`, carRentalOrderRequest);
+            await axios.post<void>(`${this.BASE_URL}/saveConcertOrder`, concertOrderRequest);
         } catch (error) {
             throw new Error('Error store to db');
         }

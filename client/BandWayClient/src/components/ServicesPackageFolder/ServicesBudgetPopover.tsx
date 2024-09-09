@@ -1,31 +1,40 @@
-import React, {useState} from 'react';
-import {Grid, Typography, Box, Popover, Slider, Button} from '@mui/material';
-import {SearchTextField} from '../../styles/ComponentsStyles';
-
+import React, { useState, forwardRef, useImperativeHandle } from 'react';
+import {Grid, Typography, Box, Popover, Slider, Button } from '@mui/material';
+import { SearchTextField } from '../../styles/ComponentsStyles';
 
 interface ServicesBudgetPopoverProps {
     onSelect: (minHotelPrice: number, maxHotelPrice: number,minFlightPrice: number, maxFlightPrice: number,minCarPrice: number, maxCarPrice: number) => void;
 }
 
-const ServicesBudgetPopover: React.FC<ServicesBudgetPopoverProps> = ({onSelect}) => {
-    const minBudget: number = 100;
-    const maxBudget: number = 10000;
-    const [anchorEl, setAnchorEl] = useState<HTMLDivElement | null>(null);
-    const [carBudget, setCarBudget] = useState<[number, number]>([minBudget, maxBudget]);
-    const [flightBudget, setFlightBudget] = useState<[number, number]>([minBudget, maxBudget]);
-    const [hotelBudget, setHotelBudget] = useState<[number, number]>([minBudget, maxBudget]);
-    const [selectedBudget, setSelectedBudget] = useState<string>('');
+const ServicesBudgetPopover = forwardRef<{ resetSelectedBudget: () => void }, ServicesBudgetPopoverProps>(
+    ({ onSelect }, ref) => {
+        const minBudget: number = 100;
+        const maxBudget: number = 10000;
+        const [anchorEl, setAnchorEl] = useState<HTMLDivElement | null>(null);
+        const [carBudget, setCarBudget] = useState<[number, number]>([minBudget, maxBudget]);
+        const [flightBudget, setFlightBudget] = useState<[number, number]>([minBudget, maxBudget]);
+        const [hotelBudget, setHotelBudget] = useState<[number, number]>([minBudget, maxBudget]);
+        const [selectedBudget, setSelectedBudget] = useState<string>('');
 
-    const handleClick = (event: React.MouseEvent<HTMLDivElement>) => {
-        setAnchorEl(event.currentTarget);
-    };
+        useImperativeHandle(ref, () => ({
+            resetSelectedBudget() {
+                setHotelBudget([minBudget, maxBudget]);
+                setFlightBudget([minBudget, maxBudget]);
+                setCarBudget([minBudget, maxBudget]);
+                setSelectedBudget(``);
+            }
+        }));
 
-    const handleClose = () => {
-        setAnchorEl(null);
-    };
+        const handleClick = (event: React.MouseEvent<HTMLDivElement>) => {
+            setAnchorEl(event.currentTarget);
+        };
 
-    const open = Boolean(anchorEl);
-    const id = open ? 'simple-popover' : undefined;
+        const handleClose = () => {
+            setAnchorEl(null);
+        };
+
+        const open = Boolean(anchorEl);
+        const id = open ? 'simple-popover' : undefined;
 
     const handleSave = () => {
         setSelectedBudget(`Hotel: ${hotelBudget[0]}$-${hotelBudget[1]}$, Flight: ${flightBudget[0]}$-${flightBudget[1]}$, Car: ${carBudget[0]}$-${carBudget[1]}$`);
@@ -37,6 +46,7 @@ const ServicesBudgetPopover: React.FC<ServicesBudgetPopoverProps> = ({onSelect})
         setCarBudget([minBudget, maxBudget]);
         setFlightBudget([minBudget, maxBudget]);
         setHotelBudget([minBudget, maxBudget]);
+        setSelectedBudget(`${minBudget}$-${maxBudget}$`);
     };
 
     const handleCarChange = (event: Event, newValue: number | number[], activeThumb: number) => {

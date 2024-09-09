@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {Typography, Grid, Box} from '@mui/material';
 import {HomeSearchGrid, WindowDiv, ActionButton} from '../../styles/ComponentsStyles';
 import DatePickerPopover from './DatePickerPopover';
@@ -35,6 +35,14 @@ const PackageSearch: React.FC = () => {
     const eventData = useSelector((state: AppState) => state.eventData);
     const dispatch = useDispatch();
     const navigate = useNavigate();
+
+      // Use ref for the DatePickerPopover
+      const datePickerRef = useRef<{ resetSelectedText: () => void } | null>(null);
+      const occupancyPopoverRef = useRef<{ resetSelectedOccupancy: () => void }>(null);
+      const servicesBudgetPopoverRef = useRef<{ resetSelectedBudget: () => void } | null>(null);
+      const fromCitySelectRef = useRef<{ resetSelectedCity: () => void } | null>(null);
+      const toCitySelectRef = useRef<{ resetSelectedCity: () => void } | null>(null);
+
 
     const packageSearchApi = new PackageSearchApi();
 
@@ -100,11 +108,14 @@ const PackageSearch: React.FC = () => {
     };
 
     const handlePackageSearch = () => {
+
+
         localStorage.removeItem('packageData');
         dispatch(setPackageData(packageData));
         console.log("Package Data:" + JSON.stringify(packageData));
+
         const packageSearchOrder: PackageSearchOrderRequest = {
-            userId: localStorage.getItem("userId") ? localStorage.getItem("userId") : -1,
+            userId: localStorage.getItem("userId") ? parseInt(localStorage.getItem("userId") as string, 10) : -1,
             orderDate: new Date(),
             checkInDate: packageData.checkIn || '',
             checkOutDate: packageData.checkOut || '',
@@ -121,29 +132,51 @@ const PackageSearch: React.FC = () => {
             toCity: packageData.toCity || '',
             fromCountry: packageData.fromCountry || '',
             toCountry: packageData.toCountry || '',
-        }
+        };
+
+        // Save the search data
         packageSearchApi.savePackageSearch(packageSearchOrder);
+
+        // Navigate to results page
         navigate(`/package-search-results`);
+
+         // Call resetSelectedText
+         if (datePickerRef.current) {
+            datePickerRef.current.resetSelectedText();
+        }
+        if (occupancyPopoverRef.current) {
+            occupancyPopoverRef.current.resetSelectedOccupancy();
+        }
+        if (servicesBudgetPopoverRef.current) {
+            servicesBudgetPopoverRef.current.resetSelectedBudget();
+        }
+        if (fromCitySelectRef.current) {
+            fromCitySelectRef.current.resetSelectedCity();
+        }
+        if (toCitySelectRef.current) {
+            toCitySelectRef.current.resetSelectedCity();
+        }
     };
+
 
 
     return (
         <WindowDiv>
             <HomeSearchGrid container spacing={2} sx={{marginLeft: '40px'}}>
                 <Grid item xs={2}>
-                    <DatePickerPopover onSelect={handleSelectDateRange}/>
+                    <DatePickerPopover onSelect={handleSelectDateRange} ref={datePickerRef}/>
                 </Grid>
                 <Grid item xs={2}>
-                    <OccupancyPopover onSelect={handleSelectOccupancy}/>
+                    <OccupancyPopover onSelect={handleSelectOccupancy} ref={occupancyPopoverRef}/>
                 </Grid>
                 <Grid item xs={2}>
-                    <ServicesBudgetPopover onSelect={handleSelectServicesBudget}/>
+                    <ServicesBudgetPopover onSelect={handleSelectServicesBudget} ref={servicesBudgetPopoverRef}/>
                 </Grid>
                 <Grid item xs={2}>
-                    <CitySelect onSelect={handleSelectFromCity} placeholder="Select City" title='From'/>
+                    <CitySelect onSelect={handleSelectFromCity} placeholder="Select City" title='From' ref={fromCitySelectRef}/>
                 </Grid>
                 <Grid item xs={2}>
-                    <CitySelect onSelect={handleSelectToCity} placeholder="Select City" title='To'/>
+                    <CitySelect onSelect={handleSelectToCity} placeholder="Select City" title='To' ref={toCitySelectRef}/>
                 </Grid>
                 <Grid item xs={2}>
                     {(<ActionButton variant='contained' onClick={handlePackageSearch}
