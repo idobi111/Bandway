@@ -1,7 +1,6 @@
-// HomeTopContent.tsx
 import React from 'react';
 import { Box, Container, Grid, Typography, Stack } from '@mui/material';
-import { HomeTopContainer, ShadowImage, BandImage, TypographyTitle, SubTitle, ActionButton, LearnMoreButton } from '../../styles/ComponentsStyles';
+import { HomeTopContainer, BandImage, TypographyTitle, SubTitle, ActionButton, LearnMoreButton } from '../../styles/ComponentsStyles';
 import bandPic from '../../pics/BandPic.png';
 import bandShadow from '../../pics/BandShadow.png';
 import { useNavigate } from 'react-router';
