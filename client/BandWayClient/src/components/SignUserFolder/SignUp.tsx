@@ -116,17 +116,29 @@ const SignUp: React.FC = () => {
     const ConfirmPasswordVisibilityIcon = showConfirmPassword ? <VisibilityOff /> : <Visibility />;
 
     const Copyright = (props: any) => {
+        const navigate = useNavigate();
+    
+        const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+            event.preventDefault();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            navigate('/home');
+        };
+    
         return (
             <Typography variant="body2" color="text.secondary" align="center" {...props}>
                 {'Copyright © '}
-                <Link color="inherit" href="https://bandway-client-z732mhjgfq-uc.a.run.app/home">
+                <Link
+                    component="button"
+                    onClick={handleClick}
+                    color="inherit"
+                >
                     BandWay
                 </Link>{' '}
                 {new Date().getFullYear()}
             </Typography>
         );
     };
-
+    
     return (
         <Container>
             <Box

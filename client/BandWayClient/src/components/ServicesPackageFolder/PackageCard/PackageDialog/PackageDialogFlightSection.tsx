@@ -71,7 +71,7 @@ const PackageDialogFlightSection: React.FC<Props> = ({servicesPackage, accordion
     return (
         <>
             <Stack display={'flex'} sx={{p: 4}}>
-                <Typography variant='h4'>Choose Your Flight:</Typography>
+                <Typography variant='h4'>{ servicesPackage?.flights && servicesPackage?.flights?.roundWayFlightDetails.length > 0 ? "Choose Your Flight:" :"No Flights are available" }</Typography>
                 {servicesPackage?.flights && servicesPackage?.flights.roundWayFlightDetails.map((roundWayDetail, roundWayIndex) => (
                     <Accordion key={roundWayIndex}
                                sx={{width: `${accordionWidth}%`, marginBottom: '10px', border: '2px solid #ccc'}}

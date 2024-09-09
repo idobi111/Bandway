@@ -36,6 +36,8 @@ const PackageSearchResults: React.FC = () => {
     const [cars, setCars] = useState<CarRentalResponse>(); // Added state for cars
     const [showFlights, setShowFlights] = useState(false);
     const [showCars, setShowCars] = useState(false);
+    const [renderKey, setRenderKey] = useState(0);
+
 
     const [isLoading, setIsLoading] = useState(true);
     const packageData = useSelector((state: AppState) => state.packageData);
@@ -130,6 +132,10 @@ const PackageSearchResults: React.FC = () => {
         setShowCars(true);
     };
 
+    useEffect(() => {
+        setRenderKey(prevKey => prevKey + 1);
+    }, [hotels]);
+
     return (
         <>
             <CssBaseline />
@@ -147,7 +153,7 @@ const PackageSearchResults: React.FC = () => {
                         <Loader loadingMessage='Loading packages...' />
                     ) : (
                         <>
-                            {hotels.length === 0 ? (
+                            {hotels.length === 0 || packageBuilderService.isHotelDataNull(hotels) ? (
                                 <Stack justifyContent='center' alignItems='center' sx={{ m: 8 }}>
                                     <Typography variant="h4" color="textSecondary" textAlign='center'>
                                         Looks like there are no available packages at the moment.

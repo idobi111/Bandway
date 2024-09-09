@@ -46,13 +46,13 @@ export class PackageBuilderService {
     }
 
     // Add flight price
-    if (packageFilters.flight && servicePackage.flights) {
+    if (packageFilters.flight && servicePackage.flights && servicePackage.flights.roundWayFlightDetails.length > 0) {
       totalPrice += servicePackage.flights.minPrice * 2;
 
     }
 
     //Add car rental price
-    if (packageFilters.carRental && servicePackage.carRentals) {
+    if (packageFilters.carRental && servicePackage.carRentals && servicePackage.carRentals.carRentalData.length > 0) {
       totalPrice += servicePackage.carRentals.minPrice;
     }
 
@@ -255,6 +255,24 @@ export class PackageBuilderService {
       maxPrice: maxPrice || 10000
     };
   }
+
+
+  public isHotelDataNull(hotelsData: HotelResponse[]) {
+    return hotelsData.every(hotel => 
+        hotel.hotelId === null && 
+        hotel.city === null &&
+        hotel.hotelName === null &&
+        hotel.checkIn === null &&
+        hotel.checkOut === null &&
+        hotel.rooms === null &&
+        hotel.adults === null &&
+        hotel.children === null &&
+        hotel.price === null &&
+        hotel.rating === null &&
+        hotel.photoUrl === null &&
+        hotel.bookingUrl === null
+    );
+};
 
 }
 

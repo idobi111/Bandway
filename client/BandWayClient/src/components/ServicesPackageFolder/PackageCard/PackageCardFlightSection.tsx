@@ -18,12 +18,14 @@ const PackageCardFlightSection: React.FC<Props> = ({servicesPackage}) => {
 
     return (
         <>
+      { servicesPackage?.flights && servicesPackage?.flights?.roundWayFlightDetails?.length > 0 && (
             <Box display={'flex'} justifyContent={'left'}>
                 <FlightIcon/>
                 <Typography variant="h6" sx={{marginLeft: 1}}>
                     Flight is included
                 </Typography>
             </Box>
+        )}
         </>
     );
 };

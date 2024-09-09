@@ -1,31 +1,41 @@
 import React from 'react';
-import {AppBar, Toolbar, Typography, Button, Container, Grid, Stack} from '@mui/material';
-import {HeaderAppBar, HeaderButton} from '../../styles/ComponentsStyles';
+import { AppBar, Toolbar, Typography, Button, Container, Grid, Stack } from '@mui/material';
+import { HeaderAppBar, HeaderButton } from '../../styles/ComponentsStyles';
 import bandWayLogo from '../../pics/BandWayLogo.png';
-import {useNavigate} from 'react-router';
-import {Helpers} from "../../helpers/helpers";
+import { useNavigate } from 'react-router';
+import { Helpers } from "../../helpers/helpers";
 
-const buttons: string[] = ["Search", "Latest Deals", "Contact", "Sign in"];
+const buttons: string[] = ["Search", "Upcoming Events", "How it works", "Contact Us", "Sign in"];
 
 const Header: React.FC = () => {
     const navigate = useNavigate();
     const helpers = new Helpers();
 
     const goToHomePage = () => {
-        window.scrollTo({top: 0, behavior: 'smooth'});
+        window.scrollTo({ top: 0, behavior: 'smooth' });
         navigate('/home');
     };
 
     const goToSignIn = () => {
-        window.scrollTo({top: 0, behavior: 'smooth'});
+        window.scrollTo({ top: 0, behavior: 'smooth' });
         navigate('/sign-in');
     };
 
-    const goToLatestDeals = () => {
+    const goToUpcomingEvents = () => {
         navigate('/home');
         setTimeout(() => {
             helpers.scrollToUpcomingEvents();
         }, 100);
+    };
+
+    const goToContact = () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        navigate('/contact');
+    };
+
+    const goToHowItWorks = () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        navigate('/how-it-works');
     };
 
     const handleLogout = () => {
@@ -42,15 +52,19 @@ const Header: React.FC = () => {
         <HeaderAppBar position="static">
             <Toolbar sx={{ display: 'flex', justifyContent: 'space-between' }}>
                 <img onClick={goToHomePage} src={bandWayLogo} alt="Logo"
-                     style={{ height: '100px', marginRight: '16px', cursor: 'pointer' }} />
+                    style={{ height: '100px', marginRight: '16px', cursor: 'pointer' }} />
                 <div>
                     <Grid container spacing={2} alignItems="center">
                         {buttons.map((button) =>
                             <Grid item key={button}>
                                 {button === "Search" ? (
                                     <HeaderButton variant='text' onClick={goToHomePage}>{button}</HeaderButton>
-                                ) : button === "Latest Deals" ? (
-                                    <HeaderButton variant='text' onClick={goToLatestDeals}>{button}</HeaderButton>
+                                ) : button === "Upcoming Events" ? (
+                                    <HeaderButton variant='text' onClick={goToUpcomingEvents}>{button}</HeaderButton>
+                                ) : button === "How it works" ? (
+                                    <HeaderButton variant='text' onClick={goToHowItWorks}>{button}</HeaderButton>
+                                ) : button === "Contact Us" ? (
+                                    <HeaderButton variant='text' onClick={goToContact}>{button}</HeaderButton>
                                 ) : button === "Sign in" ? (
                                     userFirstName && userLastName ? (
                                         <Stack direction="row" spacing={2}>

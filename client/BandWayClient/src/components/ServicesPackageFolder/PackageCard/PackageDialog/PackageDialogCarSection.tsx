@@ -73,7 +73,7 @@ const PackageDialogCarSection: React.FC<Props> = ({servicesPackage, accordionWid
             <Box display="flex">
                 <Box sx={{flex: 1}}>
                     <Stack display={'flex'} sx={{p: 4}}>
-                        <Typography variant='h4'>Choose Your Car:</Typography>
+                        <Typography variant='h4'>{ servicesPackage?.carRentals && servicesPackage?.carRentals?.carRentalData?.length > 0 ? "Choose Your Car:" : "No Cars are available"}</Typography>
                         {servicesPackage?.carRentals && servicesPackage?.carRentals.carRentalData.map((carData, cardDataIndex) => (
                             <Accordion key={cardDataIndex} sx={{
                                 width: `${accordionWidth}%`,
