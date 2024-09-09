@@ -1,17 +1,19 @@
 import React, {useState} from 'react';
-import {Typography, Box, Popover, Slider, Button} from '@mui/material';
+import {Grid, Typography, Box, Popover, Slider, Button} from '@mui/material';
 import {SearchTextField} from '../../styles/ComponentsStyles';
 
 
 interface ServicesBudgetPopoverProps {
-    onSelect: (minPrice: number, maxPrice: number) => void;
+    onSelect: (minHotelPrice: number, maxHotelPrice: number,minFlightPrice: number, maxFlightPrice: number,minCarPrice: number, maxCarPrice: number) => void;
 }
 
 const ServicesBudgetPopover: React.FC<ServicesBudgetPopoverProps> = ({onSelect}) => {
     const minBudget: number = 100;
     const maxBudget: number = 10000;
     const [anchorEl, setAnchorEl] = useState<HTMLDivElement | null>(null);
-    const [budget, setBudget] = useState<[number, number]>([minBudget, maxBudget]);
+    const [carBudget, setCarBudget] = useState<[number, number]>([minBudget, maxBudget]);
+    const [flightBudget, setFlightBudget] = useState<[number, number]>([minBudget, maxBudget]);
+    const [hotelBudget, setHotelBudget] = useState<[number, number]>([minBudget, maxBudget]);
     const [selectedBudget, setSelectedBudget] = useState<string>('');
 
     const handleClick = (event: React.MouseEvent<HTMLDivElement>) => {
@@ -26,17 +28,25 @@ const ServicesBudgetPopover: React.FC<ServicesBudgetPopoverProps> = ({onSelect})
     const id = open ? 'simple-popover' : undefined;
 
     const handleSave = () => {
-        setSelectedBudget(`${budget[0]}$-${budget[1]}$`);
-        onSelect(budget[0], budget[1]);
+        setSelectedBudget(`Hotel: ${hotelBudget[0]}$-${hotelBudget[1]}$, Flight: ${flightBudget[0]}$-${flightBudget[1]}$, Car: ${carBudget[0]}$-${carBudget[1]}$`);
+        onSelect(hotelBudget[0], hotelBudget[1],flightBudget[0], flightBudget[1],carBudget[0], carBudget[1]);
         handleClose();
     };
 
     const handleReset = () => {
-        setBudget([minBudget, maxBudget]);
+        setCarBudget([minBudget, maxBudget]);
+        setFlightBudget([minBudget, maxBudget]);
+        setHotelBudget([minBudget, maxBudget]);
     };
 
-    const handleChange = (event: Event, newValue: number | number[], activeThumb: number) => {
-        setBudget(newValue as [number, number]);
+    const handleCarChange = (event: Event, newValue: number | number[], activeThumb: number) => {
+        setCarBudget(newValue as [number, number]);
+    };
+    const handleFlightChange = (event: Event, newValue: number | number[], activeThumb: number) => {
+        setFlightBudget(newValue as [number, number]);
+    };
+    const handleHotelChange = (event: Event, newValue: number | number[], activeThumb: number) => {
+        setHotelBudget(newValue as [number, number]);
     };
 
     return (
@@ -73,21 +83,76 @@ const ServicesBudgetPopover: React.FC<ServicesBudgetPopoverProps> = ({onSelect})
                     <Typography id="budget-slider" gutterBottom>
                         Budget Range
                     </Typography>
-                    <Slider
-                        value={budget}
-                        onChange={handleChange}
-                        min={minBudget}
-                        max={maxBudget}
-                        step={100}
-                        valueLabelDisplay="auto"
-                        valueLabelFormat={(value) => {
-                            if (Array.isArray(value)) {
-                                return `${value[0]}$-${value[1]}$`;
-                            }
-                            return `${value}$`;
-                        }}
-                        aria-labelledby="budget-slider"
-                    />
+
+                    <Grid container alignItems="center" spacing={2}>
+                        <Grid item>
+                            <Typography>Hotel:</Typography>
+                        </Grid>
+                        <Grid item xs>
+                            <Slider
+                                value={hotelBudget}
+                                onChange={handleHotelChange}
+                                min={minBudget}
+                                max={maxBudget}
+                                step={100}
+                                valueLabelDisplay="auto"
+                                valueLabelFormat={(value) => {
+                                    if (Array.isArray(value)) {
+                                        return `${value[0]}$-${value[1]}$`;
+                                    }
+                                    return `${value}$`;
+                                }}
+                                aria-labelledby="budget-slider"
+                            />
+                        </Grid>
+                    </Grid>
+
+                    <Grid container alignItems="center" spacing={2}>
+                        <Grid item>
+                            <Typography>Flight:</Typography>
+                        </Grid>
+                        <Grid item xs>
+                            <Slider
+                                value={flightBudget}
+                                onChange={handleFlightChange}
+                                min={minBudget}
+                                max={maxBudget}
+                                step={100}
+                                valueLabelDisplay="auto"
+                                valueLabelFormat={(value) => {
+                                    if (Array.isArray(value)) {
+                                        return `${value[0]}$-${value[1]}$`;
+                                    }
+                                    return `${value}$`;
+                                }}
+                                aria-labelledby="budget-slider"
+                            />
+                        </Grid>
+                    </Grid>
+
+                    <Grid container alignItems="center" spacing={2}>
+                        <Grid item>
+                            <Typography>Car:</Typography>
+                        </Grid>
+                        <Grid item xs>
+                            <Slider
+                                value={carBudget}
+                                onChange={handleCarChange}
+                                min={minBudget}
+                                max={maxBudget}
+                                step={100}
+                                valueLabelDisplay="auto"
+                                valueLabelFormat={(value) => {
+                                    if (Array.isArray(value)) {
+                                        return `${value[0]}$-${value[1]}$`;
+                                    }
+                                    return `${value}$`;
+                                }}
+                                aria-labelledby="budget-slider"
+                            />
+                        </Grid>
+                    </Grid>
+
                     <Button onClick={handleReset}>Reset</Button>
                     <Button onClick={handleSave}>Save</Button>
                 </Box>

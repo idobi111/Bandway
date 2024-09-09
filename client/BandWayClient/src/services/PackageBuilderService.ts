@@ -101,7 +101,7 @@ export class PackageBuilderService {
     } else {
       console.log('Check-in date is not provided');
     }
-    
+
 
     return {
       departureDate: flightDate ? helpers.formatDateForPackageBuilder(flightDate) : "", // Use checkIn if available, otherwise empty string
@@ -113,13 +113,17 @@ export class PackageBuilderService {
       infants: 0, // Set infants to 0 by default
       isDirectFlight: false, // Information about direct flight might not be available
       cabinClass: "economy", // Set cabin class to economy by default
+      minPrice: 100, // Set minPrice to 100 by default
+      maxPrice: 10000 // Set maxPrice to 10000 by default
     };
   }
 
 
   public async createCarRequestByEventData(
     checkIn: string | null,
-    toCity: string | null
+    toCity: string | null,
+    minPrice: number | null,
+    maxPrice: number | null
   ): Promise<CarRentalRequest> {
 
     const carRentalDate = checkIn ? new Date(checkIn) : null;
@@ -147,7 +151,9 @@ export class PackageBuilderService {
       dropoffTime: "10:00",
       driverAge: 25,
       carType: ["small"],
-      hasHairConditioner: true
+      hasHairConditioner: true,
+      minPrice: minPrice || 100,
+      maxPrice: maxPrice || 10000
     };
   }
 
@@ -172,10 +178,10 @@ export class PackageBuilderService {
         ? helpers.formatDateForPackageBuilder(new Date(new Date(checkOut))) // Chain setDate and new Date
         : helpers.formatDateForPackageBuilder(threeDaysFromCheckIn),
       venueName: venue || "",
-      rooms: rooms || 1, 
+      rooms: rooms || 1,
       adults: adults || 2,
-      children: children || 0, 
-      maxPrice: maxPrice || 10000, 
+      children: children || 0,
+      maxPrice: maxPrice || 10000,
       minPrice: minPrice || 100
     };
   }
@@ -183,11 +189,13 @@ export class PackageBuilderService {
 
   public createFlightRequestByPackageData(
     checkIn: string | null,
-    checkOut: string | null, 
+    checkOut: string | null,
     fromCityId: string | null,
     toCityId: string | null,
-    adults: number | null, 
-    children: number | null, 
+    adults: number | null,
+    children: number | null,
+    maxPrice: number | null,
+    minPrice: number | null,
   ): FlightRequest {
     // Use the checkIn date for a one-way flight
     const checkInDate = checkIn ? new Date(checkIn) : null;
@@ -196,13 +204,15 @@ export class PackageBuilderService {
     return {
       departureDate: checkInDate ? helpers.formatDateForPackageBuilder(checkInDate) : "", // Use checkIn if available, otherwise empty string
       returnDate: checkOutDate ? helpers.formatDateForPackageBuilder(checkOutDate) : "", // No checkOut for one-way flights
-      src: fromCityId || "", 
-      dest: toCityId || "", 
-      adults: adults || 2, 
-      children: children || 0, 
-      infants: 0, 
-      isDirectFlight: false, 
+      src: fromCityId || "",
+      dest: toCityId || "",
+      adults: adults || 2,
+      children: children || 0,
+      infants: 0,
+      isDirectFlight: false,
       cabinClass: "economy",
+      minPrice: minPrice || 100,
+      maxPrice: maxPrice || 10000
     };
   }
 
@@ -211,6 +221,8 @@ export class PackageBuilderService {
     checkIn: string | null,
     checkOut: string | null,
     toCity: string | null,
+    minPrice: number | null,
+    maxPrice: number | null,
   ): Promise<CarRentalRequest> {
 
     const carRentalDate = checkIn ? new Date(checkIn) : null;
@@ -238,7 +250,9 @@ export class PackageBuilderService {
       dropoffTime: "10:00",
       driverAge: 25,
       carType: ["small"],
-      hasHairConditioner: true
+      hasHairConditioner: true,
+      minPrice: minPrice || 100,
+      maxPrice: maxPrice || 10000
     };
   }
 

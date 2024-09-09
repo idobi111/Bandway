@@ -92,21 +92,22 @@ public class FlightService {
         List<OneWaySessionFlight> oneWaySessionFlights = new ArrayList<>();
         for (Itinerary itinerary : oneWayFlightResponseEntity.getBody().getData().getItineraries()) {
             Price price = itinerary.getPrice();
-            if (price != null) {
-                Double raw = price.getRaw();
+            if (price != null && price.getRaw() > flightRequestDto.getMinPrice() && price.getRaw() < flightRequestDto.getMaxPrice()) {
+                double raw = price.getRaw();
                 minRaw = Math.min(minRaw, raw);
                 maxRaw = Math.max(maxRaw, raw);
-            }
-            for (Leg leg : itinerary.getLegs()) {
-                List<FlightDetails> flightDetailsList = new ArrayList<>();
-                for (Segment segment : leg.getSegments()) {
-                    flightDetailsList.add(buildFlightDetails(segment, itinerary.getId()));
+
+                for (Leg leg : itinerary.getLegs()) {
+                    List<FlightDetails> flightDetailsList = new ArrayList<>();
+                    for (Segment segment : leg.getSegments()) {
+                        flightDetailsList.add(buildFlightDetails(segment, itinerary.getId()));
+                    }
+                    sessionFlightDetails.add(buildSessionFlightDetails(itinerary, leg, flightDetailsList));
                 }
-                sessionFlightDetails.add(buildSessionFlightDetails(itinerary, leg, flightDetailsList));
+                oneWaySessionFlights.add(OneWaySessionFlight.builder()
+                        .departFlightDetails(sessionFlightDetails)
+                        .build());
             }
-            oneWaySessionFlights.add(OneWaySessionFlight.builder()
-                    .departFlightDetails(sessionFlightDetails)
-                    .build());
         }
         return OneWayFlightResponseDto.builder()
                 .departFlightDetails(oneWaySessionFlights)

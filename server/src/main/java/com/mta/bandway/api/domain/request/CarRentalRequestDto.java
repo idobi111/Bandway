@@ -38,4 +38,12 @@ public class CarRentalRequestDto {
     @JsonProperty("driverAge")
     private Integer driverAge;
 
+    @Schema(description = "Minimum price", example = "100")
+    @JsonProperty("minPrice")
+    private Integer minPrice;
+
+    @Schema(description = "Maximum price", example = "500")
+    @JsonProperty("maxPrice")
+    private Integer maxPrice;
+
 }

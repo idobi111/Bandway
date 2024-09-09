@@ -8,4 +8,6 @@ export interface FlightRequest {
   infants: number;
   isDirectFlight: boolean;
   cabinClass: string;
+  minPrice: number;
+  maxPrice: number;
   }
