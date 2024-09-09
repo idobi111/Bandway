@@ -142,27 +142,28 @@ public class FlightService {
             List<SessionFlightDetails> departFlights = new ArrayList<>();
             List<SessionFlightDetails> returnFlights = new ArrayList<>();
             Price price = itinerary.getPrice();
-            if (price != null) {
-                Double raw = price.getRaw();
+            if (price != null && price.getRaw() > flightRequestDto.getMinPrice() && price.getRaw() < flightRequestDto.getMaxPrice()) {
+                double raw = price.getRaw();
                 minRaw = Math.min(minRaw, raw);
                 maxRaw = Math.max(maxRaw, raw);
-            }
-            for (int i = 0; i < itinerary.getLegs().size(); i++) {
-                List<FlightDetails> flightDetailsList = new ArrayList<>();
-                Leg leg = itinerary.getLegs().get(i);
-                for (Segment segment : leg.getSegments()) {
-                    flightDetailsList.add(buildFlightDetails(segment, itinerary.getId()));
+
+                for (int i = 0; i < itinerary.getLegs().size(); i++) {
+                    List<FlightDetails> flightDetailsList = new ArrayList<>();
+                    Leg leg = itinerary.getLegs().get(i);
+                    for (Segment segment : leg.getSegments()) {
+                        flightDetailsList.add(buildFlightDetails(segment, itinerary.getId()));
+                    }
+                    if (i == 0) {
+                        departFlights.add(buildSessionFlightDetails(itinerary, leg, flightDetailsList));
+                    } else {
+                        returnFlights.add(buildSessionFlightDetails(itinerary, leg, flightDetailsList));
+                    }
                 }
-                if (i == 0) {
-                    departFlights.add(buildSessionFlightDetails(itinerary, leg, flightDetailsList));
-                } else {
-                    returnFlights.add(buildSessionFlightDetails(itinerary, leg, flightDetailsList));
-                }
+                roundWaySessionFlights.add(RoundWaySessionFlight.builder()
+                        .departFlightDetails(departFlights)
+                        .arriveFlightDetails(returnFlights)
+                        .build());
             }
-            roundWaySessionFlights.add(RoundWaySessionFlight.builder()
-                    .departFlightDetails(departFlights)
-                    .arriveFlightDetails(returnFlights)
-                    .build());
         }
         return RoundWayFlightResponseDto.builder()
                 .roundWayFlightDetails(roundWaySessionFlights)

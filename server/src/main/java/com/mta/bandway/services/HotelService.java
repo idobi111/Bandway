@@ -100,7 +100,7 @@ public class HotelService {
         return headers;
     }
 
-    private URI buildSearchHotelUri(String destId, String arrivalDate, String departureDate, int adults, int roomQty, String destType) {
+    private URI buildSearchHotelUri(String destId, String arrivalDate, String departureDate, int adults, int roomQty, String destType, int priceMin, int priceMax) {
         return UriComponentsBuilder.fromHttpUrl(bookingUrl)
                 .queryParam("dest_id", destId)
                 .queryParam("search_type", destType)
@@ -108,6 +108,8 @@ public class HotelService {
                 .queryParam("departure_date", departureDate)
                 .queryParam("adults", String.valueOf(adults))
                 .queryParam("room_qty", String.valueOf(roomQty))
+                .queryParam("price_min", String.valueOf(priceMin))
+                .queryParam("price_max", String.valueOf(priceMax))
                 .queryParam("languagecode", "en-us")
                 .queryParam("currency_code", "USD").build().toUri();
     }
@@ -130,7 +132,7 @@ public class HotelService {
                 return List.of(HotelResponseDto.builder().build());
             }
         }
-        URI uri = buildSearchHotelUri(datum.getDestId(), getDateTime(hotelDto.getCheckIn()), getDateTime(hotelDto.getCheckOut()), hotelDto.getAdults(), hotelDto.getRooms(), datum.getDestType());
+        URI uri = buildSearchHotelUri(datum.getDestId(), getDateTime(hotelDto.getCheckIn()), getDateTime(hotelDto.getCheckOut()), hotelDto.getAdults(), hotelDto.getRooms(), datum.getDestType(), hotelDto.getMinPrice(), hotelDto.getMaxPrice());
         HttpEntity<?> entity = new HttpEntity<>(createHeaders());
         ResponseEntity<HotelResponse> hotels = restTemplate.exchange(uri, HttpMethod.GET, entity, HotelResponse.class);
         return buildResponse(hotelDto, hotels);
