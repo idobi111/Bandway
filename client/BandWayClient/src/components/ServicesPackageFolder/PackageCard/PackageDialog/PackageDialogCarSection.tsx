@@ -26,6 +26,7 @@ import {useNavigate} from 'react-router';
 import {useSelector} from "react-redux";
 import {AppState} from "../../../../redux/types";
 import {CarApi} from "../../../../apis/CarApi";
+import {CarRentalOrderRequest} from "../../../../models/CarRentalOrderRequest";
 
 
 interface Props {
@@ -52,13 +53,15 @@ const PackageDialogCarSection: React.FC<Props> = ({servicesPackage, accordionWid
 
     const handleSeeCarAvailability = async (carLink, carData) => {
         try {
-            const carRentalOrderRequest = {
+            const carRentalOrderRequest: CarRentalOrderRequest = {
                 userId: localStorage.getItem("userId") ? parseInt(localStorage.getItem("userId") as string, 10) || -1 : -1,
                 orderDate: new Date(),
-                rentalStartDate: carData.checkIn,
-                rentalEndDate: carData.checkOut,
-                rentalStartLocation: carData.pickUpAddress,
-                rentalEndLocation: carData.dropOffPlaceName,
+                rentalStartDate: servicesPackage.carRentals?.checkIn,
+                rentalEndDate:  servicesPackage.carRentals?.checkOut,
+                rentalStartLocation: carData.pickUpPlaceName,
+                rentalEndLocation: carData.pickUpPlaceName,
+                totalPrice: carData.totalPrice,
+                carModel: carData.model,
             };
             console.log(carData)
             carApi.saveCarRentalToDb(carRentalOrderRequest);

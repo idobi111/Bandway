@@ -5,4 +5,6 @@ export interface CarRentalOrderRequest {
     rentalEndDate: string;
     rentalStartLocation: string;
     rentalEndLocation: string;
+    totalPrice: number;
+    carModel: string;
 }

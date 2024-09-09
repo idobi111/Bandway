@@ -24,4 +24,6 @@ public class CarRentalOrder implements java.io.Serializable {
     private String rentalEndDate;
     private String rentalStartLocation;
     private String rentalEndLocation;
+    private Double totalPrice;
+    private String carModel;
 }
