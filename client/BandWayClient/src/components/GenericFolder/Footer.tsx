@@ -5,12 +5,14 @@ import {useNavigate} from "react-router-dom";
 
 
 import bandWayLogo from '../../pics/BandWayLogo.png';
+import { Helpers } from '../../helpers/helpers';
 
 
 const Footer: React.FC = () => {
 
     const [isHovered, setIsHovered] = useState(false);
     const navigate = useNavigate();
+    const helpers = new Helpers();
 
     const inputFieldStyle = {
         marginRight: '0.5rem',
@@ -25,6 +27,13 @@ const Footer: React.FC = () => {
         window.scrollTo({top: 0, behavior: 'smooth'});
         navigate("/unsubscribe");
     }
+
+    const goToFAQ = () => {
+        navigate('/how-it-works');
+        setTimeout(() => {
+            helpers.scrollToUpcomingEvents();
+        }, 100);
+    };
 
     return (
         <BandWayFooter>
@@ -45,7 +54,18 @@ const Footer: React.FC = () => {
                     <FooterItem>About Us</FooterItem>
                     <FooterItem>How it Works</FooterItem>
                     <FooterItem>Contact Us</FooterItem>
-                    <FooterItem>FAQ</FooterItem>
+                    <FooterItem onClick={goToFAQ}
+                                style={{
+                                    textDecoration: 'none',
+                                    color: 'inherit',
+                                    fontWeight: isHovered ? 'bold' : 'normal',
+                                    transition: 'font-weight 0.3s',
+                                    cursor: 'pointer'
+                                }}
+                                onMouseEnter={() => setIsHovered(true)}
+                                onMouseLeave={() => setIsHovered(false)}>
+                        FAQ
+                    </FooterItem>
                     <FooterItem onClick={handleUnsubsribeLink}
                                 style={{
                                     textDecoration: 'none',
@@ -66,7 +86,6 @@ const Footer: React.FC = () => {
                     <FooterItem>Flights</FooterItem>
                     <FooterItem>Hotels</FooterItem>
                     <FooterItem>Car Rentals</FooterItem>
-                    <FooterItem>Public Transportation</FooterItem>
                 </Grid>
 
                 <Grid item xs={10} sm={4} md={2}>

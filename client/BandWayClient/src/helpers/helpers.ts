@@ -151,6 +151,11 @@ export class Helpers {
         upcomingEventsElement?.scrollIntoView({behavior: 'smooth'});
     };
 
+    public scrollToFAQ() {
+        const FaqElement = document.getElementById('FAQ');
+        FaqElement?.scrollIntoView({behavior: 'smooth'});
+    };
+
 
 }
 

@@ -78,8 +78,6 @@ const EventSearchResults: React.FC = () => {
                             matching your search</Typography>
                         <Typography variant="h5" color="textSecondary">Consider altering either the performer or
                             destination for better results.</Typography>
-                        <ActionButton variant='contained' onClick={handleClickOnSearchAgain}
-                                      style={{width: '350px', height: '80px'}}>Let's search again</ActionButton>
                     </Stack>
                 )}
             </Box>

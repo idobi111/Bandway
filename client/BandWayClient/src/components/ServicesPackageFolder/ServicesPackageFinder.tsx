@@ -135,7 +135,7 @@ const ServicesPackageFinder: React.FC = () => {
                         <Loader loadingMessage='Loading packages...'/>
                     ) : (
                         <>
-                            {hotels.length === 0 ? (
+                            {hotels.length === 0 || packageBuilderService.isHotelDataNull(hotels) ? (
                                 <Stack justifyContent='center' alignItems='center' sx={{m: 8}}>
                                     <Typography variant="h4" color="textSecondary" textAlign='center'>
                                         Looks like there are no available packages at the moment.

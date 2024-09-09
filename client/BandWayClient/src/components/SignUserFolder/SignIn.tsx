@@ -96,16 +96,29 @@ const SignIn: React.FC = () => {
     const PasswordVisibilityIcon = showPassword ? <VisibilityOff/> : <Visibility/>;
 
     const Copyright = (props: any) => {
+        const navigate = useNavigate();
+    
+        const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+            event.preventDefault();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            navigate('/home');
+        };
+    
         return (
             <Typography variant="body2" color="text.secondary" align="center" {...props}>
                 {'Copyright © '}
-                <Link color="inherit" href="https://bandway-client-z732mhjgfq-uc.a.run.app/home">
+                <Link
+                    component="button"
+                    onClick={handleClick}
+                    color="inherit"
+                >
                     BandWay
                 </Link>{' '}
                 {new Date().getFullYear()}
             </Typography>
         );
     };
+    
 
     return (
         <Container>
@@ -165,7 +178,7 @@ const SignIn: React.FC = () => {
                     </Stack>
                     <Grid container>
                         <Grid item xs>
-                            <Link component={RouterLink} to="/forgot-password"
+                            <Link component={RouterLink} to="/contact"
                                   sx={{textDecoration: 'none', color: 'primary.main'}}>
                                 <Typography variant="body2" color="primary">
                                     Forgot password?
