@@ -11,7 +11,7 @@ import { FlightOrderRequest } from "../models/FlightOrderRequest";
 
 export class FlightApi {
 
-    BASE_URL: string = "https://bandway-client-822235880699.us-central1.run.app/bandway";
+    BASE_URL: string = "https://bandway-server-822235880699.us-west1.run.app/bandway";
 
     public async getRoundWayFlights(flight: FlightRequest): Promise<FlightRoundWayResponse> {
         try {

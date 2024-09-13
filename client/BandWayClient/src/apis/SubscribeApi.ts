@@ -3,7 +3,7 @@ import axios from 'axios';
 
 export class SubscribeApi {
 
-    BASE_URL: string = "https://bandway-client-822235880699.us-central1.run.app/bandway";
+    BASE_URL: string = "https://bandway-server-822235880699.us-west1.run.app/bandway";
 
 
     public async subscribe(userMail: string) {
