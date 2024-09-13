@@ -18,7 +18,7 @@ BandWay is a one-of-a-kind concert vacation planning platform designed to simpli
 
 ## Live Application
 
-Access the live application here: **[BandWay Cloud Application](https://bandway-client-z732mhjgfq-uc.a.run.app)**
+Access the live application here: **[BandWay Cloud Application](https://bandway-client-822235880699.us-central1.run.app)**
 
 ## Marketing Video
 
@@ -73,7 +73,7 @@ Check out our marketing video here: **[Watch on YouTube](https://youtube.com/sho
    
    > There is an option to dockerize the client and the server and run them.
 
-5. Access the local application at `http://localhost:5173` or visit the live cloud-hosted version at **[BandWay Cloud Application](https://bandway-client-z732mhjgfq-uc.a.run.app)**.
+5. Access the local application at `http://localhost:5173` or visit the live cloud-hosted version at **[BandWay Cloud Application](https://bandway-client-822235880699.us-central1.run.app)**.
 
 
 ## Swagger API Documentation
