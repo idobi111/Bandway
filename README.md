@@ -78,7 +78,7 @@ Check out our marketing video here: **[Watch on YouTube](https://youtube.com/sho
 
 ## Swagger API Documentation
 
-- **[Swagger API Doc](https://server-z732mhjgfq-uc.a.run.app/swagger-ui/index.html#)**
+- **[Swagger API Doc](https://bandway-server-822235880699.us-west1.run.app/swagger-ui/index.html#)**
 
 ## Documentation
 
